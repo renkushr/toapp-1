@@ -183,6 +183,8 @@ class RegisterController extends Controller
         $user->profile_complete = $data['profile_complete'];
         $user->ssn = $data['ssn'];
         $user->zipcode = $data['zipcode'];
+        $user->agent_id = $data['agent_id'] ?? null;
+        $user->agent_license_no = $data['agent_license_no'] ?? null;
         $user->mobile = $data['mobile'];
         $user->sex = $data['sex'];
         $user->birthday = $data['dob'];

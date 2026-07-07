@@ -74,6 +74,26 @@ class User extends Authenticatable
         return $this->hasMany(SupportTicket::class);
     }
 
+    public function agent()
+    {
+        return $this->belongsTo(Agent::class);
+    }
+
+    public function investments()
+    {
+        return $this->hasMany(Investment::class);
+    }
+
+    public function applications()
+    {
+        return $this->hasMany(InsuranceApplication::class);
+    }
+
+    public function agentConversation()
+    {
+        return $this->hasOne(AgentConversation::class);
+    }
+
     public function fullname(): Attribute
     {
         return new Attribute(
@@ -147,6 +167,57 @@ class User extends Authenticatable
     public function deviceTokens()
     {
         return $this->hasMany(DeviceToken::class);
+    }
+
+    public function hasPayoutSetup(): bool
+    {
+        if ($this->payout_method === 'paypal') {
+            return (bool) $this->payout_paypal_email;
+        }
+
+        if ($this->payout_method === 'bank') {
+            return $this->payout_bank_name
+                && $this->payout_account_name
+                && $this->payout_account_number
+                && $this->payout_routing_number;
+        }
+
+        return false;
+    }
+
+    public function payoutMethodMatches(?string $methodName): bool
+    {
+        $name = strtolower($methodName ?? '');
+
+        if ($this->payout_method === 'paypal') {
+            return str_contains($name, 'paypal');
+        }
+
+        if ($this->payout_method === 'bank') {
+            return str_contains($name, 'bank');
+        }
+
+        return false;
+    }
+
+    public function payoutInformationPayload(): array
+    {
+        if ($this->payout_method === 'paypal') {
+            return [
+                ['name' => 'PayPal Email', 'type' => 'email', 'value' => $this->payout_paypal_email],
+            ];
+        }
+
+        if ($this->payout_method === 'bank') {
+            return [
+                ['name' => 'Bank Name', 'type' => 'text', 'value' => $this->payout_bank_name],
+                ['name' => 'Account Holder', 'type' => 'text', 'value' => $this->payout_account_name],
+                ['name' => 'Account Number', 'type' => 'text', 'value' => $this->payout_account_number],
+                ['name' => 'Routing Number', 'type' => 'text', 'value' => $this->payout_routing_number],
+            ];
+        }
+
+        return [];
     }
 
 }

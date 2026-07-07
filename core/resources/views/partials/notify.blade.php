@@ -6,7 +6,7 @@
         border: 1px solid rgba(23, 32, 51, 0.08) !important;
         border-radius: 8px !important;
         box-shadow: 0 18px 50px rgba(23, 32, 51, 0.16) !important;
-        font-family: "Poppins", "IBM Plex Sans Thai", sans-serif !important;
+        font-family: "Poppins", sans-serif !important;
         overflow: hidden !important;
     }
 
@@ -16,7 +16,7 @@
 
     .iziToast-title {
         color: #172033 !important;
-        font-weight: 800 !important;
+        font-weight: 600 !important;
     }
 
     .iziToast-message {

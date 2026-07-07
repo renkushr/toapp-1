@@ -1,160 +1,111 @@
 @extends('toapp_admin.layouts.app')
 
 @section('content')
-<section class="ta-grid ta-grid-stats">
-    <div class="ta-stat is-success">
-        <span>Total paid</span>
-        <strong>{{ number_format((float) $stats['total_paid'], 2) }}</strong>
-        <small>Filtered commission value</small>
-    </div>
-    <div class="ta-stat">
-        <span>Payout entries</span>
-        <strong>{{ number_format($stats['commission_count']) }}</strong>
-        <small>Ledger records</small>
-    </div>
-    <div class="ta-stat is-warning">
-        <span>Earners</span>
-        <strong>{{ number_format($stats['earner_count']) }}</strong>
-        <small>Members who received commission</small>
-    </div>
-    <div class="ta-stat">
-        <span>Source buyers</span>
-        <strong>{{ number_format($stats['source_count']) }}</strong>
-        <small>Members who triggered payouts</small>
-    </div>
-</section>
-
-<section class="ta-grid ta-grid-main">
-    <article class="ta-panel">
-        <div class="ta-panel-head">
-            <div>
-                <span class="ta-kicker">Rules</span>
-                <h2>Level percent by package</h2>
-            </div>
-            <i class="las la-sitemap"></i>
-        </div>
-
-        <form class="ta-plan-form" method="POST" action="{{ route('toapp.admin.referrals.rules.store') }}">
-            @csrf
-            <div class="ta-two-col">
-                <label class="ta-field">
-                    <span>Package</span>
-                    <select name="plan_id">
-                        <option value="">Global fallback</option>
-                        @foreach($plans as $plan)
-                            <option value="{{ $plan->id }}">{{ $plan->name }}</option>
-                        @endforeach
-                    </select>
-                </label>
-                <label class="ta-field">
-                    <span>Level</span>
-                    <input type="number" name="level" min="1" max="20" value="1" required>
-                </label>
-                <label class="ta-field">
-                    <span>Percent</span>
-                    <input type="number" name="percent" min="0" max="100" step="0.01" placeholder="10.00" required>
-                </label>
-                <label class="ta-field">
-                    <span>Status</span>
-                    <select name="status">
-                        <option value="1">Enabled</option>
-                        <option value="0">Disabled</option>
-                    </select>
-                </label>
-            </div>
-            <button class="ta-primary-btn ta-fit-btn" type="submit">Save Rule</button>
-        </form>
-
-        <div class="ta-table-wrap">
-            <table class="ta-table">
-                <thead>
-                    <tr><th>Package</th><th>Level</th><th>Percent</th><th>Status</th><th></th></tr>
-                </thead>
-                <tbody>
-                    @forelse($rules as $rule)
-                        <tr>
-                            <td><strong>{{ optional($rule->plan)->name ?? 'Global fallback' }}</strong><small>{{ $rule->commission_type }}</small></td>
-                            <td>Level {{ $rule->level }}</td>
-                            <td>{{ number_format((float) $rule->percent, 2) }}%</td>
-                            <td><span class="ta-badge {{ $rule->status ? 'success' : 'muted' }}">{{ $rule->status ? 'Enabled' : 'Disabled' }}</span></td>
-                            <td>
-                                <form method="POST" action="{{ route('toapp.admin.referrals.rules.destroy', $rule) }}">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="ta-link-btn" type="submit">Delete</button>
-                                </form>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr><td colspan="5" class="ta-empty">No referral rules yet.</td></tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-    </article>
-
-    <aside class="ta-panel">
-        <div class="ta-panel-head">
-            <div>
-                <span class="ta-kicker">How it pays</span>
-                <h2>Commission logic</h2>
+<div class="row row-deck row-cards mb-4">
+    @foreach([
+        ['Total paid', number_format((float) $stats['total_paid'], 2), 'Filtered commission value'],
+        ['Payout entries', number_format($stats['commission_count']), 'Ledger records'],
+        ['Earners', number_format($stats['earner_count']), 'Members who received commission'],
+        ['Source buyers', number_format($stats['source_count']), 'Members who triggered payouts'],
+    ] as [$label, $value, $hint])
+        <div class="col-sm-6 col-lg-3">
+            <div class="card portal-stat-card">
+                <div class="card-body">
+                    <div class="subheader">{{ $label }}</div>
+                    <div class="h2 mb-1">{{ $value }}</div>
+                    <div class="text-secondary">{{ $hint }}</div>
+                </div>
             </div>
         </div>
-        <div class="ta-form-stack">
-            <div class="ta-note-card"><strong>1. Package first</strong><span>If a package has rules, those rules are used for that purchase.</span></div>
-            <div class="ta-note-card"><strong>2. Global fallback</strong><span>If the package has no custom rules, global rules are used.</span></div>
-            <div class="ta-note-card"><strong>3. Ledger safe</strong><span>Each investment can pay each upline level only once.</span></div>
-        </div>
-    </aside>
-</section>
+    @endforeach
+</div>
 
-<section class="ta-panel">
-    <div class="ta-panel-head">
-        <div>
-            <span class="ta-kicker">Ledger</span>
-            <h2>Referral commission payouts</h2>
-        </div>
+<div class="card mb-4">
+    @include('partials.portal_list_header', [
+        'title' => 'Referral rules',
+        'toolbarView' => 'partials.portal_list_toolbar_referrals',
+    ])
+    <div class="table-responsive">
+        <table class="table table-vcenter card-table">
+            <thead><tr><th>Package</th><th>Level</th><th>Percent</th><th>Status</th><th></th></tr></thead>
+            <tbody>
+                @forelse($rules as $rule)
+                    <tr>
+                        <td><div class="fw-bold">{{ optional($rule->plan)->name ?? 'Global fallback' }}</div><div class="text-secondary">{{ $rule->commission_type }}</div></td>
+                        <td>Level {{ $rule->level }}</td>
+                        <td>{{ number_format((float) $rule->percent, 2) }}%</td>
+                        <td><span class="badge {{ $rule->status ? 'bg-success-lt' : 'bg-secondary-lt' }}">{{ $rule->status ? 'Enabled' : 'Disabled' }}</span></td>
+                        <td>
+                            <form method="POST" action="{{ route('toapp.admin.referrals.rules.destroy', $rule) }}" onsubmit="return confirm('Delete this rule?')">
+                                @csrf @method('DELETE')
+                                <button class="btn btn-sm btn-outline-danger" type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                @empty
+                    <tr><td colspan="5" class="text-center text-secondary py-4">No referral rules yet.</td></tr>
+                @endforelse
+            </tbody>
+        </table>
     </div>
+</div>
 
-    <form class="ta-toolbar" method="GET">
-        <label class="ta-field compact"><span>Search</span><input type="search" name="search" value="{{ request('search') }}" placeholder="trx, earner, source"></label>
-        <label class="ta-field compact">
-            <span>Package</span>
-            <select name="plan_id">
+<div class="card">
+    <div class="card-header portal-list-header">
+        <h3 class="card-title">Commission payouts</h3>
+    </div>
+    <form class="portal-filter-bar" method="GET">
+        <div class="portal-filter-field">
+            <label class="form-label">Search</label>
+            <input class="form-control form-control-sm" type="search" name="search" value="{{ request('search') }}" placeholder="trx, earner, source">
+        </div>
+        <div class="portal-filter-field">
+            <label class="form-label">Package</label>
+            <select class="form-select form-select-sm" name="plan_id">
                 <option value="">Any</option>
                 <option value="global" @selected(request('plan_id') === 'global')>Global / none</option>
                 @foreach($plans as $plan)
                     <option value="{{ $plan->id }}" @selected((string) request('plan_id') === (string) $plan->id)>{{ $plan->name }}</option>
                 @endforeach
             </select>
-        </label>
-        <label class="ta-field compact"><span>Level</span><input type="number" name="level" min="1" value="{{ request('level') }}" placeholder="Any"></label>
-        <button class="ta-secondary-btn" type="submit"><i class="las la-filter"></i> Filter</button>
-        <a class="ta-secondary-btn" href="{{ route('toapp.admin.referrals.export', request()->query()) }}"><i class="las la-file-csv"></i> Export CSV</a>
+        </div>
+        <div class="portal-filter-field">
+            <label class="form-label">Level</label>
+            <input class="form-control form-control-sm" type="number" name="level" min="1" value="{{ request('level') }}" placeholder="Any">
+        </div>
+        <div class="portal-filter-actions">
+            <button class="btn btn-primary" type="submit"><i class="ti ti-search me-1"></i> Search</button>
+            <a class="btn btn-outline-secondary" href="{{ route('toapp.admin.referrals.export', request()->query()) }}"><i class="ti ti-file-export me-1"></i> Export CSV</a>
+        </div>
     </form>
-
-    <div class="ta-table-wrap">
-        <table class="ta-table">
-            <thead>
-                <tr><th>TRX</th><th>Earner</th><th>From Member</th><th>Package</th><th>Level</th><th>Amount</th><th>Date</th></tr>
-            </thead>
+    <div class="table-responsive">
+        <table class="table table-vcenter card-table">
+            <thead><tr><th>TRX</th><th>Earner</th><th>From member</th><th>Package</th><th>Level</th><th>Amount</th><th>Date</th></tr></thead>
             <tbody>
                 @forelse($commissions as $commission)
                     <tr>
-                        <td><strong>{{ $commission->trx ?? '-' }}</strong><small>#{{ $commission->id }}</small></td>
-                        <td><strong>{{ optional($commission->earner)->username ?? 'Unknown' }}</strong><small>{{ optional($commission->earner)->email }}</small></td>
-                        <td><strong>{{ optional($commission->sourceUser)->username ?? 'Unknown' }}</strong><small>{{ optional($commission->sourceUser)->email }}</small></td>
+                        <td><div class="fw-bold">{{ $commission->trx ?? '-' }}</div><div class="text-secondary">#{{ $commission->id }}</div></td>
+                        <td><div class="fw-bold">{{ optional($commission->earner)->username ?? 'Unknown' }}</div><div class="text-secondary">{{ optional($commission->earner)->email }}</div></td>
+                        <td><div class="fw-bold">{{ optional($commission->sourceUser)->username ?? 'Unknown' }}</div><div class="text-secondary">{{ optional($commission->sourceUser)->email }}</div></td>
                         <td>{{ optional($commission->plan)->name ?? '-' }}</td>
-                        <td>Level {{ $commission->level }}<small>{{ number_format((float) $commission->percent, 2) }}%</small></td>
-                        <td><span class="ta-money-plus">+{{ number_format((float) $commission->amount, 2) }}</span><small>base {{ number_format((float) $commission->base_amount, 2) }}</small></td>
-                        <td>{{ optional($commission->paid_at ?? $commission->created_at)->format('M d, Y H:i') }}</td>
+                        <td>Level {{ $commission->level }}<div class="text-secondary">{{ number_format((float) $commission->percent, 2) }}%</div></td>
+                        <td class="text-success fw-bold">+{{ number_format((float) $commission->amount, 2) }}<div class="text-secondary fw-normal">base {{ number_format((float) $commission->base_amount, 2) }}</div></td>
+                        <td class="text-secondary">{{ optional($commission->paid_at ?? $commission->created_at)->format('M d, Y H:i') }}</td>
                     </tr>
                 @empty
-                    <tr><td colspan="7" class="ta-empty">No referral commissions paid yet.</td></tr>
+                    <tr><td colspan="7" class="text-center text-secondary py-4">No referral commissions paid yet.</td></tr>
                 @endforelse
             </tbody>
         </table>
     </div>
-    <div class="ta-pagination">{{ $commissions->links() }}</div>
-</section>
+    @if($commissions->hasPages())
+        <div class="card-footer">{{ $commissions->links() }}</div>
+    @endif
+</div>
+
+@include('partials.portal_help_modal', [
+    'id' => 'referralHelpModal',
+    'title' => 'How referral commission works',
+    'partial' => 'toapp_admin.referrals.partials.help',
+])
 @endsection

@@ -94,10 +94,24 @@
                         <div class="app-card">
                             @if ($withdraw->method->form_id)
                                 <x-viser-form identifier="id" identifierValue="{{ $withdraw->method->form_id }}" />
+                            @elseif(auth()->user()->hasPayoutSetup() && auth()->user()->payoutMethodMatches($withdraw->method->name))
+                                <div class="withdraw-summary-box">
+                                    @foreach(auth()->user()->payoutInformationPayload() as $field)
+                                        <div>
+                                            <span>{{ __($field['name']) }}</span>
+                                            <strong>{{ $field['value'] }}</strong>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <p class="text-muted mt-3 mb-0">@lang('These details were saved in your payout settings.')</p>
                             @else
                                 <div class="app-empty-state">
-                                    <i class="las la-check-circle d-block fs-1 mb-2"></i>
-                                    @lang('No extra details are required for this method.')
+                                    <i class="las la-exclamation-circle d-block fs-1 mb-2"></i>
+                                    <p class="mb-3">@lang('Please save your payout details before continuing.')</p>
+                                    <a href="{{ route('user.bank.setting') }}" class="app-btn app-btn-primary">
+                                        <i class="las la-university"></i>
+                                        @lang('Set payout details')
+                                    </a>
                                 </div>
                             @endif
 
@@ -118,10 +132,17 @@
                                 </div>
                             </div>
 
+                            @php
+                                $canSubmitWithdraw = $withdraw->method->form_id
+                                    || (auth()->user()->hasPayoutSetup() && auth()->user()->payoutMethodMatches($withdraw->method->name));
+                            @endphp
+
+                            @if ($canSubmitWithdraw)
                             <button type="submit" class="app-btn app-btn-primary w-100 mt-3">
                                 <i class="las la-check"></i>
                                 @lang('Submit withdrawal request')
                             </button>
+                            @endif
                         </div>
                     </div>
                 </div>

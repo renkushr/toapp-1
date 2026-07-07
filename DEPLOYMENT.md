@@ -78,6 +78,36 @@ This application has a public `/cron` endpoint that processes scheduled jobs suc
 * * * * * curl -fsS https://your-real-domain.com/cron >/dev/null 2>&1
 ```
 
+## Agent sample data
+
+After migration, seed demo agents and auto-assign existing members by ZIP:
+
+```bash
+docker compose exec app php /var/www/html/core/artisan toapp:seed-agents
+```
+
+Demo logins at `/agent`: `agent1` / `Agent@12345` (license `AG-DEMO-001`, ZIPs 90210–90212), plus `agent2` and `agent3`.
+
+Seed sample insurance products for Check Insure:
+
+```bash
+docker compose exec app php /var/www/html/core/artisan toapp:seed-products
+```
+
+## Agent chat (Pusher)
+
+Set in production env:
+
+```text
+BROADCAST_DRIVER=pusher
+PUSHER_APP_ID=...
+PUSHER_APP_KEY=...
+PUSHER_APP_SECRET=...
+PUSHER_APP_CLUSTER=mt1
+```
+
+Without Pusher, agent chat falls back to 5-second polling automatically.
+
 If your hosting panel has a cron UI, use the same command there. After launch, check the admin cron page and confirm `last_cron` updates.
 
 ## Fresh database

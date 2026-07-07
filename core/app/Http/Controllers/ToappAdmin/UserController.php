@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\ToappAdmin;
 
 use App\Constants\Status;
+use App\Models\Agent;
 use App\Models\Deposit;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Models\ReferralCommission;
 use App\Models\Withdrawal;
 use App\Support\AdminAudit;
+use App\Support\UsZip;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
@@ -75,9 +77,12 @@ class UserController extends Controller
 
     public function show(User $user)
     {
+        $user->load('agent');
+
         return view('toapp_admin.users.show', [
             'pageTitle' => 'User Detail',
             'user' => $user,
+            'agents' => Agent::where('status', true)->orderBy('name')->get(),
             'totalDeposit' => Deposit::where('user_id', $user->id)->successful()->sum('amount'),
             'totalWithdrawals' => Withdrawal::where('user_id', $user->id)->approved()->sum('amount'),
             'directReferralCount' => User::where('ref_by', $user->id)->count(),
@@ -208,5 +213,47 @@ class UserController extends Controller
         ]);
 
         return back()->with('status', 'Balance updated and ledger entry created.');
+    }
+
+    public function assignAgent(Request $request, User $user)
+    {
+        $validated = $request->validate([
+            'agent_id' => ['required', 'exists:agents,id'],
+            'zipcode' => ['nullable', 'regex:/^\d{5}(-\d{4})?$/'],
+        ]);
+
+        $agent = Agent::where('id', $validated['agent_id'])->where('status', true)->first();
+
+        if (!$agent) {
+            return back()->withErrors(['agent_id' => 'Selected agent is not active.']);
+        }
+
+        $zip = UsZip::normalize($validated['zipcode'] ?? $user->zipcode);
+
+        if (!$zip) {
+            return back()->withErrors(['zipcode' => 'Enter a valid US ZIP code for this member.']);
+        }
+
+        if (!$agent->coversZip($zip)) {
+            return back()->withErrors([
+                'agent_id' => "Agent {$agent->license_no} does not cover ZIP {$zip}.",
+            ]);
+        }
+
+        $previousAgentId = $user->agent_id;
+
+        $user->agent_id = $agent->id;
+        $user->agent_license_no = $agent->license_no;
+        $user->zipcode = $zip;
+        $user->save();
+
+        AdminAudit::record('member.agent_assigned', $user, [
+            'previous_agent_id' => $previousAgentId,
+            'agent_id' => $agent->id,
+            'license_no' => $agent->license_no,
+            'zipcode' => $zip,
+        ]);
+
+        return back()->with('status', "Agent {$agent->name} ({$agent->license_no}) assigned for ZIP {$zip}.");
     }
 }

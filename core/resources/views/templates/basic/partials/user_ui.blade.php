@@ -86,7 +86,7 @@
             align-items: center;
             gap: 10px;
             color: var(--to-ink);
-            font-weight: 800;
+            font-weight: 600;
             letter-spacing: -.02em;
         }
 
@@ -152,7 +152,7 @@
             color: rgba(255, 255, 255, .9);
             background: rgba(255, 255, 255, .14);
             font-size: 12px;
-            font-weight: 700;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: .08em;
         }
@@ -161,7 +161,7 @@
             margin: 0;
             color: inherit;
             font-size: clamp(28px, 7vw, 48px);
-            font-weight: 800;
+            font-weight: 600;
             line-height: 1.02;
             letter-spacing: -.05em;
         }
@@ -189,7 +189,7 @@
             padding: 0 18px;
             border: 0;
             border-radius: 16px;
-            font-weight: 800;
+            font-weight: 600;
             letter-spacing: -.01em;
             text-align: center;
             transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
@@ -251,7 +251,7 @@
             margin: 0;
             color: var(--to-ink);
             font-size: 20px;
-            font-weight: 800;
+            font-weight: 600;
             letter-spacing: -.03em;
         }
 
@@ -266,7 +266,7 @@
             align-items: center;
             gap: 6px;
             color: var(--to-blue);
-            font-weight: 800;
+            font-weight: 600;
             font-size: 13px;
         }
 
@@ -324,7 +324,7 @@
             margin-top: 12px;
             color: var(--to-muted);
             font-size: 12px;
-            font-weight: 800;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: .06em;
         }
@@ -334,7 +334,7 @@
             margin-top: 5px;
             color: var(--to-ink);
             font-size: 23px;
-            font-weight: 800;
+            font-weight: 600;
             line-height: 1.05;
             letter-spacing: -.04em;
         }
@@ -389,7 +389,7 @@
         .app-list-body strong {
             color: var(--to-ink);
             font-size: 14px;
-            font-weight: 800;
+            font-weight: 600;
             overflow-wrap: anywhere;
         }
 
@@ -400,7 +400,7 @@
         }
 
         .app-amount {
-            font-weight: 900;
+            font-weight: 600;
             white-space: nowrap;
         }
 
@@ -425,11 +425,21 @@
         .form-control {
             width: 100%;
             min-height: 48px;
+            padding: 0 16px;
             border: 1px solid rgba(15, 23, 42, .1);
             border-radius: 16px;
             color: var(--to-ink);
             background: rgba(255, 255, 255, .88);
             box-shadow: none;
+            font-size: 15px;
+            line-height: 1.45;
+            letter-spacing: 0.01em;
+        }
+
+        .app-copy-box input {
+            padding: 0 18px;
+            font-size: 15px;
+            letter-spacing: 0.03em;
         }
 
         .app-copy-box input:focus,
@@ -445,7 +455,7 @@
             margin-bottom: 8px;
             color: var(--to-muted);
             font-size: 12px;
-            font-weight: 900;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: .06em;
         }
@@ -464,7 +474,7 @@
         .app-field span {
             color: var(--to-muted);
             font-size: 12px;
-            font-weight: 900;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: .06em;
         }
@@ -472,6 +482,168 @@
         .app-field small {
             color: var(--to-muted);
             font-size: 12px;
+        }
+
+        .app-field textarea.form-control {
+            min-height: 140px;
+            padding: 14px 16px;
+            resize: vertical;
+        }
+
+        .app-form-split {
+            display: grid;
+            gap: 14px;
+        }
+
+        @media (min-width: 768px) {
+            .app-form-split {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        .app-support-note {
+            margin: 0;
+            color: var(--to-muted);
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .app-file-uploads {
+            display: grid;
+            gap: 10px;
+        }
+
+        .app-file-upload-row {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .app-file-remove {
+            display: inline-grid;
+            place-items: center;
+            width: 44px;
+            height: 44px;
+            border: 0;
+            border-radius: 14px;
+            color: #fff;
+            background: #dc2626;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .app-page .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 600;
+            line-height: 1.2;
+            vertical-align: middle;
+        }
+
+        .app-page .badge--success { background: rgba(22, 163, 74, .12); color: #16a34a; }
+        .app-page .badge--primary { background: rgba(18, 104, 243, .12); color: #1268f3; }
+        .app-page .badge--warning { background: rgba(249, 115, 22, .12); color: #ea580c; }
+        .app-page .badge--dark { background: rgba(15, 23, 42, .08); color: #475569; }
+
+        .app-payout-methods {
+            display: grid;
+            gap: 12px;
+        }
+
+        @media (min-width: 768px) {
+            .app-payout-methods {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        .app-payout-method-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            min-height: 168px;
+            padding: 18px;
+            border: 1px solid rgba(15, 23, 42, .1);
+            border-radius: 22px;
+            background: rgba(255, 255, 255, .92);
+            box-shadow: 0 12px 30px rgba(15, 23, 42, .06);
+            cursor: pointer;
+            transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+        }
+
+        .app-payout-method-card:hover {
+            transform: translateY(-1px);
+        }
+
+        .app-payout-method-card input {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .app-payout-method-card:has(input:checked) {
+            border-color: rgba(18, 104, 243, .5);
+            box-shadow: 0 18px 40px rgba(18, 104, 243, .14);
+        }
+
+        .app-payout-method-icon,
+        .app-payout-method-check {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+        }
+
+        .app-payout-method-icon {
+            width: 44px;
+            height: 44px;
+            color: var(--to-blue);
+            background: rgba(18, 104, 243, .1);
+            font-size: 22px;
+        }
+
+        .app-payout-method-check {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            width: 28px;
+            height: 28px;
+            color: #fff;
+            background: rgba(100, 116, 139, .22);
+            opacity: .55;
+        }
+
+        .app-payout-method-card:has(input:checked) .app-payout-method-check {
+            background: linear-gradient(135deg, #1268f3, #13c8d6);
+            opacity: 1;
+        }
+
+        .app-payout-method-card strong {
+            color: var(--to-ink);
+            font-size: 17px;
+        }
+
+        .app-payout-method-card span:not(.app-payout-method-icon):not(.app-payout-method-check) {
+            color: var(--to-muted);
+            font-size: 13px;
+            line-height: 1.45;
+        }
+
+        .app-payout-method-card small {
+            margin-top: auto;
+            color: var(--to-blue);
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .app-payout-panel {
+            display: grid;
+            gap: 14px;
         }
 
         .app-password-field {
@@ -518,7 +690,7 @@
             color: #075985;
             background: rgba(14, 165, 233, .12);
             font-size: 12px;
-            font-weight: 800;
+            font-weight: 600;
         }
 
         .app-plan-card {
@@ -552,7 +724,7 @@
             color: #075985;
             background: rgba(14, 165, 233, .13);
             font-size: 11px;
-            font-weight: 900;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: .07em;
         }
@@ -572,7 +744,7 @@
             margin: 16px 0 0;
             color: var(--to-ink);
             font-size: 23px;
-            font-weight: 900;
+            font-weight: 600;
             letter-spacing: -.04em;
         }
 
@@ -580,7 +752,7 @@
             margin-top: 8px;
             color: var(--to-muted);
             font-size: 13px;
-            font-weight: 700;
+            font-weight: 600;
         }
 
         .app-plan-return {
@@ -593,7 +765,7 @@
 
         .app-plan-return strong {
             font-size: 34px;
-            font-weight: 900;
+            font-weight: 600;
             line-height: 1;
             letter-spacing: -.05em;
         }
@@ -602,7 +774,7 @@
             margin-bottom: 4px;
             color: var(--to-muted);
             font-size: 12px;
-            font-weight: 800;
+            font-weight: 600;
         }
 
         .app-feature-list {
@@ -619,7 +791,7 @@
             gap: 9px;
             color: var(--to-ink);
             font-size: 13px;
-            font-weight: 700;
+            font-weight: 600;
         }
 
         .app-feature-list i {
@@ -688,14 +860,14 @@
         .app-network-ring small {
             color: var(--to-muted);
             font-size: 12px;
-            font-weight: 900;
+            font-weight: 600;
         }
 
         .app-network-ring strong {
             color: var(--to-ink);
             font-size: 42px;
             line-height: .95;
-            font-weight: 900;
+            font-weight: 600;
             letter-spacing: -.05em;
         }
 
@@ -720,14 +892,14 @@
         .app-network-split span {
             color: var(--to-muted);
             font-size: 12px;
-            font-weight: 900;
+            font-weight: 600;
         }
 
         .app-network-split strong {
             margin-top: 4px;
             color: var(--to-ink);
             font-size: 24px;
-            font-weight: 900;
+            font-weight: 600;
         }
 
         .app-status-pill {
@@ -737,7 +909,7 @@
             padding: 0 10px;
             border-radius: 999px;
             font-size: 11px;
-            font-weight: 900;
+            font-weight: 600;
             white-space: nowrap;
         }
 
@@ -793,7 +965,7 @@
         .app-downline-summary span {
             color: var(--to-muted);
             font-size: 11px;
-            font-weight: 900;
+            font-weight: 600;
             text-transform: uppercase;
         }
 
@@ -801,7 +973,7 @@
             margin-top: 4px;
             color: var(--to-ink);
             font-size: 20px;
-            font-weight: 900;
+            font-weight: 600;
         }
 
         .app-pagination nav {
@@ -834,14 +1006,14 @@
         .withdraw-summary-box span {
             color: var(--to-muted);
             font-size: 12px;
-            font-weight: 800;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: .06em;
         }
 
         .withdraw-summary-box strong {
             color: var(--to-ink);
-            font-weight: 900;
+            font-weight: 600;
             text-align: right;
         }
 
@@ -869,7 +1041,7 @@
             color: var(--to-muted);
             background: rgba(18, 104, 243, .08);
             font-size: 11px;
-            font-weight: 900;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: .06em;
         }
@@ -910,7 +1082,7 @@
         #planModal .modal-title,
         #detailModal .modal-title {
             color: #fff;
-            font-weight: 900;
+            font-weight: 600;
             letter-spacing: -.03em;
         }
 

@@ -113,6 +113,12 @@ Route::middleware('auth')->name('user.')->group(function () {
                 Route::post('level/count', 'levelCount')->name('level.count');
             });
 
+            Route::controller('AgentChatController')->group(function () {
+                Route::get('agent-chat', 'index')->name('agent.chat');
+                Route::post('agent-chat', 'send')->name('agent.chat.send');
+                Route::get('agent-chat/messages', 'messages')->name('agent.chat.messages');
+            });
+
             //Profile setting
             Route::controller('ProfileController')->group(function () {
                 Route::get('profile-setting', 'profile')->name('profile.setting');

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Models\WithdrawMethod;
+use App\Services\AgentAssignmentService;
+use App\Support\UsZip;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
@@ -17,21 +19,26 @@ class ProfileController extends Controller
         return view('Template::user.profile_setting', compact('pageTitle','user'));
     }
 
-    public function submitProfile(Request $request)
+    public function submitProfile(Request $request, AgentAssignmentService $agentAssignment)
     {
         $request->validate([
             'firstname' => 'required|string|max:40',
             'lastname'  => 'required|string|max:40',
             'mobile'    => 'required|string|max:40',
-            'zipcode'   => 'required|string|max:255',
+            'zipcode'   => ['required', 'regex:/^\d{5}(-\d{4})?$/'],
         ]);
 
         $user = auth()->user();
+        $normalizedZip = UsZip::normalize($request->zipcode);
+
+        if ($user->agent_id && $user->agent_license_no) {
+            $agentAssignment->resolve($user->agent_license_no, $normalizedZip);
+        }
 
         $user->firstname = $request->firstname;
         $user->lastname  = $request->lastname;
         $user->mobile = $request->mobile;
-        $user->zipcode = $request->zipcode;
+        $user->zipcode = $normalizedZip;
 
        
        
@@ -44,26 +51,57 @@ class ProfileController extends Controller
 
     public function bank()
     {
-        $pageTitle = "Bank Setting";
+        $pageTitle = 'Withdraw Methods';
         $user = auth()->user();
-        $withdrawMethods = WithdrawMethod::active()->orderBy('name')->get();
-        return view('Template::user.bank_setting', compact('pageTitle','user', 'withdrawMethods'));
+        $paypalMethod = WithdrawMethod::active()
+            ->whereRaw('LOWER(name) LIKE ?', ['%paypal%'])
+            ->first();
+        $bankMethod = WithdrawMethod::active()
+            ->whereRaw('LOWER(name) LIKE ?', ['%bank%'])
+            ->first();
+
+        return view('Template::user.bank_setting', compact('pageTitle', 'user', 'paypalMethod', 'bankMethod'));
     }
 
     public function submitBank(Request $request)
     {
-        
+        $request->validate([
+            'payout_method' => 'required|in:paypal,bank',
+        ]);
+
+        if ($request->payout_method === 'paypal') {
+            $request->validate([
+                'payout_paypal_email' => 'required|email|max:120',
+            ]);
+        } else {
+            $request->validate([
+                'payout_bank_name' => 'required|string|max:120',
+                'payout_account_name' => 'required|string|max:120',
+                'payout_account_number' => 'required|string|max:60',
+                'payout_routing_number' => 'required|string|max:40',
+            ]);
+        }
 
         $user = auth()->user();
+        $user->payout_method = $request->payout_method;
 
-        $user->mobile = $request->mobile;
-        $user->zipcode = $request->zipcode;
-
-       
-       
+        if ($request->payout_method === 'paypal') {
+            $user->payout_paypal_email = strtolower(trim($request->payout_paypal_email));
+            $user->payout_bank_name = null;
+            $user->payout_account_name = null;
+            $user->payout_account_number = null;
+            $user->payout_routing_number = null;
+        } else {
+            $user->payout_paypal_email = null;
+            $user->payout_bank_name = trim($request->payout_bank_name);
+            $user->payout_account_name = trim($request->payout_account_name);
+            $user->payout_account_number = trim($request->payout_account_number);
+            $user->payout_routing_number = trim($request->payout_routing_number);
+        }
 
         $user->save();
-        $notify[] = ['success', 'Profile updated successfully'];
+
+        $notify[] = ['success', 'Payout details saved successfully'];
         return back()->withNotify($notify);
     }
 

@@ -20,7 +20,9 @@ use App\Models\Referral;
 use App\Models\ReferralCommission;
 use App\Models\Transaction;
 use App\Models\User;
+use App\Services\AgentAssignmentService;
 use App\Services\ReferralCommissionService;
+use App\Support\UsZip;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Withdrawal;
 use Carbon\Carbon;
@@ -231,7 +233,7 @@ class UserController extends Controller
     }
 
 
-    public function userDataSubmit(Request $request)
+    public function userDataSubmit(Request $request, AgentAssignmentService $agentAssignment)
     {
        
         $user_register  = session()->get('user_register');
@@ -240,9 +242,15 @@ class UserController extends Controller
             'sex'   => 'required',
             'dob' => 'required|date|date_format:Y-m-d|before:'.now()->subYears(16)->toDateString(),
             'ssn'           => 'required',
-            'zipcode'       => 'required',
+            'zipcode'       => ['required', 'regex:/^\d{5}(-\d{4})?$/'],
+            'agent_license_no' => ['required', 'string', 'max:80'],
             'mobile'        => ['required', 'regex:/^([0-9]*)$/', Rule::unique('users', 'mobile')],
         ]);
+
+        $agent = $agentAssignment->resolve(
+            $request->string('agent_license_no')->toString(),
+            $request->string('zipcode')->toString()
+        );
         
         $user_register['sex']     =  $request->sex;
 
@@ -250,7 +258,11 @@ class UserController extends Controller
 
         $user_register['ssn']     =  $request->ssn;
 
-        $user_register['zipcode'] =  $request->zipcode;
+        $user_register['zipcode'] =  UsZip::normalize($request->zipcode);
+
+        $user_register['agent_license_no'] = strtoupper(trim($request->agent_license_no));
+
+        $user_register['agent_id'] = $agent->id;
 
         $user_register['mobile']  =  $request->mobile;
 

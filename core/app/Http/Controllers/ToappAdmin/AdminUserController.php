@@ -30,6 +30,24 @@ class AdminUserController extends Controller
         return view('toapp_admin.admins.index', [
             'pageTitle' => 'Admin Roles',
             'admins' => $admins,
+        ]);
+    }
+
+    public function create()
+    {
+        return view('toapp_admin.admins.create', [
+            'pageTitle' => 'New Admin',
+            'admin' => null,
+            'roles' => Admin::roleLabels(),
+            'permissions' => Admin::permissionLabels(),
+        ]);
+    }
+
+    public function edit(Admin $admin)
+    {
+        return view('toapp_admin.admins.edit', [
+            'pageTitle' => 'Edit Admin',
+            'admin' => $admin,
             'roles' => Admin::roleLabels(),
             'permissions' => Admin::permissionLabels(),
         ]);
@@ -55,7 +73,9 @@ class AdminUserController extends Controller
             'status' => (bool) $admin->status,
         ]);
 
-        return back()->with('status', 'Admin account created.');
+        return redirect()
+            ->route('toapp.admin.admins.edit', $admin)
+            ->with('status', 'Admin account created.');
     }
 
     public function update(Request $request, Admin $admin)
@@ -64,7 +84,9 @@ class AdminUserController extends Controller
         $nextStatus = $request->boolean('status');
 
         if ($this->wouldRemoveLastActiveSuperAdmin($admin, $data['role'], $nextStatus)) {
-            return back()->withErrors(['admin' => 'Keep at least one active Super Admin account.']);
+            return redirect()
+                ->route('toapp.admin.admins.edit', $admin)
+                ->withErrors(['admin' => 'Keep at least one active Super Admin account.']);
         }
 
         $admin->fill([
@@ -89,7 +111,9 @@ class AdminUserController extends Controller
             'password_changed' => !empty($data['password']),
         ]);
 
-        return back()->with('status', 'Admin account updated.');
+        return redirect()
+            ->route('toapp.admin.admins.edit', $admin)
+            ->with('status', 'Admin account updated.');
     }
 
     private function validatedData(Request $request, ?Admin $admin = null): array

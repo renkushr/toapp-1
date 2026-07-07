@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ToappAdmin;
 
 use App\Constants\Status;
 use App\Models\Plan;
+use App\Models\ThirdPartyPortal;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
@@ -12,14 +13,35 @@ class PlanController extends Controller
     public function index(Request $request)
     {
         $plans = Plan::query()
+            ->with('thirdPartyPortals')
             ->when($request->filled('search'), fn ($query) => $query->where('name', 'like', '%' . $request->search . '%'))
             ->latest()
             ->paginate(20)
             ->withQueryString();
 
         return view('toapp_admin.plans.index', [
-            'pageTitle' => 'Plans',
+            'pageTitle' => 'Insurance Products',
             'plans' => $plans,
+        ]);
+    }
+
+    public function create()
+    {
+        return view('toapp_admin.plans.create', [
+            'pageTitle' => 'New Product',
+            'plan' => null,
+            'portals' => ThirdPartyPortal::where('status', true)->orderBy('name')->get(),
+        ]);
+    }
+
+    public function edit(Plan $plan)
+    {
+        $plan->load('thirdPartyPortals');
+
+        return view('toapp_admin.plans.edit', [
+            'pageTitle' => 'Edit Product',
+            'plan' => $plan,
+            'portals' => ThirdPartyPortal::where('status', true)->orderBy('name')->get(),
         ]);
     }
 
@@ -28,14 +50,18 @@ class PlanController extends Controller
         $plan = new Plan();
         $this->savePlan($request, $plan);
 
-        return back()->with('status', 'Plan created successfully.');
+        return redirect()
+            ->route('toapp.admin.plans.edit', $plan)
+            ->with('status', 'Product created successfully.');
     }
 
     public function update(Request $request, Plan $plan)
     {
         $this->savePlan($request, $plan);
 
-        return back()->with('status', 'Plan updated successfully.');
+        return redirect()
+            ->route('toapp.admin.plans.edit', $plan)
+            ->with('status', 'Product updated successfully.');
     }
 
     public function status(Plan $plan)
@@ -43,7 +69,7 @@ class PlanController extends Controller
         $plan->status = $plan->status == Status::ENABLE ? Status::DISABLE : Status::ENABLE;
         $plan->save();
 
-        return back()->with('status', 'Plan status updated.');
+        return back()->with('status', 'Product status updated.');
     }
 
     private function savePlan(Request $request, Plan $plan): void
@@ -57,27 +83,38 @@ class PlanController extends Controller
             'interest' => ['required', 'numeric', 'gt:0'],
             'descript' => ['nullable', 'string', 'max:250'],
             'category' => ['nullable', 'string', 'max:250'],
-            'term' => ['nullable', 'string', 'max:2000'],
+            'term' => ['nullable', 'string', 'max:8000'],
             'monthprice' => ['nullable', 'numeric', 'min:0'],
             'annualprice' => ['nullable', 'numeric', 'min:0'],
+            'agefrom' => ['nullable', 'integer', 'min:18', 'max:120'],
+            'ageto' => ['nullable', 'integer', 'min:18', 'max:120'],
+            'sex' => ['nullable', 'in:0,1,2'],
+            'health' => ['nullable', 'in:0,1,2'],
+            'nicotin' => ['nullable', 'in:0,1,2'],
+            'allows_chronic' => ['nullable', 'boolean'],
+            'portals' => ['nullable', 'array'],
+            'portals.*' => ['integer', 'exists:third_party_portals,id'],
         ]);
 
-        foreach ($validated as $key => $value) {
-            $plan->{$key} = $value ?? '';
+        foreach (['name', 'min_amount', 'max_amount', 'total_return', 'interest_type', 'interest', 'descript', 'category', 'term', 'monthprice', 'annualprice', 'agefrom', 'ageto', 'sex', 'health', 'nicotin'] as $field) {
+            if (array_key_exists($field, $validated)) {
+                $plan->{$field} = $validated[$field] ?? ($plan->{$field} ?? 0);
+            }
         }
 
-        $plan->descript = $validated['descript'] ?? '';
-        $plan->category = $validated['category'] ?? '';
-        $plan->term = $validated['term'] ?? '';
-        $plan->monthprice = $validated['monthprice'] ?? 0;
-        $plan->annualprice = $validated['annualprice'] ?? 0;
-        foreach (['monthprice1', 'monthprice2', 'monthprice3', 'monthprice4', 'monthprice5', 'monthprice6', 'monthprice7', 'monthprice8', 'annualprice1', 'annualprice2', 'annualprice3', 'annualprice4', 'annualprice5', 'annualprice6', 'annualprice7', 'annualprice8'] as $priceColumn) {
-            $plan->{$priceColumn} ??= 0;
+        for ($i = 1; $i <= 8; $i++) {
+            $plan->{"monthprice{$i}"} = (float) $request->input("monthprice{$i}", $plan->{"monthprice{$i}"} ?? 0);
+            $plan->{"annualprice{$i}"} = (float) $request->input("annualprice{$i}", $plan->{"annualprice{$i}"} ?? 0);
         }
-        foreach (['agefrom', 'ageto', 'health', 'nicotin', 'sex'] as $profileColumn) {
-            $plan->{$profileColumn} ??= '';
-        }
+
+        $plan->allows_chronic = $request->boolean('allows_chronic', true);
         $plan->status ??= Status::ENABLE;
         $plan->save();
+
+        $sync = [];
+        foreach ((array) $request->input('portals', []) as $portalId) {
+            $sync[$portalId] = ['published' => true];
+        }
+        $plan->thirdPartyPortals()->sync($sync);
     }
 }

@@ -144,7 +144,7 @@ line-height: normal;">Please create your password</p>
                         <div style="margin-top:9px">
                         <input id="password" type="password" class="form--control box" name="password" required required>
                         <span class="input__password-label">
-        <i class="fa fa-eye toggle-password"></i>ะำหะ
+        <i class="fa fa-eye toggle-password"></i>
       </span>
                          </div>
                     </div>

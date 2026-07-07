@@ -36,6 +36,9 @@ class FileInfo
         $data['ticket'] = [
             'path'      => 'assets/support',
         ];
+        $data['agentChat'] = [
+            'path'      => 'assets/agent_chat',
+        ];
         $data['logo_icon'] = [
             'path'      => 'assets/images/logo_icon',
         ];

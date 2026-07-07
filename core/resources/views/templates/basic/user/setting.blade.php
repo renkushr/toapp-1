@@ -68,7 +68,7 @@
                     <span class="app-list-icon"><i class="las la-university"></i></span>
                     <div class="app-list-body">
                         <strong>@lang('Withdraw methods')</strong>
-                        <span>@lang('View active payout methods and limits')</span>
+                        <span>@lang('Save PayPal or bank details for payouts')</span>
                     </div>
                     <i class="las la-angle-right"></i>
                 </a>
@@ -81,6 +81,17 @@
                     </div>
                     <i class="las la-angle-right"></i>
                 </a>
+
+                @if(auth()->user()->agent_id)
+                <a class="app-list-item" href="{{ route('user.agent.chat') }}">
+                    <span class="app-list-icon"><i class="las la-user-tie"></i></span>
+                    <div class="app-list-body">
+                        <strong>@lang('My Agent')</strong>
+                        <span>@lang('Private chat with your assigned agent')</span>
+                    </div>
+                    <i class="las la-angle-right"></i>
+                </a>
+                @endif
 
                 <a class="app-list-item" href="{{ route('ticket.index') }}">
                     <span class="app-list-icon"><i class="las la-comments"></i></span>

@@ -90,6 +90,16 @@ class ReportController extends Controller
         ]);
     }
 
+    public function showInvestment(Investment $investment)
+    {
+        $investment->load(['user', 'plan']);
+
+        return view('toapp_admin.reports.investment_show', [
+            'pageTitle' => 'Review Investment',
+            'investment' => $investment,
+        ]);
+    }
+
     public function investmentsExport(Request $request)
     {
         $investments = $this->investmentQuery($request)->latest()->get();
@@ -141,7 +151,9 @@ class ReportController extends Controller
             'commission_levels_paid' => $commissionCount,
         ]);
 
-        return back()->with('status', "Investment approved. {$commissionCount} referral commission level(s) paid.");
+        return redirect()
+            ->route('toapp.admin.reports.investments.show', $investment)
+            ->with('status', "Investment approved. {$commissionCount} referral commission level(s) paid.");
     }
 
     public function rejectInvestment(Request $request, Investment $investment)
@@ -180,7 +192,9 @@ class ReportController extends Controller
             'reason' => $validated['reason'],
         ]);
 
-        return back()->with('status', 'Investment rejected and balance refunded.');
+        return redirect()
+            ->route('toapp.admin.reports.investments.show', $investment)
+            ->with('status', 'Investment rejected and balance refunded.');
     }
 
     protected function investmentQuery(Request $request)

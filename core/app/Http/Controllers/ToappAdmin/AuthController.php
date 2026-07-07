@@ -32,7 +32,7 @@ class AuthController extends Controller
 
         $admin = Auth::guard('admin')->user();
 
-        if (array_key_exists('status', $admin->getAttributes()) && (int) $admin->status !== 1) {
+        if ($this->adminIsDisabled($admin)) {
             Auth::guard('admin')->logout();
 
             return back()
@@ -53,5 +53,14 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         return redirect()->route('toapp.admin.login');
+    }
+
+    private function adminIsDisabled($admin): bool
+    {
+        if (!array_key_exists('status', $admin->getAttributes())) {
+            return false;
+        }
+
+        return $admin->status !== null && (int) $admin->status !== 1;
     }
 }

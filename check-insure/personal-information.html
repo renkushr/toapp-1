@@ -1,0 +1,257 @@
+
+<!DOCTYPE html> 
+<html lang="th">
+<head> 
+<meta charset="utf-8"> 
+<meta name="viewport" content="width=device-width, initial-scale = 1.0, 
+maximum-scale=1.0, user-scalable=no" /> 
+<meta name="apple-mobile-web-app-capable" content="yes"/> 
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@100;200;300;400;500;600;700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  
+<title>Personal Information - Check Insure</title>  
+  
+<link href="css/bootstrap/bootstrap.min.css" rel="stylesheet">     
+<link href="css/aos.css" rel="stylesheet">     
+<link href="css/jquery.fancybox.css" rel="stylesheet">    
+<link href="css/jquery.scrollbar.css" rel="stylesheet">
+<link href="css/global.css" rel="stylesheet">
+ 
+</head> 
+<body>
+<div class="preload">
+    <span class="loader"></span>
+</div>
+    
+<div class="page page-dark">    
+    <header class="header"> 
+        <div class="container-fluid">
+            <button class="btn btn-icon navbar-toggle" type="button">
+                <span class="group">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span> 
+            </button>
+            <div class="navbar-brand">
+                <a href="index.html">
+                    <img src="img/logo.svg" alt="">
+                </a>
+            </div>
+            <ul class="nav nav-general d-none d-sm-flex">
+                <li class="nav-lang dropdown">
+                    <a href="#" data-bs-toggle="dropdown" data-bs-display="static">
+                        EN
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="active"><a href="#">EN</a></li>
+                        <li><a href="#">TH</a></li> 
+                    </ul>
+                </li>
+            </ul> 
+        </div><!--container-fluid-->
+    </header>
+
+    <div class="navbar-slider">
+        <ul class="nav nav-sidebar">
+            <li class="active"><a class="nav-title" href="index.html">Home</a></li>
+            <li>
+                <span class="nav-title nav-toggle" href="#">Products</span>
+                <div class="accordion-collapse">
+                    <ul class="nav nav-sub">
+                        <li><a href="#">Lorem ipsum</a></li>
+                        <li><a href="#">Lorem ipsum</a></li>
+                        <li><a href="#">Lorem ipsum</a></li>
+                    </ul>
+                </div>
+            </li>
+            <li><a class="nav-title" href="#">Articles</a></li>
+            <li><a class="nav-title" href="#">Contact us</a></li>
+        </ul>
+    </div>
+
+    <div class="section p-0">
+        <div class="container">
+            <form class="card card-form" method="post" action="short-survey.html"> 
+                <div class="card-form-step">
+                    <ul class="nav nav-step">
+                        <li class="active">
+                            <a class="item" href="personal-information.html">
+                                <div class="number">1.</div>
+                                <h6>Personal<br> 
+                                    Information</h6>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="item" href="short-survey.html">
+                                <div class="number">2.</div>
+                                <h6>Short<br>
+                                    Survey</h6>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="item" href="your-result.html">
+                                <div class="number">3.</div>
+                                <h6>Your <br>
+                                    Result</h6>
+                            </a>
+                        </li>
+                    </ul>
+                </div><!--card-form-step-->
+
+                <div class="card-body text-center">
+                    <div class="boxed" style="--max-width:340px">
+                        <h1 class="h1" data-aos>
+                            <span class="text-highlight">Hello John Doe</span>
+                        </h1>
+
+                        <h2 class="title-md mt-sm-2" data-aos="fade-in" data-aos-delay="200">Please fill your information </h2>
+
+                        <div class="form-profile">
+                            <p class="text-center" style="color: #252525;"><strong>You are</strong></p>
+
+                            <div class="row g-lg-4 g-sm-3 g-2">
+                                <div class="col-6">
+                                    <button class="btn btn-outline gender" type="button">
+                                        <img class="icons svg-js" src="img/icons/icon-male.svg" alt="">
+                                        <span>male</span>
+                                    </button>
+                                </div>
+                                
+                                <div class="col-6">
+                                    <button class="btn btn-outline gender" type="button">
+                                        <img class="icons svg-js" src="img/icons/icon-female.svg" alt="">
+                                        <span>female</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="boxed">
+                                <div class="row g-lg-4 g-3">  
+                                    <div class="col-lg-7">  
+                                        <div class="form-group">
+                                            <label class="title">Date of Birth</label>
+                                            <div class="group">
+                                                <span class="icons icon-arrow-down right"></span>
+                                                <input type="text" class="form-control calendar" placeholder="MM/DD/YYYY">
+                                            </div>
+                                        </div>
+    
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="title">Hight  (ft.)</label>
+                                            <input type="text" class="form-control" >
+                                        </div>
+                                    </div>
+    
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="title">Weight (ib.)</label>
+                                            <input type="text" class="form-control" >
+                                        </div>
+                                    </div>
+    
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="title">ZIP code</label>
+                                            <input type="text" class="form-control" >
+                                        </div>
+                                    </div>
+    
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="title">Last 4 SSN</label>
+                                            <input type="text" class="form-control" >
+                                        </div>
+                                    </div>
+    
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="title">Phone Number</label>
+                                            <input type="text" class="form-control" >
+                                        </div>
+                                    </div> 
+                                </div><!--row-->
+                            </div><!--boxed-->
+                            
+                            <div class="buttons">
+                                <button class="btn btn-primary fs-18 w-140" type="submit">
+                                    <span>NEXT</span>
+                                </button>
+                            </div>
+
+                        </div><!--form-profile-->
+                    </div> 
+                </div><!--card-body-->
+            </form><!--card-form-->
+        </div><!--container-->
+    </div><!--section-->
+
+    <footer class="footer" data-aos="fade-in" data-aos-offet="0">
+        <div class="container">
+            <hr>
+
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="logo">
+                        <img class="w-100" src="img/logo.svg" alt="">
+                    </div>
+                    <p>© 2024 Check insure All rights reserved.</p>
+                </div>
+                <div class="col-md-4 d-flex justify-content-end flex-column">
+                    <p class="contact-item mb-2">
+                       <a href="mailto:info@checkinsure.com">
+                           <img class="icons" src="img/icons/icon-email-1.svg" alt="">
+                            info@checkinsure.com
+                       </a>
+                    </p>
+
+                    <p class="contact-item">
+                        <a href="tel:+661111234">
+                            <img class="icons" src="img/icons/icon-phone.svg" alt="">
+                            866-111-1234
+                        </a>
+                     </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+     
+</div><!--page-->
+
+<script src="js/jquery-3.4.1.min.js"></script>  
+<script src="js/bootstrap/popper.min.js"></script>
+<script src="js/bootstrap/bootstrap.min.js"></script>    
+<script src="js/jquery.fancybox.js"></script> 
+<script src="js/aos.js"></script>      
+<script src="js/jquery.scrollbar.js"></script> 
+<script src='js/bootstrap-datepicker.js'></script>
+<script src='js/bootstrap-datepicker.th.min.js'></script> 
+<script src="js/custom.js"></script>     
+ 
+<script>
+    // var myModal = new bootstrap.Modal(document.getElementById('projectModal1'))
+    // myModal.show();  
+    $(document).ready(function(){ 
+        $('.btn.gender').on('click', function(){
+            $('.btn.gender').removeClass('active');
+            $(this).addClass('active');
+        });
+
+        $('input.calendar').datepicker({
+            language: "th",   
+            inline: true, 
+            todayHighlight: true, 
+            format: "mm/dd/yyyy", 
+        });
+    });
+   
+</script>
+ 
+</body>
+</html>

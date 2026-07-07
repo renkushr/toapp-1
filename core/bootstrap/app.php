@@ -13,6 +13,10 @@ use App\Http\Middleware\RegistrationCheckStep;
 use App\Http\Middleware\ToappAdminAuthenticate;
 use App\Http\Middleware\ToappAdminGuest;
 use App\Http\Middleware\ToappAdminPermission;
+use App\Http\Middleware\ToappAgentAuthenticate;
+use App\Http\Middleware\ToappAgentGuest;
+use App\Http\Middleware\PortalAuthenticate;
+use App\Http\Middleware\PortalGuest;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -34,6 +38,15 @@ return Application::configure(basePath: dirname(__DIR__))
                 ->prefix('admin')
                 ->name('toapp.admin.')
                 ->group(base_path('routes/toapp_admin.php'));
+
+            Route::middleware(['web'])
+                ->prefix('agent')
+                ->name('toapp.agent.')
+                ->group(base_path('routes/agent.php'));
+
+            Route::middleware(['web'])
+                ->prefix('check-insure')
+                ->group(base_path('routes/check_insure.php'));
 
             Route::namespace('App\Http\Controllers')->group(function(){
 
@@ -82,6 +95,10 @@ return Application::configure(basePath: dirname(__DIR__))
             'toapp.admin' => ToappAdminAuthenticate::class,
             'toapp.admin.guest' => ToappAdminGuest::class,
             'toapp.admin.can' => ToappAdminPermission::class,
+            'toapp.agent' => ToappAgentAuthenticate::class,
+            'toapp.agent.guest' => ToappAgentGuest::class,
+            'portal.auth' => PortalAuthenticate::class,
+            'portal.guest' => PortalGuest::class,
 
             'check.status' => CheckStatus::class,
             'demo' => Demo::class,

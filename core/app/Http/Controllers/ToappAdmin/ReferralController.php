@@ -78,6 +78,14 @@ class ReferralController extends Controller
         }, $filename, ['Content-Type' => 'text/csv']);
     }
 
+    public function createRule()
+    {
+        return view('toapp_admin.referrals.create_rule', [
+            'pageTitle' => 'New Referral Rule',
+            'plans' => Plan::orderBy('name')->get(),
+        ]);
+    }
+
     public function storeRule(Request $request)
     {
         $validated = $request->validate([
@@ -106,7 +114,9 @@ class ReferralController extends Controller
             'status' => $rule->status,
         ]);
 
-        return back()->with('status', 'Referral rule saved successfully.');
+        return redirect()
+            ->route('toapp.admin.referrals.index')
+            ->with('status', 'Referral rule saved successfully.');
     }
 
     public function destroyRule(Referral $referral)

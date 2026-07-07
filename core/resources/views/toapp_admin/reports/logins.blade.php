@@ -8,30 +8,40 @@
     <a href="{{ route('toapp.admin.reports.audits') }}">Audit Logs</a>
 </section>
 
-<section class="ta-panel">
-    <form class="ta-toolbar" method="GET">
-        <label class="ta-field compact"><span>Search</span><input type="search" name="search" value="{{ request('search') }}" placeholder="username, IP, city, country"></label>
-        <button class="ta-secondary-btn" type="submit"><i class="las la-filter"></i> Filter</button>
-        <a class="ta-secondary-btn" href="{{ route('toapp.admin.reports.logins.export', request()->query()) }}"><i class="las la-file-csv"></i> Export CSV</a>
+<div class="card">
+    <div class="card-header portal-list-header">
+        <h3 class="card-title">Login history</h3>
+    </div>
+    <form class="portal-filter-bar" method="GET">
+        <div class="portal-filter-field">
+            <label class="form-label">Search</label>
+            <input type="search" class="form-control form-control-sm" name="search" value="{{ request('search') }}" placeholder="username, IP, city, country">
+        </div>
+        <div class="portal-filter-actions">
+            <button class="btn btn-primary" type="submit"><i class="ti ti-search me-1"></i> Search</button>
+            <a class="btn btn-sm" href="{{ route('toapp.admin.reports.logins.export', request()->query()) }}"><i class="ti ti-file-export me-1"></i> Export CSV</a>
+        </div>
     </form>
-    <div class="ta-table-wrap">
-        <table class="ta-table">
+    <div class="table-responsive">
+        <table class="table table-vcenter card-table">
             <thead><tr><th>User</th><th>IP</th><th>Location</th><th>Device</th><th>Date</th></tr></thead>
             <tbody>
                 @forelse($logins as $login)
                     <tr>
-                        <td><strong>{{ optional($login->user)->username ?? 'Unknown' }}</strong><small>{{ optional($login->user)->email }}</small></td>
+                        <td><div class="fw-bold">{{ optional($login->user)->username ?? 'Unknown' }}</div><div class="text-secondary">{{ optional($login->user)->email }}</div></td>
                         <td>{{ $login->user_ip ?? '-' }}</td>
-                        <td>{{ trim(($login->city ?? '') . ', ' . ($login->country ?? ''), ', ') ?: '-' }}<small>{{ $login->country_code }}</small></td>
-                        <td>{{ $login->browser ?? '-' }}<small>{{ $login->os ?? '-' }}</small></td>
-                        <td>{{ optional($login->created_at)->format('M d, Y H:i') }}</td>
+                        <td>{{ trim(($login->city ?? '') . ', ' . ($login->country ?? ''), ', ') ?: '-' }}<div class="text-secondary">{{ $login->country_code }}</div></td>
+                        <td>{{ $login->browser ?? '-' }}<div class="text-secondary">{{ $login->os ?? '-' }}</div></td>
+                        <td class="text-secondary">{{ optional($login->created_at)->format('M d, Y H:i') }}</td>
                     </tr>
                 @empty
-                    <tr><td colspan="5" class="ta-empty">No login history found.</td></tr>
+                    <tr><td colspan="5" class="text-center text-secondary py-4">No login history found.</td></tr>
                 @endforelse
             </tbody>
         </table>
     </div>
-    <div class="ta-pagination">{{ $logins->links() }}</div>
-</section>
+    @if($logins->hasPages())
+        <div class="card-footer">{{ $logins->links() }}</div>
+    @endif
+</div>
 @endsection

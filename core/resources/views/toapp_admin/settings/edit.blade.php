@@ -18,13 +18,13 @@
             <label class="ta-field"><span>Email From</span><input name="email_from" type="email" value="{{ old('email_from', $settings->email_from) }}" maxlength="40"></label>
             <label class="ta-field"><span>Email Sender Name</span><input name="email_from_name" value="{{ old('email_from_name', $settings->email_from_name) }}" maxlength="255"></label>
         </div>
-        <div class="ta-switch-grid">
-            <label><input type="checkbox" name="registration" value="1" @checked(old('registration', $settings->registration))> Registration open</label>
-            <label><input type="checkbox" name="ev" value="1" @checked(old('ev', $settings->ev))> Require email verification</label>
-            <label><input type="checkbox" name="sv" value="1" @checked(old('sv', $settings->sv))> Require mobile verification</label>
-            <label><input type="checkbox" name="kv" value="1" @checked(old('kv', $settings->kv))> Require KYC</label>
-            <label><input type="checkbox" name="maintenance_mode" value="1" @checked(old('maintenance_mode', $settings->maintenance_mode))> Maintenance mode</label>
-            <label><input type="checkbox" name="secure_password" value="1" @checked(old('secure_password', $settings->secure_password))> Secure password rules</label>
+        <div class="portal-check-grid mb-3">
+            <label class="form-check"><input class="form-check-input" type="checkbox" name="registration" value="1" @checked(old('registration', $settings->registration))><span class="form-check-label">Registration open</span></label>
+            <label class="form-check"><input class="form-check-input" type="checkbox" name="ev" value="1" @checked(old('ev', $settings->ev))><span class="form-check-label">Require email verification</span></label>
+            <label class="form-check"><input class="form-check-input" type="checkbox" name="sv" value="1" @checked(old('sv', $settings->sv))><span class="form-check-label">Require mobile verification</span></label>
+            <label class="form-check"><input class="form-check-input" type="checkbox" name="kv" value="1" @checked(old('kv', $settings->kv))><span class="form-check-label">Require KYC</span></label>
+            <label class="form-check"><input class="form-check-input" type="checkbox" name="maintenance_mode" value="1" @checked(old('maintenance_mode', $settings->maintenance_mode))><span class="form-check-label">Maintenance mode</span></label>
+            <label class="form-check"><input class="form-check-input" type="checkbox" name="secure_password" value="1" @checked(old('secure_password', $settings->secure_password))><span class="form-check-label">Secure password rules</span></label>
         </div>
         <button class="ta-primary-btn ta-fit-btn" type="submit">Save Settings</button>
     </form>

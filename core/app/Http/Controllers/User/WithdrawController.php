@@ -121,13 +121,28 @@ class WithdrawController extends Controller
         }
 
         $formData = @$method->form->form_data ?? [];
+        $user = $withdraw->user ?? auth()->user();
 
         $formProcessor = new FormProcessor();
         $validationRule = $formProcessor->valueValidation($formData);
-        $request->validate($validationRule);
-        $userData = $formProcessor->processFormData($request, $formData);
 
-        $user = auth()->user();
+        if (!empty($formData)) {
+            $request->validate($validationRule);
+            $userData = $formProcessor->processFormData($request, $formData);
+        } else {
+            if (!$user->hasPayoutSetup()) {
+                $notify[] = ['error', 'Please save your payout details before withdrawing.'];
+                return to_route('user.bank.setting')->withNotify($notify);
+            }
+
+            if (!$user->payoutMethodMatches($method->name)) {
+                $notify[] = ['error', 'Your saved payout method does not match the selected withdrawal method.'];
+                return back()->withNotify($notify)->withInput($request->all());
+            }
+
+            $userData = $user->payoutInformationPayload();
+        }
+
         if ($user->ts) {
             $response = verifyG2fa($user,$request->authenticator_code);
             if (!$response) {

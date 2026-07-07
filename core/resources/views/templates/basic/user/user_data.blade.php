@@ -90,17 +90,34 @@
                         </div>
 
                         <div class="auth-field">
-                            <label class="auth-label" for="zipcode">@lang('Zip Code')</label>
+                            <label class="auth-label" for="agent_license_no">@lang('Agent License No.')</label>
+                            <input
+                                id="agent_license_no"
+                                type="text"
+                                class="auth-control"
+                                name="agent_license_no"
+                                value="{{ data_get(session('user_register'), 'agent_license_no', old('agent_license_no')) }}"
+                                placeholder="@lang('Your agent license number')"
+                                required
+                            >
+                            <p class="auth-help">@lang('Enter the license number of the agent who serves your area.')</p>
+                        </div>
+
+                        <div class="auth-field">
+                            <label class="auth-label" for="zipcode">@lang('US Zip Code')</label>
                             <input
                                 id="zipcode"
                                 type="text"
                                 class="auth-control"
                                 name="zipcode"
                                 value="{{ data_get(session('user_register'), 'zipcode', old('zipcode')) }}"
-                                placeholder="@lang('Postal or zip code')"
+                                placeholder="12345"
                                 inputmode="numeric"
+                                pattern="\d{5}(-\d{4})?"
+                                maxlength="10"
                                 required
                             >
+                            <p class="auth-help">@lang('Must match a ZIP code covered by your agent.')</p>
                         </div>
 
                         <div class="auth-field">

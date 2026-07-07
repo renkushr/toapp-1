@@ -1,58 +1,76 @@
-@extends($activeTemplate.'layouts.master')
+@extends($activeTemplate . 'layouts.master')
+
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center mt-4">
-            <div class="col-md-12">
-                <div class="text-end">
-                    <a href="{{route('ticket.open') }}" class="btn btn-sm btn--base mb-2"> <i class="fas fa-plus"></i> @lang('New Ticket')</a>
-                </div>
-                <div class="table-responsive">
-                    <table class="table custom--table">
-                        <thead>
-                        <tr>
-                            <th>@lang('Subject')</th>
-                            <th>@lang('Status')</th>
-                            <th>@lang('Priority')</th>
-                            <th>@lang('Last Reply')</th>
-                            <th>@lang('Action')</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            @forelse($supports as $support)
-                                <tr>
-                                    <td> <a href="{{ route('ticket.view', $support->ticket) }}" class="fw-bold"> [@lang('Ticket')#{{ $support->ticket }}] {{ __($support->subject) }} </a></td>
-                                    <td>
-                                        @php echo $support->statusBadge; @endphp
-                                    </td>
-                                    <td>
-                                        @if($support->priority == Status::PRIORITY_LOW)
-                                            <span class="badge badge--dark">@lang('Low')</span>
-                                        @elseif($support->priority == Status::PRIORITY_MEDIUM)
-                                            <span class="badge  badge--warning">@lang('Medium')</span>
-                                        @elseif($support->priority == Status::PRIORITY_HIGH)
-                                            <span class="badge badge--danger">@lang('High')</span>
-                                        @endif
-                                    </td>
-                                    <td>{{ diffForHumans($support->last_reply) }} </td>
-
-                                    <td>
-                                        <a href="{{ route('ticket.view', $support->ticket) }}" class="btn btn--base btn-sm">
-                                            <i class="fas fa-desktop"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="100%" class="text-center">{{ __($emptyMessage) }}</td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-
-                {{paginateLinks($supports)}}
-
-            </div>
+<div class="app-page">
+    <div class="app-container">
+        <div class="app-topbar">
+            <a class="app-icon-btn" href="{{ route('user.setting') }}" aria-label="@lang('Back to settings')">
+                <i class="las la-arrow-left"></i>
+            </a>
+            <a class="app-brand" href="{{ route('user.home') }}">
+                <img src="{{ siteLogo() }}" alt="To-app">
+                <span>@lang('Support')</span>
+            </a>
+            <a class="app-icon-btn" href="{{ route('ticket.open') }}" aria-label="@lang('New ticket')">
+                <i class="las la-plus"></i>
+            </a>
         </div>
+
+        <section class="app-hero">
+            <span class="app-eyebrow"><i class="las la-life-ring"></i> @lang('Support tickets')</span>
+            <h1>@lang('Track your requests in one place.')</h1>
+            <p>@lang('Open a new ticket when you need help, then follow replies here without losing the conversation history.')</p>
+        </section>
+
+        <div class="app-section-title">
+            <div>
+                <h2>@lang('My tickets')</h2>
+                <p>@lang('Status, priority, and last reply are shown for every request.')</p>
+            </div>
+            <a href="{{ route('ticket.open') }}" class="app-btn app-btn-primary">
+                <i class="las la-plus"></i>
+                @lang('New ticket')
+            </a>
+        </div>
+
+        <div class="app-list-card">
+            @forelse($supports as $support)
+                <a class="app-list-item" href="{{ route('ticket.view', $support->ticket) }}">
+                    <span class="app-list-icon"><i class="las la-ticket-alt"></i></span>
+                    <div class="app-list-body">
+                        <strong>[@lang('Ticket')#{{ $support->ticket }}] {{ __($support->subject) }}</strong>
+                        <span>
+                            @php echo $support->statusBadge; @endphp
+                            ·
+                            @if($support->priority == Status::PRIORITY_LOW)
+                                @lang('Low priority')
+                            @elseif($support->priority == Status::PRIORITY_MEDIUM)
+                                @lang('Medium priority')
+                            @elseif($support->priority == Status::PRIORITY_HIGH)
+                                @lang('High priority')
+                            @endif
+                            · @lang('Last reply') {{ diffForHumans($support->last_reply) }}
+                        </span>
+                    </div>
+                    <i class="las la-angle-right"></i>
+                </a>
+            @empty
+                <div class="app-empty-state">
+                    <i class="las la-inbox"></i>
+                    <p>{{ __($emptyMessage) }}</p>
+                    <a href="{{ route('ticket.open') }}" class="app-btn app-btn-primary">
+                        <i class="las la-plus"></i>
+                        @lang('Open your first ticket')
+                    </a>
+                </div>
+            @endforelse
+        </div>
+
+        @if($supports->hasPages())
+            <div class="mt-3">
+                {{ paginateLinks($supports) }}
+            </div>
+        @endif
     </div>
+</div>
 @endsection

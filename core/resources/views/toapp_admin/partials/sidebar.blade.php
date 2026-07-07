@@ -1,92 +1,141 @@
-<aside class="ta-sidebar">
-    @php
-        $admin = auth('admin')->user();
-    @endphp
-    <a href="{{ route('toapp.admin.dashboard') }}" class="ta-brand">
-        <span class="ta-brand-mark">T</span>
-        <span>
-            <strong>To-app</strong>
-            <small>Control</small>
-        </span>
-    </a>
+<aside class="navbar navbar-vertical navbar-expand-lg portal-sidebar" data-bs-theme="dark">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#admin-sidebar" aria-controls="admin-sidebar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <nav class="ta-nav">
-        @if($admin?->canAccess('dashboard'))
-            <a class="{{ request()->routeIs('toapp.admin.dashboard') ? 'active' : '' }}" href="{{ route('toapp.admin.dashboard') }}">
-                <i class="las la-chart-pie"></i>
-                <span>Dashboard</span>
-            </a>
-        @endif
-        @if($admin?->canAccess('admins'))
-            <a class="{{ request()->routeIs('toapp.admin.admins.*') ? 'active' : '' }}" href="{{ route('toapp.admin.admins.index') }}">
-                <i class="las la-user-shield"></i>
-                <span>Admins</span>
-            </a>
-        @endif
-        @if($admin?->canAccess('users'))
-            <a class="{{ request()->routeIs('toapp.admin.users.*') ? 'active' : '' }}" href="{{ route('toapp.admin.users.index') }}">
-                <i class="las la-users"></i>
-                <span>Users</span>
-            </a>
-        @endif
-        @if($admin?->canAccess('plans'))
-            <a class="{{ request()->routeIs('toapp.admin.plans.*') ? 'active' : '' }}" href="{{ route('toapp.admin.plans.index') }}">
-                <i class="las la-layer-group"></i>
-                <span>Plans</span>
-            </a>
-        @endif
-        @if($admin?->canAccess('deposits'))
-            <a class="{{ request()->routeIs('toapp.admin.deposits.*') ? 'active' : '' }}" href="{{ route('toapp.admin.deposits.index') }}">
-                <i class="las la-wallet"></i>
-                <span>Deposits</span>
-            </a>
-        @endif
-        @if($admin?->canAccess('withdrawals'))
-            <a class="{{ request()->routeIs('toapp.admin.withdrawals.*') ? 'active' : '' }}" href="{{ route('toapp.admin.withdrawals.index') }}">
-                <i class="las la-university"></i>
-                <span>Withdrawals</span>
-            </a>
-        @endif
-        @if($admin?->canAccess('reports') || $admin?->canAccess('investments'))
-            <a class="{{ request()->routeIs('toapp.admin.reports.*') ? 'active' : '' }}" href="{{ $admin?->canAccess('reports') ? route('toapp.admin.reports.transactions') : route('toapp.admin.reports.investments') }}">
-                <i class="las la-chart-line"></i>
-                <span>Reports</span>
-            </a>
-        @endif
-        @if($admin?->canAccess('referrals'))
-            <a class="{{ request()->routeIs('toapp.admin.referrals.*') ? 'active' : '' }}" href="{{ route('toapp.admin.referrals.index') }}">
-                <i class="las la-sitemap"></i>
-                <span>Referrals</span>
-            </a>
-        @endif
-        @if($admin?->canAccess('support'))
-            <a class="{{ request()->routeIs('toapp.admin.support.*') ? 'active' : '' }}" href="{{ route('toapp.admin.support.index') }}">
-                <i class="las la-headset"></i>
-                <span>Support</span>
-            </a>
-        @endif
-        @if($admin?->canAccess('methods'))
-            <a class="{{ request()->routeIs('toapp.admin.methods.*') ? 'active' : '' }}" href="{{ route('toapp.admin.methods.index') }}">
-                <i class="las la-credit-card"></i>
-                <span>Methods</span>
-            </a>
-        @endif
-        @if($admin?->canAccess('settings'))
-            <a class="{{ request()->routeIs('toapp.admin.settings.*') ? 'active' : '' }}" href="{{ route('toapp.admin.settings.edit') }}">
-                <i class="las la-cog"></i>
-                <span>Settings</span>
-            </a>
-        @endif
-        @if($admin?->canAccess('readiness'))
-            <a class="{{ request()->routeIs('toapp.admin.readiness.*') ? 'active' : '' }}" href="{{ route('toapp.admin.readiness.index') }}">
-                <i class="las la-rocket"></i>
-                <span>Readiness</span>
-            </a>
-        @endif
-    </nav>
+        <h1 class="navbar-brand navbar-brand-autodark mb-0">
+            @include('partials.portal_brand_logo', [
+                'href' => route('toapp.admin.dashboard'),
+                'variant' => 'sidebar',
+            ])
+        </h1>
 
-    <div class="ta-sidebar-note">
-        <span>Phase 4</span>
-        <strong>Launch backend online</strong>
+        <div class="collapse navbar-collapse" id="admin-sidebar">
+            @php $admin = auth('admin')->user(); @endphp
+            <ul class="navbar-nav pt-lg-3">
+                @if($admin?->canAccess('dashboard'))
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('toapp.admin.dashboard') ? 'active' : '' }}" href="{{ route('toapp.admin.dashboard') }}">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block"><i class="ti ti-dashboard"></i></span>
+                            <span class="nav-link-title">Dashboard</span>
+                        </a>
+                    </li>
+                @endif
+                @if($admin?->canAccess('admins'))
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('toapp.admin.admins.*') ? 'active' : '' }}" href="{{ route('toapp.admin.admins.index') }}">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block"><i class="ti ti-shield-lock"></i></span>
+                            <span class="nav-link-title">Admins</span>
+                        </a>
+                    </li>
+                @endif
+                @if($admin?->canAccess('users'))
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('toapp.admin.users.*') ? 'active' : '' }}" href="{{ route('toapp.admin.users.index') }}">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block"><i class="ti ti-users"></i></span>
+                            <span class="nav-link-title">Users</span>
+                        </a>
+                    </li>
+                @endif
+                @if($admin?->canAccess('plans'))
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('toapp.admin.plans.*') ? 'active' : '' }}" href="{{ route('toapp.admin.plans.index') }}">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block"><i class="ti ti-packages"></i></span>
+                            <span class="nav-link-title">Products</span>
+                        </a>
+                    </li>
+                @endif
+                @if($admin?->canAccess('reports'))
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('toapp.admin.applications.*') ? 'active' : '' }}" href="{{ route('toapp.admin.applications.index') }}">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block"><i class="ti ti-file-certificate"></i></span>
+                            <span class="nav-link-title">Applications</span>
+                        </a>
+                    </li>
+                @endif
+                @if($admin?->canAccess('deposits'))
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('toapp.admin.deposits.*') ? 'active' : '' }}" href="{{ route('toapp.admin.deposits.index') }}">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block"><i class="ti ti-wallet"></i></span>
+                            <span class="nav-link-title">Deposits</span>
+                        </a>
+                    </li>
+                @endif
+                @if($admin?->canAccess('withdrawals'))
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('toapp.admin.withdrawals.*') ? 'active' : '' }}" href="{{ route('toapp.admin.withdrawals.index') }}">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block"><i class="ti ti-building-bank"></i></span>
+                            <span class="nav-link-title">Withdrawals</span>
+                        </a>
+                    </li>
+                @endif
+                @if($admin?->canAccess('reports') || $admin?->canAccess('investments'))
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('toapp.admin.reports.*') ? 'active' : '' }}" href="{{ $admin?->canAccess('reports') ? route('toapp.admin.reports.transactions') : route('toapp.admin.reports.investments') }}">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block"><i class="ti ti-chart-line"></i></span>
+                            <span class="nav-link-title">Reports</span>
+                        </a>
+                    </li>
+                @endif
+                @if($admin?->canAccess('referrals'))
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('toapp.admin.referrals.*') ? 'active' : '' }}" href="{{ route('toapp.admin.referrals.index') }}">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block"><i class="ti ti-affiliate"></i></span>
+                            <span class="nav-link-title">Referrals</span>
+                        </a>
+                    </li>
+                @endif
+                @if($admin?->canAccess('agents'))
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('toapp.admin.agents.*') ? 'active' : '' }}" href="{{ route('toapp.admin.agents.index') }}">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block"><i class="ti ti-id-badge-2"></i></span>
+                            <span class="nav-link-title">Agents</span>
+                        </a>
+                    </li>
+                @endif
+                @if($admin?->canAccess('support'))
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('toapp.admin.support.*') ? 'active' : '' }}" href="{{ route('toapp.admin.support.index') }}">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block"><i class="ti ti-headset"></i></span>
+                            <span class="nav-link-title">Support</span>
+                        </a>
+                    </li>
+                @endif
+                @if($admin?->canAccess('methods'))
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('toapp.admin.methods.*') ? 'active' : '' }}" href="{{ route('toapp.admin.methods.index') }}">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block"><i class="ti ti-credit-card"></i></span>
+                            <span class="nav-link-title">Methods</span>
+                        </a>
+                    </li>
+                @endif
+                @if($admin?->canAccess('settings'))
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('toapp.admin.settings.*') ? 'active' : '' }}" href="{{ route('toapp.admin.settings.edit') }}">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block"><i class="ti ti-settings"></i></span>
+                            <span class="nav-link-title">Settings</span>
+                        </a>
+                    </li>
+                @endif
+                @if($admin?->canAccess('readiness'))
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('toapp.admin.readiness.*') ? 'active' : '' }}" href="{{ route('toapp.admin.readiness.index') }}">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block"><i class="ti ti-rocket"></i></span>
+                            <span class="nav-link-title">Readiness</span>
+                        </a>
+                    </li>
+                @endif
+            </ul>
+
+            <div class="mt-auto p-3">
+                <div class="card card-sm portal-sidebar-card">
+                    <div class="card-body">
+                        <div class="text-secondary text-uppercase fw-bold" style="font-size: 11px;">Operations</div>
+                        <div class="text-white mt-1">Launch backend online</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </aside>

@@ -29,7 +29,7 @@
 font-family: Poppins;
 font-size: 30px;
 font-style: normal;
-font-weight: 800;
+font-weight: 600;
 line-height: normal;background: var(--light-blue, linear-gradient(180deg, #18ABCF 0%, #1E84F4 100%));
 background-clip: text;
 -webkit-background-clip: text;
@@ -316,7 +316,7 @@ line-height: normal;">@lang('Login')</button>
             width: 100%;
             text-align: center;
             color: hsl(var(--dark-600));
-            font-weight: 800;
+            font-weight: 600;
             line-height: 1.2;
         }
     </style>

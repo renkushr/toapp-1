@@ -48,7 +48,27 @@ class MethodController extends Controller
             $currency->save();
         }
 
-        return back()->with('status', 'Deposit gateway updated.');
+        return redirect()
+            ->route('toapp.admin.methods.deposit.edit', $gateway)
+            ->with('status', 'Deposit gateway updated.');
+    }
+
+    public function editDepositGateway(Gateway $gateway)
+    {
+        $gateway->load('singleCurrency');
+
+        return view('toapp_admin.methods.deposit_edit', [
+            'pageTitle' => 'Edit Deposit Gateway',
+            'gateway' => $gateway,
+        ]);
+    }
+
+    public function editWithdrawMethod(WithdrawMethod $method)
+    {
+        return view('toapp_admin.methods.withdraw_edit', [
+            'pageTitle' => 'Edit Withdrawal Method',
+            'method' => $method,
+        ]);
     }
 
     public function updateWithdrawMethod(Request $request, WithdrawMethod $method)
@@ -69,7 +89,9 @@ class MethodController extends Controller
         }
         $method->save();
 
-        return back()->with('status', 'Withdrawal method updated.');
+        return redirect()
+            ->route('toapp.admin.methods.withdraw.edit', $method)
+            ->with('status', 'Withdrawal method updated.');
     }
 
     public function toggleDepositGateway(Gateway $gateway)

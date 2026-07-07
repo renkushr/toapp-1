@@ -8,47 +8,49 @@
     <a class="active" href="{{ route('toapp.admin.reports.audits') }}">Audit Logs</a>
 </section>
 
-<section class="ta-panel">
-    <div class="ta-panel-head">
-        <div>
-            <span class="ta-kicker">Admin trail</span>
-            <h2>Operational audit log</h2>
-        </div>
-        <i class="las la-clipboard-check"></i>
+<div class="card">
+    <div class="card-header portal-card-header-stacked">
+        <h3 class="card-title">Operational audit log</h3>
+        <p class="card-subtitle text-secondary mb-0">Admin trail of sensitive actions</p>
     </div>
-
-    <form class="ta-toolbar ta-toolbar-slim" method="GET">
-        <label class="ta-field compact"><span>Search</span><input type="search" name="search" value="{{ request('search') }}" placeholder="action, admin, IP, target"></label>
-        <button class="ta-secondary-btn" type="submit"><i class="las la-filter"></i> Filter</button>
+    <form class="portal-filter-bar" method="GET">
+        <div class="portal-filter-field">
+            <label class="form-label">Search</label>
+            <input type="search" class="form-control form-control-sm" name="search" value="{{ request('search') }}" placeholder="action, admin, IP, target">
+        </div>
+        <div class="portal-filter-actions">
+            <button class="btn btn-primary" type="submit"><i class="ti ti-search me-1"></i> Search</button>
+        </div>
     </form>
-
-    <div class="ta-table-wrap">
-        <table class="ta-table">
+    <div class="table-responsive">
+        <table class="table table-vcenter card-table">
             <thead>
                 <tr><th>Action</th><th>Admin</th><th>Target</th><th>Context</th><th>IP</th><th>Date</th></tr>
             </thead>
             <tbody>
                 @forelse($audits as $audit)
                     <tr>
-                        <td><strong>{{ $audit->action }}</strong><small>#{{ $audit->id }}</small></td>
-                        <td><strong>{{ optional($audit->admin)->username ?? 'System' }}</strong><small>{{ optional($audit->admin)->email }}</small></td>
-                        <td>{{ class_basename($audit->target_type ?? '-') }}<small>{{ $audit->target_id ? '#' . $audit->target_id : '-' }}</small></td>
+                        <td><div class="fw-bold">{{ $audit->action }}</div><div class="text-secondary">#{{ $audit->id }}</div></td>
+                        <td><div class="fw-bold">{{ optional($audit->admin)->username ?? 'System' }}</div><div class="text-secondary">{{ optional($audit->admin)->email }}</div></td>
+                        <td>{{ class_basename($audit->target_type ?? '-') }}<div class="text-secondary">{{ $audit->target_id ? '#' . $audit->target_id : '-' }}</div></td>
                         <td>
                             @if($audit->metadata)
-                                <code class="ta-inline-code">{{ json_encode($audit->metadata, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) }}</code>
+                                <code>{{ json_encode($audit->metadata, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) }}</code>
                             @else
                                 -
                             @endif
                         </td>
                         <td>{{ $audit->ip_address ?? '-' }}</td>
-                        <td>{{ optional($audit->created_at)->format('M d, Y H:i') }}</td>
+                        <td class="text-secondary">{{ optional($audit->created_at)->format('M d, Y H:i') }}</td>
                     </tr>
                 @empty
-                    <tr><td colspan="6" class="ta-empty">No admin activity has been logged yet.</td></tr>
+                    <tr><td colspan="6" class="text-center text-secondary py-4">No admin activity has been logged yet.</td></tr>
                 @endforelse
             </tbody>
         </table>
     </div>
-    <div class="ta-pagination">{{ $audits->links() }}</div>
-</section>
+    @if($audits->hasPages())
+        <div class="card-footer">{{ $audits->links() }}</div>
+    @endif
+</div>
 @endsection

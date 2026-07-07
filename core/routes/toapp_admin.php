@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\ToappAdmin\AgentController;
 use App\Http\Controllers\ToappAdmin\AuthController;
 use App\Http\Controllers\ToappAdmin\AdminUserController;
 use App\Http\Controllers\ToappAdmin\DashboardController;
+use App\Http\Controllers\ToappAdmin\InsuranceApplicationController;
 use App\Http\Controllers\ToappAdmin\DepositController;
 use App\Http\Controllers\ToappAdmin\MethodController;
 use App\Http\Controllers\ToappAdmin\PlanController;
@@ -27,7 +29,9 @@ Route::middleware('toapp.admin')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('toapp.admin.can:dashboard')->name('dashboard');
 
     Route::get('/admins', [AdminUserController::class, 'index'])->middleware('toapp.admin.can:admins')->name('admins.index');
+    Route::get('/admins/create', [AdminUserController::class, 'create'])->middleware('toapp.admin.can:admins')->name('admins.create');
     Route::post('/admins', [AdminUserController::class, 'store'])->middleware('toapp.admin.can:admins')->name('admins.store');
+    Route::get('/admins/{admin}/edit', [AdminUserController::class, 'edit'])->middleware('toapp.admin.can:admins')->name('admins.edit');
     Route::put('/admins/{admin}', [AdminUserController::class, 'update'])->middleware('toapp.admin.can:admins')->name('admins.update');
 
     Route::get('/users', [UserController::class, 'index'])->middleware('toapp.admin.can:users')->name('users.index');
@@ -38,11 +42,19 @@ Route::middleware('toapp.admin')->group(function () {
     Route::post('/users/{user}/status', [UserController::class, 'status'])->middleware('toapp.admin.can:users')->name('users.status');
     Route::post('/users/{user}/verification', [UserController::class, 'verification'])->middleware('toapp.admin.can:users')->name('users.verification');
     Route::post('/users/{user}/balance', [UserController::class, 'balance'])->middleware('toapp.admin.can:balances')->name('users.balance');
+    Route::post('/users/{user}/agent', [UserController::class, 'assignAgent'])->middleware('toapp.admin.can:users')->name('users.agent');
 
     Route::get('/plans', [PlanController::class, 'index'])->middleware('toapp.admin.can:plans')->name('plans.index');
+    Route::get('/plans/create', [PlanController::class, 'create'])->middleware('toapp.admin.can:plans')->name('plans.create');
     Route::post('/plans', [PlanController::class, 'store'])->middleware('toapp.admin.can:plans')->name('plans.store');
+    Route::get('/plans/{plan}/edit', [PlanController::class, 'edit'])->middleware('toapp.admin.can:plans')->name('plans.edit');
     Route::put('/plans/{plan}', [PlanController::class, 'update'])->middleware('toapp.admin.can:plans')->name('plans.update');
     Route::post('/plans/{plan}/status', [PlanController::class, 'status'])->middleware('toapp.admin.can:plans')->name('plans.status');
+
+    Route::get('/applications', [InsuranceApplicationController::class, 'index'])->middleware('toapp.admin.can:reports')->name('applications.index');
+    Route::get('/applications/{application}', [InsuranceApplicationController::class, 'show'])->middleware('toapp.admin.can:reports')->name('applications.show');
+    Route::post('/applications/{application}/confirm', [InsuranceApplicationController::class, 'confirm'])->middleware('toapp.admin.can:investments')->name('applications.confirm');
+    Route::post('/applications/{application}/reject', [InsuranceApplicationController::class, 'reject'])->middleware('toapp.admin.can:investments')->name('applications.reject');
 
     Route::get('/deposits', [DepositController::class, 'index'])->middleware('toapp.admin.can:deposits')->name('deposits.index');
     Route::get('/deposits/export', [DepositController::class, 'export'])->middleware('toapp.admin.can:deposits')->name('deposits.export');
@@ -59,6 +71,7 @@ Route::middleware('toapp.admin')->group(function () {
     Route::get('/reports/transactions', [ReportController::class, 'transactions'])->middleware('toapp.admin.can:reports')->name('reports.transactions');
     Route::get('/reports/transactions/export', [ReportController::class, 'transactionsExport'])->middleware('toapp.admin.can:reports')->name('reports.transactions.export');
     Route::get('/reports/investments', [ReportController::class, 'investments'])->middleware('toapp.admin.can:reports,investments')->name('reports.investments');
+    Route::get('/reports/investments/{investment}', [ReportController::class, 'showInvestment'])->middleware('toapp.admin.can:reports,investments')->name('reports.investments.show');
     Route::get('/reports/investments/export', [ReportController::class, 'investmentsExport'])->middleware('toapp.admin.can:reports,investments')->name('reports.investments.export');
     Route::post('/reports/investments/{investment}/approve', [ReportController::class, 'approveInvestment'])->middleware('toapp.admin.can:investments')->name('reports.investments.approve');
     Route::post('/reports/investments/{investment}/reject', [ReportController::class, 'rejectInvestment'])->middleware('toapp.admin.can:investments')->name('reports.investments.reject');
@@ -67,9 +80,16 @@ Route::middleware('toapp.admin')->group(function () {
     Route::get('/reports/audits', [ReportController::class, 'audits'])->middleware('toapp.admin.can:reports')->name('reports.audits');
 
     Route::get('/referrals', [ReferralController::class, 'index'])->middleware('toapp.admin.can:referrals')->name('referrals.index');
+    Route::get('/referrals/rules/create', [ReferralController::class, 'createRule'])->middleware('toapp.admin.can:referrals')->name('referrals.rules.create');
     Route::get('/referrals/export', [ReferralController::class, 'export'])->middleware('toapp.admin.can:referrals')->name('referrals.export');
     Route::post('/referrals/rules', [ReferralController::class, 'storeRule'])->middleware('toapp.admin.can:referrals')->name('referrals.rules.store');
     Route::delete('/referrals/rules/{referral}', [ReferralController::class, 'destroyRule'])->middleware('toapp.admin.can:referrals')->name('referrals.rules.destroy');
+
+    Route::get('/agents', [AgentController::class, 'index'])->middleware('toapp.admin.can:agents')->name('agents.index');
+    Route::get('/agents/create', [AgentController::class, 'create'])->middleware('toapp.admin.can:agents')->name('agents.create');
+    Route::post('/agents', [AgentController::class, 'store'])->middleware('toapp.admin.can:agents')->name('agents.store');
+    Route::get('/agents/{agent}/edit', [AgentController::class, 'edit'])->middleware('toapp.admin.can:agents')->name('agents.edit');
+    Route::put('/agents/{agent}', [AgentController::class, 'update'])->middleware('toapp.admin.can:agents')->name('agents.update');
 
     Route::get('/support', [SupportController::class, 'index'])->middleware('toapp.admin.can:support')->name('support.index');
     Route::get('/support/{ticket}', [SupportController::class, 'show'])->middleware('toapp.admin.can:support')->name('support.show');
@@ -77,6 +97,8 @@ Route::middleware('toapp.admin')->group(function () {
     Route::post('/support/{ticket}/close', [SupportController::class, 'close'])->middleware('toapp.admin.can:support')->name('support.close');
 
     Route::get('/methods', [MethodController::class, 'index'])->middleware('toapp.admin.can:methods')->name('methods.index');
+    Route::get('/methods/deposit/{gateway}/edit', [MethodController::class, 'editDepositGateway'])->middleware('toapp.admin.can:methods')->name('methods.deposit.edit');
+    Route::get('/methods/withdraw/{method}/edit', [MethodController::class, 'editWithdrawMethod'])->middleware('toapp.admin.can:methods')->name('methods.withdraw.edit');
     Route::put('/methods/deposit/{gateway}', [MethodController::class, 'updateDepositGateway'])->middleware('toapp.admin.can:methods')->name('methods.deposit.update');
     Route::put('/methods/withdraw/{method}', [MethodController::class, 'updateWithdrawMethod'])->middleware('toapp.admin.can:methods')->name('methods.withdraw.update');
     Route::post('/methods/deposit/{gateway}/status', [MethodController::class, 'toggleDepositGateway'])->middleware('toapp.admin.can:methods')->name('methods.deposit.status');

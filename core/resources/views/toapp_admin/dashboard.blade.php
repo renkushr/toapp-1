@@ -1,159 +1,185 @@
 @extends('toapp_admin.layouts.app')
 
 @section('content')
-<section class="ta-grid ta-grid-stats">
-    <article class="ta-stat">
-        <span>Total Users</span>
-        <strong>{{ number_format($stats['users']) }}</strong>
-        <small>{{ number_format($stats['active_users']) }} active</small>
-    </article>
-    <article class="ta-stat is-warning">
-        <span>Pending Approval</span>
-        <strong>{{ number_format($stats['pending_users']) }}</strong>
-        <small>New members to review</small>
-    </article>
-    <article class="ta-stat">
-        <span>Plans</span>
-        <strong>{{ number_format($stats['plans']) }}</strong>
-        <small>{{ number_format($stats['running_investments']) }} running investments</small>
-    </article>
-    <article class="ta-stat is-warning">
-        <span>Pending Packages</span>
-        <strong>{{ number_format($stats['pending_investments']) }}</strong>
-        <small>Package purchases to approve</small>
-    </article>
-    <article class="ta-stat is-warning">
-        <span>Pending Deposits</span>
-        <strong>{{ number_format($stats['pending_deposits']) }}</strong>
-        <small>{{ number_format($stats['total_deposited'], 2) }} total deposited</small>
-    </article>
-    <article class="ta-stat is-danger">
-        <span>Pending Withdrawals</span>
-        <strong>{{ number_format($stats['pending_withdrawals']) }}</strong>
-        <small>{{ number_format($stats['total_withdrawn'], 2) }} total withdrawn</small>
-    </article>
-    <article class="ta-stat is-success">
-        <span>Referral Paid</span>
-        <strong>{{ number_format($stats['referral_paid'], 2) }}</strong>
-        <small>Commission ledger</small>
-    </article>
-</section>
-
-<section class="ta-grid ta-grid-main">
-    <article class="ta-panel">
-        <div class="ta-panel-head">
-            <div>
-                <span class="ta-kicker">People</span>
-                <h2>Latest Users</h2>
+<div class="row row-deck row-cards mb-4">
+    <div class="col-sm-6 col-lg-3">
+        <div class="card portal-stat-card">
+            <div class="card-body">
+                <span class="portal-stat-icon"><i class="ti ti-users"></i></span>
+                <div class="subheader">Total Users</div>
+                <div class="h1 mb-1">{{ number_format($stats['users']) }}</div>
+                <div class="text-secondary">{{ number_format($stats['active_users']) }} active</div>
             </div>
-            <i class="las la-users"></i>
         </div>
-        <div class="ta-table-wrap">
-            <table class="ta-table">
-                <thead>
-                    <tr>
-                        <th>User</th>
-                        <th>Email</th>
-                        <th>Status</th>
-                        <th>Joined</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($recentUsers as $user)
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="subheader">Pending Approval</div>
+                <div class="h1 mb-1 text-warning">{{ number_format($stats['pending_users']) }}</div>
+                <div class="text-secondary">New members to review</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="subheader">Plans</div>
+                <div class="h1 mb-1">{{ number_format($stats['plans']) }}</div>
+                <div class="text-secondary">{{ number_format($stats['running_investments']) }} running</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="subheader">Referral Paid</div>
+                <div class="h1 mb-1 text-success">{{ number_format($stats['referral_paid'], 2) }}</div>
+                <div class="text-secondary">Commission ledger</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row row-deck row-cards mb-4">
+    <div class="col-sm-6 col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="subheader">Pending Packages</div>
+                <div class="h2">{{ number_format($stats['pending_investments']) }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="subheader">Pending Deposits</div>
+                <div class="h2">{{ number_format($stats['pending_deposits']) }}</div>
+                <div class="text-secondary">{{ number_format($stats['total_deposited'], 2) }} total</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-4">
+        <div class="card">
+            <div class="card-body">
+                <div class="subheader">Pending Withdrawals</div>
+                <div class="h2 text-danger">{{ number_format($stats['pending_withdrawals']) }}</div>
+                <div class="text-secondary">{{ number_format($stats['total_withdrawn'], 2) }} total</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row row-cards">
+    <div class="col-lg-7">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Latest Users</h3>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-vcenter card-table">
+                    <thead>
                         <tr>
-                            <td>
-                                <strong>{{ trim($user->firstname . ' ' . $user->lastname) ?: $user->username }}</strong>
-                                <small>{{ '@' . $user->username }}</small>
-                            </td>
-                            <td>{{ $user->email }}</td>
-                            <td>
-                                <span class="ta-badge {{ $user->status ? 'success' : 'danger' }}">{{ $user->status ? 'Active' : 'Banned' }}</span>
-                                @php
-                                    $approvalClass = $user->approval_status === 'approved' ? 'success' : ($user->approval_status === 'rejected' ? 'danger' : 'warning');
-                                @endphp
-                                <span class="ta-badge {{ $approvalClass }}">{{ ucfirst($user->approval_status ?? 'approved') }}</span>
-                            </td>
-                            <td>{{ optional($user->created_at)->format('M d, Y') }}</td>
+                            <th>User</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th>Joined</th>
                         </tr>
-                    @empty
-                        <tr><td colspan="4" class="ta-empty">No users yet.</td></tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-    </article>
-
-    <article class="ta-panel">
-        <div class="ta-panel-head">
-            <div>
-                <span class="ta-kicker">Ledger</span>
-                <h2>Recent Transactions</h2>
+                    </thead>
+                    <tbody>
+                        @forelse($recentUsers as $user)
+                            <tr>
+                                <td>
+                                    <div class="fw-bold">{{ trim($user->firstname . ' ' . $user->lastname) ?: $user->username }}</div>
+                                    <div class="text-secondary">{{ '@' . $user->username }}</div>
+                                </td>
+                                <td class="text-secondary">{{ $user->email }}</td>
+                                <td>
+                                    <span class="badge {{ $user->status ? 'bg-success-lt' : 'bg-danger-lt' }}">{{ $user->status ? 'Active' : 'Banned' }}</span>
+                                    @php
+                                        $approvalClass = $user->approval_status === 'approved' ? 'bg-success-lt' : ($user->approval_status === 'rejected' ? 'bg-danger-lt' : 'bg-warning-lt');
+                                    @endphp
+                                    <span class="badge {{ $approvalClass }}">{{ ucfirst($user->approval_status ?? 'approved') }}</span>
+                                </td>
+                                <td class="text-secondary">{{ optional($user->created_at)->format('M d, Y') }}</td>
+                            </tr>
+                        @empty
+                            <tr><td colspan="4" class="text-center text-secondary">No users yet.</td></tr>
+                        @endforelse
+                    </tbody>
+                </table>
             </div>
-            <i class="las la-receipt"></i>
         </div>
-        <div class="ta-list">
-            @forelse($recentTransactions as $trx)
-                <div class="ta-list-row">
-                    <div>
-                        <strong>{{ $trx->trx ?? 'Transaction' }}</strong>
-                        <small>{{ optional($trx->user)->username ?? 'System' }} - {{ optional($trx->created_at)->format('M d, H:i') }}</small>
-                    </div>
-                    <span class="{{ ($trx->trx_type ?? '+') === '+' ? 'ta-money-plus' : 'ta-money-minus' }}">
-                        {{ $trx->trx_type ?? '' }}{{ number_format((float) $trx->amount, 2) }}
-                    </span>
-                </div>
-            @empty
-                <div class="ta-empty">No transactions yet.</div>
-            @endforelse
-        </div>
-    </article>
-</section>
+    </div>
 
-<section class="ta-grid ta-grid-main">
-    <article class="ta-panel">
-        <div class="ta-panel-head">
-            <div>
-                <span class="ta-kicker">Cash In</span>
-                <h2>Latest Deposits</h2>
+    <div class="col-lg-5">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Recent Transactions</h3>
             </div>
-            <i class="las la-wallet"></i>
-        </div>
-        <div class="ta-list">
-            @forelse($recentDeposits as $deposit)
-                <div class="ta-list-row">
-                    <div>
-                        <strong>{{ optional($deposit->user)->username ?? 'Unknown user' }}</strong>
-                        <small>{{ $deposit->trx }} - {{ optional($deposit->created_at)->format('M d, H:i') }}</small>
+            <div class="list-group list-group-flush">
+                @forelse($recentTransactions as $trx)
+                    <div class="list-group-item">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <div class="fw-bold">{{ $trx->trx ?? 'Transaction' }}</div>
+                                <div class="text-secondary">{{ optional($trx->user)->username ?? 'System' }} · {{ optional($trx->created_at)->format('M d, H:i') }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <span class="{{ ($trx->trx_type ?? '+') === '+' ? 'text-success' : 'text-danger' }} fw-bold">
+                                    {{ $trx->trx_type ?? '' }}{{ number_format((float) $trx->amount, 2) }}
+                                </span>
+                            </div>
+                        </div>
                     </div>
-                    <span>{{ number_format((float) $deposit->amount, 2) }}</span>
-                </div>
-            @empty
-                <div class="ta-empty">No deposits yet.</div>
-            @endforelse
+                @empty
+                    <div class="list-group-item text-secondary">No transactions yet.</div>
+                @endforelse
+            </div>
         </div>
-    </article>
+    </div>
+</div>
 
-    <article class="ta-panel">
-        <div class="ta-panel-head">
-            <div>
-                <span class="ta-kicker">Cash Out</span>
-                <h2>Latest Withdrawals</h2>
-            </div>
-            <i class="las la-university"></i>
-        </div>
-        <div class="ta-list">
-            @forelse($recentWithdrawals as $withdrawal)
-                <div class="ta-list-row">
-                    <div>
-                        <strong>{{ optional($withdrawal->user)->username ?? 'Unknown user' }}</strong>
-                        <small>{{ optional($withdrawal->method)->name ?? 'Method' }} - {{ optional($withdrawal->created_at)->format('M d, H:i') }}</small>
+<div class="row row-cards mt-4">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header"><h3 class="card-title">Latest Deposits</h3></div>
+            <div class="list-group list-group-flush">
+                @forelse($recentDeposits as $deposit)
+                    <div class="list-group-item">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <div class="fw-bold">{{ optional($deposit->user)->username ?? 'Unknown user' }}</div>
+                                <div class="text-secondary">{{ $deposit->trx }}</div>
+                            </div>
+                            <div class="fw-bold">{{ number_format((float) $deposit->amount, 2) }}</div>
+                        </div>
                     </div>
-                    <span>{{ number_format((float) $withdrawal->amount, 2) }}</span>
-                </div>
-            @empty
-                <div class="ta-empty">No withdrawals yet.</div>
-            @endforelse
+                @empty
+                    <div class="list-group-item text-secondary">No deposits yet.</div>
+                @endforelse
+            </div>
         </div>
-    </article>
-</section>
+    </div>
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-header"><h3 class="card-title">Latest Withdrawals</h3></div>
+            <div class="list-group list-group-flush">
+                @forelse($recentWithdrawals as $withdrawal)
+                    <div class="list-group-item">
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <div class="fw-bold">{{ optional($withdrawal->user)->username ?? 'Unknown user' }}</div>
+                                <div class="text-secondary">{{ optional($withdrawal->method)->name ?? 'Method' }}</div>
+                            </div>
+                            <div class="fw-bold">{{ number_format((float) $withdrawal->amount, 2) }}</div>
+                        </div>
+                    </div>
+                @empty
+                    <div class="list-group-item text-secondary">No withdrawals yet.</div>
+                @endforelse
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

@@ -15,24 +15,41 @@
     @endif
 </section>
 
-<section class="ta-panel">
-    <form class="ta-toolbar" method="GET">
-        <label class="ta-field compact"><span>Search</span><input type="search" name="search" value="{{ request('search') }}" placeholder="trx, user, plan"></label>
-        <label class="ta-field compact"><span>Status</span><select name="status"><option value="">Any</option><option value="0" @selected(request('status') === '0')>Pending</option><option value="2" @selected(request('status') === '2')>Running</option><option value="1" @selected(request('status') === '1')>Completed</option><option value="3" @selected(request('status') === '3')>Rejected</option></select></label>
-        <button class="ta-secondary-btn" type="submit"><i class="las la-filter"></i> Filter</button>
-        <a class="ta-secondary-btn" href="{{ route('toapp.admin.reports.investments.export', request()->query()) }}"><i class="las la-file-csv"></i> Export CSV</a>
+<div class="card">
+    <div class="card-header portal-list-header">
+        <h3 class="card-title">Investments</h3>
+    </div>
+    <form class="portal-filter-bar" method="GET">
+        <div class="portal-filter-field">
+            <label class="form-label">Search</label>
+            <input type="search" class="form-control form-control-sm" name="search" value="{{ request('search') }}" placeholder="trx, user, plan">
+        </div>
+        <div class="portal-filter-field">
+            <label class="form-label">Status</label>
+            <select class="form-select form-select-sm" name="status">
+                <option value="">Any</option>
+                <option value="0" @selected(request('status') === '0')>Pending</option>
+                <option value="2" @selected(request('status') === '2')>Running</option>
+                <option value="1" @selected(request('status') === '1')>Completed</option>
+                <option value="3" @selected(request('status') === '3')>Rejected</option>
+            </select>
+        </div>
+        <div class="portal-filter-actions">
+            <button class="btn btn-primary" type="submit"><i class="ti ti-search me-1"></i> Search</button>
+            <a class="btn btn-sm" href="{{ route('toapp.admin.reports.investments.export', request()->query()) }}"><i class="ti ti-file-export me-1"></i> Export CSV</a>
+        </div>
     </form>
-    <div class="ta-table-wrap">
-        <table class="ta-table">
-            <thead><tr><th>Investment</th><th>User</th><th>Plan</th><th>Amount</th><th>Return</th><th>Status</th><th>Dates</th><th>Action</th></tr></thead>
+    <div class="table-responsive">
+        <table class="table table-vcenter card-table">
+            <thead><tr><th>Investment</th><th>User</th><th>Plan</th><th>Amount</th><th>Return</th><th>Status</th><th>Dates</th><th class="w-1">Action</th></tr></thead>
             <tbody>
                 @forelse($investments as $investment)
                     @php
-                        $statusClass = match ((int) $investment->status) {
-                            0 => 'warning',
-                            2 => 'success',
-                            3 => 'danger',
-                            default => 'muted',
+                        $statusBadge = match ((int) $investment->status) {
+                            0 => 'bg-warning-lt',
+                            2 => 'bg-success-lt',
+                            3 => 'bg-danger-lt',
+                            default => 'bg-secondary-lt',
                         };
                         $statusLabel = match ((int) $investment->status) {
                             0 => 'Pending',
@@ -42,43 +59,29 @@
                         };
                     @endphp
                     <tr>
-                        <td><strong>{{ $investment->trx ?? '-' }}</strong><small>#{{ $investment->id }}</small></td>
-                        <td><strong>{{ optional($investment->user)->username ?? 'Unknown' }}</strong><small>{{ optional($investment->user)->email }}</small></td>
+                        <td><div class="fw-bold">{{ $investment->trx ?? '-' }}</div><div class="text-secondary">#{{ $investment->id }}</div></td>
+                        <td><div class="fw-bold">{{ optional($investment->user)->username ?? 'Unknown' }}</div><div class="text-secondary">{{ optional($investment->user)->email }}</div></td>
                         <td>{{ optional($investment->plan)->name ?? '-' }}</td>
                         <td>{{ number_format((float) $investment->amount, 2) }}</td>
-                        <td>{{ number_format((float) $investment->interest_amount, 2) }}<small>{{ $investment->total_paid }}/{{ $investment->total_return }} paid</small></td>
-                        <td><span class="ta-badge {{ $statusClass }}">{{ $statusLabel }}</span><small>{{ $investment->rejection_reason }}</small></td>
-                        <td><strong>{{ $investment->next_return_date ? \Carbon\Carbon::parse($investment->next_return_date)->format('M d, Y') : '-' }}</strong><small>approved {{ $investment->approved_at ? $investment->approved_at->format('M d, Y') : '-' }}</small></td>
+                        <td>{{ number_format((float) $investment->interest_amount, 2) }}<div class="text-secondary">{{ $investment->total_paid }}/{{ $investment->total_return }} paid</div></td>
+                        <td><span class="badge {{ $statusBadge }}">{{ $statusLabel }}</span>@if($investment->rejection_reason)<div class="text-secondary">{{ $investment->rejection_reason }}</div>@endif</td>
+                        <td><div class="fw-bold">{{ $investment->next_return_date ? \Carbon\Carbon::parse($investment->next_return_date)->format('M d, Y') : '-' }}</div><div class="text-secondary">approved {{ $investment->approved_at ? $investment->approved_at->format('M d, Y') : '-' }}</div></td>
                         <td>
                             @if((int) $investment->status === 0 && $admin?->canAccess('investments'))
-                                <div class="ta-action-stack">
-                                    <form method="POST" action="{{ route('toapp.admin.reports.investments.approve', $investment) }}">
-                                        @csrf
-                                        <button class="ta-row-action" type="submit">Approve</button>
-                                    </form>
-                                    <details class="ta-mini-details">
-                                        <summary>Reject</summary>
-                                        <form method="POST" action="{{ route('toapp.admin.reports.investments.reject', $investment) }}">
-                                            @csrf
-                                            <label class="ta-field compact">
-                                                <span>Reason</span>
-                                                <textarea name="reason" required placeholder="Why is this package purchase rejected?"></textarea>
-                                            </label>
-                                            <button class="ta-danger-btn" type="submit">Reject & Refund</button>
-                                        </form>
-                                    </details>
-                                </div>
+                                <a href="{{ route('toapp.admin.reports.investments.show', $investment) }}" class="btn btn-sm btn-primary">Review</a>
                             @else
-                                -
+                                <a href="{{ route('toapp.admin.reports.investments.show', $investment) }}" class="btn btn-sm">View</a>
                             @endif
                         </td>
                     </tr>
                 @empty
-                    <tr><td colspan="8" class="ta-empty">No investments found.</td></tr>
+                    <tr><td colspan="8" class="text-center text-secondary py-4">No investments found.</td></tr>
                 @endforelse
             </tbody>
         </table>
     </div>
-    <div class="ta-pagination">{{ $investments->links() }}</div>
-</section>
+    @if($investments->hasPages())
+        <div class="card-footer">{{ $investments->links() }}</div>
+    @endif
+</div>
 @endsection

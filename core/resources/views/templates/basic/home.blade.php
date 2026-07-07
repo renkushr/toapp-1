@@ -118,7 +118,7 @@
             background: #fff;
             color: #2d597b;
             font-size: 12px;
-            font-weight: 700;
+            font-weight: 600;
             box-shadow: 0 10px 24px rgba(24, 171, 207, .09);
         }
 
@@ -149,7 +149,7 @@
             background: rgba(255, 255, 255, .78);
             color: #24627e;
             font-size: 13px;
-            font-weight: 800;
+            font-weight: 600;
             box-shadow: 0 12px 36px rgba(24, 171, 207, .1);
         }
 
@@ -162,7 +162,7 @@
             margin: 0;
             color: var(--to-ink);
             font-size: clamp(34px, 5.6vw, 70px);
-            font-weight: 800;
+            font-weight: 600;
             letter-spacing: 0;
             line-height: 1.12;
             word-spacing: .14em;
@@ -199,7 +199,7 @@
             padding: 0 28px;
             border-radius: 18px;
             font-size: 16px;
-            font-weight: 800;
+            font-weight: 600;
             text-decoration: none;
             text-align: center;
             transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
@@ -231,7 +231,7 @@
             margin-top: 28px;
             color: #587089;
             font-size: 13px;
-            font-weight: 700;
+            font-weight: 600;
         }
 
         .to-home__proof span {
@@ -306,7 +306,7 @@
             margin: 0;
             color: var(--to-ink);
             font-size: 21px;
-            font-weight: 900;
+            font-weight: 600;
             letter-spacing: -.02em;
         }
 
@@ -323,7 +323,7 @@
             background: #fff5d8;
             color: #9b6500;
             font-size: 12px;
-            font-weight: 900;
+            font-weight: 600;
             white-space: nowrap;
         }
 
@@ -355,14 +355,14 @@
             display: block;
             color: var(--to-ink);
             font-size: 30px;
-            font-weight: 900;
+            font-weight: 600;
             line-height: 1;
         }
 
         .to-floating span {
             color: var(--to-muted);
             font-size: 12px;
-            font-weight: 700;
+            font-weight: 600;
         }
 
         .to-mini {
@@ -378,7 +378,7 @@
             display: block;
             color: var(--to-muted);
             font-size: 12px;
-            font-weight: 700;
+            font-weight: 600;
         }
 
         .to-mini strong {
@@ -386,7 +386,7 @@
             margin-top: 4px;
             color: var(--to-ink);
             font-size: 18px;
-            font-weight: 900;
+            font-weight: 600;
         }
 
         .to-home__features {
@@ -424,14 +424,14 @@
             background: linear-gradient(135deg, #e9fbff, #fff4d1);
             color: var(--to-blue);
             font-size: 22px;
-            font-weight: 900;
+            font-weight: 600;
         }
 
         .to-feature h3 {
             margin: 0 0 8px;
             color: var(--to-ink);
             font-size: 18px;
-            font-weight: 900;
+            font-weight: 600;
         }
 
         .to-feature p {

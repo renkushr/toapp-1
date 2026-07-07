@@ -86,13 +86,16 @@ class Email extends NotifyProcess implements Notifiable{
         //Server settings
         $mail->isSMTP();
         $mail->Host       = $config->host;
-        $mail->SMTPAuth   = true;
+        $mail->SMTPAuth   = !empty($config->username);
         $mail->Username   = $config->username;
         $mail->Password   = $config->password;
         if ($config->enc == 'ssl') {
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-        }else{
+        } elseif ($config->enc == 'tls') {
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        } else {
+            $mail->SMTPAutoTLS = false;
+            $mail->SMTPSecure = false;
         }
         $mail->Port       = $config->port;
         $mail->CharSet = 'UTF-8';

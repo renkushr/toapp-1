@@ -52,6 +52,7 @@ class Admin extends Authenticatable
             'reports' => 'Reports and CSV exports',
             'investments' => 'Package purchase approval',
             'referrals' => 'Referral percent rules and ledger',
+            'agents' => 'Insurance agents and ZIP coverage',
             'support' => 'Support tickets',
             'methods' => 'Deposit and withdrawal methods',
             'settings' => 'System settings',
@@ -63,7 +64,7 @@ class Admin extends Authenticatable
     {
         return [
             self::ROLE_SUPER_ADMIN => array_keys(self::permissionLabels()),
-            self::ROLE_OPERATIONS => ['dashboard', 'users', 'plans', 'reports', 'referrals', 'support', 'readiness'],
+            self::ROLE_OPERATIONS => ['dashboard', 'users', 'plans', 'reports', 'referrals', 'agents', 'support', 'readiness'],
             self::ROLE_FINANCE => ['dashboard', 'balances', 'deposits', 'withdrawals', 'reports', 'investments', 'referrals', 'readiness'],
             self::ROLE_SUPPORT => ['dashboard', 'users', 'support', 'readiness'],
             self::ROLE_VIEWER => ['dashboard', 'reports', 'readiness'],

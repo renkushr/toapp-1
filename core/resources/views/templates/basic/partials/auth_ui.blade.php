@@ -81,7 +81,7 @@
                 margin-bottom: 12px;
                 color: #0c7e8b;
                 font-size: 12px;
-                font-weight: 700;
+                font-weight: 600;
                 text-transform: uppercase;
                 letter-spacing: 0;
             }
@@ -90,7 +90,7 @@
                 margin: 0;
                 color: #172033;
                 font-size: 28px;
-                font-weight: 800;
+                font-weight: 600;
                 line-height: 1.18;
                 letter-spacing: 0;
             }
@@ -144,7 +144,7 @@
             .auth-label {
                 color: #1f2a3f;
                 font-size: 14px;
-                font-weight: 700;
+                font-weight: 600;
             }
 
             .auth-optional {
@@ -157,7 +157,7 @@
             .auth-select {
                 width: 100%;
                 min-height: 54px;
-                padding: 0 15px;
+                padding: 0 18px;
                 border: 1px solid #d9e8ef;
                 border-radius: 8px;
                 background: #fff;
@@ -188,7 +188,7 @@
 
             .auth-link {
                 color: #0a82aa;
-                font-weight: 700;
+                font-weight: 600;
             }
 
             .auth-error-summary {
@@ -215,7 +215,7 @@
                 border-radius: 8px;
                 background: #fff;
                 color: #273348;
-                font-weight: 700;
+                font-weight: 600;
                 transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
             }
 
@@ -298,7 +298,7 @@
                 background: linear-gradient(135deg, #0ea5c0 0%, #1f83f0 60%, #25c99b 100%);
                 color: #fff;
                 font-size: 16px;
-                font-weight: 800;
+                font-weight: 600;
                 box-shadow: 0 18px 34px rgba(24, 132, 191, 0.28);
                 transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
             }
@@ -335,7 +335,7 @@
                 border-radius: 8px;
                 background: #dff7ed;
                 color: #087a55;
-                font-weight: 800;
+                font-weight: 600;
             }
 
             .auth-footer-text {
@@ -360,7 +360,7 @@
             .auth-app-modal .modal-title {
                 color: #172033;
                 font-size: 20px;
-                font-weight: 800;
+                font-weight: 600;
             }
 
             .auth-app-modal .modal-body {
@@ -379,7 +379,7 @@
             .auth-modal-button {
                 min-height: 44px;
                 border-radius: 8px;
-                font-weight: 800;
+                font-weight: 600;
             }
 
             @media (max-width: 575px) {

@@ -3,14 +3,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $pageTitle ?? 'Admin' }} - To-app</title>
+    <title>{{ $pageTitle ?? 'Sign in' }} - TOAPP</title>
     <link rel="shortcut icon" type="image/png" href="{{ siteFavicon() }}">
-    <link rel="stylesheet" href="{{ asset('assets/global/css/bootstrap/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/global/css/line-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/admin_new/css/app.css') }}">
+    @include('partials.tabler_assets')
 </head>
-<body class="ta-auth-body">
+<body class="d-flex flex-column">
     @yield('content')
-    <script src="{{ asset('assets/global/js/bootstrap/bootstrap.bundle.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/js/tabler.min.js" defer></script>
 </body>
 </html>
