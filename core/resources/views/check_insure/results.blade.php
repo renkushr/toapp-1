@@ -23,7 +23,7 @@
                                         <div class="card-body">
                                             <div class="price">
                                                 <h5>$ {{ number_format($plan->matched_price, 0) }}</h5>
-                                                <p>per {{ ($criteria['pay_type'] ?? 'year') === 'month' ? 'month' : 'year' }}</p>
+                                                <p>{{ ($criteria['pay_type'] ?? 'year') === 'month' ? 'per month' : 'per year' }}</p>
                                             </div>
                                             <p>{{ $plan->descript ?: 'Maximum benefit amount for in-patient per Confinement' }}</p>
                                             <ul class="lists">
@@ -35,7 +35,7 @@
                                             </ul>
                                             <div class="buttons">
                                                 <a class="btn btn-primary fs-18" href="{{ route('checkinsure.plans.show', $plan) }}">
-                                                    <span>Full details and<br>adjustment</span>
+                                                    <span>Full details and<br>start chat</span>
                                                 </a>
                                             </div>
                                         </div>

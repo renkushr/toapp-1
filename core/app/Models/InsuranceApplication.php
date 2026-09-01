@@ -10,12 +10,14 @@ class InsuranceApplication extends Model
 
     protected $casts = [
         'chronic_disease' => 'boolean',
+        'living_benefits' => 'boolean',
         'birthday' => 'date',
         'terms_accepted_at' => 'datetime',
         'chat_started_at' => 'datetime',
         'payment_confirmed_at' => 'datetime',
         'quoted_monthly' => 'decimal:2',
         'quoted_annual' => 'decimal:2',
+        'payment_monthly' => 'decimal:2',
     ];
 
     public const STATUS_OTP_PENDING = 'otp_pending';
@@ -56,6 +58,13 @@ class InsuranceApplication extends Model
     public function confirmedByAdmin()
     {
         return $this->belongsTo(Admin::class, 'confirmed_by_admin_id');
+    }
+
+    public function scopeForAgentTerritory($query, Agent $agent)
+    {
+        return $query
+            ->where('agent_id', $agent->id)
+            ->whereHas('user', fn ($user) => $user->forAgentTerritory($agent));
     }
 
     public function statusLabel(): string

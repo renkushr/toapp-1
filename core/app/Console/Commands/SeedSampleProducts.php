@@ -32,7 +32,7 @@ class SeedSampleProducts extends Command
                 ['Men Term Advantage', 'Term Life', '18–55', 'Male only'],
             ]
         );
-        $this->line('Test at: /check-insure/register → use ZIP 90210, 10001, or 60601 with seeded agents.');
+        $this->line('Test at: /check-insure/register → use ZIP code 90210, 10001, or 60601 with seeded agents.');
 
         return self::SUCCESS;
     }

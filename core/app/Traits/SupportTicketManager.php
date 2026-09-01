@@ -30,10 +30,10 @@ trait SupportTicketManager
         if (!$user) {
             abort(404);
         }
-        $pageTitle = "Support Tickets";
+        $pageTitle = "Chat";
         $supports  = SupportTicket::where($this->column, $user->id)->orderBy('id', 'desc')->paginate(getPaginate());
         if ($this->apiRequest) {
-            $notify[] = 'Support ticket data';
+            $notify[] = 'Support chat data';
             return response()->json([
                 'remark'  => 'tickets',
                 'status'  => 'success',
@@ -53,7 +53,7 @@ trait SupportTicketManager
         if (!$user) {
             return to_route('home');
         }
-        $pageTitle = "Open Ticket";
+        $pageTitle = "New Chat";
         return view("Template::$this->userType" . '.support.create', compact('pageTitle', 'user'));
     }
 
@@ -142,7 +142,7 @@ trait SupportTicketManager
     {
         $user      = $this->user;
         $column    = $this->column;
-        $pageTitle = "View Ticket";
+        $pageTitle = "Chat";
         $userId    = 0;
         $layout    = $this->layout;
 
@@ -311,9 +311,27 @@ trait SupportTicketManager
                 ]
             ]);
         }
-        broadcast(new Message($ticket->id,$message))->toOthers();
-        $notify[] = ['success', 'Support ticket replied successfully!'];
-        return ['message'=>$message,'notify'=>$notify];
+
+        try {
+            if (config('broadcasting.default') !== 'null') {
+                broadcast(new Message($ticket->id, $message))->toOthers();
+            }
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        $notify[] = ['success', 'Support chat replied successfully!'];
+
+        if ($request->ajax() || $request->wantsJson() || $request->expectsJson()) {
+            $message->load(['ticket', 'admin', 'attachments']);
+
+            return response()->json([
+                'message' => $message,
+                'notify'  => $notify[0],
+            ]);
+        }
+
+        return back()->withNotify($notify);
     }
 
     protected function storeSupportAttachments($messageId)

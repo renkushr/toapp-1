@@ -1,6 +1,12 @@
 @extends($activeTemplate.'layouts.master')
 @section('content')
-    <div class="container py-5">
+    <div class="app-page">
+        <div class="app-container">
+            @include($activeTemplate . 'partials.app_topbar', [
+                'backUrl' => route('user.setting'),
+                'brandTitle' => __('2FA Security'),
+            ])
+            <div class="container-fluid px-0 py-3">
         <div class="row justify-content-center gy-4">
 
             @if(!auth()->user()->ts)
@@ -72,6 +78,8 @@
                         </form>
                     </div>
                 @endif
+            </div>
+        </div>
             </div>
         </div>
     </div>

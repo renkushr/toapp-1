@@ -114,9 +114,25 @@ class User extends Authenticatable
         return $query->where('status', Status::USER_ACTIVE)->where('approval_status', 'approved')->where('ev',Status::VERIFIED)->where('sv',Status::VERIFIED);
     }
 
+    public function scopeForAgentTerritory($query, Agent $agent)
+    {
+        return $query
+            ->where('agent_id', $agent->id)
+            ->whereNotNull('zipcode')
+            ->whereIn('zipcode', $agent->zipCodes()->select('zip_code'));
+    }
+
     public function scopeApprovalPending($query)
     {
         return $query->where('approval_status', 'pending');
+    }
+
+    public function scopeWithoutAgent($query)
+    {
+        return $query
+            ->whereNull('agent_id')
+            ->whereNotNull('zipcode')
+            ->where('zipcode', '!=', '');
     }
 
     public function scopeApprovalRejected($query)

@@ -14,7 +14,7 @@ class ApplicationController extends Controller
         $agent = Auth::guard('agent')->user();
 
         $applications = InsuranceApplication::with(['user', 'plan'])
-            ->where('agent_id', $agent->id)
+            ->forAgentTerritory($agent)
             ->when($request->filled('status'), fn ($q) => $q->where('status', $request->status))
             ->latest('id')
             ->paginate(20)
@@ -30,7 +30,7 @@ class ApplicationController extends Controller
     public function show(InsuranceApplication $application)
     {
         $agent = Auth::guard('agent')->user();
-        abort_unless((int) $application->agent_id === (int) $agent->id, 403);
+        $this->authorizeApplication($application, $agent);
 
         $application->load(['user', 'plan']);
 
@@ -44,7 +44,7 @@ class ApplicationController extends Controller
     public function markPaymentPending(InsuranceApplication $application)
     {
         $agent = Auth::guard('agent')->user();
-        abort_unless((int) $application->agent_id === (int) $agent->id, 403);
+        $this->authorizeApplication($application, $agent);
 
         $application->update(['status' => InsuranceApplication::STATUS_PAYMENT_PENDING]);
 
@@ -54,7 +54,7 @@ class ApplicationController extends Controller
     public function confirm(Request $request, InsuranceApplication $application)
     {
         $agent = Auth::guard('agent')->user();
-        abort_unless((int) $application->agent_id === (int) $agent->id, 403);
+        $this->authorizeApplication($application, $agent);
 
         $request->validate(['notes' => ['nullable', 'string', 'max:2000']]);
 
@@ -66,5 +66,16 @@ class ApplicationController extends Controller
         ]);
 
         return back()->with('status', 'Policy confirmed after customer payment.');
+    }
+
+    protected function authorizeApplication(InsuranceApplication $application, $agent): void
+    {
+        abort_unless(
+            InsuranceApplication::query()
+                ->forAgentTerritory($agent)
+                ->whereKey($application->id)
+                ->exists(),
+            403
+        );
     }
 }

@@ -1,7 +1,13 @@
 @extends($activeTemplate . 'layouts.master')
 @section('content')
-    <section class="py-5">
-        <div class="container">
+    <div class="app-page">
+        <div class="app-container">
+            @include($activeTemplate . 'partials.app_topbar', [
+                'backUrl' => route('user.home'),
+                'brandTitle' => __('Deposit History'),
+            ])
+            <section class="py-3">
+        <div class="container-fluid px-0">
             <div class="row justify-content-center">
                 <div class="col-md-12">
                     <form action="">
@@ -122,7 +128,9 @@
                 </div>
             </div>
         </div>
-    </section>
+            </section>
+        </div>
+    </div>
 @endsection
 
 

@@ -4,6 +4,7 @@ use App\Http\Controllers\ToappAgent\ApplicationController;
 use App\Http\Controllers\ToappAgent\AuthController;
 use App\Http\Controllers\ToappAgent\ChatController;
 use App\Http\Controllers\ToappAgent\DashboardController;
+use App\Http\Controllers\ToappAgent\ReportController as AgentReportController;
 use App\Http\Controllers\ToappAgent\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('toapp.age
 
 Route::middleware('toapp.agent')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/reports', [AgentReportController::class, 'index'])->name('reports.index');
 
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');

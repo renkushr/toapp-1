@@ -12,7 +12,8 @@
                 <tr>
                     <th>Agent</th>
                     <th>License</th>
-                    <th>ZIP coverage</th>
+                    <th>Fee %</th>
+                    <th>ZIP code coverage</th>
                     <th>Clients</th>
                     <th>Status</th>
                     <th>Updated</th>
@@ -27,14 +28,15 @@
                             <div class="text-secondary">{{ '@' . $agent->username }} · {{ $agent->email }}</div>
                         </td>
                         <td><code>{{ $agent->license_no }}</code></td>
-                        <td class="text-secondary">{{ $agent->zipCodeList() ?: '—' }}</td>
+                        <td>{{ $agent->feePercentLabel() }}</td>
+                        <td class="text-secondary">{{ $agent->zipCoverageSummary($zipCatalogTotal ?? null) }}</td>
                         <td>{{ $agent->users_count }}</td>
                         <td><span class="badge {{ (int) $agent->status === 1 ? 'bg-success-lt' : 'bg-danger-lt' }}">{{ (int) $agent->status === 1 ? 'Active' : 'Disabled' }}</span></td>
                         <td class="text-secondary">{{ optional($agent->updated_at)->format('M d, Y') }}</td>
                         <td><a href="{{ route('toapp.admin.agents.edit', $agent) }}" class="btn btn-sm">Edit</a></td>
                     </tr>
                 @empty
-                    <tr><td colspan="7" class="text-center text-secondary py-4">No agents yet. <a href="{{ route('toapp.admin.agents.create') }}">Create the first agent</a></td></tr>
+                    <tr><td colspan="8" class="text-center text-secondary py-4">No agents yet. <a href="{{ route('toapp.admin.agents.create') }}">Create the first agent</a></td></tr>
                 @endforelse
             </tbody>
         </table>

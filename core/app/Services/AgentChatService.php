@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Events\AgentChat\AgentInboxUpdated;
 use App\Events\AgentChat\MessageSent;
+use App\Models\Agent;
 use App\Models\AgentConversation;
 use App\Models\AgentConversationAttachment;
 use App\Models\AgentConversationMessage;
@@ -37,10 +38,16 @@ class AgentChatService
 
         $message->load('attachments');
 
-        broadcast(new MessageSent($message))->toOthers();
+        try {
+            if (config('broadcasting.default') === 'pusher' && filled(config('broadcasting.connections.pusher.key'))) {
+                broadcast(new MessageSent($message))->toOthers();
 
-        if ($senderType === 'user') {
-            broadcast(new AgentInboxUpdated($message));
+                if ($senderType === 'user') {
+                    broadcast(new AgentInboxUpdated($message));
+                }
+            }
+        } catch (\Throwable $e) {
+            report($e);
         }
 
         return $message;
@@ -97,20 +104,24 @@ class AgentChatService
         }
     }
 
-    public function unreadCountForAgent(int $agentId): int
+    public function unreadCountForAgent(Agent|int $agent): int
     {
+        $agent = $agent instanceof Agent ? $agent : Agent::findOrFail($agent);
+
         return AgentConversationMessage::query()
-            ->whereHas('conversation', fn ($query) => $query->where('agent_id', $agentId))
+            ->whereHas('conversation', fn ($query) => $query->forAgentTerritory($agent))
             ->where('sender_type', 'user')
             ->whereNull('read_at')
             ->count();
     }
 
-    public function unreadCountsByConversation(int $agentId): Collection
+    public function unreadCountsByConversation(Agent|int $agent): Collection
     {
+        $agent = $agent instanceof Agent ? $agent : Agent::findOrFail($agent);
+
         return AgentConversationMessage::query()
             ->selectRaw('conversation_id, COUNT(*) as unread_count')
-            ->whereHas('conversation', fn ($query) => $query->where('agent_id', $agentId))
+            ->whereHas('conversation', fn ($query) => $query->forAgentTerritory($agent))
             ->where('sender_type', 'user')
             ->whereNull('read_at')
             ->groupBy('conversation_id')

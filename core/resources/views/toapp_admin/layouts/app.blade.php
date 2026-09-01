@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $pageTitle ?? 'Admin' }} - TOAPP</title>
     <link rel="shortcut icon" type="image/png" href="{{ siteFavicon() }}">
+    @include('partials.pwa_head', ['pwaName' => 'TOAPP Admin'])
     @include('partials.tabler_assets')
 </head>
-<body>
+<body class="has-portal-footer">
     @php $currentAdmin = auth('admin')->user(); @endphp
     <div class="page">
         @include('toapp_admin.partials.sidebar')
@@ -42,21 +43,39 @@
             <div class="page-body">
                 <div class="container-xl">
                     @if(session('status'))
-                        <div class="alert alert-success">{{ session('status') }}</div>
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            {{ session('status') }}
+                            <a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
+                        </div>
+                    @endif
+
+                    @if(session('error'))
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            {{ session('error') }}
+                            <a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
+                        </div>
                     @endif
 
                     @if($errors->any())
-                        <div class="alert alert-danger">{{ $errors->first() }}</div>
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            {{ $errors->first() }}
+                            <a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
+                        </div>
                     @endif
 
                     @yield('content')
+
+                    @include('partials.site_copyright', ['copyrightVariant' => 'portal'])
                 </div>
             </div>
         </div>
     </div>
 
+    @include('partials.cookie_consent')
+
     <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/js/tabler.min.js" defer></script>
     @stack('script-lib')
     @stack('scripts')
+    @include('partials.pwa_scripts')
 </body>
 </html>

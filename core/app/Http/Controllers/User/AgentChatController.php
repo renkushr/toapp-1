@@ -17,11 +17,29 @@ class AgentChatController extends Controller
     {
         $user = auth()->user();
 
-        abort_unless($user->agent_id, 404);
+        if (!$user->agent_id) {
+            return view('Template::user.agent_chat', [
+                'pageTitle' => 'My Agent',
+                'user' => $user,
+                'agent' => null,
+                'conversation' => null,
+                'messages' => collect(),
+                'pusherAuthEndpoint' => url('/broadcasting/auth'),
+            ]);
+        }
 
         $agent = $user->agent;
 
-        abort_unless($agent && (int) $agent->status === 1, 404);
+        if (!$agent || !(bool) $agent->status) {
+            return view('Template::user.agent_chat', [
+                'pageTitle' => 'My Agent',
+                'user' => $user,
+                'agent' => null,
+                'conversation' => null,
+                'messages' => collect(),
+                'pusherAuthEndpoint' => url('/broadcasting/auth'),
+            ]);
+        }
 
         $conversation = AgentConversation::findOrCreateFor($agent->id, $user->id);
 
@@ -30,6 +48,7 @@ class AgentChatController extends Controller
         $this->chatService->markReadForRecipient($conversation, 'user');
 
         return view('Template::user.agent_chat', [
+            'pageTitle' => 'My Agent',
             'user' => $user,
             'agent' => $agent,
             'conversation' => $conversation,

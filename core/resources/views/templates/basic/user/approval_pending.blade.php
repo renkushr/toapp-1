@@ -3,6 +3,11 @@
 @section('content')
     <div class="app-page">
         <div class="app-container">
+            @include($activeTemplate . 'partials.app_topbar', [
+                'backUrl' => route('user.logout'),
+                'brandTitle' => __('Account review'),
+            ])
+
             <section class="app-hero">
                 <span class="app-eyebrow">
                     <i class="las la-user-shield"></i>

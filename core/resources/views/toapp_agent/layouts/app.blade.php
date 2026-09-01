@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $pageTitle ?? 'Agent' }} - TOAPP</title>
     <link rel="shortcut icon" type="image/png" href="{{ siteFavicon() }}">
+    @include('partials.pwa_head', ['pwaName' => 'TOAPP Agent'])
     @include('partials.tabler_assets')
     @stack('styles')
 </head>
-<body>
+<body class="has-portal-footer">
     @php
         $currentAgent = auth('agent')->user();
         $chatUnread = app(\App\Services\AgentChatService::class)->unreadCountForAgent($currentAgent->id);
@@ -63,14 +64,19 @@
                     @endif
 
                     @yield('content')
+
+                    @include('partials.site_copyright', ['copyrightVariant' => 'portal'])
                 </div>
             </div>
         </div>
     </div>
 
+    @include('partials.cookie_consent')
+
     <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.4.0/dist/js/tabler.min.js" defer></script>
     @include('toapp_agent.partials.chat_notifications')
     @stack('script-lib')
     @stack('scripts')
+    @include('partials.pwa_scripts')
 </body>
 </html>

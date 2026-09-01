@@ -5,7 +5,10 @@
 @section('content')
     <div class="auth-surface">
         <div class="auth-shell">
-            <div class="auth-topbar auth-topbar--end">
+            <div class="auth-topbar">
+                <a class="auth-back" href="{{ route('home') }}" aria-label="@lang('Back to home')">
+                    <i class="las la-arrow-left"></i>
+                </a>
                 <a class="auth-link" href="{{ route('user.register') }}">@lang('Create account')</a>
             </div>
 
@@ -49,7 +52,7 @@
                         <div class="auth-field">
                             <div class="auth-label-row">
                                 <label class="auth-label" for="password-toggle">@lang('Password')</label>
-                                <a class="auth-link" href="{{ url('user/password/reset') }}">@lang('Forgot password?')</a>
+                                <a class="auth-link" href="{{ route('user.password.request') }}">@lang('Forgot password?')</a>
                             </div>
                             <div class="auth-password-wrap">
                                 <input
@@ -73,6 +76,8 @@
                             @lang('Login')
                         </button>
                     </form>
+
+                    @include($activeTemplate . 'partials.mobile_shortcut')
 
                     <p class="auth-footer-text">
                         @lang('New here?')

@@ -2,8 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use App\Constants\Status;
 use Closure;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class CheckStatus
 {
@@ -16,43 +17,73 @@ class CheckStatus
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::check()) {
-            $user = auth()->user();
-            if (in_array($user->approval_status, ['pending', 'rejected'], true)) {
-                if ($request->is('api/*')) {
-                    $notify[] = $user->approval_status === 'pending'
-                        ? 'Your account is waiting for admin approval.'
-                        : 'Your account was rejected. Please contact support.';
+        if (!Auth::check()) {
+            abort(403);
+        }
 
-                    return response()->json([
-                        'remark' => 'approval_required',
-                        'status' => 'error',
-                        'message' => ['error' => $notify],
-                        'data' => ['user' => $user],
-                    ], 403);
-                }
+        $user = auth()->user();
 
+        if (!$user->status || $this->needsVerification($user)) {
+            if ($request->is('api/*')) {
+                $notify[] = $user->status
+                    ? 'You need to verify your account first.'
+                    : 'Your account has been suspended.';
+
+                return response()->json([
+                    'remark' => $user->status ? 'unverified' : 'banned',
+                    'status' => 'error',
+                    'message' => ['error' => $notify],
+                    'data' => ['user' => $user],
+                ], 403);
+            }
+
+            if (!$this->onVerificationRoute($request)) {
+                return to_route('user.authorization');
+            }
+
+            return $next($request);
+        }
+
+        if (gs('user_approval') && in_array($user->approval_status, ['pending', 'rejected'], true)) {
+            if ($request->is('api/*')) {
+                $notify[] = $user->approval_status === 'pending'
+                    ? 'Your account is waiting for admin approval.'
+                    : 'Your account was rejected. Please contact support.';
+
+                return response()->json([
+                    'remark' => 'approval_required',
+                    'status' => 'error',
+                    'message' => ['error' => $notify],
+                    'data' => ['user' => $user],
+                ], 403);
+            }
+
+            if (!$request->routeIs('user.approval.pending', 'user.logout')) {
                 return to_route('user.approval.pending');
             }
 
-            if (true) {
-                return $next($request);
-            } else {
-                if ($request->is('api/*')) {
-                    $notify[] = 'You need to verify your account first.';
-                    return response()->json([
-                        'remark'=>'unverified',
-                        'status'=>'error',
-                        'message'=>['error'=>$notify],
-                        'data'=>[
-                            'user'=>$user
-                        ],
-                    ]);
-                }else{
-                    return to_route('user.authorization');
-                }
-            }
+            return $next($request);
         }
-        abort(403);
+
+        return $next($request);
+    }
+
+    protected function needsVerification($user): bool
+    {
+        return (gs('ev') && !$user->ev)
+            || (gs('sv') && !$user->sv)
+            || ($user->ts == Status::VERIFIED && !$user->tv);
+    }
+
+    protected function onVerificationRoute($request): bool
+    {
+        return $request->routeIs(
+            'user.authorization',
+            'user.logout',
+            'user.send.verify.code',
+            'user.verify.email',
+            'user.verify.mobile',
+            'user.2fa.verify'
+        );
     }
 }

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\CheckInsure;
 
+use App\Models\AdminNotification;
 use App\Models\AgentZipCode;
 use App\Models\InsuranceApplication;
 use App\Models\Plan;
+use App\Models\User;
 use App\Services\AgentAssignmentService;
 use App\Services\PlanMatchingService;
 use App\Support\UsZip;
@@ -46,11 +48,6 @@ class QuoteController extends PortalController
         $birthday = Carbon::createFromFormat('m/d/Y', $data['birthday'])->format('Y-m-d');
 
         $zip = UsZip::normalize($data['zipcode']);
-        $agentZip = AgentZipCode::where('zip_code', $zip)->whereHas('agent', fn ($q) => $q->where('status', true))->first();
-
-        if (!$agentZip) {
-            return back()->withErrors(['zipcode' => 'No agent is available for this ZIP code yet.'])->withInput();
-        }
 
         $user->sex = $data['sex'];
         $user->birthday = $birthday;
@@ -64,6 +61,10 @@ class QuoteController extends PortalController
                 'zipcode' => $zip,
             ],
         ]);
+
+        if (!AgentZipCode::where('zip_code', $zip)->whereHas('agent', fn ($q) => $q->where('status', true))->exists()) {
+            session()->flash('checkinsure_no_agent', true);
+        }
 
         return redirect()->route('checkinsure.survey');
     }
@@ -101,6 +102,11 @@ class QuoteController extends PortalController
             'pay_type' => ['required', 'in:month,year'],
             'product_category' => ['required', 'string', 'in:' . implode(',', PlanMatchingService::PRODUCT_CATEGORIES)],
             'price_range' => ['nullable', 'integer', 'min:1', 'max:8'],
+            'coverage_length' => [
+                $request->input('product_category') === 'Term Life' ? 'required' : 'nullable',
+                'integer',
+                'in:' . implode(',', $this->coverageLengthYears()),
+            ],
         ]);
 
         $productTypes = collect($this->matcher->productTypesForPortal($this->portal()))
@@ -124,12 +130,21 @@ class QuoteController extends PortalController
             'pay_type' => $data['pay_type'],
             'product_category' => $data['product_category'],
             'price_range' => (int) ($data['price_range'] ?? 1),
+            'coverage_length' => $data['product_category'] === 'Term Life' ? (int) $data['coverage_length'] : null,
         ]);
 
-        $application?->update(array_merge($criteria, [
+        $application?->update([
+            'sex' => $criteria['sex'],
+            'birthday' => $criteria['birthday'],
             'zipcode' => $profileStep['zipcode'],
+            'chronic_disease' => $criteria['chronic_disease'],
+            'smoking' => $criteria['smoking'],
+            'health' => $criteria['health'],
+            'pay_type' => $criteria['pay_type'],
+            'price_range' => $criteria['price_range'],
+            'coverage_length' => $criteria['coverage_length'],
             'status' => InsuranceApplication::STATUS_QUOTED,
-        ]));
+        ]);
 
         session(['checkinsure_criteria' => $criteria]);
 
@@ -191,17 +206,20 @@ class QuoteController extends PortalController
         $application = $this->applicationFor($user);
         $range = (int) ($criteria['price_range'] ?? 1);
         $payType = ($criteria['pay_type'] ?? 'year') === 'month' ? 'month' : 'year';
+        $coverageLength = isset($criteria['coverage_length']) ? (int) $criteria['coverage_length'] : null;
 
         $application?->update([
             'plan_id' => $plan->id,
-            'status' => InsuranceApplication::STATUS_PLAN_SELECTED,
+            'status' => InsuranceApplication::STATUS_CHATTING,
             'quoted_monthly' => $plan->monthlyPriceForRange($range),
             'quoted_annual' => $plan->annualPriceForRange($range),
             'pay_type' => $payType,
             'price_range' => $range,
+            'coverage_length' => $coverageLength,
+            'terms_accepted_at' => now(),
         ]);
 
-        return redirect()->route('checkinsure.terms', $application);
+        return $this->connectToAgentOrWaiting($application, $user);
     }
 
     public function terms(InsuranceApplication $application)
@@ -226,23 +244,44 @@ class QuoteController extends PortalController
         $zip = UsZip::normalize($user->zipcode);
         $agentZip = AgentZipCode::where('zip_code', $zip)->whereHas('agent', fn ($q) => $q->where('status', true))->first();
 
-        if (!$agentZip) {
-            return back()->withErrors(['accept' => 'No agent available for your ZIP code.']);
+        if ($agentZip) {
+            $user->agent_id = $agentZip->agent_id;
+            $user->agent_license_no = $agentZip->agent->license_no;
+            $user->save();
+
+            $application->update([
+                'agent_id' => $agentZip->agent_id,
+                'status' => InsuranceApplication::STATUS_CHATTING,
+                'terms_accepted_at' => now(),
+                'chat_started_at' => now(),
+            ]);
+
+            return redirect()->route('checkinsure.chat', $application)
+                ->with('status', 'You are now connected with your agent. Payment happens outside this system.');
         }
 
-        $user->agent_id = $agentZip->agent_id;
-        $user->agent_license_no = $agentZip->agent->license_no;
-        $user->save();
-
         $application->update([
-            'agent_id' => $agentZip->agent_id,
-            'status' => InsuranceApplication::STATUS_CHATTING,
+            'status' => InsuranceApplication::STATUS_TERMS_ACCEPTED,
             'terms_accepted_at' => now(),
-            'chat_started_at' => now(),
         ]);
 
-        return redirect()->route('checkinsure.chat', $application)
-            ->with('status', 'You are now connected with your agent. Payment happens outside this system.');
+        $this->notifyAdminUnassignedUser($user);
+
+        return redirect()->route('checkinsure.waiting_agent', $application)
+            ->with('status', 'Your application is saved. We will connect you with an agent for your ZIP code soon.');
+    }
+
+    public function waitingAgent(InsuranceApplication $application)
+    {
+        $this->authorizeApplication($application);
+        abort_unless($application->status === InsuranceApplication::STATUS_TERMS_ACCEPTED, 404);
+
+        return view('check_insure.waiting_agent', [
+            'pageTitle' => 'Waiting for Agent',
+            'portal' => $this->portal(),
+            'application' => $application,
+            'user' => Auth::user(),
+        ]);
     }
 
     public function chat(InsuranceApplication $application)
@@ -310,5 +349,53 @@ class QuoteController extends PortalController
     {
         abort_unless((int) $application->user_id === (int) Auth::id(), 403);
         abort_unless((int) $application->third_party_portal_id === (int) $this->portal()->id, 403);
+    }
+
+    protected function notifyAdminUnassignedUser(User $user): void
+    {
+        if ($user->agent_id || blank($user->zipcode)) {
+            return;
+        }
+
+        $notice = new AdminNotification();
+        $notice->user_id = $user->id;
+        $notice->title = 'Customer without agent coverage (ZIP code ' . $user->zipcode . ')';
+        $notice->click_url = adminPortalUrl('users/' . $user->id);
+        $notice->save();
+    }
+
+    protected function coverageLengthYears(): array
+    {
+        return [10, 15, 20, 25, 30];
+    }
+
+    protected function connectToAgentOrWaiting(InsuranceApplication $application, User $user)
+    {
+        $zip = UsZip::normalize($user->zipcode);
+        $agentZip = AgentZipCode::where('zip_code', $zip)->whereHas('agent', fn ($q) => $q->where('status', true))->first();
+
+        if ($agentZip) {
+            $user->agent_id = $agentZip->agent_id;
+            $user->agent_license_no = $agentZip->agent->license_no;
+            $user->save();
+
+            $application->update([
+                'agent_id' => $agentZip->agent_id,
+                'status' => InsuranceApplication::STATUS_CHATTING,
+                'chat_started_at' => $application->chat_started_at ?: now(),
+            ]);
+
+            return redirect()->route('checkinsure.chat', $application)
+                ->with('status', 'You are now connected with your agent. Payment happens outside this system.');
+        }
+
+        $application->update([
+            'status' => InsuranceApplication::STATUS_TERMS_ACCEPTED,
+        ]);
+
+        $this->notifyAdminUnassignedUser($user);
+
+        return redirect()->route('checkinsure.waiting_agent', $application)
+            ->with('status', 'Your application is saved. We will connect you with an agent for your ZIP code soon.');
     }
 }

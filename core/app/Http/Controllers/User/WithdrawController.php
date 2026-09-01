@@ -9,6 +9,7 @@ use App\Models\AdminNotification;
 use App\Models\Transaction;
 use App\Models\Withdrawal;
 use App\Models\WithdrawMethod;
+use App\Services\WithdrawBalanceService;
 use Illuminate\Http\Request;
 
 class WithdrawController extends Controller
@@ -44,16 +45,19 @@ class WithdrawController extends Controller
         ];
     }
 
-    public function withdrawMoney()
+    public function withdrawMoney(WithdrawBalanceService $withdrawBalance)
     {
+        $user = auth()->user();
         $withdrawMethod = WithdrawMethod::active()->get();
         $pageTitle = 'Withdraw Money';
         $paypal = WithdrawMethod::active()->where('id','=',1)->get();
         $bank = WithdrawMethod::active()->where('id','=',54)->get();
-        return view('Template::user.withdraw.methods', compact('pageTitle','withdrawMethod','paypal','bank'));
+        $withdrawSummary = $withdrawBalance->summaryFor($user);
+
+        return view('Template::user.withdraw.methods', compact('pageTitle','withdrawMethod','paypal','bank', 'withdrawSummary'));
     }
 
-    public function withdrawStore(Request $request)
+    public function withdrawStore(Request $request, WithdrawBalanceService $withdrawBalance)
     {
         $request->validate([
             'method_code' => 'required',
@@ -61,6 +65,13 @@ class WithdrawController extends Controller
         ]);
         $method = WithdrawMethod::where('id', $request->method_code)->active()->firstOrFail();
         $user = auth()->user();
+
+        $eligibility = $withdrawBalance->canWithdraw($user, (float) $request->amount);
+        if (!$eligibility['ok']) {
+            $notify[] = ['error', $eligibility['message']];
+            return back()->withNotify($notify)->withInput($request->all());
+        }
+
         if ($request->amount < $method->min_limit) {
             $notify[] = ['error', 'Your requested amount is smaller than minimum amount'];
             return back()->withNotify($notify)->withInput($request->all());
@@ -111,7 +122,7 @@ class WithdrawController extends Controller
 
 
 
-    public function withdrawSubmit(Request $request)
+    public function withdrawSubmit(Request $request, WithdrawBalanceService $withdrawBalance)
     {
         $withdraw = Withdrawal::with('method','user')->where('trx', session()->get('wtrx'))->where('status', Status::PAYMENT_INITIATE)->orderBy('id','desc')->firstOrFail();
 
@@ -151,8 +162,9 @@ class WithdrawController extends Controller
             }
         }
 
-        if ($withdraw->amount > $user->balance) {
-            $notify[] = ['error', 'Your request amount is larger then your current balance.'];
+        $eligibility = $withdrawBalance->canWithdraw($user, (float) $withdraw->amount);
+        if (!$eligibility['ok']) {
+            $notify[] = ['error', $eligibility['message']];
             return back()->withNotify($notify)->withInput($request->all());
         }
 

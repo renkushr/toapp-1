@@ -1092,6 +1092,18 @@ video {
     margin-bottom: 16px;
 }
 
+.ta-tabs.ta-tabs--scroll {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.ta-tabs.ta-tabs--scroll a {
+    flex: 0 0 auto;
+    white-space: nowrap;
+}
+
 .ta-tabs a {
     display: inline-flex;
     align-items: center;

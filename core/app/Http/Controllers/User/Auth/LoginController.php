@@ -145,8 +145,13 @@ class LoginController extends Controller
         $userLogin->os = @$userAgent['os_platform'];
         $userLogin->save();
 
-        // $redirection = Intended::getRedirection();
-        //  return $redirection ? redirect($redirection) : to_route('user.login');
+        if (gs('ev') && !$user->ev) {
+            return to_route('user.authorization');
+        }
+
+        if (gs('user_approval') && in_array($user->approval_status, ['pending', 'rejected'], true)) {
+            return to_route('user.approval.pending');
+        }
     }
 
 

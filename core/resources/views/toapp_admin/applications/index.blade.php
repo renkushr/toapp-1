@@ -25,7 +25,7 @@
     </form>
     <div class="table-responsive">
         <table class="table table-vcenter card-table">
-            <thead><tr><th>Ref</th><th>Customer</th><th>Product</th><th>ZIP</th><th>Agent</th><th>Status</th><th class="w-1"></th></tr></thead>
+            <thead><tr><th>Ref</th><th>Customer</th><th>Product</th><th>ZIP code</th><th>Agent</th><th>Status</th><th class="w-1"></th></tr></thead>
             <tbody>
                 @forelse($applications as $app)
                     <tr>

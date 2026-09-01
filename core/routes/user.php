@@ -23,17 +23,30 @@ Route::namespace('User\Auth')->name('user.')->group(function () {
         
 
       
-        Route::controller('ForgotPasswordController')->prefix('password')->name('password.')->group(function () {
-        Route::get('reset', 'showLinkRequestForm')->name('request');
-            
-            Route::post('email', 'sendResetCodeEmail')->name('email');
-            Route::get('code-verify', 'codeVerify')->name('code.verify');
-            Route::post('verify-code', 'verifyCode')->name('verify.code');
+        // Avoid URLs with "password/reset" — some WAFs / proxies block them with 403.
+        Route::controller('ForgotPasswordController')->prefix('account-recovery')->name('password.')->group(function () {
+            Route::get('/', 'showLinkRequestForm')->name('request');
+            Route::redirect('/email', '/user/account-recovery', 301);
+            Route::post('/email', 'sendResetCodeEmail')->name('email');
+            Route::get('/code-verify', 'codeVerify')->name('code.verify');
+            Route::post('/verify-code', 'verifyCode')->name('verify.code');
         });
 
-        Route::controller('ResetPasswordController')->group(function () {
-            Route::post('password/reset', 'reset')->name('password.update');
-            Route::get('password/reset/{token}', 'showResetForm')->name('password.reset');
+        Route::controller('ResetPasswordController')->prefix('account-recovery')->name('password.')->group(function () {
+            Route::post('/update', 'reset')->name('update');
+            Route::get('/new/{token}', 'showResetForm')->name('reset');
+        });
+
+        Route::redirect('password/reset', '/user/account-recovery', 301);
+        Route::redirect('forgot-password', '/user/account-recovery', 301);
+        Route::get('password/reset/{token}', function (string $token) {
+            return redirect()->route('user.password.reset', $token);
+        });
+        Route::get('forgot-password/{token}', function (string $token) {
+            return redirect()->route('user.password.reset', $token);
+        });
+        Route::get('forgot-password/new/{token}', function (string $token) {
+            return redirect()->route('user.password.reset', $token);
         });
 
         Route::controller('SocialiteController')->group(function () {
@@ -62,7 +75,7 @@ Route::middleware('auth')->name('user.')->group(function () {
     //authorization
     Route::middleware('registration.complete')->namespace('User')->controller('AuthorizationController')->group(function () {
         Route::get('authorization', 'authorizeForm')->name('authorization');
-        Route::get('resend-verify/{type}', 'sendVerifyCode')->name('send.verify.code');
+        Route::match(['get', 'post'], 'resend-verify/{type}', 'sendVerifyCode')->name('send.verify.code');
         Route::post('verify-email', 'emailVerification')->name('verify.email');
         Route::post('verify-mobile', 'mobileVerification')->name('verify.mobile');
         Route::post('verify-g2fa', 'g2faVerification')->name('2fa.verify');
@@ -98,11 +111,7 @@ Route::middleware('auth')->name('user.')->group(function () {
                    //Support
                 Route::get('call', 'call')->name('call');
 
-                //Plans
-                Route::get('/plans', 'plans')->name('plans');
-
                  //withdraw
-
                  Route::get('withdrawsuccess', 'withdrawSuccess')->name('withdrawsuccess');
                  Route::get('withdrawunsuccess', 'withdrawUnsuccess')->name('withdrawunsuccess');
 
@@ -111,6 +120,25 @@ Route::middleware('auth')->name('user.')->group(function () {
                 
                 Route::get('referrals', 'referrals')->name('referrals');
                 Route::post('level/count', 'levelCount')->name('level.count');
+            });
+
+            // Plans — insurance quote flow (same as Check Insure)
+            Route::controller('InsuranceQuoteController')->group(function () {
+                Route::get('/plans', 'entry')->name('plans');
+                Route::prefix('plans')->name('plans.')->group(function () {
+                    Route::get('/profile', 'profile')->name('profile');
+                    Route::post('/profile', 'saveProfile')->name('profile.submit');
+                    Route::get('/survey', 'survey')->name('survey');
+                    Route::post('/survey', 'saveSurvey')->name('survey.submit');
+                    Route::get('/results', 'results')->name('results');
+                    Route::get('/products/{plan}', 'showPlan')->name('products.show');
+                    Route::post('/products/{plan}/select', 'selectPlan')->name('products.select');
+                    Route::get('/applications/{application}/terms', 'terms')->name('terms');
+                    Route::post('/applications/{application}/terms', 'confirmTerms')->name('terms.confirm');
+                    Route::get('/applications/{application}/waiting-agent', 'waiting')->name('waiting');
+                    Route::get('/applications/{application}/chat', 'chat')->name('chat');
+                    Route::post('/applications/{application}/chat', 'sendChat')->name('chat.send');
+                });
             });
 
             Route::controller('AgentChatController')->group(function () {

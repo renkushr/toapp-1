@@ -1,19 +1,7 @@
 @extends('toapp_admin.layouts.app')
 
 @section('content')
-@php
-    $admin = auth('admin')->user();
-@endphp
-<section class="ta-tabs">
-    @if($admin?->canAccess('reports'))
-        <a href="{{ route('toapp.admin.reports.transactions') }}">Transactions</a>
-    @endif
-    <a class="active" href="{{ route('toapp.admin.reports.investments') }}">Investments</a>
-    @if($admin?->canAccess('reports'))
-        <a href="{{ route('toapp.admin.reports.logins') }}">Login History</a>
-        <a href="{{ route('toapp.admin.reports.audits') }}">Audit Logs</a>
-    @endif
-</section>
+@include('toapp_admin.reports.partials.tabs')
 
 <div class="card">
     <div class="card-header portal-list-header">

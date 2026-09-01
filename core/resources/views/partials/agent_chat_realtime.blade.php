@@ -33,7 +33,7 @@
     function renderAttachments(attachments, variant) {
         if (!attachments || !attachments.length) return '';
 
-        const cssVariant = variant || (theme === 'checkinsure' ? 'ci' : 'ta');
+        const cssVariant = variant || (theme === 'checkinsure' ? 'ci' : (theme === 'user' ? 'app' : 'ta'));
         let html = '<div class="chat-attachments ' + cssVariant + '">';
 
         attachments.forEach(function (attachment) {

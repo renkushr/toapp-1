@@ -313,6 +313,28 @@
                 pointer-events: none;
             }
 
+            .auth-captcha .form-group {
+                margin-bottom: 0;
+            }
+
+            .auth-captcha .form-label,
+            .auth-captcha .auth-label {
+                color: #1f2a3f;
+                font-size: 14px;
+                font-weight: 600;
+                margin-bottom: 8px;
+            }
+
+            .auth-captcha .form-control,
+            .auth-captcha .auth-control {
+                width: 100%;
+                min-height: 54px;
+                padding: 0 18px;
+                border: 1px solid #d9e8ef;
+                border-radius: 8px;
+                background: #fff;
+            }
+
             .auth-note {
                 display: flex;
                 gap: 10px;

@@ -5,6 +5,16 @@
 
     RewriteEngine On
 
+    <IfModule mod_mime.c>
+        AddType application/manifest+json .webmanifest
+    </IfModule>
+
+    # Route Check Insure Laravel app (physical check-insure/ folder also holds static assets)
+    RewriteRule ^check-insure/?$ index.php [L]
+    RewriteCond %{REQUEST_URI} ^/check-insure/
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]

@@ -146,7 +146,7 @@ class PaymentController extends Controller
                 $transaction->post_balance = getAmount($referral->balance);
                 $transaction->charge       = 0;
                 $transaction->trx_type     = '+';
-                $transaction->details      = 'Deposit Commission from ' . $user->username;
+                $transaction->details      = 'Referral fee from ' . $user->username . ' deposit';
                 $transaction->trx          = $deposit->trx;
                 $transaction->save();
             }

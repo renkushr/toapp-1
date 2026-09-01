@@ -12,11 +12,15 @@
                 <a class="auth-link" href="{{ route('user.login') }}">@lang('Login')</a>
             </div>
 
+            <div class="auth-brand">
+                <img src="{{ asset('assets/global/img/tologo.png') }}" alt="To-app logo">
+            </div>
+
             <div class="auth-card">
                 <div class="auth-card__header">
                     <span class="auth-eyebrow">@lang('Account recovery')</span>
-                    <h1 class="auth-title">@lang('Reset password')</h1>
-                    <p class="auth-copy">@lang('Enter your registered email or username and we will send the recovery code.')</p>
+                    <h1 class="auth-title">@lang('Forgot password')</h1>
+                    <p class="auth-copy">@lang('Enter your registered email or username. We will send a 6-digit recovery code to your email.')</p>
                 </div>
 
                 <div class="auth-card__body">
@@ -42,17 +46,24 @@
                                 placeholder="@lang('Email or username')"
                                 autocomplete="username"
                                 required
-                                autofocus="off"
+                                autofocus
                             >
-                            <p class="auth-help">@lang('Check your inbox and spam folder after submitting.')</p>
+                            <p class="auth-help">@lang('After submitting, check your inbox and spam folder for the code.')</p>
                         </div>
 
-                        @include('partials.captcha')
+                        <div class="auth-field auth-captcha">
+                            @include('partials.captcha')
+                        </div>
 
                         <button type="submit" class="auth-submit" data-loading-text="@lang('Sending code...')">
                             @lang('Send Recovery Code')
                         </button>
                     </form>
+
+                    <p class="auth-footer-text">
+                        @lang('Remembered it?')
+                        <a class="auth-link" href="{{ route('user.login') }}">@lang('Back to login')</a>
+                    </p>
                 </div>
             </div>
         </div>

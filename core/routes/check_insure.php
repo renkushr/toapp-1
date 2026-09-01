@@ -26,6 +26,7 @@ Route::name('checkinsure.')->group(function () {
         Route::post('/plans/{plan}/select', [QuoteController::class, 'selectPlan'])->name('plans.select');
         Route::get('/applications/{application}/terms', [QuoteController::class, 'terms'])->name('terms');
         Route::post('/applications/{application}/terms', [QuoteController::class, 'confirmTerms'])->name('terms.confirm');
+        Route::get('/applications/{application}/waiting-agent', [QuoteController::class, 'waitingAgent'])->name('waiting_agent');
         Route::get('/applications/{application}/chat', [QuoteController::class, 'chat'])->name('chat');
         Route::post('/applications/{application}/chat', [QuoteController::class, 'sendChat'])->name('chat.send');
     });

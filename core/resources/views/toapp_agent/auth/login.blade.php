@@ -10,7 +10,7 @@
                     'variant' => 'light',
                 ])
             </div>
-            <h1>Serve clients in your ZIP coverage with clarity.</h1>
+            <h1>Serve clients in your ZIP code coverage with clarity.</h1>
             <p>Track applications, chat privately, and confirm policies after offline payment — all in one place.</p>
         </div>
     </section>

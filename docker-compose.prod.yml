@@ -1,6 +1,19 @@
 name: toapp-prod
 
 services:
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    depends_on:
+      - app
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
   app:
     build:
       context: .
@@ -11,8 +24,8 @@ services:
         condition: service_healthy
     env_file:
       - .env.production
-    ports:
-      - "80:80"
+    expose:
+      - "80"
     volumes:
       - app_storage:/var/www/html/core/storage
       - app_cache:/var/www/html/core/bootstrap/cache
@@ -39,3 +52,5 @@ volumes:
   app_storage:
   app_cache:
   db_data:
+  caddy_data:
+  caddy_config:

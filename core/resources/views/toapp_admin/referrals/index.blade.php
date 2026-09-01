@@ -3,9 +3,9 @@
 @section('content')
 <div class="row row-deck row-cards mb-4">
     @foreach([
-        ['Total paid', number_format((float) $stats['total_paid'], 2), 'Filtered commission value'],
+        ['Total paid', number_format((float) $stats['total_paid'], 2), 'Filtered referral fee value'],
         ['Payout entries', number_format($stats['commission_count']), 'Ledger records'],
-        ['Earners', number_format($stats['earner_count']), 'Members who received commission'],
+        ['Earners', number_format($stats['earner_count']), 'Members who received referral fee'],
         ['Source buyers', number_format($stats['source_count']), 'Members who triggered payouts'],
     ] as [$label, $value, $hint])
         <div class="col-sm-6 col-lg-3">
@@ -52,7 +52,7 @@
 
 <div class="card">
     <div class="card-header portal-list-header">
-        <h3 class="card-title">Commission payouts</h3>
+        <h3 class="card-title">Referral fee payouts</h3>
     </div>
     <form class="portal-filter-bar" method="GET">
         <div class="portal-filter-field">
@@ -93,7 +93,7 @@
                         <td class="text-secondary">{{ optional($commission->paid_at ?? $commission->created_at)->format('M d, Y H:i') }}</td>
                     </tr>
                 @empty
-                    <tr><td colspan="7" class="text-center text-secondary py-4">No referral commissions paid yet.</td></tr>
+                    <tr><td colspan="7" class="text-center text-secondary py-4">No referral fees paid yet.</td></tr>
                 @endforelse
             </tbody>
         </table>
@@ -105,7 +105,7 @@
 
 @include('partials.portal_help_modal', [
     'id' => 'referralHelpModal',
-    'title' => 'How referral commission works',
+    'title' => 'How referral fee works',
     'partial' => 'toapp_admin.referrals.partials.help',
 ])
 @endsection

@@ -35,7 +35,18 @@
             <div class="card-body">
                 <div class="subheader">Referral Paid</div>
                 <div class="h1 mb-1 text-success">{{ number_format($stats['referral_paid'], 2) }}</div>
-                <div class="text-secondary">Commission ledger</div>
+                <div class="text-secondary">Referral fee ledger</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="subheader">No Agent Coverage</div>
+                <div class="h1 mb-1 text-warning">{{ number_format($stats['unassigned_users']) }}</div>
+                <div class="text-secondary">
+                    <a href="{{ route('toapp.admin.users.index', ['agent' => 'unassigned']) }}">View customers</a>
+                </div>
             </div>
         </div>
     </div>

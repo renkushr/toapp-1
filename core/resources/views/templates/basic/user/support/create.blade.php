@@ -4,12 +4,12 @@
 <div class="app-page">
     <div class="app-container">
         <div class="app-topbar">
-            <a class="app-icon-btn" href="{{ route('ticket.index') }}" aria-label="@lang('Back to support tickets')">
+            <a class="app-icon-btn" href="{{ route('ticket.index') }}" aria-label="@lang('Back to chat')">
                 <i class="las la-arrow-left"></i>
             </a>
             <a class="app-brand" href="{{ route('user.home') }}">
                 <img src="{{ siteLogo() }}" alt="To-app">
-                <span>@lang('Support')</span>
+                <span>@lang('Chat')</span>
             </a>
             <a class="app-icon-btn" href="{{ route('user.setting') }}" aria-label="@lang('Settings')">
                 <i class="las la-cog"></i>
@@ -17,14 +17,14 @@
         </div>
 
         <section class="app-hero">
-            <span class="app-eyebrow"><i class="las la-headset"></i> @lang('New support ticket')</span>
+            <span class="app-eyebrow"><i class="las la-comments"></i> @lang('New chat')</span>
             <h1>@lang('Tell us what you need help with.')</h1>
             <p>@lang('Share the subject, priority, and details so our team can respond with the right next step.')</p>
         </section>
 
         <div class="app-section-title">
             <div>
-                <h2>@lang('Open ticket')</h2>
+                <h2>@lang('Start chat')</h2>
                 <p>@lang('You can attach up to 5 files if screenshots or documents help explain the issue.')</p>
             </div>
         </div>
@@ -68,7 +68,7 @@
 
                 <button class="app-btn app-btn-primary w-100" type="submit">
                     <i class="las la-paper-plane"></i>
-                    @lang('Submit ticket')
+                    @lang('Start chat')
                 </button>
             </form>
         </div>

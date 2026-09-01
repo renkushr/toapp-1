@@ -1,51 +1,97 @@
-@extends($activeTemplate .'layouts.frontend')
+@extends($activeTemplate.'layouts.frontend')
+
+@include($activeTemplate . 'partials.auth_ui')
+
 @section('content')
-<section class="py-5">
-<div class="container">
-    <div class="d-flex justify-content-center">
-            <div class="card custom--card">
-            <div class="verification-code-wrapper">
-                <div class="verification-area">
-                    <form action="{{route('user.verify.email')}}" method="POST" class="submit-form">
+    @php
+        $cooldownSeconds = max(0, (int) optional($user->ver_code_send_at)->addMinutes(2)->timestamp - time());
+    @endphp
+    <div class="auth-surface">
+        <div class="auth-shell">
+            <div class="auth-topbar">
+                <a class="auth-back" href="{{ route('user.logout') }}" aria-label="@lang('Back')">
+                    <i class="las la-arrow-left"></i>
+                </a>
+                <a class="auth-link" href="{{ route('user.logout') }}">@lang('Log out')</a>
+            </div>
+
+            <div class="auth-brand">
+                <img src="{{ asset('assets/global/img/tologo.png') }}" alt="To-app logo">
+            </div>
+
+            <div class="auth-card">
+                <div class="auth-card__header">
+                    <span class="auth-eyebrow">@lang('Email verification')</span>
+                    <h1 class="auth-title">@lang('Enter your verification code')</h1>
+                    <p class="auth-copy">
+                        @lang('We sent a 6-digit code to')
+                        <strong>{{ showEmailAddress($user->email) }}</strong>
+                    </p>
+                </div>
+
+                <div class="auth-card__body">
+                    @if ($errors->any())
+                        <div class="auth-error-summary">
+                            @foreach ($errors->all() as $error)
+                                <div>{{ __($error) }}</div>
+                            @endforeach
+                        </div>
+                    @endif
+
+                    <form method="POST" action="{{ route('user.verify.email') }}" class="auth-form auth-enhanced-form submit-form">
                         @csrf
-                        <p class="verification-text border-bottom">@lang('A 6 digit verification code sent to your email address'):  {{ showEmailAddress(auth()->user()->email) }}</p>
-    
-                        @include($activeTemplate.'partials.verification_code')
-    
-                        <div class="mb-3">
-                            <button type="submit" class="btn btn--base w-100">@lang('Submit')</button>
+
+                        <div class="auth-field">
+                            @include($activeTemplate.'partials.verification_code')
+                            <p class="auth-help">@lang('Check junk or spam if the email does not arrive within a few minutes.')</p>
                         </div>
-                        <div class="mb-3">
-                            <p>
-                                @lang('If you don\'t get any code'), <span class="countdown-wrapper">@lang('try
-                                    again after') <span id="countdown" class="fw-bold">--</span>
-                                    @lang('seconds')</span> <a href="{{route('user.send.verify.code', 'email')}}"
-                                    class="try-again-link d-none"> @lang('Try again')</a>
-                            </p>
-                            <a href="{{ route('user.logout') }}">@lang('Logout')</a>
-                        </div>
+
+                        <button type="submit" class="auth-submit" data-loading-text="@lang('Verifying...')">
+                            @lang('Verify Email')
+                        </button>
                     </form>
+
+                    <div class="auth-footer-text mt-3">
+                        <p class="mb-2">@lang('Did not get a code?')</p>
+                        <form method="POST" action="{{ route('user.send.verify.code', 'email') }}" id="resend-form">
+                            @csrf
+                            <button type="submit" class="auth-link border-0 bg-transparent p-0 resend-btn" id="resend-btn" @if($cooldownSeconds > 0) disabled @endif>
+                                @lang('Resend code')
+                            </button>
+                            <span id="resend-countdown" class="text-muted ms-1 @if($cooldownSeconds <= 0) d-none @endif">
+                                (@lang('try again in') <span id="countdown">{{ $cooldownSeconds }}</span>s)
+                            </span>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-</section>
 @endsection
-
-
 
 @push('script')
 <script>
-    var distance =Number("{{@$user->ver_code_send_at->addMinutes(2)->timestamp-time()}}");
-        var x = setInterval(function() {
-            distance--;
-            document.getElementById("countdown").innerHTML = distance;
-            if (distance <= 0) {
-                clearInterval(x);
-                document.querySelector('.countdown-wrapper').classList.add('d-none');
-                document.querySelector('.try-again-link').classList.remove('d-none');
+(function() {
+    var distance = Number(@json($cooldownSeconds));
+    var countdownEl = document.getElementById('countdown');
+    var countdownWrap = document.getElementById('resend-countdown');
+    var resendBtn = document.getElementById('resend-btn');
+
+    if (distance <= 0 || !countdownEl || !resendBtn) {
+        return;
+    }
+
+    var timer = setInterval(function() {
+        distance--;
+        countdownEl.textContent = distance;
+        if (distance <= 0) {
+            clearInterval(timer);
+            if (countdownWrap) {
+                countdownWrap.classList.add('d-none');
             }
-        }, 1000);
+            resendBtn.disabled = false;
+        }
+    }, 1000);
+})();
 </script>
 @endpush

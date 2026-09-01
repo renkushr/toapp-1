@@ -24,7 +24,7 @@
     <div class="col-sm-4">
         <div class="card portal-stat-card">
             <div class="card-body">
-                <div class="subheader">US ZIP</div>
+                <div class="subheader">US ZIP code</div>
                 <div class="h2 mb-1">{{ $user->zipcode ?: '—' }}</div>
                 <div class="text-secondary">Service territory</div>
             </div>
@@ -60,7 +60,7 @@
         @foreach([
             ['Email', $user->email],
             ['Phone', $user->mobile ?: '—'],
-            ['US ZIP', $user->zipcode ?: '—'],
+            ['US ZIP code', $user->zipcode ?: '—'],
             ['Agent license used', $user->agent_license_no ?: '—'],
             ['Approval', ucfirst($approvalStatus)],
             ['Referral code', $user->refno ?: '—'],

@@ -26,17 +26,55 @@
 
                 <div class="app-pills">
                     <span class="app-pill">
-                        <i class="las la-coins"></i>
-                        @lang('Available') {{ showAmount(auth()->user()->balance) }}
+                        <i class="las la-check-circle"></i>
+                        @lang('Ready to withdraw') {{ showAmount($withdrawSummary['withdrawable_amount']) }}
                     </span>
                     <span class="app-pill">
-                        <i class="las la-shield-alt"></i>
-                        @lang('Manual review protected')
+                        <i class="las la-hourglass-half"></i>
+                        @lang('Pending') {{ showAmount($withdrawSummary['pending_amount']) }}
                     </span>
                 </div>
             </section>
 
-            <form action="{{ route('user.withdraw.money') }}" method="post" class="withdraw-form disableSubmission">
+            @if(!$withdrawSummary['has_active_plan'])
+                <div class="app-card mt-3" style="border-color: rgba(249, 115, 22, .35); background: rgba(249, 115, 22, .08);">
+                    <div class="d-flex align-items-start gap-3">
+                        <span class="app-list-icon"><i class="las la-exclamation-triangle"></i></span>
+                        <div>
+                            <h3 class="fs-6 fw-bold mb-1">@lang('Active plan required')</h3>
+                            <p class="mb-0 text-muted">@lang('You need at least one running plan before you can withdraw. Pending earnings also unlock after :days days.', ['days' => $withdrawSummary['holding_days']])</p>
+                            <a class="app-link d-inline-flex mt-2" href="{{ route('user.investment.log') }}">@lang('View investments') <i class="las la-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+            <div class="withdraw-summary-box mt-3">
+                <div>
+                    <span>@lang('Total withdraw balance')</span>
+                    <strong>{{ showAmount($withdrawSummary['total_amount']) }}</strong>
+                </div>
+                <div>
+                    <span>@lang('Ready (> :days days)', ['days' => $withdrawSummary['holding_days']])</span>
+                    <strong>{{ showAmount($withdrawSummary['ready_amount']) }}</strong>
+                </div>
+                <div>
+                    <span>@lang('Pending (< :days days)', ['days' => $withdrawSummary['holding_days']])</span>
+                    <strong>{{ showAmount($withdrawSummary['pending_amount']) }}</strong>
+                </div>
+                <div>
+                    <span>@lang('Wallet balance')</span>
+                    <strong>{{ showAmount($withdrawSummary['wallet_balance']) }}</strong>
+                </div>
+                @if($withdrawSummary['next_unlock_at'])
+                    <div>
+                        <span>@lang('Next unlock')</span>
+                        <strong>{{ showDateTime($withdrawSummary['next_unlock_at'], 'M d, Y') }}</strong>
+                    </div>
+                @endif
+            </div>
+
+            <form action="{{ route('user.withdraw.money') }}" method="post" class="withdraw-form disableSubmission" @unless($withdrawSummary['has_active_plan'] && $withdrawSummary['withdrawable_amount'] > 0) style="opacity:.72" @endunless>
                 @csrf
 
                 <div class="row app-grid mt-3">
@@ -52,13 +90,13 @@
                             <label class="fw-bold mb-2" for="withdrawAmount">@lang('Withdraw amount')</label>
                             <div class="withdraw-amount-box">
                                 <span>{{ gs('cur_sym') }}</span>
-                                <input id="withdrawAmount" name="amount" type="number" step="any" min="0" placeholder="0.00" value="{{ old('amount') }}" autocomplete="off" required>
+                                <input id="withdrawAmount" name="amount" type="number" step="any" min="0" max="{{ $withdrawSummary['withdrawable_amount'] }}" placeholder="0.00" value="{{ old('amount') }}" autocomplete="off" required @disabled(!$withdrawSummary['has_active_plan'] || $withdrawSummary['withdrawable_amount'] <= 0)>
                             </div>
 
                             <div class="app-pills">
                                 <span class="app-pill">
                                     <i class="las la-wallet"></i>
-                                    @lang('Balance') {{ showAmount(auth()->user()->balance) }}
+                                    @lang('You can withdraw') {{ showAmount($withdrawSummary['withdrawable_amount']) }}
                                 </span>
                                 <span class="app-pill" id="withdrawEstimatePill">
                                     <i class="las la-calculator"></i>
@@ -127,18 +165,23 @@
                                 <span class="app-list-icon"><i class="las la-info-circle"></i></span>
                                 <div>
                                     <h3 class="fs-6 fw-bold mb-1">@lang('What happens next?')</h3>
-                                    <p class="mb-0 text-muted">@lang('After you confirm, you will review destination details on the next page. The request is then sent for admin processing.')</p>
+                                    <p class="mb-0 text-muted">@lang('After you confirm, your request is reviewed by admin. Payout is completed outside this system after approval.')</p>
                                 </div>
                             </div>
                         </div>
 
-                        @if ($withdrawMethod->count())
+                        @if ($withdrawMethod->count() && $withdrawSummary['has_active_plan'] && $withdrawSummary['withdrawable_amount'] > 0)
                             <button class="app-btn app-btn-primary w-100 mt-3" type="submit">
                                 <i class="las la-arrow-right"></i>
                                 @lang('Continue to review')
                             </button>
+                        @elseif(!$withdrawSummary['has_active_plan'])
+                            <a class="app-btn app-btn-primary w-100 mt-3" href="{{ route('user.investment.log') }}">
+                                <i class="las la-layer-group"></i>
+                                @lang('View investments')
+                            </a>
                         @else
-                            <a class="app-btn app-btn-secondary w-100 mt-3" href="{{ route('ticket.open') }}">
+                            <a class="app-btn app-btn-secondary w-100 mt-3" href="{{ route('user.call') }}">
                                 <i class="las la-headset"></i>
                                 @lang('Contact support')
                             </a>

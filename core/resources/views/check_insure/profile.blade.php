@@ -98,7 +98,15 @@ $(function () {
     $('input.calendar').datepicker({
         format: 'mm/dd/yyyy',
         autoclose: true,
-        todayHighlight: true,
+        todayHighlight: false,
+        assumeNearbyYear: false,
+        startView: 2, // open on year picker first
+        minViewMode: 0,
+        maxViewMode: 3,
+        startDate: '-100y',
+        endDate: '-18y',
+        defaultViewDate: { year: new Date().getFullYear() - 30, month: 0, day: 1 },
+        orientation: 'bottom auto',
     });
 });
 </script>

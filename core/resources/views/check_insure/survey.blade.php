@@ -5,8 +5,10 @@
 @php
     $payType = old('pay_type', 'year');
     $productCategory = old('product_category', optional($productTypes[0] ?? null)['category'] ?? '');
+    $coverageLength = (int) old('coverage_length', 20);
     $health = (int) old('health', 1);
     $smoking = (int) old('smoking', 0);
+    $isTermLife = $productCategory === 'Term Life';
     $priceByCategory = collect($productTypes)->keyBy('category');
 @endphp
 <div class="section p-0">
@@ -14,6 +16,12 @@
         <form class="card card-form" method="POST" action="{{ route('checkinsure.survey.submit') }}">
             @csrf
             @include('check_insure.partials.wizard_steps', ['activeStep' => 2])
+
+            @if(session('checkinsure_no_agent'))
+                <div class="alert alert-warning text-start mx-auto mb-3" style="max-width: 520px;">
+                    No agent is available for your ZIP code yet. You can continue your application and our team will assign an agent later.
+                </div>
+            @endif
 
             <div class="card-body text-center">
                 <div class="boxed" style="--max-width:330px">
@@ -96,6 +104,15 @@
                         </div>
                     @endif
 
+                    <div class="text-start mx-auto mt-3" id="coverage-length-field" style="max-width:320px; {{ $isTermLife ? '' : 'display:none;' }}">
+                        <label class="form-label">Coverage Length</label>
+                        <select class="form-control form--control" name="coverage_length" id="coverage-length-select" @if($isTermLife) required @endif>
+                            @foreach([10, 15, 20, 25, 30] as $years)
+                                <option value="{{ $years }}" @selected($coverageLength === $years)>{{ $years }} years</option>
+                            @endforeach
+                        </select>
+                    </div>
+
                     <div class="buttons mt-sm-4 my-2 flex-column gap-3">
                         <a class="btn btn-link fs-18" href="{{ route('checkinsure.profile') }}">
                             <span>Back</span>
@@ -134,6 +151,20 @@ function refreshProductPrices() {
     });
 }
 
+function syncCoverageLength() {
+    const isTermLife = $('#product-category-input').val() === 'Term Life';
+    const $field = $('#coverage-length-field');
+    const $select = $('#coverage-length-select');
+
+    $field.toggle(isTermLife);
+    $select.prop('required', isTermLife);
+    if (!isTermLife) {
+        $select.val('');
+    } else if (!$select.val()) {
+        $select.val('20');
+    }
+}
+
 $('.btn-pay').on('click', function () {
     $('.btn-pay').removeClass('active');
     $(this).addClass('active');
@@ -145,6 +176,7 @@ function selectProductCard($card) {
     $('.card-pricing').removeClass('active');
     $card.addClass('active');
     $('#product-category-input').val($card.data('category'));
+    syncCoverageLength();
 }
 
 $('.card-pricing').on('click', function () {
@@ -157,5 +189,7 @@ $('.card-pricing').on('keydown', function (e) {
         selectProductCard($(this));
     }
 });
+
+syncCoverageLength();
 </script>
 @endpush

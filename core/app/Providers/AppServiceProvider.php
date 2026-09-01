@@ -89,6 +89,14 @@ class AppServiceProvider extends ServiceProvider
             \URL::forceScheme('https');
         }
 
+        // Multi-domain: absolute URLs follow the Host that served the request.
+        if (! $this->app->runningInConsole()) {
+            $root = request()->getSchemeAndHttpHost();
+            if ($root) {
+                \URL::forceRootUrl($root);
+            }
+        }
+
 
         Paginator::useBootstrapFive();
 

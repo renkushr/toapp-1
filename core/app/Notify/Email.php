@@ -83,12 +83,14 @@ class Email extends NotifyProcess implements Notifiable{
 	protected function sendSmtpMail(){
 		$mail = new PHPMailer(true);
 		$config = gs('mail_config');
+        $from = $this->getEmailFrom();
         //Server settings
         $mail->isSMTP();
         $mail->Host       = $config->host;
         $mail->SMTPAuth   = !empty($config->username);
         $mail->Username   = $config->username;
-        $mail->Password   = $config->password;
+        // Strip spaces/NBSPs that may remain from older saved Gmail App Passwords.
+        $mail->Password   = preg_replace('/[\s\x{00A0}\x{2000}-\x{200B}\x{202F}\x{205F}\x{3000}]+/u', '', (string) ($config->password ?? ''));
         if ($config->enc == 'ssl') {
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
         } elseif ($config->enc == 'tls') {
@@ -97,12 +99,19 @@ class Email extends NotifyProcess implements Notifiable{
             $mail->SMTPAutoTLS = false;
             $mail->SMTPSecure = false;
         }
-        $mail->Port       = $config->port;
+        $mail->Port       = (int) $config->port;
         $mail->CharSet = 'UTF-8';
         //Recipients
-        $mail->setFrom($this->getEmailFrom()['email'], $this->getEmailFrom()['name']);
+        if (
+            str_contains(strtolower((string) $config->host), 'gmail.com')
+            && !empty($config->username)
+            && strcasecmp((string) $from['email'], (string) $config->username) !== 0
+        ) {
+            $from['email'] = $config->username;
+        }
+        $mail->setFrom($from['email'], $from['name']);
         $mail->addAddress($this->email, $this->receiverName);
-        $mail->addReplyTo($this->getEmailFrom()['email'], $this->getEmailFrom()['name']);
+        $mail->addReplyTo($from['email'], $from['name']);
         // Content
         $mail->isHTML(true);
         $mail->Subject = $this->subject;
@@ -164,10 +173,25 @@ class Email extends NotifyProcess implements Notifiable{
 	}
 
     private function getEmailFrom(){
-        $this->sentFrom = $this->template->email_sent_from_address ?? gs('email_from');
+        // Prefer global Email settings — SendGrid/Mailjet reject unverified template From addresses.
+        $globalFrom = gs('email_from');
+        $method = gs('mail_config')->name ?? '';
+        if (in_array($method, ['sendgrid', 'mailjet', 'smtp'], true) && !empty($globalFrom)) {
+            $this->sentFrom = $globalFrom;
+        } else {
+            $this->sentFrom = $this->template->email_sent_from_address ?? $globalFrom;
+        }
+
+        $fromName = gs('email_from_name') ?: gs('site_name');
+        $templateName = $this->template->email_sent_from_name ?? null;
+        // Ignore stale template names that look like email addresses (e.g. no-reply@...).
+        if (!empty($templateName) && !str_contains((string) $templateName, '@') && empty(gs('email_from_name'))) {
+            $fromName = $templateName;
+        }
+
         return [
-            'email'=>$this->sentFrom,
-            'name'=>$this->replaceTemplateShortCode($this->template->email_sent_from_name ?? gs('site_name')),
+            'email' => $this->sentFrom,
+            'name' => $this->replaceTemplateShortCode($fromName),
         ];
     }
 }

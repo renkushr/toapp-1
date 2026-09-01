@@ -249,9 +249,50 @@ body {
 .page-body .ta-detail-list > div {
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
     gap: 1rem;
     padding: 0.75rem 0;
     border-bottom: 1px solid var(--tblr-border-color, #e6e7e9);
+}
+
+.page-body .ta-detail-list > div:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+}
+
+.page-body .ta-detail-list > div > span {
+    color: var(--tblr-secondary, #656d77);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    flex: 0 1 40%;
+}
+
+.page-body .ta-detail-list > div > strong {
+    flex: 1 1 60%;
+    text-align: right;
+    word-break: break-word;
+    font-weight: 600;
+}
+
+.page-body .ta-form-stack form + form {
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--tblr-border-color, #e6e7e9);
+}
+
+.page-body .ta-form-stack .ta-field small {
+    display: block;
+    margin-top: 0.25rem;
+    color: var(--tblr-secondary, #656d77);
+    font-size: 0.75rem;
+    font-weight: 400;
+}
+
+.portal-page-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .page-body .ta-alert {

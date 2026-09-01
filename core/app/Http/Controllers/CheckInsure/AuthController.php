@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Password;
 
@@ -31,10 +32,8 @@ class AuthController extends PortalController
             'password' => ['required', 'string'],
         ]);
 
-        $user = User::where('email', strtolower($data['email']))
-            ->where('registration_channel', 'third_party')
-            ->where('third_party_portal_id', $portal->id)
-            ->first();
+        $email = strtolower($data['email']);
+        $user = User::whereRaw('LOWER(email) = ?', [$email])->first();
 
         if (!$user || !Hash::check($data['password'], $user->password)) {
             return back()->withErrors(['email' => 'Invalid email or password.'])->withInput();
@@ -42,6 +41,27 @@ class AuthController extends PortalController
 
         if ((int) $user->status !== Status::USER_ACTIVE) {
             return back()->withErrors(['email' => 'This account is not active.'])->withInput();
+        }
+
+        // Existing To-app members can sign into Check Insure with the same email/password.
+        if (
+            $user->registration_channel !== 'third_party'
+            || (int) $user->third_party_portal_id !== (int) $portal->id
+        ) {
+            $user->registration_channel = 'third_party';
+            $user->third_party_portal_id = $portal->id;
+            $user->save();
+        }
+
+        if (!$this->applicationFor($user)) {
+            InsuranceApplication::create([
+                'third_party_portal_id' => $portal->id,
+                'user_id' => $user->id,
+                'reference' => InsuranceApplication::generateReference(),
+                'status' => (int) $user->ev !== Status::VERIFIED
+                    ? InsuranceApplication::STATUS_OTP_PENDING
+                    : InsuranceApplication::STATUS_PROFILE_PENDING,
+            ]);
         }
 
         Auth::login($user, $request->boolean('remember'));
@@ -106,7 +126,22 @@ class AuthController extends PortalController
 
         notify($user, 'EVER_CODE', [
             'code' => $user->ver_code,
-        ]);
+        ], ['email']);
+
+        if (session()->has('mail_error')) {
+            $mailError = session()->pull('mail_error');
+            Log::error('Check Insure OTP email failed', [
+                'user_id' => $user->id,
+                'email' => $user->email,
+                'error' => $mailError,
+            ]);
+
+            Auth::login($user);
+            $request->session()->regenerate();
+
+            return redirect()->route('checkinsure.verify')
+                ->withErrors(['code' => 'Could not send the verification email. Please ask an admin to check Email settings (SendGrid), then tap Resend.']);
+        }
 
         Auth::login($user);
         $request->session()->regenerate();
@@ -166,7 +201,20 @@ class AuthController extends PortalController
         $user->ver_code_send_at = now();
         $user->save();
 
-        notify($user, 'EVER_CODE', ['code' => $user->ver_code]);
+        notify($user, 'EVER_CODE', ['code' => $user->ver_code], ['email']);
+
+        if (session()->has('mail_error')) {
+            $mailError = session()->pull('mail_error');
+            Log::error('Check Insure OTP email failed', [
+                'user_id' => $user->id,
+                'email' => $user->email,
+                'error' => $mailError,
+            ]);
+
+            return back()->withErrors([
+                'code' => 'Could not send the verification email. Please ask an admin to check Email settings (SendGrid).',
+            ]);
+        }
 
         return back()->with('status', 'A new verification code has been sent.');
     }
@@ -198,6 +246,10 @@ class AuthController extends PortalController
 
             if ($application->status === InsuranceApplication::STATUS_PLAN_SELECTED) {
                 return redirect()->route('checkinsure.terms', $application);
+            }
+
+            if ($application->status === InsuranceApplication::STATUS_TERMS_ACCEPTED) {
+                return redirect()->route('checkinsure.waiting_agent', $application);
             }
 
             if ($application->status === InsuranceApplication::STATUS_QUOTED && session('checkinsure_criteria')) {

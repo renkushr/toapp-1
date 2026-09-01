@@ -7,7 +7,7 @@
         <div class="ta-detail-list">
             <div><span>Portal</span><strong>{{ $application->portal?->name }}</strong></div>
             <div><span>Customer</span><strong>{{ $application->user?->firstname }} {{ $application->user?->lastname }} ({{ $application->user?->email }})</strong></div>
-            <div><span>ZIP</span><strong>{{ $application->zipcode }}</strong></div>
+            <div><span>ZIP code</span><strong>{{ $application->zipcode }}</strong></div>
             <div><span>Product</span><strong>{{ $application->plan?->name ?: '—' }}</strong></div>
             <div><span>Quoted</span><strong>${{ number_format($application->quoted_annual ?? 0, 2) }} / yr · ${{ number_format($application->quoted_monthly ?? 0, 2) }} / mo</strong></div>
             <div><span>Agent</span><strong>{{ $application->agent?->name ?: '—' }}</strong></div>

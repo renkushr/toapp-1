@@ -180,7 +180,7 @@
 
                             <div class="col-xl-3 col-md-6">
                                 <div class="form-group ">
-                                    <label>@lang('Zip/Postal')</label>
+                                    <label>@lang('ZIP code')</label>
                                     <input class="form-control" type="text" name="zip" value="{{@$user->zip}}">
                                 </div>
                             </div>

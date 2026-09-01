@@ -1,7 +1,13 @@
 @extends($activeTemplate . 'layouts.master')
 @section('content')
-<section class="py-5">
-    <div class="container ">
+<div class="app-page">
+    <div class="app-container">
+        @include($activeTemplate . 'partials.app_topbar', [
+            'backUrl' => route('user.home'),
+            'brandTitle' => __('Deposit'),
+        ])
+<section class="py-3">
+    <div class="container-fluid px-0">
         <div class="row justify-content-center">
             <div class="col-lg-9">
                 <form action="{{ route('user.deposit.insert') }}" method="post" class="deposit-form">
@@ -131,6 +137,8 @@
         </div>
     </div>
 </section>
+    </div>
+</div>
 @endsection
 @push('style')
 <style>

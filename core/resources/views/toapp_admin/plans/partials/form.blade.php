@@ -24,7 +24,7 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Category</label>
-                            <input type="text" class="form-control" name="category" value="{{ old('category', $plan?->category ?? '') }}" maxlength="250" placeholder="Term Life, Whole Life, IUL...">
+                            <input type="text" class="form-control" name="category" value="{{ old('category', $plan?->category ?? '') }}" maxlength="250" placeholder="Term Life, IUL">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Short description</label>

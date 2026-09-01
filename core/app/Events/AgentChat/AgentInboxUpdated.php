@@ -17,7 +17,7 @@ class AgentInboxUpdated implements ShouldBroadcastNow
 
     public function __construct(public AgentConversationMessage $message)
     {
-        $this->message->loadMissing(['conversation.user', 'attachments']);
+        $this->message->loadMissing(['conversation.user', 'conversation.agent', 'attachments']);
     }
 
     public function broadcastOn(): array
@@ -30,6 +30,15 @@ class AgentInboxUpdated implements ShouldBroadcastNow
     public function broadcastAs(): string
     {
         return 'InboxUpdated';
+    }
+
+    public function broadcastWhen(): bool
+    {
+        $conversation = $this->message->conversation;
+
+        return $conversation->agent
+            && $conversation->user
+            && $conversation->agent->canAccessUser($conversation->user);
     }
 
     public function broadcastWith(): array

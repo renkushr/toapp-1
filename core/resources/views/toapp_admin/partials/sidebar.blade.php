@@ -88,6 +88,14 @@
                 @endif
                 @if($admin?->canAccess('agents'))
                     <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('toapp.admin.reports.agents*') ? 'active' : '' }}" href="{{ route('toapp.admin.reports.agents') }}">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block"><i class="ti ti-chart-bar"></i></span>
+                            <span class="nav-link-title">Agent Reports</span>
+                        </a>
+                    </li>
+                @endif
+                @if($admin?->canAccess('agents'))
+                    <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('toapp.admin.agents.*') ? 'active' : '' }}" href="{{ route('toapp.admin.agents.index') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block"><i class="ti ti-id-badge-2"></i></span>
                             <span class="nav-link-title">Agents</span>
@@ -112,9 +120,15 @@
                 @endif
                 @if($admin?->canAccess('settings'))
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('toapp.admin.settings.*') ? 'active' : '' }}" href="{{ route('toapp.admin.settings.edit') }}">
+                        <a class="nav-link {{ request()->routeIs('toapp.admin.settings.edit') ? 'active' : '' }}" href="{{ route('toapp.admin.settings.edit') }}">
                             <span class="nav-link-icon d-md-none d-lg-inline-block"><i class="ti ti-settings"></i></span>
                             <span class="nav-link-title">Settings</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('toapp.admin.settings.email*') ? 'active' : '' }}" href="{{ route('toapp.admin.settings.email') }}">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block"><i class="ti ti-mail"></i></span>
+                            <span class="nav-link-title">Email / SMTP</span>
                         </a>
                     </li>
                 @endif

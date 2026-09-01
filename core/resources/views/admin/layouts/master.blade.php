@@ -7,6 +7,7 @@
     <title>{{ gs()->siteName($pageTitle ?? '') }}</title>
 
     <link rel="shortcut icon" type="image/png" href="{{siteFavicon()}}">
+    @include('partials.pwa_head', ['pwaName' => 'Admin'])
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/global/css/bootstrap.min.css') }}">
 
@@ -23,8 +24,11 @@
     
     @stack('style')
 </head>
-<body>
+<body class="has-portal-footer">
 @yield('content')
+
+@include('partials.site_copyright', ['copyrightVariant' => 'portal'])
+@include('partials.cookie_consent')
 
 
 
@@ -75,6 +79,7 @@
 
 @stack('script')
 
+@include('partials.pwa_scripts')
 
 </body>
 </html>

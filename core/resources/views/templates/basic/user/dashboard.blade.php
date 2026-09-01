@@ -3,19 +3,55 @@
 @section('content')
     @php
         $dashboardTransactions = $latestTrx->take(4);
+        $latestInsuranceChatApplication = \App\Models\InsuranceApplication::query()
+            ->where('user_id', $user->id)
+            ->whereIn('status', [
+                \App\Models\InsuranceApplication::STATUS_CHATTING,
+                \App\Models\InsuranceApplication::STATUS_PAYMENT_PENDING,
+                \App\Models\InsuranceApplication::STATUS_CONFIRMED,
+            ])
+            ->latest('id')
+            ->first();
+        $agentChatUrl = $latestInsuranceChatApplication
+            ? route('user.plans.chat', $latestInsuranceChatApplication)
+            : route('user.agent.chat');
+        $agentChatReady = (bool) ($latestInsuranceChatApplication || $user->agent_id);
     @endphp
     <div class="app-page app-dashboard">
         <div class="app-container">
             <div class="app-topbar">
+                <a class="app-icon-btn" href="{{ route('home') }}" aria-label="@lang('Back')">
+                    <i class="las la-arrow-left"></i>
+                </a>
                 <a class="app-brand" href="{{ route('user.home') }}">
                     <img src="{{ siteLogo() }}" alt="To-app">
                     <span>To-app</span>
                 </a>
 
-                <a class="app-icon-btn" href="{{ route('user.setting') }}" aria-label="@lang('Open settings')">
-                    <i class="las la-cog"></i>
-                </a>
+                <div class="d-flex align-items-center gap-2">
+                    <a class="app-icon-btn" href="{{ $agentChatUrl }}" aria-label="@lang('Chat with Agent')">
+                        <i class="las la-comments"></i>
+                    </a>
+                    <a class="app-icon-btn" href="{{ route('user.setting') }}" aria-label="@lang('Open settings')">
+                        <i class="las la-cog"></i>
+                    </a>
+                </div>
             </div>
+
+            <a class="app-chat-banner" href="{{ $agentChatUrl }}">
+                <span class="app-chat-banner-icon"><i class="las la-user-tie"></i></span>
+                <span class="app-chat-banner-body">
+                    <strong>@lang('Chat with Agent')</strong>
+                    <span>
+                        @if($agentChatReady)
+                            @lang('Open your private conversation with your assigned agent.')
+                        @else
+                            @lang('Get matched with an agent after you choose a plan.')
+                        @endif
+                    </span>
+                </span>
+                <i class="las la-angle-right app-chat-banner-arrow"></i>
+            </a>
 
             <section class="app-hero">
                 <span class="app-eyebrow">
@@ -28,23 +64,32 @@
                 <div class="app-pills">
                     <span class="app-pill">
                         <i class="las la-wallet"></i>
-                        @lang('Available') {{ showAmount($user->balance) }}
+                        @lang('Wallet') {{ showAmount($user->balance) }}
                     </span>
                     <span class="app-pill">
-                        <i class="las la-chart-line"></i>
-                        @lang('Invested') {{ showAmount($totalInvest) }}
+                        <i class="las la-check-circle"></i>
+                        @lang('Ready to withdraw') {{ showAmount($withdrawSummary['withdrawable_amount']) }}
+                    </span>
+                    <span class="app-pill">
+                        <i class="las la-hourglass-half"></i>
+                        @lang('Pending') {{ showAmount($withdrawSummary['pending_amount']) }}
                     </span>
                 </div>
 
                 <div class="app-hero-actions">
-                    <a class="app-btn app-btn-primary" href="{{ route('user.plans') }}">
-                        <i class="las la-layer-group"></i>
-                        @lang('Browse plans')
+                    <a class="app-btn app-btn-primary" href="{{ $agentChatUrl }}">
+                        <i class="las la-comments"></i>
+                        @lang('Chat with Agent')
+                    </a>
+                    <a class="app-btn app-btn-secondary" href="{{ route('user.plans') }}">
+                        <i class="las la-shield-alt"></i>
+                        @lang('Find a plan')
                     </a>
                     <a class="app-btn app-btn-secondary" href="{{ route('user.withdraw.index') }}">
                         <i class="las la-money-bill-wave"></i>
                         @lang('Withdraw')
                     </a>
+                    @include($activeTemplate . 'partials.mobile_shortcut')
                 </div>
             </section>
 
@@ -60,6 +105,22 @@
             </div>
 
             <div class="row app-grid">
+                <div class="col-6 col-lg-3">
+                    <div class="app-stat" style="--tone: rgba(22, 163, 74, .12); --tone-color: #16a34a;">
+                        <span class="app-stat-icon"><i class="las la-check-circle"></i></span>
+                        <label>@lang('Ready to withdraw')</label>
+                        <strong>{{ showAmount($withdrawSummary['withdrawable_amount'], 0) }}</strong>
+                    </div>
+                </div>
+
+                <div class="col-6 col-lg-3">
+                    <div class="app-stat" style="--tone: rgba(234, 179, 8, .14); --tone-color: #ca8a04;">
+                        <span class="app-stat-icon"><i class="las la-hourglass-half"></i></span>
+                        <label>@lang('Pending (< :days days)', ['days' => $withdrawSummary['holding_days']])</label>
+                        <strong>{{ showAmount($withdrawSummary['pending_amount'], 0) }}</strong>
+                    </div>
+                </div>
+
                 <div class="col-6 col-lg-3">
                     <div class="app-stat" style="--tone: rgba(18, 104, 243, .12); --tone-color: #1268f3;">
                         <span class="app-stat-icon"><i class="las la-play-circle"></i></span>
@@ -182,7 +243,9 @@
                         </div>
 
                         <div class="app-hero-actions">
-                            <button class="app-btn app-btn-primary" type="button" id="share-referral-link" data-link="{{ $referralLink }}">
+                            <button class="app-btn app-btn-primary" type="button"
+                                data-share-link="{{ $referralLink }}"
+                                data-share-copied-message="@lang('Referral link copied')">
                                 <i class="las la-paper-plane"></i>
                                 @lang('Share link')
                             </button>
@@ -197,7 +260,7 @@
                                 <span class="app-list-icon"><i class="las la-coins"></i></span>
                                 <div class="app-list-body">
                                     <strong>{{ showAmount($totalReferralCommission) }}</strong>
-                                    <span>@lang('Total referral commission earned')</span>
+                                    <span>@lang('Total referral fee earned')</span>
                                 </div>
                             </div>
                             @if($recentReferralCommissions->isNotEmpty())
@@ -214,8 +277,8 @@
                                 <div class="app-list-item">
                                     <span class="app-list-icon"><i class="las la-seedling"></i></span>
                                     <div class="app-list-body">
-                                        <strong>@lang('No commission yet')</strong>
-                                        <span>@lang('Commissions appear here after referred members buy packages.')</span>
+                                        <strong>@lang('No referral fee yet')</strong>
+                                        <span>@lang('Referral fees appear here after referred members buy packages.')</span>
                                     </div>
                                 </div>
                             @endif
@@ -226,30 +289,3 @@
         </div>
     </div>
 @endsection
-
-@push('script')
-    <script>
-        (function() {
-            "use strict";
-
-            const shareButton = document.getElementById('share-referral-link');
-
-            shareButton?.addEventListener('click', async function() {
-                const link = this.dataset.link;
-
-                if (navigator.share) {
-                    try {
-                        await navigator.share({
-                            title: document.title,
-                            url: link,
-                        });
-                    } catch (error) {}
-                    return;
-                }
-
-                await navigator.clipboard.writeText(link);
-                notify('success', 'Referral link copied');
-            });
-        })();
-    </script>
-@endpush

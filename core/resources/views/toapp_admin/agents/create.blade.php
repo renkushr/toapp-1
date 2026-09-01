@@ -9,5 +9,6 @@
     'agent' => null,
     'action' => route('toapp.admin.agents.store'),
     'method' => 'POST',
+    'selectedZipsByState' => $selectedZipsByState ?? [],
 ])
 @endsection

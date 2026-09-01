@@ -4,7 +4,7 @@
 <section class="ta-panel">
     <form class="ta-toolbar ta-toolbar-slim" method="GET">
         <label class="ta-field compact"><span>Search</span><input type="search" name="search" value="{{ request('search') }}" placeholder="name, email, phone"></label>
-        <label class="ta-field compact"><span>ZIP</span><input type="search" name="zip" value="{{ request('zip') }}" placeholder="90210"></label>
+        <label class="ta-field compact"><span>ZIP code</span><input type="search" name="zip" value="{{ request('zip') }}" placeholder="90210"></label>
         <button class="ta-secondary-btn" type="submit"><i class="las la-search"></i> Filter</button>
     </form>
 
@@ -13,7 +13,7 @@
             <thead>
                 <tr>
                     <th>Client</th>
-                    <th>ZIP</th>
+                    <th>ZIP code</th>
                     <th>Phone</th>
                     <th>Products</th>
                     <th>Status</th>
@@ -37,7 +37,7 @@
                         </td>
                     </tr>
                 @empty
-                    <tr><td colspan="6">No clients in your assigned ZIP areas yet.</td></tr>
+                    <tr><td colspan="6">No clients in your assigned ZIP code areas yet.</td></tr>
                 @endforelse
             </tbody>
         </table>

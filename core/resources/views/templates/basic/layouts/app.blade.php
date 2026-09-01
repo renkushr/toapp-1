@@ -4,27 +4,38 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title> {{ gs()->siteName(__($pageTitle)) }}</title>
+    <title>{{ gs()->siteName(__($pageTitle ?? '')) }}</title>
     @include('partials.seo')
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-  
-<title>To APP</title>  
-  
-<link href="{{ asset('assets/global/css/bootstrap/bootstrap.min.css')}}" rel="stylesheet">     
-<link href="{{ asset('assets/global/css/aos.css')}}" rel="stylesheet">     
-<link href="{{ asset('assets/global/css/jquery.fancybox.css')}}" rel="stylesheet">    
+
+<link href="{{ asset('assets/global/css/bootstrap/bootstrap.min.css')}}" rel="stylesheet">
+<link href="{{ asset('assets/global/css/aos.css')}}" rel="stylesheet">
+<link href="{{ asset('assets/global/css/jquery.fancybox.css')}}" rel="stylesheet">
 <link href="{{ asset('assets/global/css/jquery.scrollbar.css')}}" rel="stylesheet">
 <link href="{{ asset('assets/global/css/line-awesome.min.css')}}" rel="stylesheet">
 <link href="{{ asset('assets/global/css/global.css')}}" rel="stylesheet">
+@include('partials.pwa_head')
     @stack('style-lib')
     @stack('style')
-   
+
 </head>
 @php echo loadExtension('google-analytics') @endphp
 
-<body>
+@php
+    $showUserFooterNav = auth()->check()
+        && (request()->routeIs('user.*') || request()->routeIs('ticket.*'))
+        && !request()->routeIs(
+            'user.authorization',
+            'user.approval.pending',
+            'user.send.verify.code',
+            'user.verify.email',
+            'user.verify.mobile',
+            'user.2fa.verify'
+        );
+@endphp
+<body @class(['has-user-footer-nav' => $showUserFooterNav])>
 
     <div class="preloader">
         <div class="preloader-container">
@@ -36,10 +47,16 @@
     @yield('panel')
 
     @auth
-        @if (request()->routeIs('user.*') || request()->routeIs('ticket.*'))
+        @if ($showUserFooterNav)
             @include($activeTemplate . 'partials.footer')
+        @else
+            @include('partials.site_copyright')
         @endif
+    @else
+        @include('partials.site_copyright')
     @endauth
+
+    @include('partials.cookie_consent')
 
    
     <script src="{{ asset('assets/global/js/jquery-3.4.1.min.js ') }}"></script>  
@@ -124,6 +141,7 @@
 
         })(jQuery);
     </script>
+    @include('partials.pwa_scripts')
 </body>
 
 </html>

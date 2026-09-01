@@ -52,7 +52,7 @@ class Admin extends Authenticatable
             'reports' => 'Reports and CSV exports',
             'investments' => 'Package purchase approval',
             'referrals' => 'Referral percent rules and ledger',
-            'agents' => 'Insurance agents and ZIP coverage',
+            'agents' => 'Insurance agents and ZIP code coverage',
             'support' => 'Support tickets',
             'methods' => 'Deposit and withdrawal methods',
             'settings' => 'System settings',

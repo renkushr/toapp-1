@@ -78,6 +78,9 @@ Route::middleware('toapp.admin')->group(function () {
     Route::get('/reports/logins', [ReportController::class, 'logins'])->middleware('toapp.admin.can:reports')->name('reports.logins');
     Route::get('/reports/logins/export', [ReportController::class, 'loginsExport'])->middleware('toapp.admin.can:reports')->name('reports.logins.export');
     Route::get('/reports/audits', [ReportController::class, 'audits'])->middleware('toapp.admin.can:reports')->name('reports.audits');
+    Route::get('/reports/agents', [ReportController::class, 'agents'])->middleware('toapp.admin.can:agents')->name('reports.agents');
+    Route::get('/reports/agents/export', [ReportController::class, 'agentsExport'])->middleware('toapp.admin.can:agents')->name('reports.agents.export');
+    Route::get('/reports/agents/{agent}', [ReportController::class, 'showAgent'])->middleware('toapp.admin.can:agents')->name('reports.agents.show');
 
     Route::get('/referrals', [ReferralController::class, 'index'])->middleware('toapp.admin.can:referrals')->name('referrals.index');
     Route::get('/referrals/rules/create', [ReferralController::class, 'createRule'])->middleware('toapp.admin.can:referrals')->name('referrals.rules.create');
@@ -86,6 +89,9 @@ Route::middleware('toapp.admin')->group(function () {
     Route::delete('/referrals/rules/{referral}', [ReferralController::class, 'destroyRule'])->middleware('toapp.admin.can:referrals')->name('referrals.rules.destroy');
 
     Route::get('/agents', [AgentController::class, 'index'])->middleware('toapp.admin.can:agents')->name('agents.index');
+    Route::get('/agents/zip-catalog/states', [AgentController::class, 'zipStates'])->middleware('toapp.admin.can:agents')->name('agents.zip_states');
+    Route::get('/agents/zip-catalog/all', [AgentController::class, 'zipAll'])->middleware('toapp.admin.can:agents')->name('agents.zip_all');
+    Route::get('/agents/zip-catalog/states/{state}', [AgentController::class, 'zipStateDetail'])->middleware('toapp.admin.can:agents')->name('agents.zip_state');
     Route::get('/agents/create', [AgentController::class, 'create'])->middleware('toapp.admin.can:agents')->name('agents.create');
     Route::post('/agents', [AgentController::class, 'store'])->middleware('toapp.admin.can:agents')->name('agents.store');
     Route::get('/agents/{agent}/edit', [AgentController::class, 'edit'])->middleware('toapp.admin.can:agents')->name('agents.edit');
@@ -108,4 +114,7 @@ Route::middleware('toapp.admin')->group(function () {
 
     Route::get('/settings', [SettingController::class, 'edit'])->middleware('toapp.admin.can:settings')->name('settings.edit');
     Route::put('/settings', [SettingController::class, 'update'])->middleware('toapp.admin.can:settings')->name('settings.update');
+    Route::get('/settings/email', [SettingController::class, 'email'])->middleware('toapp.admin.can:settings')->name('settings.email');
+    Route::put('/settings/email', [SettingController::class, 'updateEmail'])->middleware('toapp.admin.can:settings')->name('settings.email.update');
+    Route::post('/settings/email/test', [SettingController::class, 'testEmail'])->middleware('toapp.admin.can:settings')->name('settings.email.test');
 });

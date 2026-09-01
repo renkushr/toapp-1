@@ -23,7 +23,7 @@
         <section class="app-hero app-network-hero">
             <span class="app-eyebrow"><i class="las la-sitemap"></i> @lang('Referral workspace')</span>
             <h1>@lang('Grow your member network with a clear link and clear rewards.')</h1>
-            <p>@lang('Share your code, monitor each level, and review every commission credited from package purchases.')</p>
+            <p>@lang('Share your code, monitor each level, and review every referral fee credited from package purchases.')</p>
 
             <div class="app-copy-box app-network-copy">
                 <input type="text" value="{{ $referralLink }}" id="referral-link" readonly>
@@ -33,7 +33,9 @@
             </div>
 
             <div class="app-hero-actions">
-                <button class="app-btn app-btn-primary" type="button" id="share-referral-link" data-link="{{ $referralLink }}">
+                <button class="app-btn app-btn-primary" type="button"
+                    data-share-link="{{ $referralLink }}"
+                    data-share-copied-message="@lang('Referral link copied')">
                     <i class="las la-paper-plane"></i>
                     @lang('Share invite')
                 </button>
@@ -112,36 +114,13 @@
                         <div><span>@lang('Inactive')</span><strong>{{ optional($initialCounts)->inactive_count ?? 0 }}</strong></div>
                     </div>
                 </div>
-
-                <div class="app-section-title">
-                    <div>
-                        <h2>@lang('Commission rules')</h2>
-                        <p>@lang('Percent settings configured by admin.')</p>
-                    </div>
-                </div>
-
-                <div class="app-list-card">
-                    @if($referrals->isNotEmpty())
-                        @foreach($referrals as $rule)
-                            <div class="app-list-item">
-                                <span class="app-list-icon"><i class="las la-percentage"></i></span>
-                                <div class="app-list-body">
-                                    <strong>@lang('Level') {{ $rule->level }} - {{ number_format((float) $rule->percent, 2) }}%</strong>
-                                    <span>{{ optional($rule->plan)->name ?? __('Global fallback') }}</span>
-                                </div>
-                            </div>
-                        @endforeach
-                    @else
-                        <div class="app-empty-state">@lang('No commission rules are configured yet.')</div>
-                    @endif
-                </div>
             </div>
 
             <div class="col-lg-7">
                 <div class="app-section-title">
                     <div>
                         <h2>@lang('My downline')</h2>
-                        <p>@lang('Inspect every member in your referral line by level, upline, plan status, and earned commission.')</p>
+                        <p>@lang('Inspect every member in your referral line by level, upline, plan status, and earned referral fee.')</p>
                     </div>
                 </div>
 
@@ -160,10 +139,22 @@
                         </select>
                     </form>
                     <div class="app-downline-summary">
-                        <div><span>@lang('Active')</span><strong>{{ $networkSummary['active'] }}</strong></div>
-                        <div><span>@lang('No plan')</span><strong>{{ $networkSummary['inactive'] }}</strong></div>
-                        <div><span>@lang('Pending')</span><strong>{{ $networkSummary['pending'] }}</strong></div>
-                        <div><span>@lang('Earned')</span><strong>{{ showAmount($networkSummary['commission'], 0) }}</strong></div>
+                        <div>
+                            <span>@lang('Active')</span>
+                            <strong>{{ $networkSummary['active'] }}</strong>
+                        </div>
+                        <div>
+                            <span>@lang('No plan')</span>
+                            <strong>{{ $networkSummary['inactive'] }}</strong>
+                        </div>
+                        <div>
+                            <span>@lang('Pending')</span>
+                            <strong>{{ $networkSummary['pending'] }}</strong>
+                        </div>
+                        <div>
+                            <span>@lang('Earned')</span>
+                            <strong>{{ showAmount($networkSummary['commission'], 0) }}</strong>
+                        </div>
                     </div>
                 </div>
 
@@ -177,7 +168,7 @@
                                     <th>@lang('Upline')</th>
                                     <th>@lang('Plan')</th>
                                     <th>@lang('Status')</th>
-                                    <th>@lang('Commission')</th>
+                                    <th>@lang('Referral Fee')</th>
                                     <th>@lang('Joined')</th>
                                 </tr>
                             </thead>
@@ -185,16 +176,24 @@
                                 @if(count($networkMembers))
                                     @foreach($networkMembers as $member)
                                         @php
-                                            $fullName = trim(($member->firstname ?? '') . ' ' . ($member->lastname ?? ''));
                                             $approval = $member->approval_status ?: 'approved';
                                         @endphp
                                         <tr>
                                             <td>
-                                                <strong>{{ $member->username }}</strong>
-                                                <span class="d-block text-muted">{{ $fullName ?: $member->email }}</span>
+                                                <strong>{{ censorReferrerName($member->firstname ?? null, $member->lastname ?? null, $member->username ?? null, '-') }}</strong>
+                                                <span class="d-block text-muted">{{ censorReferrerEmail($member->email ?? null, '-') }}</span>
                                             </td>
                                             <td><span class="app-status-pill is-level">@lang('Level') {{ $member->level }}</span></td>
-                                            <td>{{ $member->referrer_username ?: '-' }}</td>
+                                            <td>
+                                                @php
+                                                    $referrerName = trim(($member->referrer_firstname ?? '') . ' ' . ($member->referrer_lastname ?? ''));
+                                                    if ($referrerName === '') {
+                                                        $referrerName = $member->referrer_username ?? '';
+                                                    }
+                                                @endphp
+                                                <strong>{{ censorReferrerName($member->referrer_firstname ?? null, $member->referrer_lastname ?? null, $referrerName !== '' ? $referrerName : null, '-') }}</strong>
+                                                <span class="d-block text-muted">{{ censorReferrerEmail($member->referrer_email ?? null, '-') }}</span>
+                                            </td>
                                             <td>{{ $member->plan_name ?: __('No plan') }}</td>
                                             <td>
                                                 <span class="app-status-pill {{ (int) $member->status === 1 && $approval === 'approved' ? 'is-active' : ($approval === 'pending' ? 'is-pending' : 'is-muted') }}">
@@ -235,8 +234,8 @@
                             <div class="app-list-item">
                                 <span class="app-list-icon"><i class="las la-user"></i></span>
                                 <div class="app-list-body">
-                                    <strong>{{ $member->username }}</strong>
-                                    <span>{{ $member->email }} - {{ showDateTime($member->created_at, 'M d, Y') }}</span>
+                                    <strong>{{ censorReferrerName($member->firstname ?? null, $member->lastname ?? null, $member->username ?? null, '-') }}</strong>
+                                    <span>{{ censorReferrerEmail($member->email ?? null, '-') }} - {{ showDateTime($member->created_at, 'M d, Y') }}</span>
                                 </div>
                                 <span class="app-status-pill {{ $member->plan_id ? 'is-active' : 'is-muted' }}">
                                     {{ $member->plan_id ? __('Active') : __('No plan') }}
@@ -250,8 +249,8 @@
 
                 <div class="app-section-title">
                     <div>
-                        <h2>@lang('Commission ledger')</h2>
-                        <p>@lang('Every package commission credited to your account.')</p>
+                        <h2>@lang('Referral fee ledger')</h2>
+                        <p>@lang('Every referral fee credited to your account.')</p>
                     </div>
                 </div>
 
@@ -262,13 +261,13 @@
                                 <span class="app-list-icon"><i class="las la-level-up-alt"></i></span>
                                 <div class="app-list-body">
                                     <strong>+{{ showAmount($commission->amount) }} - @lang('Level') {{ $commission->level }}</strong>
-                                    <span>{{ optional($commission->sourceUser)->username ?? __('Member') }} - {{ optional($commission->plan)->name ?? __('Package') }} - {{ optional($commission->created_at)->format('M d, Y H:i') }}</span>
+                                    <span>{{ censorReferrerName(optional($commission->sourceUser)->firstname, optional($commission->sourceUser)->lastname, optional($commission->sourceUser)->username ?? __('Member')) }} - {{ optional($commission->plan)->name ?? __('Package') }} - {{ optional($commission->created_at)->format('M d, Y H:i') }}</span>
                                 </div>
                                 <span class="app-amount is-plus">{{ number_format((float) $commission->percent, 2) }}%</span>
                             </div>
                         @endforeach
                     @else
-                        <div class="app-empty-state">@lang('No commission has been credited yet.')</div>
+                        <div class="app-empty-state">@lang('No referral fee has been credited yet.')</div>
                     @endif
                 </div>
 
@@ -289,7 +288,6 @@
         const levelTitle = document.getElementById('lvl-network');
         const levelTotal = document.getElementById('level-total');
         const levelCounts = document.getElementById('level-user-counts');
-        const shareButton = document.getElementById('share-referral-link');
         const networkLevelFilter = document.getElementById('network-level-filter');
 
         levelSelect?.addEventListener('change', function() {
@@ -336,19 +334,6 @@
             }
         }
 
-        shareButton?.addEventListener('click', async function() {
-            const link = this.dataset.link;
-
-            if (navigator.share) {
-                try {
-                    await navigator.share({ title: document.title, url: link });
-                    return;
-                } catch (error) {}
-            }
-
-            await navigator.clipboard.writeText(link);
-            notify('success', 'Referral link copied');
-        });
     })();
 </script>
 @endpush

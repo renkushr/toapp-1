@@ -9,7 +9,7 @@ class SeedSampleAgents extends Command
 {
     protected $signature = 'toapp:seed-agents {--assign-existing : Assign agents to existing users by matching ZIP}';
 
-    protected $description = 'Seed sample agents with demo credentials and ZIP coverage';
+    protected $description = 'Seed sample agents with demo credentials and ZIP code coverage';
 
     public function handle(): int
     {
@@ -18,7 +18,7 @@ class SeedSampleAgents extends Command
         $this->newLine();
         $this->info('Sample agents ready. Login at /agent');
         $this->table(
-            ['Username', 'Password', 'License', 'Sample ZIPs'],
+            ['Username', 'Password', 'License', 'Sample ZIP codes'],
             [
                 ['agent1', 'Agent@12345', 'AG-DEMO-001', '90210, 90211, 90212'],
                 ['agent2', 'Agent@12345', 'AG-DEMO-002', '10001, 10002, 10003'],

@@ -72,7 +72,7 @@
 
                             <div class="col-sm-12">
                                 <div class="form-group">
-                                    <label>@lang('Referral Commission')</label>
+                                    <label>@lang('Referral Fee')</label>
                                     <div class="input-group">
                                         <input class="form-control" name="deposit_commission" type="text"
                                             value="{{ getAmount(gs('deposit_commission')) }}" required>

@@ -32,6 +32,13 @@ class AgentConversation extends Model
         return $this->hasOne(AgentConversationMessage::class, 'conversation_id')->latestOfMany();
     }
 
+    public function scopeForAgentTerritory($query, Agent $agent)
+    {
+        return $query
+            ->where('agent_id', $agent->id)
+            ->whereHas('user', fn ($user) => $user->forAgentTerritory($agent));
+    }
+
     public static function findOrCreateFor(int $agentId, int $userId): self
     {
         return static::firstOrCreate(

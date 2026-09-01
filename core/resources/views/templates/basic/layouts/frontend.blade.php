@@ -10,9 +10,6 @@
       
         @yield('content')
     </div>
-    @php
-        $cookie = App\Models\Frontend::where('data_keys', 'cookie.data')->first();
-    @endphp
    
 @endsection
 @push('script')
@@ -34,16 +31,6 @@
                 });
             }
             //End-Id-Wise-Route-set
-
-            $('.policy').on('click', function() {
-                $.get('{{ route('cookie.accept') }}', function(response) {
-                    $('.cookies-card').addClass('d-none');
-                });
-            });
-
-            setTimeout(function() {
-                $('.cookies-card').removeClass('hide')
-            }, 2000);
         })(jQuery);
     </script>
 @endpush

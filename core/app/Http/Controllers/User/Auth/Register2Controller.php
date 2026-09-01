@@ -47,7 +47,7 @@ class Register2Controller extends Controller
            
         ],[
             'sex.required'=>'The first name field is required',
-            'zip.required'=>'The Zip field is required'
+            'zip.required'=>'The ZIP code field is required'
         ]);
 
         return $validate;

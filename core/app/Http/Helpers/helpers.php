@@ -497,3 +497,101 @@ function frontendImage($sectionName, $image, $size = null,$seo = false)
     }
     return getImage('assets/images/frontend/' . $sectionName . '/' . $image, $size);
 }
+
+/**
+ * Absolute URL into the admin portal (tonkow.com/adto-app/...).
+ */
+function adminPortalUrl(string $path = ''): string
+{
+    $base = rtrim((string) config('toapp.admin_url', 'https://tonkow.com'), '/');
+    $prefix = trim((string) config('toapp.admin_path', 'adto-app'), '/') ?: 'adto-app';
+    $path = ltrim($path, '/');
+
+    return $base . '/' . $prefix . ($path !== '' ? '/' . $path : '');
+}
+
+/**
+ * Absolute URL into the agent portal (agto-app.com/agent/...).
+ */
+function agentPortalUrl(string $path = ''): string
+{
+    $base = rtrim((string) config('toapp.agent_url', 'https://agto-app.com'), '/');
+    $path = ltrim($path, '/');
+
+    return $base . '/agent' . ($path !== '' ? '/' . $path : '');
+}
+
+/**
+ * Mask name for display: first initial of first name and last name only.
+ */
+function censorReferrerName(?string $firstname, ?string $lastname = null, ?string $fallback = null, string $empty = '—'): string
+{
+    $first = trim((string) $firstname);
+    $last = trim((string) $lastname);
+
+    if ($first === '' && $last === '') {
+        $fallback = trim((string) $fallback);
+        if ($fallback === '') {
+            return $empty;
+        }
+
+        $parts = preg_split('/\s+/u', $fallback) ?: [];
+        $first = $parts[0] ?? '';
+        $last = count($parts) > 1 ? (string) end($parts) : '';
+    }
+
+    if ($first === '' && $last === '') {
+        return $empty;
+    }
+
+    $parts = [];
+    if ($first !== '') {
+        $parts[] = mb_strtoupper(mb_substr($first, 0, 1)) . '.';
+    }
+    if ($last !== '') {
+        $parts[] = mb_strtoupper(mb_substr($last, 0, 1)) . '.';
+    }
+
+    return implode(' ', $parts);
+}
+
+/**
+ * Mask referrer email: first 5 chars of local part, then xxx, then @domain.
+ */
+function censorReferrerEmail(?string $email, string $empty = '—'): string
+{
+    if ($email === null || trim($email) === '') {
+        return $empty;
+    }
+
+    $email = trim($email);
+    $atPos = mb_strpos($email, '@');
+
+    if ($atPos === false) {
+        $visible = mb_substr($email, 0, min(5, mb_strlen($email)));
+
+        return $visible . 'xxx';
+    }
+
+    $local = mb_substr($email, 0, $atPos);
+    $domain = mb_substr($email, $atPos);
+    $visible = mb_substr($local, 0, min(5, mb_strlen($local)));
+
+    return $visible . 'xxx' . $domain;
+}
+
+/**
+ * @deprecated Use censorReferrerName() or censorReferrerEmail() instead.
+ */
+function censorReferrer(?string $value, string $empty = '—'): string
+{
+    if ($value === null || trim($value) === '') {
+        return $empty;
+    }
+
+    if (str_contains($value, '@')) {
+        return censorReferrerEmail($value, $empty);
+    }
+
+    return censorReferrerName(null, null, $value, $empty);
+}

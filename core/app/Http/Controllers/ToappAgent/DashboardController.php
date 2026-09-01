@@ -14,9 +14,8 @@ class DashboardController extends Controller
     public function index()
     {
         $agent = Auth::guard('agent')->user();
-        $agentId = $agent->id;
 
-        $usersQuery = User::where('agent_id', $agentId);
+        $usersQuery = User::forAgentTerritory($agent);
 
         return view('toapp_agent.dashboard', [
             'pageTitle' => 'Agent Dashboard',
@@ -27,9 +26,9 @@ class DashboardController extends Controller
                 'active_products' => Investment::whereIn('user_id', (clone $usersQuery)->select('id'))
                     ->where('status', Status::RUNNING)
                     ->count(),
-                'open_chats' => AgentConversation::where('agent_id', $agentId)->count(),
+                'open_chats' => AgentConversation::forAgentTerritory($agent)->count(),
             ],
-            'recentUsers' => User::where('agent_id', $agentId)
+            'recentUsers' => User::forAgentTerritory($agent)
                 ->latest('id')
                 ->limit(8)
                 ->get(),

@@ -1418,6 +1418,10 @@ transition-delay: 0.5s;
 .form-insure .buttons{
   padding:10px 0 10px 0;
 }
+.page-register .form-insure .form-footer{
+  margin-top: 24px;
+  padding-top: 8px;
+}
 .form-insure .btn[type=submit]{width: 208px;}
 .form-insure label.title{color: #fff;}
 .btn.resend {
@@ -2311,6 +2315,7 @@ Personal  Information
 
 .datepicker-dropdown {
   width: auto;
+  min-width: 280px;
   padding:10px !important;
   border: 0 !important;
   box-shadow:none;
@@ -2335,7 +2340,8 @@ Personal  Information
   opacity: 0.4;
 }
 
-.datepicker table tr td > span{
+/* Day cells only — do not apply circle sizing to month/year spans */
+.datepicker-days table tr td > span{
   display: block;
   width: 25px;
   height: 25px;
@@ -2344,23 +2350,23 @@ Personal  Information
   margin: auto;
   border: 2px solid transparent;
 }
-.datepicker table tr td.today > span,
-.datepicker table tr td.day:hover > span,
-.datepicker table tr td.focused  > span,
-.datepicker table tr td.active  > span{
+.datepicker-days table tr td.today > span,
+.datepicker-days table tr td.day:hover > span,
+.datepicker-days table tr td.focused  > span,
+.datepicker-days table tr td.active  > span{
 
   background-color: #eee;
   transition: all 0.25s;
 }
-.datepicker table tr td.today > span{
+.datepicker-days table tr td.today > span{
   color: #fff !important;
   background:var(--color-primary) !important;
 }
-.datepicker table tr td.active  > span{
+.datepicker-days table tr td.active  > span{
   background:#2AD4DB !important;
   color: #fff !important; 
 }
-.datepicker table tr td.focused > span{
+.datepicker-days table tr td.focused > span{
   background: #eee;
   cursor: pointer;
 }
@@ -2401,24 +2407,59 @@ Personal  Information
  
 .datepicker table td{ padding:2px 0;}
 .datepicker-inline table td{  padding:7px 0;}
+
+/* Month / year / decade / century grid (bootstrap-datepicker default layout) */
+.datepicker-months td,
+.datepicker-years td,
+.datepicker-decades td,
+.datepicker-centuries td{
+  padding: 0 !important;
+  min-width: 0;
+}
 .datepicker-months span.month,
-.datepicker-years span.year{
-  display:inline-block; 
-  margin: 2px;
+.datepicker-years span.year,
+.datepicker-decades span.decade,
+.datepicker-centuries span.century{
+  display: block;
+  float: left;
+  width: 23%;
+  height: 44px;
+  line-height: 44px;
+  margin: 1%;
   cursor: pointer;
   transition: all 0.25s;
-  border-radius: 5px;
-  width: auto; 
-  height: auto;
-  padding: 0 15px 0;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: #252525;
+  box-sizing: border-box;
 }
 .datepicker-months span.month.focused,
-.datepicker-years span.year.focused{
- background: var(--blue);
+.datepicker-years span.year.focused,
+.datepicker-decades span.decade.focused,
+.datepicker-centuries span.century.focused,
+.datepicker-months span.month.active,
+.datepicker-years span.year.active,
+.datepicker-decades span.decade.active,
+.datepicker-centuries span.century.active{
+  background: var(--blue, var(--color-primary, #2AD4DB));
   color: #fff !important;
 }
+.datepicker-months span.month.disabled,
+.datepicker-years span.year.disabled,
+.datepicker-decades span.decade.disabled,
+.datepicker-centuries span.century.disabled{
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
 .pc .datepicker-months span.month:hover,
-.pc .datepicker-years span.year:hover{background-color:#eee;}
+.pc .datepicker-years span.year:hover,
+.pc .datepicker-decades span.decade:hover,
+.pc .datepicker-centuries span.century:hover{
+  background-color:#eee;
+}
 
 .datepicker-dropdown .icon-next,
 .datepicker-dropdown .icon-prev{

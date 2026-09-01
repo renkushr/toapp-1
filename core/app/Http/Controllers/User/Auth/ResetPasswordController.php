@@ -7,55 +7,74 @@ use App\Models\PasswordReset;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rules\Password;
 
 class ResetPasswordController extends Controller
 {
     public function showResetForm(Request $request, $token = null)
     {
+        $email = session('fpass_email') ?: session('pass_res_mail');
+        $token = $token ?: session('token');
 
-        $email = session('fpass_email');
-        $token = session()->has('token') ? session('token') : $token;
-        if (PasswordReset::where('token', $token)->where('email', $email)->count() != 1) {
-            $notify[] = ['error', 'Invalid token'];
+        if (!$email || !$token || PasswordReset::where('token', $token)->where('email', $email)->count() != 1) {
+            $notify[] = ['error', 'Invalid or expired recovery session. Please request a new code.'];
             return to_route('user.password.request')->withNotify($notify);
         }
-        return view('Template::user.auth.passwords.reset')->with(
-            ['token' => $token, 'email' => $email, 'pageTitle' => 'Reset Password']
-        );
+
+        return view('Template::user.auth.passwords.reset')->with([
+            'token' => $token,
+            'email' => $email,
+            'pageTitle' => 'Reset Password',
+        ]);
     }
 
     public function reset(Request $request)
     {
         $request->validate($this->rules());
-        $reset = PasswordReset::where('token', $request->token)->orderBy('created_at', 'desc')->first();
+
+        $reset = PasswordReset::where('token', $request->token)
+            ->where('email', $request->email)
+            ->orderByDesc('created_at')
+            ->first();
+
         if (!$reset) {
             $notify[] = ['error', 'Invalid verification code'];
-            return to_route('user.login')->withNotify($notify);
+            return to_route('user.password.request')->withNotify($notify);
         }
 
         $user = User::where('email', $reset->email)->first();
+        if (!$user) {
+            $notify[] = ['error', 'Account not found'];
+            return to_route('user.password.request')->withNotify($notify);
+        }
+
         $user->password = Hash::make($request->password);
         $user->save();
 
-
+        PasswordReset::where('email', $user->email)->delete();
+        session()->forget(['fpass_email', 'pass_res_mail', 'token']);
 
         $userIpInfo = getIpInfo();
         $userBrowser = osBrowser();
-        notify($user, 'PASS_RESET_DONE', [
-            'operating_system' => @$userBrowser['os_platform'],
-            'browser' => @$userBrowser['browser'],
-            'ip' => @$userIpInfo['ip'],
-            'time' => @$userIpInfo['time']
-        ],['email']);
 
-        \Session::flash('modal', '#loginModal');
-        \Session::flash('modalType', '#loginModal');
+        try {
+            notify($user, 'PASS_RESET_DONE', [
+                'operating_system' => @$userBrowser['os_platform'],
+                'browser' => @$userBrowser['browser'],
+                'ip' => @$userIpInfo['ip'],
+                'time' => @$userIpInfo['time'],
+            ], ['email']);
+        } catch (\Throwable $e) {
+            Log::warning('Password reset confirmation email failed', [
+                'user_id' => $user->id,
+                'error' => $e->getMessage(),
+            ]);
+        }
 
-        $notify[] = ['success', 'Password changed successfully'];
+        $notify[] = ['success', 'Password changed successfully. You can log in now.'];
         return to_route('user.login')->withNotify($notify);
     }
-
 
     protected function rules()
     {
@@ -66,8 +85,7 @@ class ResetPasswordController extends Controller
         return [
             'token' => 'required',
             'email' => 'required|email',
-            'password' => ['required','confirmed',$passwordValidation],
+            'password' => ['required', 'confirmed', $passwordValidation],
         ];
     }
-
 }

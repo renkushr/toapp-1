@@ -22,6 +22,10 @@ class SiteController extends Controller
 
         if ($reference) {
             session()->put('reference', $reference);
+
+            if (!auth()->check()) {
+                return to_route('user.register');
+            }
         }
 
         if (auth('admin')->check()) {

@@ -20,11 +20,11 @@ class ChatController extends Controller
         $agent = Auth::guard('agent')->user();
 
         $conversations = AgentConversation::with(['user', 'latestMessage.attachments'])
-            ->where('agent_id', $agent->id)
+            ->forAgentTerritory($agent)
             ->latest('last_message_at')
             ->paginate(20);
 
-        $unreadByConversation = $this->chatService->unreadCountsByConversation($agent->id);
+        $unreadByConversation = $this->chatService->unreadCountsByConversation($agent);
 
         return view('toapp_agent.chat.index', [
             'pageTitle' => 'Client Chat',
@@ -37,7 +37,7 @@ class ChatController extends Controller
     public function show(User $user)
     {
         $agent = Auth::guard('agent')->user();
-        abort_unless((int) $user->agent_id === (int) $agent->id, 403);
+        abort_unless($agent->canAccessUser($user), 403);
 
         $conversation = AgentConversation::findOrCreateFor($agent->id, $user->id);
 
@@ -58,7 +58,7 @@ class ChatController extends Controller
     public function send(Request $request, User $user)
     {
         $agent = Auth::guard('agent')->user();
-        abort_unless((int) $user->agent_id === (int) $agent->id, 403);
+        abort_unless($agent->canAccessUser($user), 403);
 
         $validated = $request->validate([
             'message' => ['nullable', 'string', 'max:5000'],
@@ -91,9 +91,9 @@ class ChatController extends Controller
     public function messages(User $user)
     {
         $agent = Auth::guard('agent')->user();
-        abort_unless((int) $user->agent_id === (int) $agent->id, 403);
+        abort_unless($agent->canAccessUser($user), 403);
 
-        $conversation = AgentConversation::where('agent_id', $agent->id)
+        $conversation = AgentConversation::forAgentTerritory($agent)
             ->where('user_id', $user->id)
             ->firstOrFail();
 
@@ -117,8 +117,8 @@ class ChatController extends Controller
         $agent = Auth::guard('agent')->user();
 
         return response()->json([
-            'unread_total' => $this->chatService->unreadCountForAgent($agent->id),
-            'by_conversation' => $this->chatService->unreadCountsByConversation($agent->id),
+            'unread_total' => $this->chatService->unreadCountForAgent($agent),
+            'by_conversation' => $this->chatService->unreadCountsByConversation($agent),
         ]);
     }
 }

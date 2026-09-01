@@ -16,7 +16,7 @@ class UserController extends Controller
         $agent = Auth::guard('agent')->user();
 
         $users = User::query()
-            ->where('agent_id', $agent->id)
+            ->forAgentTerritory($agent)
             ->when($request->filled('search'), function ($query) use ($request) {
                 $search = $request->string('search')->toString();
                 $query->where(function ($inner) use ($search) {
@@ -48,7 +48,7 @@ class UserController extends Controller
     public function show(User $user)
     {
         $agent = Auth::guard('agent')->user();
-        abort_unless((int) $user->agent_id === (int) $agent->id, 403);
+        abort_unless($agent->canAccessUser($user), 403);
 
         $investments = Investment::with('plan')
             ->where('user_id', $user->id)

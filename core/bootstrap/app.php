@@ -20,6 +20,7 @@ use App\Http\Middleware\PortalGuest;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -28,14 +29,23 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
         using:function(){
+            $adminPath = trim((string) config('toapp.admin_path', 'adto-app'), '/') ?: 'adto-app';
+
+            // Legacy admin URL aliases → /adto-app
             Route::middleware(['web'])
-                ->get('admin-new/{path?}', function (?string $path = null) {
-                    return redirect('/admin' . ($path ? '/' . $path : ''), 301);
+                ->get('admin-new/{path?}', function (?string $path = null) use ($adminPath) {
+                    return redirect('/' . $adminPath . ($path ? '/' . $path : ''), 301);
                 })
                 ->where('path', '.*');
 
             Route::middleware(['web'])
-                ->prefix('admin')
+                ->get('admin/{path?}', function (?string $path = null) use ($adminPath) {
+                    return redirect('/' . $adminPath . ($path ? '/' . $path : ''), 301);
+                })
+                ->where('path', '.*');
+
+            Route::middleware(['web'])
+                ->prefix($adminPath)
                 ->name('toapp.admin.')
                 ->group(base_path('routes/toapp_admin.php'));
 
@@ -69,6 +79,12 @@ return Application::configure(basePath: dirname(__DIR__))
         }
     )
     ->withMiddleware(function (Middleware $middleware) {
+        // Behind Caddy/Let's Encrypt reverse proxy — trust forwarded scheme/host for HTTPS URLs.
+        $middleware->trustProxies(at: '*', headers: Request::HEADER_X_FORWARDED_FOR
+            | Request::HEADER_X_FORWARDED_HOST
+            | Request::HEADER_X_FORWARDED_PORT
+            | Request::HEADER_X_FORWARDED_PROTO);
+
         $middleware->group('web',[
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,

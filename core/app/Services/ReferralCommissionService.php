@@ -111,7 +111,7 @@ class ReferralCommissionService
         $transaction->charge = 0;
         $transaction->trx_type = '+';
         $transaction->remark = 'referral_commission';
-        $transaction->details = sprintf('Level %d commission %.2f%% from %s package purchase', $level, $percent, $buyer->username ?: $buyer->email);
+        $transaction->details = sprintf('Level %d referral fee %.2f%% from %s package purchase', $level, $percent, $buyer->username ?: $buyer->email);
         $transaction->trx = getTrx();
         $transaction->save();
 

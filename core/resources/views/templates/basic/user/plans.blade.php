@@ -26,7 +26,7 @@
                     <i class="las la-layer-group"></i>
                     @lang('Investment plans')
                 </span>
-                <h1>@lang('Choose a plan that matches your pace.')</h1>
+                <h1>@lang('Choose a plan that fits your needs.')</h1>
                 <p>@lang('Compare returns, ranges, and payout cycles before confirming. We made this page feel more guided so users understand what they are choosing.')</p>
 
                 <div class="app-pills">

@@ -8,12 +8,12 @@
     </div>
 @endif
 @if ($customCaptcha)
-    <div class="form-group">
+    <div class="form-group auth-captcha-custom">
         <div class="mb-2">
             @php echo $customCaptcha @endphp
         </div>
-        <label class="form-label">@lang('Captcha')</label>
-        <input type="text" name="captcha" class="form-control form--control" required>
+        <label class="form-label auth-label">@lang('Captcha')</label>
+        <input type="text" name="captcha" class="form-control form--control auth-control" required>
     </div>
 @endif
 @if ($googleCaptcha)

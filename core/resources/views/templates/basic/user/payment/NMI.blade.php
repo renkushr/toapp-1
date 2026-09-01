@@ -1,5 +1,11 @@
 @extends($activeTemplate.'layouts.master')
 @section('content')
+<div class="app-page">
+    <div class="app-container">
+        @include($activeTemplate . 'partials.app_topbar', [
+            'backUrl' => route('user.deposit.index'),
+            'brandTitle' => __('Payment'),
+        ])
     <div class="container py-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -39,6 +45,8 @@
         </div>
     </div>
 
+    </div>
+</div>
 @endsection
 @if($deposit->from_api)
     @push('script')

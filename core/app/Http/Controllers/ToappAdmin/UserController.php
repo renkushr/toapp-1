@@ -11,6 +11,7 @@ use App\Models\ReferralCommission;
 use App\Models\Withdrawal;
 use App\Support\AdminAudit;
 use App\Support\UsZip;
+use App\Support\UsZipCatalog;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
@@ -27,6 +28,10 @@ class UserController extends Controller
         return view('toapp_admin.users.index', [
             'pageTitle' => 'Users',
             'users' => $users,
+            'unassignedCount' => User::withoutAgent()->count(),
+            'stateTabs' => $this->stateTabs(),
+            'selectedState' => strtoupper(trim((string) $request->input('state', ''))),
+            'states' => UsZipCatalog::states(),
         ]);
     }
 
@@ -36,14 +41,18 @@ class UserController extends Controller
 
         return response()->streamDownload(function () use ($users) {
             $handle = fopen('php://output', 'w');
-            fputcsv($handle, ['Username', 'Name', 'Email', 'Mobile', 'Balance', 'Status', 'Approval', 'KYC', 'Referrer ID', 'Referral Code', 'Joined']);
+            fputcsv($handle, ['Username', 'Name', 'Email', 'Mobile', 'ZIP code', 'State', 'Balance', 'Status', 'Approval', 'KYC', 'Referrer ID', 'Referral Code', 'Joined']);
 
             foreach ($users as $user) {
+                $zip = UsZip::normalize((string) $user->zipcode) ?: (string) $user->zipcode;
+                $state = $zip ? (UsZipCatalog::stateForZip($zip) ?: 'OTHER') : '';
                 fputcsv($handle, [
                     $user->username,
                     trim($user->firstname . ' ' . $user->lastname),
                     $user->email,
                     $user->dial_code . $user->mobile,
+                    $zip,
+                    $state ? UsZipCatalog::stateName($state) : '',
                     $user->balance,
                     $user->status ? 'Active' : 'Banned',
                     $user->approval_status ?? 'approved',
@@ -61,18 +70,112 @@ class UserController extends Controller
     protected function userQuery(Request $request)
     {
         return User::query()
+            ->with('agent')
             ->when($request->filled('search'), function ($query) use ($request) {
                 $search = $request->string('search')->toString();
                 $query->where(function ($inner) use ($search) {
                     $inner->where('username', 'like', "%{$search}%")
                         ->orWhere('email', 'like', "%{$search}%")
                         ->orWhere('firstname', 'like', "%{$search}%")
-                        ->orWhere('lastname', 'like', "%{$search}%");
+                        ->orWhere('lastname', 'like', "%{$search}%")
+                        ->orWhere('zipcode', 'like', "%{$search}%");
                 });
             })
             ->when($request->filled('status'), fn ($query) => $query->where('status', $request->integer('status')))
             ->when($request->filled('approval'), fn ($query) => $query->where('approval_status', $request->approval))
-            ->when($request->filled('kyc'), fn ($query) => $query->where('kv', $request->integer('kyc')));
+            ->when($request->filled('kyc'), fn ($query) => $query->where('kv', $request->integer('kyc')))
+            ->when($request->agent === 'unassigned', fn ($query) => $query->withoutAgent())
+            ->when($request->filled('state'), function ($query) use ($request) {
+                $this->applyStateFilter($query, strtoupper(trim((string) $request->input('state'))));
+            });
+    }
+
+    protected function applyStateFilter($query, string $state): void
+    {
+        if ($state === '' || $state === 'ALL') {
+            return;
+        }
+
+        if ($state === 'OTHER') {
+            $knownZips = [];
+            foreach (User::query()
+                ->whereNotNull('zipcode')
+                ->where('zipcode', '!=', '')
+                ->distinct()
+                ->pluck('zipcode') as $zip) {
+                $normalized = UsZip::normalize((string) $zip);
+                if ($normalized && !UsZipCatalog::stateForZip($normalized)) {
+                    $knownZips[$normalized] = $normalized;
+                    $knownZips[(string) $zip] = (string) $zip;
+                }
+            }
+
+            if ($knownZips === []) {
+                $query->whereRaw('0 = 1');
+                return;
+            }
+
+            $query->whereIn('zipcode', array_values($knownZips));
+            return;
+        }
+
+        $zips = UsZipCatalog::zipCodesForState($state);
+        if ($zips === []) {
+            $query->whereRaw('0 = 1');
+            return;
+        }
+
+        $query->where(function ($inner) use ($zips) {
+            foreach (array_chunk($zips, 800) as $chunk) {
+                $inner->orWhereIn('zipcode', $chunk);
+            }
+        });
+    }
+
+    /**
+     * @return list<array{abbr:string,name:string,count:int}>
+     */
+    protected function stateTabs(): array
+    {
+        $zipCounts = User::query()
+            ->whereNotNull('zipcode')
+            ->where('zipcode', '!=', '')
+            ->selectRaw('zipcode, COUNT(*) as total')
+            ->groupBy('zipcode')
+            ->pluck('total', 'zipcode');
+
+        $byState = [];
+        $unknown = 0;
+
+        foreach ($zipCounts as $zip => $count) {
+            $abbr = UsZipCatalog::stateForZip((string) $zip);
+            if (!$abbr) {
+                $unknown += (int) $count;
+                continue;
+            }
+            $byState[$abbr] = ($byState[$abbr] ?? 0) + (int) $count;
+        }
+
+        $tabs = [];
+        foreach ($byState as $abbr => $count) {
+            $tabs[] = [
+                'abbr' => $abbr,
+                'name' => UsZipCatalog::stateName($abbr),
+                'count' => $count,
+            ];
+        }
+
+        usort($tabs, fn ($a, $b) => strcmp($a['name'], $b['name']));
+
+        if ($unknown > 0) {
+            $tabs[] = [
+                'abbr' => 'OTHER',
+                'name' => 'Other / unknown',
+                'count' => $unknown,
+            ];
+        }
+
+        return $tabs;
     }
 
     public function show(User $user)
@@ -236,7 +339,7 @@ class UserController extends Controller
 
         if (!$agent->coversZip($zip)) {
             return back()->withErrors([
-                'agent_id' => "Agent {$agent->license_no} does not cover ZIP {$zip}.",
+                'agent_id' => "Agent {$agent->license_no} does not cover ZIP code {$zip}.",
             ]);
         }
 
@@ -254,6 +357,6 @@ class UserController extends Controller
             'zipcode' => $zip,
         ]);
 
-        return back()->with('status', "Agent {$agent->name} ({$agent->license_no}) assigned for ZIP {$zip}.");
+        return back()->with('status', "Agent {$agent->name} ({$agent->license_no}) assigned for ZIP code {$zip}.");
     }
 }

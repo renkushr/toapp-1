@@ -58,7 +58,7 @@
                 </label>
 
                 <label class="app-field">
-                    <span>@lang('Zip code')</span>
+                    <span>@lang('ZIP code')</span>
                     <input type="text" name="zipcode" value="{{ old('zipcode', $user->zipcode) }}" class="form-control" required>
                 </label>
 

@@ -7,7 +7,7 @@
     </div>
     <div class="ta-table-wrap">
         <table class="ta-table">
-            <thead><tr><th>Client</th><th>ZIP</th><th>Last message</th><th>Unread</th><th></th></tr></thead>
+            <thead><tr><th>Client</th><th>ZIP code</th><th>Last message</th><th>Unread</th><th></th></tr></thead>
             <tbody>
                 @forelse($conversations as $conversation)
                     @php

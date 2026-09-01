@@ -31,8 +31,11 @@ class RegisterController extends Controller
     }
 
 
-    public function showRegistrationForm()
+    public function showRegistrationForm(Request $request)
     {
+        if ($request->filled('reference')) {
+            session()->put('reference', trim($request->string('reference')->toString()));
+        }
 
         $pageTitle = "Registeration";
         return view('Template::user.auth.register',compact('pageTitle'));
@@ -158,6 +161,14 @@ class RegisterController extends Controller
 
         $this->guard()->login($user);
 
+        if (gs('ev') && !$user->ev) {
+            return to_route('user.authorization');
+        }
+
+        if (gs('user_approval') && in_array($user->approval_status, ['pending', 'rejected'], true)) {
+            return to_route('user.approval.pending');
+        }
+
         return to_route('user.home');
     }
 
@@ -191,22 +202,33 @@ class RegisterController extends Controller
         $user->ref_by    = $referUser ? $referUser->id : 0;
         $user->kv = gs('kv') ? Status::NO : Status::YES;
         $user->refno = Str::random(6);;
-        $user->approval_status = 'pending';
-        $user->approved_at = null;
+        $requiresApproval = (bool) gs('user_approval');
+        $user->approval_status = $requiresApproval ? 'pending' : 'approved';
+        $user->approved_at = $requiresApproval ? null : now();
         $user->approved_by = null;
         $user->rejected_at = null;
         $user->rejection_reason = null;
-        $user->ev = 1;
-        $user->sv = 1;
+        $user->ev = gs('ev') ? Status::UNVERIFIED : Status::VERIFIED;
+        $user->sv = gs('sv') ? Status::UNVERIFIED : Status::VERIFIED;
         $user->ts = Status::DISABLE;
         $user->tv = Status::ENABLE;
         $user->save();
 
-        $adminNotification            = new AdminNotification();
-        $adminNotification->user_id   = $user->id;
-        $adminNotification->title     = 'New member waiting for approval';
-        $adminNotification->click_url = url('/admin/users/' . $user->id);
-        $adminNotification->save();
+        if ($requiresApproval) {
+            $adminNotification            = new AdminNotification();
+            $adminNotification->user_id   = $user->id;
+            $adminNotification->title     = 'New member waiting for approval';
+            $adminNotification->click_url = adminPortalUrl('users/' . $user->id);
+            $adminNotification->save();
+        }
+
+        if (!$user->agent_id && filled($user->zipcode)) {
+            $unassignedNotice            = new AdminNotification();
+            $unassignedNotice->user_id   = $user->id;
+            $unassignedNotice->title     = 'Member has no agent for ZIP code ' . $user->zipcode;
+            $unassignedNotice->click_url = adminPortalUrl('users/' . $user->id);
+            $unassignedNotice->save();
+        }
 
 
         //Login Log Create

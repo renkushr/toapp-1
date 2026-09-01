@@ -10,5 +10,8 @@
     'agent' => $agent,
     'action' => route('toapp.admin.agents.update', $agent),
     'method' => 'PUT',
+    'selectedZipsByState' => $selectedZipsByState ?? [],
+    'zipSelectAllUsa' => $zipSelectAllUsa ?? false,
+    'zipCatalogTotal' => $zipCatalogTotal ?? 0,
 ])
 @endsection

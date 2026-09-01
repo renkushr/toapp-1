@@ -20,7 +20,7 @@
             <div class="ta-chat-header-avatar">{{ $clientInitials }}</div>
             <div class="ta-chat-header-info">
                 <h2>{{ $user->firstname }} {{ $user->lastname }}</h2>
-                <p>ZIP {{ $user->zipcode }} · {{ $user->email }}</p>
+                <p>ZIP code {{ $user->zipcode }} · {{ $user->email }}</p>
             </div>
             <a class="btn btn-outline-secondary btn-sm" href="{{ route('toapp.agent.users.show', $user) }}">View profile</a>
         </div>

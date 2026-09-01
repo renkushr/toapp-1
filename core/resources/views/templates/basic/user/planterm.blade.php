@@ -124,7 +124,7 @@
                                 <div class="logo">
                                     <img class="w-100" src="../../img/logo.svg" alt="">
                                 </div>
-                                <p>© 2024 Check insure All rights reserved.</p>
+                                <p>&copy; {{ date('Y') }} TONKOW TEK LLP. @lang('All rights reserved.')</p>
                             </div>
                             <div class="col-md-4 d-flex justify-content-end flex-column">
                                 <p class="contact-item mb-2">

@@ -4,10 +4,7 @@
 
 @section('content')
     @php
-        $dob = data_get(session('user_register'), 'dob');
-        $selectedMonth = $dob ? \Carbon\Carbon::parse($dob)->format('m') : old('mm');
-        $selectedDate = $dob ? \Carbon\Carbon::parse($dob)->format('d') : old('dd');
-        $selectedYear = $dob ? \Carbon\Carbon::parse($dob)->format('Y') : old('yyyy');
+        $dob = data_get(session('user_register'), 'dob', old('dob'));
         $selectedSex = data_get(session('user_register'), 'sex', old('sex'));
     @endphp
 
@@ -60,51 +57,35 @@
                         </div>
 
                         <div class="auth-field">
-                            <label class="auth-label">@lang('Date of birth')</label>
-                            <div class="auth-date-grid">
-                                <select name="mm" class="auth-select" required>
-                                    <option value="">@lang('MM')</option>
-                                    @for ($i = 1; $i <= 12; $i++)
-                                        @php $month = str_pad($i, 2, '0', STR_PAD_LEFT); @endphp
-                                        <option value="{{ $month }}" @selected($selectedMonth == $month)>{{ $month }}</option>
-                                    @endfor
-                                </select>
-
-                                <select name="dd" class="auth-select" required>
-                                    <option value="">@lang('DD')</option>
-                                    @for ($i = 1; $i <= 31; $i++)
-                                        @php $date = str_pad($i, 2, '0', STR_PAD_LEFT); @endphp
-                                        <option value="{{ $date }}" @selected($selectedDate == $date)>{{ $date }}</option>
-                                    @endfor
-                                </select>
-
-                                <select name="yyyy" class="auth-select" required>
-                                    <option value="">@lang('YYYY')</option>
-                                    @foreach ($year as $data)
-                                        <option value="{{ $data->year }}" @selected($selectedYear == $data->year)>{{ $data->year }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <input type="hidden" name="dob" id="dob" value="{{ $dob }}">
-                            <p class="auth-help">@lang('You must be at least 16 years old to continue.')</p>
+                            <label class="auth-label" for="dob">@lang('Date of birth')</label>
+                            <input
+                                id="dob"
+                                type="date"
+                                class="auth-control"
+                                name="dob"
+                                value="{{ $dob ?: old('dob') }}"
+                                max="{{ now()->subYears(16)->format('Y-m-d') }}"
+                                min="{{ now()->subYears(100)->format('Y-m-d') }}"
+                                required
+                            >
+                            <p class="auth-help">@lang('Select your birth date. You must be at least 16 years old.')</p>
                         </div>
 
                         <div class="auth-field">
-                            <label class="auth-label" for="agent_license_no">@lang('Agent License No.')</label>
+                            <label class="auth-label" for="agent_license_no">@lang('Agent License No.') <span class="text-secondary">(@lang('optional'))</span></label>
                             <input
                                 id="agent_license_no"
                                 type="text"
                                 class="auth-control"
                                 name="agent_license_no"
                                 value="{{ data_get(session('user_register'), 'agent_license_no', old('agent_license_no')) }}"
-                                placeholder="@lang('Your agent license number')"
-                                required
+                                placeholder="@lang('Leave blank if you do not have one')"
                             >
-                            <p class="auth-help">@lang('Enter the license number of the agent who serves your area.')</p>
+                            <p class="auth-help">@lang('Optional. If blank, we will try to match an agent by your ZIP code.')</p>
                         </div>
 
                         <div class="auth-field">
-                            <label class="auth-label" for="zipcode">@lang('US Zip Code')</label>
+                            <label class="auth-label" for="zipcode">@lang('US ZIP code')</label>
                             <input
                                 id="zipcode"
                                 type="text"
@@ -117,7 +98,7 @@
                                 maxlength="10"
                                 required
                             >
-                            <p class="auth-help">@lang('Must match a ZIP code covered by your agent.')</p>
+                            <p class="auth-help">@lang('Enter your 5-digit US ZIP code.')</p>
                         </div>
 
                         <div class="auth-field">
@@ -175,13 +156,6 @@
                 $('.gender').removeClass('active');
                 $(this).addClass('active');
                 $('[name="sex"]').val($(this).data('sex'));
-            });
-
-            $('[name="mm"], [name="dd"], [name="yyyy"]').on('change', function() {
-                const mm = $('[name="mm"]').val();
-                const dd = $('[name="dd"]').val();
-                const yyyy = $('[name="yyyy"]').val();
-                $('#dob').val(mm && dd && yyyy ? `${yyyy}-${mm}-${dd}` : '');
             });
         })(jQuery);
     </script>

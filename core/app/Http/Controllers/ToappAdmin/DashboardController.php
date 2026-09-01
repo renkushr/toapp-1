@@ -19,6 +19,7 @@ class DashboardController extends Controller
         $stats = [
             'users' => User::count(),
             'pending_users' => User::approvalPending()->count(),
+            'unassigned_users' => User::withoutAgent()->count(),
             'active_users' => User::active()->count(),
             'plans' => Plan::count(),
             'pending_investments' => Investment::where('status', Status::INVESTMENT_PENDING)->count(),

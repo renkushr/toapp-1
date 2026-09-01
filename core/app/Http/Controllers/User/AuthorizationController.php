@@ -100,6 +100,10 @@ class AuthorizationController extends Controller
             $user->ver_code_send_at = null;
             $user->save();
 
+            if (gs('user_approval') && in_array($user->approval_status, ['pending', 'rejected'], true)) {
+                return to_route('user.approval.pending');
+            }
+
             $redirection = Intended::getRedirection();
             return $redirection ? $redirection : to_route('user.home');
         }

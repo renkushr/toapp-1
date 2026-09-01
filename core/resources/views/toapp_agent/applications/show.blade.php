@@ -5,6 +5,7 @@
     $client = $application->user;
     $initials = collect([$client->firstname ?? '', $client->lastname ?? ''])->filter()->map(fn ($part) => strtoupper(substr($part, 0, 1)))->take(2)->implode('') ?: 'CL';
     $isConfirmed = $application->status === \App\Models\InsuranceApplication::STATUS_CONFIRMED;
+    $livingLabel = ($application->plan?->category === 'Term Life') ? 'Living Benefits' : 'Long term care';
 @endphp
 
 <div class="card mb-4">
@@ -26,8 +27,11 @@
     </div>
     <div class="list-group list-group-flush portal-detail-list">
         @foreach([
-            ['ZIP', $application->zipcode ?: '—'],
+            ['ZIP code', $application->zipcode ?: '—'],
             ['Product', $application->plan?->name ?? '—'],
+            ['Coverage amount', $application->coverage_amount ? '$' . number_format((int) $application->coverage_amount) : '—'],
+            ['Coverage length', $application->coverage_length ? $application->coverage_length . ' years' : '—'],
+            [$livingLabel, $application->living_benefits ? 'Yes' : 'No'],
             ['Annual quote', '$' . number_format((float) ($application->quoted_annual ?? 0), 2) . '/yr'],
             ['Monthly quote', $application->quoted_monthly ? '$' . number_format((float) $application->quoted_monthly, 2) . '/mo' : '—'],
             ['Status', $application->statusLabel()],

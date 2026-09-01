@@ -1,26 +1,30 @@
 @extends($activeTemplate.'layouts.master')
 @section('content')
-<section class="py-5">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-8">
-                <div class="card custom--card">
-                    <div class="card-body">
-                        <form action="{{route('user.kyc.submit')}}" method="post" enctype="multipart/form-data">
-                            @csrf
-
-                            <x-viser-form identifier="act" identifierValue="kyc" />
-
-                            <div class="form-group">
-                                <button type="submit" class="btn btn--base w-100">@lang('Submit')</button>
-                            </div>
-                        </form>
+<div class="app-page">
+    <div class="app-container">
+        @include($activeTemplate . 'partials.app_topbar', [
+            'backUrl' => route('user.setting'),
+            'brandTitle' => __('KYC Verification'),
+        ])
+        <section class="py-3">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card custom--card">
+                        <div class="card-body">
+                            <form action="{{route('user.kyc.submit')}}" method="post" enctype="multipart/form-data">
+                                @csrf
+                                <x-viser-form identifier="act" identifierValue="kyc" />
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn--base w-100">@lang('Submit')</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
-</section>
+</div>
 @endsection
 @push('style-lib')
 <link rel="stylesheet" href="{{ asset('assets/global/css/select2.min.css') }}">

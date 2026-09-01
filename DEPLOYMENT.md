@@ -86,7 +86,7 @@ After migration, seed demo agents and auto-assign existing members by ZIP:
 docker compose exec app php /var/www/html/core/artisan toapp:seed-agents
 ```
 
-Demo logins at `/agent`: `agent1` / `Agent@12345` (license `AG-DEMO-001`, ZIPs 90210–90212), plus `agent2` and `agent3`.
+Demo logins at `https://agto-app.com/agent`: `agent1` / `Agent@12345` (license `AG-DEMO-001`, ZIPs 90210–90212), plus `agent2` and `agent3`.
 
 Seed sample insurance products for Check Insure:
 
@@ -117,7 +117,7 @@ The production compose file imports `install/toapp_fresh.sql` only when the data
 Temporary admin account after a fresh install:
 
 ```text
-URL: https://your-real-domain.com/admin
+URL: https://tonkow.com/adto-app
 Username: admin
 Password: Adm-0b265256c18d!
 ```

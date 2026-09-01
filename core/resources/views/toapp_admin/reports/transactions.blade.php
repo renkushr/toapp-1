@@ -1,12 +1,7 @@
 @extends('toapp_admin.layouts.app')
 
 @section('content')
-<section class="ta-tabs">
-    <a class="active" href="{{ route('toapp.admin.reports.transactions') }}">Transactions</a>
-    <a href="{{ route('toapp.admin.reports.investments') }}">Investments</a>
-    <a href="{{ route('toapp.admin.reports.logins') }}">Login History</a>
-    <a href="{{ route('toapp.admin.reports.audits') }}">Audit Logs</a>
-</section>
+@include('toapp_admin.reports.partials.tabs')
 
 <div class="card">
     <div class="card-header portal-list-header">

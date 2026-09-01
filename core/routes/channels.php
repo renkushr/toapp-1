@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Broadcast;
 
 Broadcast::channel('agent.conversation.{conversationId}', function ($user, int $conversationId) {
-    $conversation = AgentConversation::find($conversationId);
+    $conversation = AgentConversation::with('user')->find($conversationId);
 
     if (!$conversation) {
         return false;
@@ -18,12 +18,12 @@ Broadcast::channel('agent.conversation.{conversationId}', function ($user, int $
     }
 
     if ($user instanceof Agent) {
-        return (int) $conversation->agent_id === (int) $user->id;
+        return $conversation->user && $user->canAccessUser($conversation->user);
     }
 
     $agent = Auth::guard('agent')->user();
     if ($agent instanceof Agent) {
-        return (int) $conversation->agent_id === (int) $agent->id;
+        return $conversation->user && $agent->canAccessUser($conversation->user);
     }
 
     $member = Auth::guard('web')->user();

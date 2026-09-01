@@ -1,6 +1,6 @@
 @extends('check_insure.layout')
 
-@section('page_class', '')
+@section('page_class', 'page-register')
 @section('content')
 <div class="section section-insure-form">
     <div class="insure-form-boxed">

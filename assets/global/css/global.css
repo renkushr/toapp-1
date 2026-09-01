@@ -1619,6 +1619,16 @@ withdraw
   font-weight: var(--fw-500);
   gap:6px
 }
+.footer-menu .nav-label {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.footer-menu .nav-label--short {
+  display: none;
+}
 .footer-menu .link-menu .icons{
   --icon-size:30px
 }
@@ -1652,7 +1662,13 @@ withdraw
 
 @media (max-width:575px) {
   .footer-menu{
-    padding: 0 25px;
+    padding: 0 4px;
+  }
+  .footer-menu .nav-label--full {
+    display: none;
+  }
+  .footer-menu .nav-label--short {
+    display: block;
   }
 }
 

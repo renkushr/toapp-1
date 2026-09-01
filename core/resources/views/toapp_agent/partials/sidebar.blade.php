@@ -47,6 +47,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('toapp.agent.reports.*') ? 'active' : '' }}" href="{{ route('toapp.agent.reports.index') }}">
+                        <span class="nav-link-icon d-md-none d-lg-inline-block"><i class="ti ti-chart-bar"></i></span>
+                        <span class="nav-link-title">Reports</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('toapp.agent.applications.*') ? 'active' : '' }}" href="{{ route('toapp.agent.applications.index') }}">
                         <span class="nav-link-icon d-md-none d-lg-inline-block"><i class="ti ti-file-certificate"></i></span>
                         <span class="nav-link-title">Applications</span>

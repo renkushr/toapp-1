@@ -11,7 +11,7 @@
                     <img src="{{ siteLogo() }}" alt="To-app">
                     <span>@lang('Settings')</span>
                 </a>
-                <a class="app-icon-btn" href="{{ route('ticket.open') }}" aria-label="@lang('Support')">
+                <a class="app-icon-btn" href="{{ route('user.call') }}" aria-label="@lang('Contact support')">
                     <i class="las la-headset"></i>
                 </a>
             </div>
@@ -82,31 +82,11 @@
                     <i class="las la-angle-right"></i>
                 </a>
 
-                @if(auth()->user()->agent_id)
-                <a class="app-list-item" href="{{ route('user.agent.chat') }}">
-                    <span class="app-list-icon"><i class="las la-user-tie"></i></span>
-                    <div class="app-list-body">
-                        <strong>@lang('My Agent')</strong>
-                        <span>@lang('Private chat with your assigned agent')</span>
-                    </div>
-                    <i class="las la-angle-right"></i>
-                </a>
-                @endif
-
-                <a class="app-list-item" href="{{ route('ticket.index') }}">
-                    <span class="app-list-icon"><i class="las la-comments"></i></span>
-                    <div class="app-list-body">
-                        <strong>@lang('Support tickets')</strong>
-                        <span>@lang('Follow up on previous support requests')</span>
-                    </div>
-                    <i class="las la-angle-right"></i>
-                </a>
-
                 <a class="app-list-item" href="{{ route('user.call') }}">
                     <span class="app-list-icon"><i class="las la-headset"></i></span>
                     <div class="app-list-body">
                         <strong>@lang('Contact support')</strong>
-                        <span>@lang('Open live help if you need a human')</span>
+                        <span>@lang('Chat, call, or email our support team')</span>
                     </div>
                     <i class="las la-angle-right"></i>
                 </a>

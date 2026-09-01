@@ -1,0 +1,55 @@
+{
+	email ftgamedevelope@gmail.com
+}
+
+to-app.com, www.to-app.com {
+	encode zstd gzip
+	reverse_proxy app:80 {
+		header_up X-Forwarded-Proto {scheme}
+		header_up X-Forwarded-For {remote_host}
+		header_up Host {host}
+	}
+}
+
+check-insure.com {
+	redir https://www.check-insure.com{uri} permanent
+}
+
+www.check-insure.com {
+	encode zstd gzip
+
+	# Homepage opens Check Insure portal
+	redir / /check-insure 302
+
+	reverse_proxy app:80 {
+		header_up X-Forwarded-Proto {scheme}
+		header_up X-Forwarded-For {remote_host}
+		header_up Host {host}
+	}
+}
+
+# Agent portal — same Docker app, dedicated host
+agto-app.com, www.agto-app.com {
+	encode zstd gzip
+
+	redir / /agent 302
+
+	reverse_proxy app:80 {
+		header_up X-Forwarded-Proto {scheme}
+		header_up X-Forwarded-For {remote_host}
+		header_up Host {host}
+	}
+}
+
+# Admin portal — path /adto-app on tonkow.com
+tonkow.com, www.tonkow.com {
+	encode zstd gzip
+
+	redir / /adto-app 302
+
+	reverse_proxy app:80 {
+		header_up X-Forwarded-Proto {scheme}
+		header_up X-Forwarded-For {remote_host}
+		header_up Host {host}
+	}
+}

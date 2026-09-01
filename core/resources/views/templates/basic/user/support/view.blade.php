@@ -1,258 +1,245 @@
 @extends($activeTemplate . 'layouts.' . $layout)
+
 @section('content')
-    <div class="container py-5">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <div class="card custom--card">
-                    <div class="card-header card-header-bg d-flex flex-wrap justify-content-between align-items-center">
-                        <h5 class="text-white mt-0">
-                            @php echo $myTicket->statusBadge; @endphp
-                            [@lang('Ticket')#{{ $myTicket->ticket }}] {{ $myTicket->subject }}
-                        </h5>
-                        @if ($myTicket->status != Status::TICKET_CLOSE && $myTicket->user)
-                            <button class="btn btn-danger close-button btn-sm confirmationBtn" type="button"
-                                data-question="@lang('Are you sure to close this ticket?')" data-action="{{ route('ticket.close', $myTicket->id) }}"><i
-                                    class="fas fa-lg fa-times-circle"></i>
-                            </button>
-                        @endif
-                    </div>
-                    <div class="card-body">
-                        <form id="reply_box" method="post" class="disableSubmission" action="{{ route('ticket.reply', $myTicket->id) }}"
-                            enctype="multipart/form-data">
-                            @csrf
-                            <div class="row justify-content-between">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <textarea name="message" class="form-control form--control" rows="4" required>{{ old('message') }}</textarea>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-9">
-                                    <button type="button" class="btn btn--base btn-sm addAttachment my-2"> <i
-                                            class="fas fa-plus"></i> @lang('Add Attachment') </button>
-                                    <p class="mb-2"><span class="text--info">@lang('Max 5 files can be uploaded | Maximum upload size is ' . convertToReadableSize(ini_get('upload_max_filesize')) . ' | Allowed File Extensions: .jpg, .jpeg, .png, .pdf, .doc, .docx')</span></p>
-                                    <div class="row fileUploadsContainer">
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <button id="replayTicket" class="btn btn--base btn-sm w-100 my-2" type="submit"><i
-                                            class="la la-fw la-lg la-reply"></i> @lang('Reply')
-                                    </button>
-                                </div>
-
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div id="reply_msgs"  class="contact-wrapper rounded-3 mt-4">
-                    @foreach ($messages as $message)
-                        @if ($message->admin_id == 0)
-                            <div id="reply_{{$message->id}}" class="row border border-primary border-radius-3 my-3 py-3 mx-2">
-                                <div class="col-md-3 border-end text-end">
-                                    <h5 class="my-3">{{ $message->ticket->name }}</h5>
-                                </div>
-                                <div class="col-md-9">
-                                    <small class="text-muted fw-bold my-3">
-                                        @lang('Posted on') {{ $message->created_at->format('l, dS F Y @ H:i') }}</small>
-                                    <p>{{ $message->message }}</p>
-                                    @if ($message->attachments->count() > 0)
-                                        <div class="mt-2">
-                                            @foreach ($message->attachments as $k => $image)
-                                                <a href="{{ route('ticket.download', encrypt($image->id)) }}"
-                                                    class="me-3"><i class="la la-file"></i> @lang('Attachment')
-                                                    {{ ++$k }} </a>
-                                            @endforeach
-                                        </div>
-                                    @endif
-                                </div>
-                            </div>
-                        @else
-                            <div id="reply_{{$message->id}}" class="row border border-warning border-radius-3 my-3 py-3 mx-2"
-                                style="background-color: #ffd96729">
-                                <div class="col-md-3 border-end text-end">
-                                    <h5 class="my-3">{{ $message->admin->name }}</h5>
-                                    <p class="lead text-muted">@lang('Staff')</p>
-                                </div>
-                                <div class="col-md-9">
-                                    <p class="text-muted fw-bold my-3">
-                                        @lang('Posted on') {{ $message->created_at->format('l, dS F Y @ H:i') }}</p>
-                                    <p>{{ $message->message }}</p>
-                                    @if ($message->attachments->count() > 0)
-                                        <div class="mt-2">
-                                            @foreach ($message->attachments as $k => $image)
-                                                <a href="{{ route('ticket.download', encrypt($image->id)) }}"
-                                                    class="me-3"><i class="la la-file"></i> @lang('Attachment')
-                                                    {{ ++$k }} </a>
-                                            @endforeach
-                                        </div>
-                                    @endif
-                                </div>
-                            </div>
-                        @endif
-                    @endforeach
-                </div>
-
-            </div>
+<div class="app-page">
+    <div class="app-container">
+        <div class="app-topbar">
+            <a class="app-icon-btn" href="{{ route('ticket.index') }}" aria-label="@lang('Back to chat')">
+                <i class="las la-arrow-left"></i>
+            </a>
+            <a class="app-brand" href="{{ route('user.home') }}">
+                <img src="{{ siteLogo() }}" alt="To-app">
+                <span>@lang('Chat')</span>
+            </a>
+            @if ($myTicket->status != Status::TICKET_CLOSE && $myTicket->user)
+                <button class="app-icon-btn confirmationBtn" type="button"
+                    data-question="@lang('Are you sure to close this chat?')"
+                    data-action="{{ route('ticket.close', $myTicket->id) }}"
+                    aria-label="@lang('Close chat')">
+                    <i class="las la-times"></i>
+                </button>
+            @else
+                <span class="app-icon-btn" style="visibility:hidden"><i class="las la-comments"></i></span>
+            @endif
         </div>
-    </div>
 
-    <!-- Close Confirmation Modal- --->
-    <div id="confirmationModal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">@lang('Confirmation Alert!')</h5>
-                    <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="la la-times"></i>
-                    </button>
-                </div>
-                <form action="" method="POST">
+        <section class="app-hero">
+            <span class="app-eyebrow"><i class="las la-comments"></i> @lang('Support chat') #{{ $myTicket->ticket }}</span>
+            <h1>{{ __($myTicket->subject) }}</h1>
+            <p>
+                @php echo $myTicket->statusBadge; @endphp
+                · @lang('Last reply') {{ diffForHumans($myTicket->last_reply) }}
+            </p>
+        </section>
+
+        @if ($myTicket->status != Status::TICKET_CLOSE)
+            <div class="app-card mb-3">
+                <form id="reply_box" method="post" class="disableSubmission app-form-grid" action="{{ route('ticket.reply', $myTicket->id) }}" enctype="multipart/form-data">
                     @csrf
-                    <div class="modal-body">
-                        <p class="question"> @lang('Are you sure to close this ticket?')</p>
+                    <label class="app-field app-field-full">
+                        <span>@lang('Message')</span>
+                        <textarea id="ticketMessage" name="message" rows="4" required placeholder="@lang('Write your reply...')">{{ old('message') }}</textarea>
+                    </label>
+
+                    <div class="app-field-full">
+                        <button type="button" class="app-btn app-btn-ghost addAttachment">
+                            <i class="las la-paperclip"></i> @lang('Add Attachment')
+                        </button>
+                        <p class="text-muted small mb-2 mt-2">
+                            @lang('Max 5 files | Max size') {{ convertToReadableSize(ini_get('upload_max_filesize')) }}
+                            · @lang('Allowed') .jpg, .jpeg, .png, .pdf, .doc, .docx
+                        </p>
+                        <div class="row fileUploadsContainer g-2"></div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn--danger text-white"
-                            data-bs-dismiss="modal">@lang('No')</button>
-                        <button type="submit" class="btn btn--base">@lang('Yes')</button>
-                    </div>
+
+                    <button id="replayTicket" class="app-btn app-btn-primary w-100" type="submit">
+                        <i class="las la-reply"></i> @lang('Reply')
+                    </button>
                 </form>
             </div>
+        @else
+            <div class="app-card mb-3">
+                <p class="mb-0 text-muted">@lang('This chat is closed. Open a new chat if you still need help.')</p>
+            </div>
+        @endif
+
+        <div id="reply_msgs" class="app-list-card">
+            @forelse ($messages as $message)
+                @include($activeTemplate . 'user.support.message', ['message' => $message])
+            @empty
+                <div class="app-empty-state">
+                    <i class="las la-comments"></i>
+                    <p>@lang('No messages yet.')</p>
+                </div>
+            @endforelse
         </div>
     </div>
+</div>
+
+<div id="confirmationModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@lang('Confirmation Alert!')</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="" method="POST">
+                @csrf
+                <div class="modal-body">
+                    <p class="question">@lang('Are you sure to close this chat?')</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@lang('No')</button>
+                    <button type="submit" class="btn btn-primary">@lang('Yes')</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection
+
 @push('style')
-    <style>
-        .input-group-text:focus {
-            box-shadow: none !important;
-        }
-
-        .reply-bg {
-            background-color: #ffd96729
-        }
-
-        .empty-message img {
-            width: 120px;
-            margin-bottom: 15px;
-        }
-    </style>
-@endpush
-
-
-
-@push('style-lib')
-<link rel="stylesheet" href="{{ asset('assets/global/css/select2.min.css') }}">
-@endpush
-
-@push('script-lib')
-<script src="{{ asset('assets/global/js/select2.min.js') }}"></script>
-@endpush
-
-
-@push('script')
-    <script>
-        (function($) {
-            "use strict";
-            $(document).on('click', '.confirmationBtn', function() {
-                var modal = $('#confirmationModal');
-                let data = $(this).data();
-                modal.find('.question').text(`${data.question}`);
-                modal.find('form').attr('action', `${data.action}`);
-                modal.modal('show');
-            });
-        })(jQuery);
-    </script>
+<style>
+    #reply_msgs .ticket-msg {
+        padding: 14px 16px;
+        border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+    }
+    #reply_msgs .ticket-msg:last-child { border-bottom: 0; }
+    #reply_msgs .ticket-msg.is-staff { background: rgba(255, 217, 103, 0.18); }
+    #reply_msgs .ticket-msg strong { display: block; margin-bottom: 4px; }
+    #reply_msgs .ticket-msg .meta { color: #64748b; font-size: 12px; margin-bottom: 8px; }
+</style>
 @endpush
 
 @push('script')
-    <script>
-        (function($) {
-            "use strict";
-            var fileAdded = 0;
-            $('.addAttachment').on('click', function() {
-                fileAdded++;
-                if (fileAdded == 5) {
-                    $(this).attr('disabled', true)
-                }
-                $(".fileUploadsContainer").append(`
-                    <div class="col-lg-4 col-md-12 removeFileInput">
-                        <div class="form-group">
-                            <div class="input-group">
-                                <input type="file" name="attachments[]" class="form-control form--control" accept=".jpeg,.jpg,.png,.pdf,.doc,.docx" required>
-                                <button type="button" class="input-group-text removeFile bg--danger border--danger"><i class="fas fa-times text-white"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                `)
-            });
-            $(document).on('click', '.removeFile', function() {
-                $('.addAttachment').removeAttr('disabled', true)
-                fileAdded--;
-                $(this).closest('.removeFileInput').remove();
-            });
+@php
+    $pusherKey = config('broadcasting.connections.pusher.key');
+    $pusherCluster = config('broadcasting.connections.pusher.options.cluster');
+    $broadcastEnabled = config('broadcasting.default') === 'pusher' && filled($pusherKey);
+@endphp
+@if($broadcastEnabled)
+<script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/laravel-echo@1.16.1/dist/echo.iife.js"></script>
+@endif
+<script>
+(function($) {
+    "use strict";
 
+    $(document).on('click', '.confirmationBtn', function() {
+        var modal = $('#confirmationModal');
+        var data = $(this).data();
+        modal.find('.question').text(data.question);
+        modal.find('form').attr('action', data.action);
+        modal.modal('show');
+    });
+
+    var fileAdded = 0;
+    $('.addAttachment').on('click', function() {
+        fileAdded++;
+        if (fileAdded >= 5) {
+            $(this).prop('disabled', true);
+        }
+        $(".fileUploadsContainer").append(`
+            <div class="col-12 removeFileInput">
+                <div class="input-group">
+                    <input type="file" name="attachments[]" class="form-control" accept=".jpeg,.jpg,.png,.pdf,.doc,.docx" required>
+                    <button type="button" class="btn btn-danger removeFile"><i class="las la-times"></i></button>
+                </div>
+            </div>
+        `);
+    });
+
+    $(document).on('click', '.removeFile', function() {
+        $('.addAttachment').prop('disabled', false);
+        fileAdded = Math.max(0, fileAdded - 1);
+        $(this).closest('.removeFileInput').remove();
+    });
+
+    @if($broadcastEnabled)
+    if (typeof Echo !== 'undefined') {
         var echo = new Echo({
             broadcaster: 'pusher',
-            key: "{{env('PUSHER_APP_KEY')}}",
-            cluster: "{{env('PUSHER_APP_CLUSTER')}}",
-            encrypted: true
-         });
-       
-        // Listening to an event
-        const ticketId="{{$myTicket->id}}";
-        echo.channel('ticket.'+ticketId)
-        .listen('.Message', function (data) {      
+            key: @json($pusherKey),
+            cluster: @json($pusherCluster),
+            forceTLS: true
+        });
+        var ticketId = @json($myTicket->id);
+        echo.channel('ticket.' + ticketId)
+            .listen('.Message', function (data) {
                 newMessage(data.message);
-        })
-        .listen('.DeleteMessage', function (data) {      
-            $('#reply_'+data.message.id).remove();
-        });
-        
-        $('#reply_box').on('submit', function(e) {
-            e.preventDefault(); // Prevent the default form submission
-            var formData = new FormData(this);
-            let sendBtn=$('#replayTicket');
-            let btnText=$('#replayTicket').html();
-            sendBtn.prop('disabled',true);
-            sendBtn.html(`<i class="la la-fw la-lg la-reply"></i> Replying...`)
-            $.ajax({
-                url: $(this).attr('action'), 
-                type: 'POST',
-                data: formData,
-                processData: false, 
-                contentType: false, 
-                complete:function(){
-                    sendBtn.prop('disabled',false);
-                    sendBtn.html(btnText);
-                },
-                success: function(data) {
-                    newMessage(data.message);
-                    notify(data.notify[0], data.notify[1]);
-                },
-                error: function(xhr, status, error) {
-                    notify('error','reply failed')
-                }
+            })
+            .listen('.DeleteMessage', function (data) {
+                $('#reply_' + data.message.id).remove();
             });
-            $('#message').val('');
-            $(".fileUploadsContainer").html('');
-        });
+    }
+    @endif
 
-        function newMessage(message){  
-            $.ajax({
-            url:"{{route('ticket.message')}}",
-            method:"post",
-            data: {message:message, _token:"{{csrf_token()}}"},
-            success:function(data){
-                
-                $('#reply_msgs').prepend(data);
+    $('#reply_box').on('submit', function(e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+
+        var form = this;
+        var formData = new FormData(form);
+        var sendBtn = $('#replayTicket');
+        var btnText = sendBtn.html();
+
+        sendBtn.prop('disabled', true);
+        sendBtn.html('<i class="las la-reply"></i> @lang("Replying...")');
+
+        $.ajax({
+            url: $(form).attr('action'),
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: { 'X-Requested-With': 'XMLHttpRequest' },
+            complete: function() {
+                sendBtn.prop('disabled', false);
+                sendBtn.html(btnText);
             },
-            error:function(){
-                //
+            success: function(data) {
+                if (data && data.message) {
+                    newMessage(data.message);
+                }
+                $('#ticketMessage').val('');
+                $(".fileUploadsContainer").html('');
+                fileAdded = 0;
+                $('.addAttachment').prop('disabled', false);
+                if (data && data.notify && typeof notify === 'function') {
+                    notify(data.notify[0], data.notify[1]);
+                }
+            },
+            error: function(xhr) {
+                var msg = 'Reply failed';
+                if (xhr.responseJSON && xhr.responseJSON.message) {
+                    msg = Array.isArray(xhr.responseJSON.message.error)
+                        ? xhr.responseJSON.message.error[0]
+                        : (xhr.responseJSON.message.error || msg);
+                } else if (xhr.responseJSON && xhr.responseJSON.errors) {
+                    msg = Object.values(xhr.responseJSON.errors)[0][0];
+                }
+                if (typeof notify === 'function') {
+                    notify('error', msg);
+                } else {
+                    alert(msg);
+                }
             }
-            });
-        }
+        });
+    });
 
-        })(jQuery);
-    </script>
-    
+    function newMessage(message) {
+        $.ajax({
+            url: @json(route('ticket.message')),
+            method: 'POST',
+            data: { message: message, _token: @json(csrf_token()) },
+            success: function(html) {
+                if (html) {
+                    $('#reply_msgs .app-empty-state').remove();
+                    $('#reply_msgs').prepend(html);
+                }
+            }
+        });
+    }
+})(jQuery);
+</script>
 @endpush

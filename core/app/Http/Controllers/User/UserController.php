@@ -22,6 +22,7 @@ use App\Models\Transaction;
 use App\Models\User;
 use App\Services\AgentAssignmentService;
 use App\Services\ReferralCommissionService;
+use App\Services\WithdrawBalanceService;
 use App\Support\UsZip;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Withdrawal;
@@ -43,7 +44,7 @@ class UserController extends Controller
         return view('Template::user.approval_pending', compact('pageTitle', 'user'));
     }
 
-    public function home()
+    public function home(WithdrawBalanceService $withdrawBalance)
     {
         $pageTitle     = 'Dashboard';
         $user          = auth()->user();
@@ -63,7 +64,8 @@ class UserController extends Controller
             ->take(5)
             ->get();
         $referralCode = $user->refno ?: $user->username;
-        $referralLink = route('home', ['reference' => $referralCode]);
+        $referralLink = route('user.register', ['reference' => $referralCode]);
+        $withdrawSummary = $withdrawBalance->summaryFor($user);
 
         return view('Template::user.dashboard', compact(
             'pageTitle',
@@ -79,7 +81,8 @@ class UserController extends Controller
             'totalReferralCommission',
             'recentReferralCommissions',
             'referralCode',
-            'referralLink'
+            'referralLink',
+            'withdrawSummary'
         ));
     }
     public function depositHistory(Request $request)
@@ -206,7 +209,8 @@ class UserController extends Controller
         $pageTitle  = 'User Data';
         $info       = json_decode(json_encode(getIpInfo()), true);
         $mobileCode = @implode(',', $info['code']);
-        $year  = Year::all();
+        $currentYear = (int) now()->format('Y');
+        $year = collect(range($currentYear - 16, $currentYear - 100))->map(fn ($y) => (object) ['year' => $y]);
       
        return view('Template::user.user_data', compact('pageTitle',  'mobileCode','year'));
     }
@@ -243,12 +247,15 @@ class UserController extends Controller
             'dob' => 'required|date|date_format:Y-m-d|before:'.now()->subYears(16)->toDateString(),
             'ssn'           => 'required',
             'zipcode'       => ['required', 'regex:/^\d{5}(-\d{4})?$/'],
-            'agent_license_no' => ['required', 'string', 'max:80'],
+            'agent_license_no' => ['nullable', 'string', 'max:80'],
             'mobile'        => ['required', 'regex:/^([0-9]*)$/', Rule::unique('users', 'mobile')],
         ]);
 
-        $agent = $agentAssignment->resolve(
-            $request->string('agent_license_no')->toString(),
+        $licenseNo = strtoupper(trim((string) $request->input('agent_license_no')));
+        $zipcode = UsZip::normalize($request->string('zipcode')->toString());
+
+        $agent = $agentAssignment->resolveOptional(
+            $licenseNo !== '' ? $licenseNo : null,
             $request->string('zipcode')->toString()
         );
         
@@ -258,11 +265,11 @@ class UserController extends Controller
 
         $user_register['ssn']     =  $request->ssn;
 
-        $user_register['zipcode'] =  UsZip::normalize($request->zipcode);
+        $user_register['zipcode'] =  $zipcode;
 
-        $user_register['agent_license_no'] = strtoupper(trim($request->agent_license_no));
+        $user_register['agent_license_no'] = $agent?->license_no ?: ($licenseNo !== '' ? $licenseNo : null);
 
-        $user_register['agent_id'] = $agent->id;
+        $user_register['agent_id'] = $agent?->id;
 
         $user_register['mobile']  =  $request->mobile;
 
@@ -382,7 +389,7 @@ class UserController extends Controller
             ->whereYear('created_at', now()->year)
             ->sum('amount');
         $referralCode = $user->refno ?: $user->username;
-        $referralLink = route('home', ['reference' => $referralCode]);
+        $referralLink = route('user.register', ['reference' => $referralCode]);
 
         return view('Template::user.referrals', compact(
             'pageTitle',
@@ -441,6 +448,9 @@ class UserController extends Controller
             SELECT
                 ul.*,
                 ref.username AS referrer_username,
+                ref.firstname AS referrer_firstname,
+                ref.lastname AS referrer_lastname,
+                ref.email AS referrer_email,
                 plans.name AS plan_name,
                 COALESCE(commissions.total_commission, 0) AS total_commission,
                 COALESCE(commissions.commission_count, 0) AS commission_count
@@ -601,7 +611,7 @@ class UserController extends Controller
         $adminNotification            = new AdminNotification();
         $adminNotification->user_id   = $user->id;
         $adminNotification->title     = 'Package purchase waiting approval: ' . $plan->name . ' from ' . $user->username;
-        $adminNotification->click_url = url('/admin/reports/investments?status=' . Status::INVESTMENT_PENDING);
+        $adminNotification->click_url = adminPortalUrl('reports/investments?status=' . Status::INVESTMENT_PENDING);
         $adminNotification->save();
 
         $general = gs();
@@ -639,10 +649,9 @@ class UserController extends Controller
         return view('Template::user.setting', compact('pageTitle','user'));
     }
 
-public function call()
+    public function call()
     {
-       
-        $pageTitle = 'call';
+        $pageTitle = 'Contact Support';
         return view('Template::user.call', compact('pageTitle'));
     }
 }

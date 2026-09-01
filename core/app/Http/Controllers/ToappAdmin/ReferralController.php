@@ -56,7 +56,7 @@ class ReferralController extends Controller
 
         return response()->streamDownload(function () use ($commissions) {
             $handle = fopen('php://output', 'w');
-            fputcsv($handle, ['TRX', 'Earner', 'Earner Email', 'Source Member', 'Source Email', 'Package', 'Level', 'Percent', 'Base Amount', 'Commission Amount', 'Paid At']);
+            fputcsv($handle, ['TRX', 'Earner', 'Earner Email', 'Source Member', 'Source Email', 'Package', 'Level', 'Percent', 'Base Amount', 'Referral Fee Amount', 'Paid At']);
 
             foreach ($commissions as $commission) {
                 fputcsv($handle, [

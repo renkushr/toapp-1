@@ -7,6 +7,8 @@ use App\Models\AdminAuditLog;
 use App\Models\Investment;
 use App\Models\Transaction;
 use App\Models\UserLogin;
+use App\Models\Agent;
+use App\Services\AgentReportService;
 use App\Services\ReferralCommissionService;
 use App\Support\AdminAudit;
 use Illuminate\Support\Facades\DB;
@@ -153,7 +155,7 @@ class ReportController extends Controller
 
         return redirect()
             ->route('toapp.admin.reports.investments.show', $investment)
-            ->with('status', "Investment approved. {$commissionCount} referral commission level(s) paid.");
+            ->with('status', "Investment approved. {$commissionCount} referral fee level(s) paid.");
     }
 
     public function rejectInvestment(Request $request, Investment $investment)
@@ -262,6 +264,100 @@ class ReportController extends Controller
                         ->orWhereHas('user', fn ($user) => $user->where('username', 'like', "%{$search}%"));
                 });
             });
+    }
+
+    public function agents(Request $request, AgentReportService $reports)
+    {
+        $days = max(0, (int) $request->input('days', 30));
+        $since = $reports->periodStart($days);
+        $rows = $reports->summariesForAllAgents($since, $request->string('search')->toString() ?: null);
+
+        return view('toapp_admin.reports.agents', [
+            'pageTitle' => 'Agent Reports',
+            'rows' => $rows,
+            'totals' => $reports->aggregateTotals($rows),
+            'days' => $days,
+        ]);
+    }
+
+    public function showAgent(Request $request, Agent $agent, AgentReportService $reports)
+    {
+        $days = max(0, (int) $request->input('days', 30));
+        $since = $reports->periodStart($days);
+
+        return view('toapp_admin.reports.agent_show', [
+            'pageTitle' => 'Agent Report: ' . $agent->name,
+            'agent' => $agent,
+            'metrics' => $reports->summaryForAgent($agent, $since),
+            'days' => $days,
+        ]);
+    }
+
+    public function agentsExport(Request $request, AgentReportService $reports)
+    {
+        $days = max(0, (int) $request->input('days', 30));
+        $since = $reports->periodStart($days);
+        $rows = $reports->summariesForAllAgents($since, $request->string('search')->toString() ?: null);
+
+        return response()->streamDownload(function () use ($rows, $days) {
+            $handle = fopen('php://output', 'w');
+            fputcsv($handle, [
+                'Agent',
+                'License',
+                'Email',
+                'Status',
+                'Clients',
+                'Active Clients',
+                'Approved Clients',
+                'Active Products',
+                'Investment Sales Count',
+                'Investment Sales Amount',
+                'Investment Pending Count',
+                'Investment Pending Amount',
+                'Insurance Confirmed Count',
+                'Insurance Confirmed Annual',
+                'Agent Fee %',
+                'Platform Fee Amount',
+                'Insurance Pipeline',
+                'Client Logins',
+                'Chat Messages (Client)',
+                'Chat Messages (Agent)',
+                'Conversations',
+                'Period Days',
+            ]);
+
+            foreach ($rows as $row) {
+                $agent = $row['agent'];
+                $metrics = $row['metrics'];
+
+                fputcsv($handle, [
+                    $agent->name,
+                    $agent->license_no,
+                    $agent->email,
+                    $agent->status ? 'Active' : 'Inactive',
+                    $metrics['clients_total'],
+                    $metrics['clients_active'],
+                    $metrics['clients_approved'],
+                    $metrics['active_products'],
+                    $metrics['investment_sales_count'],
+                    $metrics['investment_sales_amount'],
+                    $metrics['investment_pending_count'],
+                    $metrics['investment_pending_amount'],
+                    $metrics['insurance_confirmed_count'],
+                    $metrics['insurance_confirmed_annual'],
+                    $metrics['agent_fee_percent'],
+                    $metrics['platform_fee_amount'],
+                    $metrics['insurance_pipeline_count'],
+                    $metrics['logins_count'],
+                    $metrics['chat_messages_user'],
+                    $metrics['chat_messages_agent'],
+                    $metrics['conversations_count'],
+                    $days,
+                ]);
+            }
+
+            fclose($handle);
+        }, 'agent-reports-' . now()->format('Ymd-His') . '.csv', ['Content-Type' => 'text/csv']);
     }
 
     public function audits(Request $request)
