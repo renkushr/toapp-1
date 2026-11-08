@@ -43,7 +43,7 @@ class AuthController extends PortalController
             return back()->withErrors(['email' => 'This account is not active.'])->withInput();
         }
 
-        // Existing To-app members can sign into Check Insure with the same email/password.
+        // Existing To-App members can sign into Check Insure with the same email/password.
         if (
             $user->registration_channel !== 'third_party'
             || (int) $user->third_party_portal_id !== (int) $portal->id

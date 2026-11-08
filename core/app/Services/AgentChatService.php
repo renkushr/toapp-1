@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Events\AgentChat\AgentInboxUpdated;
 use App\Events\AgentChat\MessageSent;
+use App\Events\AgentChat\UserInboxUpdated;
 use App\Models\Agent;
 use App\Models\AgentConversation;
 use App\Models\AgentConversationAttachment;
@@ -44,6 +45,10 @@ class AgentChatService
 
                 if ($senderType === 'user') {
                     broadcast(new AgentInboxUpdated($message));
+                }
+
+                if ($senderType === 'agent') {
+                    broadcast(new UserInboxUpdated($message));
                 }
             }
         } catch (\Throwable $e) {
@@ -111,6 +116,17 @@ class AgentChatService
         return AgentConversationMessage::query()
             ->whereHas('conversation', fn ($query) => $query->forAgentTerritory($agent))
             ->where('sender_type', 'user')
+            ->whereNull('read_at')
+            ->count();
+    }
+
+    public function unreadCountForUser(\App\Models\User|int $user): int
+    {
+        $userId = $user instanceof \App\Models\User ? (int) $user->id : (int) $user;
+
+        return AgentConversationMessage::query()
+            ->whereHas('conversation', fn ($query) => $query->where('user_id', $userId))
+            ->where('sender_type', 'agent')
             ->whereNull('read_at')
             ->count();
     }

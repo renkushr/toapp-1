@@ -11,7 +11,7 @@ class AuthController extends Controller
     public function showLogin()
     {
         return view('toapp_agent.auth.login', [
-            'pageTitle' => 'Agent Login',
+            'pageTitle' => __('Agent Login'),
         ]);
     }
 

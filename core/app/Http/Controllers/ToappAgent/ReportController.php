@@ -12,14 +12,26 @@ class ReportController extends Controller
     public function index(Request $request, AgentReportService $reports)
     {
         $agent = Auth::guard('agent')->user();
-        $days = max(0, (int) $request->input('days', 30));
-        $since = $reports->periodStart($days);
+
+        $yearInput = $request->input('year');
+        $year = ($yearInput !== null && $yearInput !== '' && $yearInput !== '0')
+            ? (int) $yearInput
+            : null;
+
+        $requestedDays = max(0, (int) $request->input('days', 30));
+        $period = $reports->resolvePeriod($year ? 0 : $requestedDays, $year);
 
         return view('toapp_agent.reports.index', [
-            'pageTitle' => 'My Performance Report',
+            'pageTitle' => __('My Performance Report'),
             'agent' => $agent,
-            'metrics' => $reports->summaryForAgent($agent, $since),
-            'days' => $days,
+            'metrics' => $reports->summaryForAgent($agent, $period['since'], $period['until']),
+            'charts' => $reports->chartsForAgent($agent, $period['since'], $period['days'], $period, $period['until']),
+            'days' => $year ? $requestedDays : $period['days'],
+            'year' => $period['year'],
+            'period' => $period,
+            'availableYears' => $reports->availableYears(
+                $agent->created_at ? (int) $agent->created_at->format('Y') : null
+            ),
         ]);
     }
 }

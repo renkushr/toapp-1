@@ -2,7 +2,7 @@
     $backUrl = $backUrl ?? route('user.home');
     $backLabel = $backLabel ?? __('Back');
     $brandUrl = $brandUrl ?? route('user.home');
-    $brandTitle = $brandTitle ?? 'To-app';
+    $brandTitle = $brandTitle ?? 'To-App';
     $brandLogo = $brandLogo ?? true;
 @endphp
 <div class="app-topbar">
@@ -11,7 +11,7 @@
     </a>
     <a class="app-brand" href="{{ $brandUrl }}">
         @if($brandLogo)
-            <img src="{{ siteLogo() }}" alt="To-app">
+            <img src="{{ siteLogo() }}" alt="To-App">
         @endif
         <span>{{ $brandTitle }}</span>
     </a>

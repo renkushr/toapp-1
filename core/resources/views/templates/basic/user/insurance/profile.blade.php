@@ -20,7 +20,7 @@
                 <i class="las la-arrow-left"></i>
             </a>
             <a class="app-brand" href="{{ route('user.home') }}">
-                <img src="{{ siteLogo() }}" alt="To-app">
+                <img src="{{ siteLogo() }}" alt="To-App">
                 <span>@lang('Plans')</span>
             </a>
             <span class="app-icon-btn" style="visibility:hidden"><i class="las la-layer-group"></i></span>

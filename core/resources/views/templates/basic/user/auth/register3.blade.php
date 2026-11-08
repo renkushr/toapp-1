@@ -119,7 +119,7 @@ background-clip: text;
 font-size: 20px;
 font-style: normal;
 font-weight: 700;
-line-height: normal;">Create  Account</p>
+line-height: normal;">@lang('Create Account')</p>
 
 <p style="text-align:center;color: #252525;
 
@@ -127,7 +127,7 @@ font-family: Poppins;
 font-size: 16px;
 font-style: normal;
 font-weight: 400;
-line-height: normal;">Please create your password</p>
+line-height: normal;">@lang('Please create your password')</p>
             </div>
          <div style="padding:50px">
       
@@ -173,7 +173,7 @@ font-family: Poppins;
 font-size: 14px;
 font-style: normal;
 font-weight: 400;
-line-height: normal;">Your account is ready</p>
+line-height: normal;">@lang('Your account is ready')</p>
                 
                     <button type="submit" style="border-radius: 8px;width: 100%;
 height: 60px;

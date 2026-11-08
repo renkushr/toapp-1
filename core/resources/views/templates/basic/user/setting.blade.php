@@ -8,7 +8,7 @@
                     <i class="las la-arrow-left"></i>
                 </a>
                 <a class="app-brand" href="{{ route('user.home') }}">
-                    <img src="{{ siteLogo() }}" alt="To-app">
+                    <img src="{{ siteLogo() }}" alt="To-App">
                     <span>@lang('Settings')</span>
                 </a>
                 <a class="app-icon-btn" href="{{ route('user.call') }}" aria-label="@lang('Contact support')">
@@ -86,11 +86,32 @@
                     <span class="app-list-icon"><i class="las la-headset"></i></span>
                     <div class="app-list-body">
                         <strong>@lang('Contact support')</strong>
-                        <span>@lang('Chat, call, or email our support team')</span>
+                        <span>@lang('Chat or email our support team')</span>
                     </div>
                     <i class="las la-angle-right"></i>
                 </a>
 
+                <a class="app-list-item" href="{{ route('about.us') }}">
+                    <span class="app-list-icon"><i class="las la-info-circle"></i></span>
+                    <div class="app-list-body">
+                        <strong>@lang('About Us')</strong>
+                        <span>@lang('Learn more about who we are and what we do.')</span>
+                    </div>
+                    <i class="las la-angle-right"></i>
+                </a>
+            </div>
+
+            <div class="app-section-title mt-4">
+                <div>
+                    <h2>@lang('Language')</h2>
+                    <p>@lang('Choose language')</p>
+                </div>
+            </div>
+            <div class="app-list-card" style="padding: 14px 16px;">
+                @include('partials.language_switcher', ['variant' => 'user'])
+            </div>
+
+            <div class="app-list-card mt-3">
                 <a class="app-list-item" href="{{ route('user.logout') }}">
                     <span class="app-list-icon" style="color:#dc2626; background: rgba(220, 38, 38, .1);"><i class="las la-sign-out-alt"></i></span>
                     <div class="app-list-body">

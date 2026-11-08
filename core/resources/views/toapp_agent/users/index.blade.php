@@ -3,20 +3,20 @@
 @section('content')
 <section class="ta-panel">
     <form class="ta-toolbar ta-toolbar-slim" method="GET">
-        <label class="ta-field compact"><span>Search</span><input type="search" name="search" value="{{ request('search') }}" placeholder="name, email, phone"></label>
-        <label class="ta-field compact"><span>ZIP code</span><input type="search" name="zip" value="{{ request('zip') }}" placeholder="90210"></label>
-        <button class="ta-secondary-btn" type="submit"><i class="las la-search"></i> Filter</button>
+        <label class="ta-field compact"><span>@lang('Search')</span><input type="search" name="search" value="{{ request('search') }}" placeholder="@lang('name, email, phone')"></label>
+        <label class="ta-field compact"><span>@lang('ZIP code')</span><input type="search" name="zip" value="{{ request('zip') }}" placeholder="90210"></label>
+        <button class="ta-secondary-btn" type="submit"><i class="las la-search"></i> @lang('Filter')</button>
     </form>
 
     <div class="ta-table-wrap">
         <table class="ta-table">
             <thead>
                 <tr>
-                    <th>Client</th>
-                    <th>ZIP code</th>
-                    <th>Phone</th>
-                    <th>Products</th>
-                    <th>Status</th>
+                    <th>@lang('Client')</th>
+                    <th>@lang('ZIP code')</th>
+                    <th>@lang('Phone')</th>
+                    <th>@lang('Products')</th>
+                    <th>@lang('Status')</th>
                     <th></th>
                 </tr>
             </thead>
@@ -30,14 +30,14 @@
                         <td>{{ $client->zipcode }}</td>
                         <td>{{ $client->mobile ?: '—' }}</td>
                         <td>{{ $client->investments_count }}</td>
-                        <td><span class="ta-badge muted">{{ ucfirst($client->approval_status ?? 'pending') }}</span></td>
+                        <td><span class="ta-badge muted">{{ __(ucfirst($client->approval_status ?? 'pending')) }}</span></td>
                         <td class="ta-row-actions">
-                            <a href="{{ route('toapp.agent.users.show', $client) }}">Profile</a>
-                            <a href="{{ route('toapp.agent.chat.show', $client) }}">Chat</a>
+                            <a href="{{ route('toapp.agent.users.show', $client) }}">@lang('Profile')</a>
+                            <a href="{{ route('toapp.agent.chat.show', $client) }}">@lang('Chat')</a>
                         </td>
                     </tr>
                 @empty
-                    <tr><td colspan="6">No clients in your assigned ZIP code areas yet.</td></tr>
+                    <tr><td colspan="6">@lang('No clients in your assigned ZIP code areas yet.')</td></tr>
                 @endforelse
             </tbody>
         </table>

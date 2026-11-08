@@ -3,29 +3,34 @@
 @section('content')
 <div class="card">
     <div class="card-header portal-list-header">
-        <h3 class="card-title">Insurance applications</h3>
+        <h3 class="card-title">@lang('Insurance applications')</h3>
     </div>
     <form class="portal-filter-bar" method="GET">
         <div class="portal-filter-field">
-            <label class="form-label">Search</label>
-            <input type="search" class="form-control form-control-sm" name="search" value="{{ request('search') }}" placeholder="Reference, email, name">
+            <label class="form-label">@lang('Search')</label>
+            <input type="search" class="form-control form-control-sm" name="search" value="{{ request('search') }}" placeholder="@lang('Reference, email, name')">
         </div>
         <div class="portal-filter-field">
-            <label class="form-label">Status</label>
+            <label class="form-label">@lang('Status')</label>
             <select class="form-select form-select-sm" name="status">
-                <option value="">All statuses</option>
-                @foreach(['chatting','payment_pending','confirmed','rejected'] as $st)
-                    <option value="{{ $st }}" @selected(request('status')===$st)>{{ str_replace('_',' ',ucfirst($st)) }}</option>
+                <option value="">@lang('All statuses')</option>
+                @foreach([
+                    'chatting' => 'Chatting',
+                    'payment_pending' => 'Payment pending',
+                    'confirmed' => 'Confirmed',
+                    'rejected' => 'Rejected',
+                ] as $st => $label)
+                    <option value="{{ $st }}" @selected(request('status') === $st)>{{ __($label) }}</option>
                 @endforeach
             </select>
         </div>
         <div class="portal-filter-actions">
-            <button class="btn btn-primary" type="submit"><i class="ti ti-search me-1"></i> Search</button>
+            <button class="btn btn-primary" type="submit"><i class="ti ti-search me-1"></i> @lang('Search')</button>
         </div>
     </form>
     <div class="table-responsive">
         <table class="table table-vcenter card-table">
-            <thead><tr><th>Ref</th><th>Customer</th><th>Product</th><th>ZIP code</th><th>Agent</th><th>Status</th><th class="w-1"></th></tr></thead>
+            <thead><tr><th>@lang('Ref')</th><th>@lang('Customer')</th><th>@lang('Product')</th><th>@lang('ZIP code')</th><th>@lang('Agent')</th><th>@lang('Status')</th><th class="w-1"></th></tr></thead>
             <tbody>
                 @forelse($applications as $app)
                     <tr>
@@ -37,11 +42,11 @@
                         <td>{{ $app->plan?->name ?: '—' }}</td>
                         <td>{{ $app->zipcode }}</td>
                         <td>{{ $app->agent?->name ?: '—' }}</td>
-                        <td><span class="badge bg-secondary-lt">{{ $app->statusLabel() }}</span></td>
-                        <td><a class="btn btn-sm" href="{{ route('toapp.admin.applications.show', $app) }}">Open</a></td>
+                        <td><span class="badge bg-secondary-lt">{{ __($app->statusLabel()) }}</span></td>
+                        <td><a class="btn btn-sm" href="{{ route('toapp.admin.applications.show', $app) }}">@lang('Open')</a></td>
                     </tr>
                 @empty
-                    <tr><td colspan="7" class="text-center text-secondary py-4">No applications yet.</td></tr>
+                    <tr><td colspan="7" class="text-center text-secondary py-4">@lang('No applications yet.')</td></tr>
                 @endforelse
             </tbody>
         </table>

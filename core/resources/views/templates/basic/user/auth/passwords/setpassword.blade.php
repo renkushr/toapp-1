@@ -58,10 +58,10 @@ font-weight: 800;
 line-height: normal;background: var(--light-blue, linear-gradient(180deg, #18ABCF 0%, #1E84F4 100%));
 background-clip: text;
 -webkit-background-clip: text;
--webkit-text-fill-color: transparent;"> Recovery Password </span>
+-webkit-text-fill-color: transparent;"> @lang('Recovery Password') </span>
               </div>
             <div>
-          <p>Enter your registered email address </p>
+          <p>@lang('Enter your registered email address')</p>
     </div>
 
     <form method="POST" action="{{ route('user.password.email') }}" class="verify-gcaptcha">

@@ -20,7 +20,7 @@ class PlanController extends Controller
             ->withQueryString();
 
         return view('toapp_admin.plans.index', [
-            'pageTitle' => 'Insurance Products',
+            'pageTitle' => __('Insurance Products'),
             'plans' => $plans,
         ]);
     }
@@ -28,7 +28,7 @@ class PlanController extends Controller
     public function create()
     {
         return view('toapp_admin.plans.create', [
-            'pageTitle' => 'New Product',
+            'pageTitle' => __('New Product'),
             'plan' => null,
             'portals' => ThirdPartyPortal::where('status', true)->orderBy('name')->get(),
         ]);
@@ -39,7 +39,7 @@ class PlanController extends Controller
         $plan->load('thirdPartyPortals');
 
         return view('toapp_admin.plans.edit', [
-            'pageTitle' => 'Edit Product',
+            'pageTitle' => __('Edit Product'),
             'plan' => $plan,
             'portals' => ThirdPartyPortal::where('status', true)->orderBy('name')->get(),
         ]);

@@ -30,6 +30,39 @@ class InsuranceApplication extends Model
     public const STATUS_CONFIRMED = 'confirmed';
     public const STATUS_REJECTED = 'rejected';
 
+    /**
+     * Start an additional package for a user, carrying over the customer's
+     * underwriting conditions from their latest application.
+     */
+    public static function startPackageFor(User $user, ?int $agentId = null): self
+    {
+        $latest = static::where('user_id', $user->id)->latest('id')->first();
+        $portalId = $latest?->third_party_portal_id
+            ?? ThirdPartyPortal::findBySlug('check-insure')?->id
+            ?? ThirdPartyPortal::query()->where('status', true)->value('id');
+        abort_unless($portalId, 503, 'Insurance portal is not configured yet.');
+
+        $agentId = $agentId ?: $user->agent_id;
+
+        return static::create([
+            'third_party_portal_id' => $portalId,
+            'user_id' => $user->id,
+            'agent_id' => $agentId,
+            'reference' => 'TA-' . strtoupper(substr(md5($user->id . microtime()), 0, 10)),
+            'status' => $agentId ? self::STATUS_CHATTING : self::STATUS_TERMS_ACCEPTED,
+            'sex' => $latest?->sex ?? $user->sex,
+            'birthday' => $latest?->birthday ?? $user->birthday,
+            'zipcode' => $latest?->zipcode ?? $user->zipcode,
+            'health' => $latest?->health ?? $user->health,
+            'smoking' => $latest?->smoking ?? $user->nicotin,
+            'chronic_disease' => (bool) ($latest?->chronic_disease ?? $user->chronic_disease),
+            'pay_type' => $latest?->pay_type ?? 'year',
+            'price_range' => $latest?->price_range ?? 1,
+            'terms_accepted_at' => now(),
+            'chat_started_at' => $agentId ? now() : null,
+        ]);
+    }
+
     public function portal()
     {
         return $this->belongsTo(ThirdPartyPortal::class, 'third_party_portal_id');
@@ -81,6 +114,16 @@ class InsuranceApplication extends Model
             self::STATUS_REJECTED => 'Rejected',
             default => ucfirst(str_replace('_', ' ', $this->status)),
         };
+    }
+
+    public function canUserEditConditions(): bool
+    {
+        return ! in_array($this->status, [
+            self::STATUS_CONFIRMED,
+            self::STATUS_REJECTED,
+            self::STATUS_OTP_PENDING,
+            self::STATUS_PROFILE_PENDING,
+        ], true);
     }
 
     public static function generateReference(): string

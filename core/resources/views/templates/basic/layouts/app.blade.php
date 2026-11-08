@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover">
     <title>{{ gs()->siteName(__($pageTitle ?? '')) }}</title>
     @include('partials.seo')
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,7 +16,11 @@
 <link href="{{ asset('assets/global/css/jquery.scrollbar.css')}}" rel="stylesheet">
 <link href="{{ asset('assets/global/css/line-awesome.min.css')}}" rel="stylesheet">
 <link href="{{ asset('assets/global/css/global.css')}}" rel="stylesheet">
-@include('partials.pwa_head')
+@include('partials.pwa_head', [
+    'pwaName' => gs('site_name') ?: 'To-App',
+    'pwaTheme' => '#1268f3',
+    'pwaBackground' => '#e8f2f8',
+])
     @stack('style-lib')
     @stack('style')
 
@@ -53,7 +57,9 @@
             @include('partials.site_copyright')
         @endif
     @else
-        @include('partials.site_copyright')
+        @unless (request()->routeIs('home'))
+            @include('partials.site_copyright')
+        @endunless
     @endauth
 
     @include('partials.cookie_consent')
@@ -74,6 +80,11 @@
     @if (gs('pn'))
         @include('partials.push_script')
     @endif
+    @auth
+        @if ($showUserFooterNav)
+            @include($activeTemplate . 'partials.user_chat_notifications')
+        @endif
+    @endauth
     @stack('script')
     <script>
         (function() {
@@ -142,6 +153,8 @@
         })(jQuery);
     </script>
     @include('partials.pwa_scripts')
+    @include('partials.user_pwa_install_assets')
+    @include('partials.language_switcher_assets')
 </body>
 
 </html>

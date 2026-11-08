@@ -12,7 +12,7 @@
                 <i class="las la-arrow-left"></i>
             </a>
             <a class="app-brand" href="{{ route('user.home') }}">
-                <img src="{{ siteLogo() }}" alt="To-app">
+                <img src="{{ siteLogo() }}" alt="To-App">
                 <span>@lang('My Network')</span>
             </a>
             <a class="app-icon-btn" href="{{ route('user.setting') }}" aria-label="@lang('Settings')">
@@ -306,7 +306,7 @@
         async function levelStatusShow(level) {
             levelTitle.textContent = `Level ${level}`;
             levelTotal.textContent = '...';
-            levelCounts.innerHTML = '<div><span>Active</span><strong>...</strong></div><div><span>Inactive</span><strong>...</strong></div>';
+            levelCounts.innerHTML = `<div><span>${@json(__('Active'))}</span><strong>...</strong></div><div><span>${@json(__('Inactive'))}</span><strong>...</strong></div>`;
 
             try {
                 const response = await fetch("{{ route('user.level.count') }}", {
@@ -328,7 +328,7 @@
 
                 totalNetwork.textContent = data.total_network || 0;
                 levelTotal.textContent = active + inactive;
-                levelCounts.innerHTML = `<div><span>Active</span><strong>${active}</strong></div><div><span>Inactive</span><strong>${inactive}</strong></div>`;
+                levelCounts.innerHTML = `<div><span>${@json(__('Active'))}</span><strong>${active}</strong></div><div><span>${@json(__('Inactive'))}</span><strong>${inactive}</strong></div>`;
             } catch (error) {
                 notify('error', error.message);
             }

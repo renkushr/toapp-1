@@ -7,6 +7,26 @@
 
     <IfModule mod_mime.c>
         AddType application/manifest+json .webmanifest
+        AddType text/javascript .js
+        AddType application/vnd.android.package-archive .apk
+    </IfModule>
+
+    <IfModule mod_headers.c>
+        <FilesMatch "^service-worker\.js$">
+            Header set Cache-Control "no-cache, no-store, must-revalidate"
+            Header set Service-Worker-Allowed "/"
+        </FilesMatch>
+        <FilesMatch "^service-worker-admin\.js$">
+            Header set Cache-Control "no-cache, no-store, must-revalidate"
+            Header set Service-Worker-Allowed "/adto-app/"
+        </FilesMatch>
+        <FilesMatch "^service-worker-agent\.js$">
+            Header set Cache-Control "no-cache, no-store, must-revalidate"
+            Header set Service-Worker-Allowed "/agent/"
+        </FilesMatch>
+        <FilesMatch "\.webmanifest$">
+            Header set Cache-Control "no-cache, must-revalidate"
+        </FilesMatch>
     </IfModule>
 
     # Route Check Insure Laravel app (physical check-insure/ folder also holds static assets)

@@ -59,6 +59,6 @@
                 </li>
             @endif
         @endauth
-        <li><a class="nav-title" href="mailto:info@checkinsure.com">Contact us</a></li>
+        <li><a class="nav-title" href="mailto:{{ config('toapp.support_email', 'tonkowtek@to-app.com') }}">@lang('Contact us')</a></li>
     </ul>
 </div>

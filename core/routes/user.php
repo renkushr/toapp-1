@@ -126,6 +126,7 @@ Route::middleware('auth')->name('user.')->group(function () {
             Route::controller('InsuranceQuoteController')->group(function () {
                 Route::get('/plans', 'entry')->name('plans');
                 Route::prefix('plans')->name('plans.')->group(function () {
+                    Route::get('/my-packages', 'myPackages')->name('mine');
                     Route::get('/profile', 'profile')->name('profile');
                     Route::post('/profile', 'saveProfile')->name('profile.submit');
                     Route::get('/survey', 'survey')->name('survey');
@@ -138,6 +139,8 @@ Route::middleware('auth')->name('user.')->group(function () {
                     Route::get('/applications/{application}/waiting-agent', 'waiting')->name('waiting');
                     Route::get('/applications/{application}/chat', 'chat')->name('chat');
                     Route::post('/applications/{application}/chat', 'sendChat')->name('chat.send');
+                    Route::get('/applications/{application}/conditions', 'editConditions')->name('conditions.edit');
+                    Route::post('/applications/{application}/conditions', 'updateConditions')->name('conditions.update');
                 });
             });
 
@@ -145,6 +148,7 @@ Route::middleware('auth')->name('user.')->group(function () {
                 Route::get('agent-chat', 'index')->name('agent.chat');
                 Route::post('agent-chat', 'send')->name('agent.chat.send');
                 Route::get('agent-chat/messages', 'messages')->name('agent.chat.messages');
+                Route::get('agent-chat/unread', 'unreadSummary')->name('agent.chat.unread');
             });
 
             //Profile setting

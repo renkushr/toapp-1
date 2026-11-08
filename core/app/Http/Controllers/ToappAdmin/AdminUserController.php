@@ -28,7 +28,7 @@ class AdminUserController extends Controller
             ->withQueryString();
 
         return view('toapp_admin.admins.index', [
-            'pageTitle' => 'Admin Roles',
+            'pageTitle' => __('Admin Roles'),
             'admins' => $admins,
         ]);
     }
@@ -36,7 +36,7 @@ class AdminUserController extends Controller
     public function create()
     {
         return view('toapp_admin.admins.create', [
-            'pageTitle' => 'New Admin',
+            'pageTitle' => __('New Admin'),
             'admin' => null,
             'roles' => Admin::roleLabels(),
             'permissions' => Admin::permissionLabels(),
@@ -46,7 +46,7 @@ class AdminUserController extends Controller
     public function edit(Admin $admin)
     {
         return view('toapp_admin.admins.edit', [
-            'pageTitle' => 'Edit Admin',
+            'pageTitle' => __('Edit Admin'),
             'admin' => $admin,
             'roles' => Admin::roleLabels(),
             'permissions' => Admin::permissionLabels(),

@@ -33,10 +33,10 @@ font-weight: 600;
 line-height: normal;background: var(--light-blue, linear-gradient(180deg, #18ABCF 0%, #1E84F4 100%));
 background-clip: text;
 -webkit-background-clip: text;
--webkit-text-fill-color: transparent;"> LOGIN </span>
+-webkit-text-fill-color: transparent;"> @lang('LOGIN') </span>
          </div>
        <div>
-     <p>Please Login To Continue </p>
+     <p>@lang('Please Login To Continue')</p>
 </div>
 
        <form class="" action="{{ route('user.login') }}" method="post" id="loginModal">
@@ -62,7 +62,7 @@ font-size: 12px;
 font-style: italic;
 font-weight: 500;
 line-height: normal;text-align:right">
-               <p>Forgot your password</p>
+               <p>@lang('Forgot your password')</p>
               </div>
 
                
@@ -76,7 +76,7 @@ font-family: Poppins;
 font-size: 18px;
 font-style: normal;
 font-weight: 600;
-line-height: normal;">@lang('Login')</button>
+line-height: normal;">@lang('Log In')</button>
             
                   
            </form>
@@ -198,7 +198,9 @@ line-height: normal;">@lang('Login')</button>
                                     <label for="agree">@lang('I agree with') </label>
                                     <span>
                                         @foreach ($policyPages as $policy)
-                                            <a href="{{ route('policy.pages', $policy->slug) }}">{{ __($policy->data_values->title) }}</a>
+                                            <a href="#policyModal-{{ \Illuminate\Support\Str::slug((string) $policy->slug) }}"
+                                               data-bs-toggle="modal"
+                                               data-bs-target="#policyModal-{{ \Illuminate\Support\Str::slug((string) $policy->slug) }}">{{ __($policy->data_values->title) }}</a>
                                             @if (!$loop->last)
                                                 ,
                                             @endif
@@ -210,9 +212,9 @@ line-height: normal;">@lang('Login')</button>
                         @endif
 
                     </div>
-                    <button type="submit" id="recaptcha" class="btn btn--base w-100">@lang('Register')</button>
+                    <button type="submit" id="recaptcha" class="btn btn--base w-100">@lang('Create Account')</button>
                     <p class="text-center mt-3"><span class="text-white"> @lang('Have an account')? </span> <a href="#0" class="text--base"
-                            data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">@lang('Login')</a></p>
+                            data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">@lang('Log In')</a></p>
                 </form>
             </div>
         </div>
@@ -237,7 +239,7 @@ line-height: normal;">@lang('Login')</button>
                 <button type="button" class="btn btn--danger text-white" data-bs-dismiss="modal">@lang('Close')</button>
 
                 <button type="button" class="btn btn--base ex-email" data-bs-dismiss="modal" data-bs-toggle="modal"
-                    data-bs-target="#loginModal">@lang('Login')</button>
+                    data-bs-target="#loginModal">@lang('Log In')</button>
             </div>
         </div>
     </div>
@@ -269,12 +271,14 @@ line-height: normal;">@lang('Login')</button>
 
                     <button type="submit" class="btn btn--base w-100">@lang('Send Password Code')</button>
                     <p class="text-center mt-3"><span class="text-white">@lang('Have been remembering')?</span> <a href="#0" class="text--base"
-                            data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">@lang('Login')</a></p>
+                            data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal">@lang('Log In')</a></p>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+@include($activeTemplate . 'partials.policy_modals', ['policyModalPages' => $policyPages])
 
 @push('style')
     <style>

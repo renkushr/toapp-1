@@ -21,18 +21,18 @@ class ReadinessController extends Controller
     {
         $general = GeneralSetting::first();
         $checks = [
-            $this->check('Database connection', $this->databaseIsReady(), 'Laravel can connect to the active MySQL database.'),
-            $this->check('Admin auth', auth('admin')->check(), 'New admin guard is active for /admin.'),
-            $this->check('Site identity', filled($general?->site_name) && filled($general?->cur_text), 'Site name and currency text should be set.'),
-            $this->check('Active plans', Plan::where('status', Status::ENABLE)->exists(), 'At least one enabled customer plan is required.'),
-            $this->check('Deposit gateway', Gateway::where('status', Status::ENABLE)->exists(), 'At least one active deposit method should be available.'),
-            $this->check('Withdraw method', WithdrawMethod::where('status', Status::ENABLE)->exists(), 'At least one active withdrawal method should be available.'),
-            $this->check('Users table', Schema::hasTable('users') && User::count() >= 0, 'User storage is reachable.'),
-            $this->check('Pending queue reviewed', Deposit::pending()->count() === 0 && Withdrawal::pending()->count() === 0, 'No pending finance requests before launch.'),
+            $this->check(__('Database connection'), $this->databaseIsReady(), __('Laravel can connect to the active MySQL database.')),
+            $this->check(__('Admin auth'), auth('admin')->check(), __('New admin guard is active for /admin.')),
+            $this->check(__('Site identity'), filled($general?->site_name) && filled($general?->cur_text), __('Site name and currency text should be set.')),
+            $this->check(__('Active plans'), Plan::where('status', Status::ENABLE)->exists(), __('At least one enabled customer plan is required.')),
+            $this->check(__('Deposit gateway'), Gateway::where('status', Status::ENABLE)->exists(), __('At least one active deposit method should be available.')),
+            $this->check(__('Withdraw method'), WithdrawMethod::where('status', Status::ENABLE)->exists(), __('At least one active withdrawal method should be available.')),
+            $this->check(__('Users table'), Schema::hasTable('users') && User::count() >= 0, __('User storage is reachable.')),
+            $this->check(__('Pending queue reviewed'), Deposit::pending()->count() === 0 && Withdrawal::pending()->count() === 0, __('No pending finance requests before launch.')),
         ];
 
         return view('toapp_admin.readiness.index', [
-            'pageTitle' => 'Launch Readiness',
+            'pageTitle' => __('Launch Readiness'),
             'checks' => $checks,
             'readyCount' => collect($checks)->where('ok', true)->count(),
         ]);

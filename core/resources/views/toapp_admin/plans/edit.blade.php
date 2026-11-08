@@ -3,10 +3,10 @@
 @section('content')
 <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
     <a href="{{ route('toapp.admin.plans.index') }}" class="btn btn-ghost-secondary btn-sm">
-        <i class="ti ti-arrow-left me-1"></i> Back to products
+        <i class="ti ti-arrow-left me-1"></i> @lang('Back to products')
     </a>
     <span class="badge {{ $plan->status ? 'bg-success-lt' : 'bg-secondary-lt' }}">
-        {{ $plan->status ? 'Enabled' : 'Disabled' }}
+        {{ $plan->status ? __('Enabled') : __('Disabled') }}
     </span>
 </div>
 

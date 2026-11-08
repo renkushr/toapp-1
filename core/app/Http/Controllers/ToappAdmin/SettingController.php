@@ -11,7 +11,7 @@ class SettingController extends Controller
     public function edit()
     {
         return view('toapp_admin.settings.edit', [
-            'pageTitle' => 'Settings',
+            'pageTitle' => __('Settings'),
             'settings' => GeneralSetting::first() ?? $this->defaultSettings(),
         ]);
     }
@@ -70,7 +70,7 @@ class SettingController extends Controller
         $mail = (object) ($mail ?: ['name' => 'smtp']);
 
         return view('toapp_admin.settings.email', [
-            'pageTitle' => 'Email settings',
+            'pageTitle' => __('Email settings'),
             'settings' => $settings,
             'mail' => $mail,
         ]);
@@ -208,7 +208,7 @@ class SettingController extends Controller
     private function defaultSettings(): GeneralSetting
     {
         return new GeneralSetting([
-            'site_name' => 'To-app',
+            'site_name' => 'To-App',
             'cur_text' => 'USD',
             'cur_sym' => '$',
             'paginate_number' => 20,

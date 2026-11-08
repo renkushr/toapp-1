@@ -31,7 +31,7 @@ class ReportController extends Controller
             ->withQueryString();
 
         return view('toapp_admin.reports.transactions', [
-            'pageTitle' => 'Transaction Reports',
+            'pageTitle' => __('Transaction Reports'),
             'transactions' => $transactions,
             'remarks' => $remarks,
         ]);
@@ -87,7 +87,7 @@ class ReportController extends Controller
             ->withQueryString();
 
         return view('toapp_admin.reports.investments', [
-            'pageTitle' => 'Investment Reports',
+            'pageTitle' => __('Investment Reports'),
             'investments' => $investments,
         ]);
     }
@@ -97,7 +97,7 @@ class ReportController extends Controller
         $investment->load(['user', 'plan']);
 
         return view('toapp_admin.reports.investment_show', [
-            'pageTitle' => 'Review Investment',
+            'pageTitle' => __('Review Investment'),
             'investment' => $investment,
         ]);
     }
@@ -221,7 +221,7 @@ class ReportController extends Controller
             ->withQueryString();
 
         return view('toapp_admin.reports.logins', [
-            'pageTitle' => 'Login Reports',
+            'pageTitle' => __('Login Reports'),
             'logins' => $logins,
         ]);
     }
@@ -273,7 +273,7 @@ class ReportController extends Controller
         $rows = $reports->summariesForAllAgents($since, $request->string('search')->toString() ?: null);
 
         return view('toapp_admin.reports.agents', [
-            'pageTitle' => 'Agent Reports',
+            'pageTitle' => __('Agent Reports'),
             'rows' => $rows,
             'totals' => $reports->aggregateTotals($rows),
             'days' => $days,
@@ -286,7 +286,7 @@ class ReportController extends Controller
         $since = $reports->periodStart($days);
 
         return view('toapp_admin.reports.agent_show', [
-            'pageTitle' => 'Agent Report: ' . $agent->name,
+            'pageTitle' => __('Agent Report: :name', ['name' => $agent->name]),
             'agent' => $agent,
             'metrics' => $reports->summaryForAgent($agent, $since),
             'days' => $days,
@@ -377,7 +377,7 @@ class ReportController extends Controller
             ->withQueryString();
 
         return view('toapp_admin.reports.audits', [
-            'pageTitle' => 'Admin Audit Logs',
+            'pageTitle' => __('Admin Audit Logs'),
             'audits' => $audits,
         ]);
     }

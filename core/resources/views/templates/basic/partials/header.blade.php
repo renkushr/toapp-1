@@ -12,7 +12,7 @@
                         <ul class="navbar-nav main-menu me-auto" id="linkItem">
                             <li><a class="{{ menuActive('home') }}" href="{{ route('home') }}">@lang('Home')</a>
                             </li>
-                            <li><a href="#about">@lang('About')</a></li>
+                            <li><a href="{{ route('about.us') }}">@lang('About Us')</a></li>
                             <li><a href="#plan">@lang('Plan')</a></li>
                             <li><a href="#feature">@lang('Feature')</a></li>
                             <li><a href="#faq">@lang('Faq')</a></li>
@@ -50,43 +50,16 @@
                                 @endif
                             @else
                                 <a class="btn btn-sm btn--base me-3 btn--capsule px-3" data-bs-toggle="modal" data-bs-target="#loginModal"
-                                    href="#0">@lang('Login')</a>
+                                    href="#0">@lang('Log In')</a>
 
                                 <a class="fs--14px me-3 text-white registerBtn" id="open-registration-modal" data-bs-toggle="modal"
-                                    data-bs-target="#registerModal" href="#0">@lang('Register')</a>
+                                    data-bs-target="#registerModal" href="#0">@lang('Create Account')</a>
                                 <!-- Button trigger modal -->
 
                             @endauth
 
                             <div class="language_switcher me-3">
-                                @if (gs('multi_language'))
-                                    @php
-                                        $language = App\Models\Language::all();
-                                        $selectLang = $language->where('code', config('app.locale'))->first();
-
-                                    @endphp
-                                    <div class="language_switcher__caption">
-                                        <span class="icon">
-                                            <img src="{{ getImage(getFilePath('language') . '/' . $selectLang->image, getFileSize('language')) }}"
-                                                alt="@lang('image')">
-                                        </span>
-                                        <span class="text"> {{ __(@$selectLang->name) }} </span>
-                                    </div>
-                                    <div class="language_switcher__list">
-                                        @foreach ($language as $item)
-                                            <div class="language_switcher__item    @if (session('lang') == $item->code) selected @endif"
-                                                data-value="{{ $item->code }}">
-                                                <a href="{{ route('lang', $item->code) }}" class="thumb">
-                                                    <span class="icon">
-                                                        <img src="{{ getImage(getFilePath('language') . '/' . $item->image, getFileSize('language')) }}"
-                                                            alt="@lang('image')">
-                                                    </span>
-                                                    <span class="text"> {{ __($item->name) }}</span>
-                                                </a>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                @endif
+                                @include('partials.language_switcher', ['variant' => 'user'])
                             </div>
 
                         </div>
@@ -109,29 +82,5 @@
                 @endif
             })
         </script>
-    @endpush
-
-
-    @push('script')
-        <script>
-            (function($) {
-                "use strict";
-                $('.language_switcher > .language_switcher__caption').on('click', function() {
-                    $(this).parent().toggleClass('open');
-                });
-
-                $(document).on('keyup', function(evt) {
-                    if ((evt.keyCode || evt.which) === 27) {
-                        $('.language_switcher').removeClass('open');
-                    }
-                });
-
-                $(document).on('click', function(evt) {
-                    if ($(evt.target).closest(".language_switcher > .language_switcher__caption").length === 0) {
-                        $('.language_switcher').removeClass('open');
-                    }
-                });
-
-            })(jQuery);
-        </script>
+        @include('partials.language_switcher_assets')
     @endpush

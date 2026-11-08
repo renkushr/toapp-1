@@ -116,4 +116,13 @@ class AgentChatController extends Controller
 
         return response()->json(['messages' => $messages]);
     }
+
+    public function unreadSummary()
+    {
+        $user = auth()->user();
+
+        return response()->json([
+            'unread_total' => $this->chatService->unreadCountForUser($user),
+        ]);
+    }
 }

@@ -9,11 +9,11 @@
                 <a class="auth-back" href="{{ route('user.password.request') }}" aria-label="@lang('Back')">
                     <i class="las la-arrow-left"></i>
                 </a>
-                <a class="auth-link" href="{{ route('user.login') }}">@lang('Login')</a>
+                <a class="auth-link" href="{{ route('user.login') }}">@lang('Log In')</a>
             </div>
 
             <div class="auth-brand">
-                <img src="{{ asset('assets/global/img/tologo.png') }}" alt="To-app logo">
+                <img src="{{ asset('assets/global/img/tologo.png') }}" alt="To-App logo">
             </div>
 
             <div class="auth-card">

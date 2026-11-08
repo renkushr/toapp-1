@@ -6,9 +6,29 @@ class UsZipCatalog
 {
     private static ?array $data = null;
 
+    /**
+     * USPS / ZIP regions that are not among the 50 states.
+     * Kept in the raw catalog for ZIP→region lookup, but excluded from state UI/counts.
+     */
+    private const NON_STATE_ABBRS = [
+        'DC' => true, // District of Columbia
+        'PR' => true,
+        'VI' => true,
+        'GU' => true,
+        'AS' => true,
+        'MP' => true,
+    ];
+
     public static function path(): string
     {
         return database_path('data/us_zips_by_state.json');
+    }
+
+    public static function isState(string $abbr): bool
+    {
+        $abbr = strtoupper(trim($abbr));
+
+        return $abbr !== '' && $abbr !== 'OTHER' && ! isset(self::NON_STATE_ABBRS[$abbr]);
     }
 
     public static function all(): array
@@ -38,6 +58,10 @@ class UsZipCatalog
         $rows = [];
 
         foreach (self::all() as $abbr => $info) {
+            if (! self::isState((string) $abbr)) {
+                continue;
+            }
+
             $name = (string) ($info['name'] ?? $abbr);
             $count = count($info['zips'] ?? []);
 
@@ -159,6 +183,10 @@ class UsZipCatalog
             }
 
             $abbr = self::stateForZip($normalized) ?? 'OTHER';
+            if (! self::isState($abbr) && $abbr !== 'OTHER') {
+                // Fold non-state regions into OTHER for 50-state UI summaries.
+                $abbr = 'OTHER';
+            }
             $grouped[$abbr][] = $normalized;
         }
 
@@ -174,6 +202,7 @@ class UsZipCatalog
 
     /**
      * Compact map of state abbr => list of ZIP codes (no cities).
+     * Excludes DC and other non-state regions so UI counts show 50 states.
      *
      * @return array{by_state: array<string, list<string>>, total: int}
      */
@@ -183,6 +212,10 @@ class UsZipCatalog
         $total = 0;
 
         foreach (self::all() as $abbr => $info) {
+            if (! self::isState((string) $abbr)) {
+                continue;
+            }
+
             $codes = [];
             foreach ($info['zips'] ?? [] as $pair) {
                 $zip = (string) ($pair[0] ?? '');

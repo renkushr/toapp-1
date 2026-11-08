@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Constants\Status;
 use App\Models\AdminNotification;
+use App\Models\CmsPage;
 use App\Models\Frontend;
 use App\Models\Language;
 use App\Models\Page;
@@ -36,7 +37,23 @@ class SiteController extends Controller
             return to_route('user.home');
         }
 
-        return to_route('user.login');
+        $pageTitle = __('Home');
+
+        return view('Template::home', compact('pageTitle'));
+    }
+
+    public function getStarted()
+    {
+        if (auth('admin')->check()) {
+            return to_route('toapp.admin.dashboard');
+        }
+
+        if (auth()->check()) {
+            return to_route('user.home');
+        }
+
+        $pageTitle = __('Sign up / Login');
+        return view('Template::get_started', compact('pageTitle'));
     }
 
     public function pages($slug)
@@ -52,7 +69,7 @@ class SiteController extends Controller
 
     public function contact()
     {
-        $pageTitle   = "Contact Us";
+        $pageTitle   = __('Contact Us');
         $user        = auth()->user();
         $sections    = Page::where('tempname', activeTemplate())->where('slug', 'contact')->first();
         $seoContents = $sections->seo_content;
@@ -108,6 +125,16 @@ class SiteController extends Controller
         return to_route('ticket.view', [$ticket->ticket])->withNotify($notify);
     }
 
+    public function aboutUs()
+    {
+        $page = CmsPage::aboutUs();
+        abort_unless($page->is_published, 404);
+
+        $pageTitle = $page->title;
+
+        return view('Template::about_us', compact('page', 'pageTitle'));
+    }
+
     public function policyPages($slug)
     {
         $policy      = Frontend::where('slug', $slug)->where('data_keys', 'policy_pages.element')->firstOrFail();
@@ -119,8 +146,15 @@ class SiteController extends Controller
 
     public function changeLanguage($lang = null)
     {
-           $language          = Language::where('code', $lang)->first();
-        if (!$language) $lang = 'en';
+        $supported = array_keys(config('toapp_languages.supported', ['en' => []]));
+        $language = Language::where('code', $lang)->first();
+
+        if ($language) {
+            $lang = $language->code;
+        } elseif (! in_array($lang, $supported, true)) {
+            $lang = 'en';
+        }
+
         session()->put('lang', $lang);
         return back();
     }

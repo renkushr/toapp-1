@@ -1,0 +1,46 @@
+{
+  "packageId": "com.tonkow.toapp.admin",
+  "host": "tonkow.com",
+  "name": "TOAPP Admin",
+  "launcherName": "Admin",
+  "display": "standalone",
+  "themeColor": "#206bc4",
+  "navigationColor": "#206bc4",
+  "navigationColorDark": "#1a5699",
+  "navigationDividerColor": "#206bc4",
+  "navigationDividerColorDark": "#1a5699",
+  "backgroundColor": "#f1f5f9",
+  "enableNotifications": false,
+  "startUrl": "/adto-app/?utm_source=twa",
+  "iconUrl": "https://tonkow.com/assets/global/img/pwa/icon-512.png",
+  "maskableIconUrl": "https://tonkow.com/assets/global/img/pwa/icon-512.png",
+  "splashScreenFadeOutDuration": 300,
+  "signingKey": {
+    "path": "./android.keystore",
+    "alias": "toapp-admin"
+  },
+  "appVersionName": "1.0.0",
+  "appVersionCode": 1,
+  "shortcuts": [],
+  "generatorApp": "bubblewrap-cli",
+  "webManifestUrl": "https://tonkow.com/manifest-admin.webmanifest",
+  "fallbackType": "customtabs",
+  "features": {},
+  "alphaDependencies": {
+    "enabled": false
+  },
+  "enableSiteSettingsShortcut": true,
+  "isChromeOSOnly": false,
+  "isMetaQuest": false,
+  "fullScopeUrl": "https://tonkow.com/adto-app/",
+  "minSdkVersion": 21,
+  "orientation": "portrait",
+  "fingerprints": [],
+  "additionalTrustedOrigins": [
+    "https://www.tonkow.com"
+  ],
+  "retainedCertificatesOnUpdate": [],
+  "protocolHandlers": [],
+  "fileHandlers": [],
+  "launchHandlerClientMode": ""
+}

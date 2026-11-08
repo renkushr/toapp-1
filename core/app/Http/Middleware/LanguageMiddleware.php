@@ -17,19 +17,32 @@ class LanguageMiddleware
      */
     public function handle($request, Closure $next)
     {
-        session()->put('lang', $this->getCode());
-        app()->setLocale(session('lang',  $this->getCode()));
+        $code = $this->getCode();
+        session()->put('lang', $code);
+        app()->setLocale($code);
         return $next($request);
     }
 
     public function getCode()
     {
+        $supported = array_keys(config('toapp_languages.supported', ['en' => []]));
+
         if (session()->has('lang')) {
-            return session('lang');
+            $sessionLang = session('lang');
+            if (in_array($sessionLang, $supported, true)) {
+                return $sessionLang;
+            }
         }
-        $language = Language::where('is_default', Status::ENABLE)->first();
-        return $language ? $language->code : 'en';
+
+        try {
+            $language = Language::where('is_default', Status::ENABLE)->first();
+            if ($language && in_array($language->code, $supported, true)) {
+                return $language->code;
+            }
+        } catch (\Throwable $e) {
+            // languages table may be unavailable during install
+        }
+
+        return 'en';
     }
-
-
 }

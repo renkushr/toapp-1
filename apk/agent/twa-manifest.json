@@ -1,0 +1,46 @@
+{
+  "packageId": "com.tonkow.toapp.agent",
+  "host": "agto-app.com",
+  "name": "TOAPP Agent",
+  "launcherName": "Agent",
+  "display": "standalone",
+  "themeColor": "#206bc4",
+  "navigationColor": "#206bc4",
+  "navigationColorDark": "#1a5699",
+  "navigationDividerColor": "#206bc4",
+  "navigationDividerColorDark": "#1a5699",
+  "backgroundColor": "#f1f5f9",
+  "enableNotifications": false,
+  "startUrl": "/agent/?utm_source=twa",
+  "iconUrl": "https://agto-app.com/assets/global/img/pwa/icon-512.png",
+  "maskableIconUrl": "https://agto-app.com/assets/global/img/pwa/icon-512.png",
+  "splashScreenFadeOutDuration": 300,
+  "signingKey": {
+    "path": "./android.keystore",
+    "alias": "toapp-agent"
+  },
+  "appVersionName": "1.0.0",
+  "appVersionCode": 1,
+  "shortcuts": [],
+  "generatorApp": "bubblewrap-cli",
+  "webManifestUrl": "https://agto-app.com/manifest-agent.webmanifest",
+  "fallbackType": "customtabs",
+  "features": {},
+  "alphaDependencies": {
+    "enabled": false
+  },
+  "enableSiteSettingsShortcut": true,
+  "isChromeOSOnly": false,
+  "isMetaQuest": false,
+  "fullScopeUrl": "https://agto-app.com/agent/",
+  "minSdkVersion": 21,
+  "orientation": "portrait",
+  "fingerprints": [],
+  "additionalTrustedOrigins": [
+    "https://www.agto-app.com"
+  ],
+  "retainedCertificatesOnUpdate": [],
+  "protocolHandlers": [],
+  "fileHandlers": [],
+  "launchHandlerClientMode": ""
+}

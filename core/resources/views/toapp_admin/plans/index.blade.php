@@ -3,19 +3,19 @@
 @section('content')
 <div class="card mb-3">
     @include('partials.portal_list_header', [
-        'title' => 'Product catalog',
+        'title' => __('Product catalog'),
         'toolbarView' => 'partials.portal_list_toolbar_plans',
     ])
     <div class="table-responsive">
         <table class="table table-vcenter card-table">
             <thead>
                 <tr>
-                    <th>Product</th>
-                    <th>Amount range</th>
-                    <th>Return</th>
-                    <th>Pricing</th>
-                    <th>Eligibility</th>
-                    <th>Status</th>
+                    <th>@lang('Product')</th>
+                    <th>@lang('Amount range')</th>
+                    <th>@lang('Return')</th>
+                    <th>@lang('Pricing')</th>
+                    <th>@lang('Eligibility')</th>
+                    <th>@lang('Status')</th>
                     <th class="w-1"></th>
                 </tr>
             </thead>
@@ -24,7 +24,7 @@
                     <tr>
                         <td>
                             <div class="fw-bold">{{ $plan->name }}</div>
-                            <div class="text-secondary">{{ $plan->category ?: 'General' }}</div>
+                            <div class="text-secondary">{{ $plan->category ?: __('General') }}</div>
                         </td>
                         <td class="text-secondary">
                             {{ number_format((float) $plan->min_amount, 2) }} – {{ number_format((float) $plan->max_amount, 2) }}
@@ -36,23 +36,23 @@
                             {{ number_format((float) $plan->monthprice, 2) }} / {{ number_format((float) $plan->annualprice, 2) }}
                         </td>
                         <td class="text-secondary">
-                            Age {{ $plan->agefrom ?? 18 }}–{{ $plan->ageto ?? 99 }}
+                            @lang('Age') {{ $plan->agefrom ?? 18 }}–{{ $plan->ageto ?? 99 }}
                             @if($plan->allows_chronic)
-                                <span class="badge bg-azure-lt ms-1">Chronic OK</span>
+                                <span class="badge bg-azure-lt ms-1">@lang('Chronic OK')</span>
                             @endif
                         </td>
                         <td>
                             <span class="badge {{ $plan->status ? 'bg-success-lt' : 'bg-secondary-lt' }}">
-                                {{ $plan->status ? 'Enabled' : 'Disabled' }}
+                                {{ $plan->status ? __('Enabled') : __('Disabled') }}
                             </span>
                         </td>
                         <td>
                             <div class="btn-list flex-nowrap">
-                                <a href="{{ route('toapp.admin.plans.edit', $plan) }}" class="btn btn-sm">Edit</a>
+                                <a href="{{ route('toapp.admin.plans.edit', $plan) }}" class="btn btn-sm">@lang('Edit')</a>
                                 <form method="POST" action="{{ route('toapp.admin.plans.status', $plan) }}">
                                     @csrf
                                     <button class="btn btn-sm btn-outline-secondary" type="submit">
-                                        {{ $plan->status ? 'Disable' : 'Enable' }}
+                                        {{ $plan->status ? __('Disable') : __('Enable') }}
                                     </button>
                                 </form>
                             </div>
@@ -61,8 +61,8 @@
                 @empty
                     <tr>
                         <td colspan="7" class="text-center text-secondary py-4">
-                            No products yet.
-                            <a href="{{ route('toapp.admin.plans.create') }}">Create the first product</a>
+                            @lang('No products yet.')
+                            <a href="{{ route('toapp.admin.plans.create') }}">@lang('Create the first product')</a>
                         </td>
                     </tr>
                 @endforelse

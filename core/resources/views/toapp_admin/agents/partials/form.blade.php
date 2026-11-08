@@ -27,40 +27,40 @@
     @endif
 
     <div class="card">
-        <div class="card-header"><h3 class="card-title">{{ $isEdit ? 'Agent profile' : 'New agent' }}</h3></div>
+        <div class="card-header"><h3 class="card-title">{{ $isEdit ? __('Agent profile') : __('New agent') }}</h3></div>
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label class="form-label required">Full name</label>
+                    <label class="form-label required">@lang('Full name')</label>
                     <input class="form-control" name="name" value="{{ old('name', $agent?->name) }}" required maxlength="120">
                 </div>
                 <div class="col-md-6 mb-3">
-                    <label class="form-label required">License number</label>
+                    <label class="form-label required">@lang('License number')</label>
                     <input class="form-control" name="license_no" value="{{ old('license_no', $agent?->license_no) }}" required maxlength="80" placeholder="AG-12345">
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label class="form-label required">Email</label>
+                    <label class="form-label required">@lang('Email')</label>
                     <input class="form-control" type="email" name="email" value="{{ old('email', $agent?->email) }}" required maxlength="255">
                 </div>
                 <div class="col-md-6 mb-3">
-                    <label class="form-label required">Username</label>
+                    <label class="form-label required">@lang('Username')</label>
                     <input class="form-control" name="username" value="{{ old('username', $agent?->username) }}" required maxlength="80">
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label class="form-label">{{ $isEdit ? 'New password' : 'Password' }}</label>
-                    <input class="form-control" type="password" name="password" @unless($isEdit) required @endunless minlength="8" placeholder="{{ $isEdit ? 'Leave blank to keep current' : '' }}">
+                    <label class="form-label">{{ $isEdit ? __('New password') : __('Password') }}</label>
+                    <input class="form-control" type="password" name="password" @unless($isEdit) required @endunless minlength="8" placeholder="{{ $isEdit ? __('Leave blank to keep current') : '' }}">
                 </div>
                 <div class="col-md-6 mb-3">
-                    <label class="form-label required">Agent fee (%)</label>
+                    <label class="form-label required">@lang('Agent fee (%)')</label>
                     <div class="input-group">
                         <input class="form-control" type="number" name="fee_percent" value="{{ old('fee_percent', $agent?->fee_percent ?? '0') }}" required min="0" max="100" step="0.01">
                         <span class="input-group-text">%</span>
                     </div>
-                    <small class="form-hint">Platform fee the agent pays per product sale. Only admins can change this.</small>
+                    <small class="form-hint">@lang('Platform fee the agent pays per product sale. Only admins can change this.')</small>
                     @error('fee_percent')<div class="text-danger mt-2">{{ $message }}</div>@enderror
                 </div>
             </div>
@@ -68,7 +68,7 @@
                 <div class="col-md-6 mb-3 d-flex align-items-end">
                     <label class="form-check">
                         <input class="form-check-input" type="checkbox" name="status" value="1" @checked(old('status', $isEdit ? (int) $agent->status === 1 : true))>
-                        <span class="form-check-label">Active agent account</span>
+                        <span class="form-check-label">@lang('Active agent account')</span>
                     </label>
                 </div>
             </div>
@@ -81,28 +81,28 @@
                  data-states-meta='@json($statesMeta)'
                  data-select-all-usa="{{ $zipSelectAllUsa ? '1' : '0' }}"
                  data-catalog-total="{{ $zipCatalogTotal }}">
-                <label class="form-label required">ZIP codes (USA)</label>
-                <small class="form-hint d-block mb-2">Search and add states, expand to browse every ZIP code in that state — or use <strong>Select all USA</strong> to cover the entire country.</small>
+                <label class="form-label required">@lang('ZIP codes (USA)')</label>
+                <small class="form-hint d-block mb-2">{!! __('Search and add states, expand to browse every ZIP code in that state — or use <strong>Select all USA</strong> to cover the entire country.') !!}</small>
 
                 <div class="d-flex align-items-center justify-content-between mb-2 flex-wrap gap-2">
                     <div class="text-secondary">
-                        <strong id="zipSelectedCount">0</strong> ZIP codes selected
-                        · <strong id="zipStateCount">0</strong> states
+                        <strong id="zipSelectedCount">0</strong> @lang('ZIP codes selected')
+                        · <strong id="zipStateCount">0</strong> @lang('states')
                     </div>
                     <div class="d-flex gap-2">
-                        <button type="button" class="btn btn-sm btn-outline-primary" id="zipSelectAllUsa">Select all USA</button>
-                        <button type="button" class="btn btn-sm" id="zipClearAll" disabled>Clear all</button>
+                        <button type="button" class="btn btn-sm btn-outline-primary" id="zipSelectAllUsa">@lang('Select all USA')</button>
+                        <button type="button" class="btn btn-sm" id="zipClearAll" disabled>@lang('Clear all')</button>
                     </div>
                 </div>
 
                 <div id="zipAllUsaSummary" class="zip-all-usa-summary {{ $zipSelectAllUsa ? '' : 'd-none' }} mb-3">
                     <div class="d-flex align-items-start justify-content-between gap-3 flex-wrap">
                         <div>
-                            <div class="fw-bold mb-1"><i class="ti ti-map-pin me-1"></i> All USA ZIP codes selected</div>
-                            <div class="text-secondary small" id="zipAllUsaSummaryText">Nationwide coverage is active.</div>
+                            <div class="fw-bold mb-1"><i class="ti ti-map-pin me-1"></i> @lang('All USA ZIP codes selected')</div>
+                            <div class="text-secondary small" id="zipAllUsaSummaryText">@lang('Nationwide coverage is active.')</div>
                         </div>
                         <button type="button" class="btn btn-sm btn-outline-secondary" id="zipToggleAllUsaDetails">
-                            Show states
+                            @lang('Show states')
                         </button>
                     </div>
                 </div>
@@ -111,12 +111,12 @@
                     <div class="zip-picker-search position-relative mb-3">
                         <div class="input-icon">
                             <span class="input-icon-addon"><i class="ti ti-search"></i></span>
-                            <input type="search" class="form-control" id="zipStateSearch" placeholder="Search state (e.g. California or CA)…" autocomplete="off">
+                            <input type="search" class="form-control" id="zipStateSearch" placeholder="@lang('Search state (e.g. California or CA)…')" autocomplete="off">
                         </div>
                         <div class="zip-picker-dropdown list-group d-none" id="zipStateResults" role="listbox"></div>
                     </div>
                     <div id="zipStatePanels" class="zip-state-panels"></div>
-                    <div id="zipEmptyHint" class="text-secondary border rounded p-3">No states added yet. Use the search box above to add a state, then expand it to pick ZIP codes — or click Select all USA.</div>
+                    <div id="zipEmptyHint" class="text-secondary border rounded p-3">@lang('No states added yet. Use the search box above to add a state, then expand it to pick ZIP codes — or click Select all USA.')</div>
                 </div>
 
                 <div id="zipHiddenInputs"></div>
@@ -124,8 +124,8 @@
             </div>
         </div>
         <div class="card-footer d-flex gap-2">
-            <button class="btn btn-primary" type="submit">{{ $isEdit ? 'Save changes' : 'Create agent' }}</button>
-            <a class="btn" href="{{ route('toapp.admin.agents.index') }}">Cancel</a>
+            <button class="btn btn-primary" type="submit">{{ $isEdit ? __('Save changes') : __('Create agent') }}</button>
+            <a class="btn" href="{{ route('toapp.admin.agents.index') }}">@lang('Cancel')</a>
         </div>
     </div>
 </form>
@@ -275,13 +275,46 @@
     const allUsaSummaryText = document.getElementById('zipAllUsaSummaryText');
     const toggleAllUsaDetailsBtn = document.getElementById('zipToggleAllUsaDetails');
     const form = document.getElementById('agentForm');
+    const i18n = {
+        otherUnknown: @json(__('Other / unknown')),
+        zipAcrossCustom: @json(__(':total ZIP codes across :states states. Use Show states only if you need to customize.')),
+        zipAcross: @json(__(':total ZIP codes across :states states.')),
+        hideStates: @json(__('Hide states')),
+        showStates: @json(__('Show states')),
+        allUsaSelected: @json(__('All USA selected')),
+        selectAllUsa: @json(__('Select all USA')),
+        failedNationwide: @json(__('Failed to load nationwide ZIP codes')),
+        selectedOfZips: @json(__(':selected selected / :total ZIP codes')),
+        failedLoadZips: @json(__('Failed to load ZIP codes')),
+        noZipMatch: @json(__('No ZIP codes match this filter.')),
+        couldNotUpdateZip: @json(__('Could not update ZIP selection.')),
+        loadingZips: @json(__('Loading ZIP codes…')),
+        couldNotLoadZips: @json(__('Could not load ZIP codes.')),
+        clear: @json(__('Clear')),
+        remove: @json(__('Remove')),
+        selectAll: @json(__('Select all')),
+        filterZipCity: @json(__('Filter ZIP code or city in :state…')),
+        couldNotRemoveState: @json(__('Could not remove state.')),
+        couldNotClearState: @json(__('Could not clear state.')),
+        couldNotSelectAllZips: @json(__('Could not select all ZIP codes.')),
+        noStatesFound: @json(__('No states found')),
+        zipCodesCount: @json(__(':count ZIP codes')),
+        couldNotAddState: @json(__('Could not add state.')),
+        selectAtLeastOneZip: @json(__('Select at least one ZIP code.')),
+    };
+
+    function t(template, replacements) {
+        return Object.keys(replacements).reduce(function (s, key) {
+            return s.split(':' + key).join(String(replacements[key]));
+        }, template);
+    }
 
     let searchTimer = null;
     let activeIndex = -1;
     let materializePromise = null;
 
     function stateName(abbr) {
-        if (abbr === 'OTHER') return 'Other / unknown';
+        if (abbr === 'OTHER') return i18n.otherUnknown;
         return (statesMeta[abbr] && statesMeta[abbr].name) || abbr;
     }
 
@@ -340,11 +373,11 @@
             const total = selectAllUsa && catalogTotal ? catalogTotal : totalSelected();
             const states = selectAllUsa ? nationwideAbbrs.length : Object.keys(selected).length;
             allUsaSummaryText.textContent = selectAllUsa
-                ? `${total.toLocaleString()} ZIP codes across ${states} states. Use Show states only if you need to customize.`
-                : `${total.toLocaleString()} ZIP codes across ${states} states.`;
+                ? t(i18n.zipAcrossCustom, { total: total.toLocaleString(), states: states })
+                : t(i18n.zipAcross, { total: total.toLocaleString(), states: states });
         }
         if (toggleAllUsaDetailsBtn) {
-            toggleAllUsaDetailsBtn.textContent = allUsaDetailsOpen ? 'Hide states' : 'Show states';
+            toggleAllUsaDetailsBtn.textContent = allUsaDetailsOpen ? i18n.hideStates : i18n.showStates;
         }
     }
 
@@ -375,7 +408,7 @@
         emptyHint.classList.toggle('d-none', Object.keys(selected).length > 0 || selectAllUsa);
         if (selectAllUsaBtn) {
             selectAllUsaBtn.disabled = false;
-            selectAllUsaBtn.textContent = selectAllUsa ? 'All USA selected' : 'Select all USA';
+            selectAllUsaBtn.textContent = selectAllUsa ? i18n.allUsaSelected : i18n.selectAllUsa;
             selectAllUsaBtn.classList.toggle('btn-primary', selectAllUsa);
             selectAllUsaBtn.classList.toggle('btn-outline-primary', !selectAllUsa);
         }
@@ -390,7 +423,7 @@
         }
         materializePromise = (async () => {
             const res = await fetch(allUrl, { headers: { 'Accept': 'application/json' } });
-            if (!res.ok) throw new Error('Failed to load nationwide ZIP codes');
+            if (!res.ok) throw new Error(i18n.failedNationwide);
             const data = await res.json();
             const byState = data.by_state || {};
             catalogTotal = Number(data.total || catalogTotal);
@@ -446,7 +479,7 @@
         const meta = panel.querySelector('.zip-state-panel__meta');
         const selectedCount = selectAllUsa ? stateCount(abbr) : (selected[abbr]?.size || 0);
         if (meta) {
-            meta.textContent = `${selectedCount} selected / ${stateCount(abbr)} ZIP codes`;
+            meta.textContent = t(i18n.selectedOfZips, { selected: selectedCount, total: stateCount(abbr) });
         }
         const rows = panel.querySelectorAll('.zip-zip-row input[type="checkbox"]');
         rows.forEach((cb) => {
@@ -465,7 +498,7 @@
 
         const url = stateUrlTemplate.replace('__STATE__', encodeURIComponent(abbr)) + (query ? ('?q=' + encodeURIComponent(query)) : '');
         const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
-        if (!res.ok) throw new Error('Failed to load ZIP codes');
+        if (!res.ok) throw new Error(i18n.failedLoadZips);
         const data = await res.json();
         if (!query) zipCache[abbr] = data.zips || [];
         return data.zips || [];
@@ -475,7 +508,7 @@
         const list = panel.querySelector('.zip-zip-list');
         if (!list) return;
         if (!zips.length) {
-            list.innerHTML = '<div class="text-secondary p-2">No ZIP codes match this filter.</div>';
+            list.innerHTML = '<div class="text-secondary p-2">' + i18n.noZipMatch + '</div>';
             return;
         }
         const frag = document.createDocumentFragment();
@@ -488,7 +521,7 @@
             cb.value = row.zip;
             cb.checked = selectAllUsa ? true : (selected[abbr]?.has(row.zip) || false);
             cb.addEventListener('change', () => {
-                toggleZip(abbr, row.zip, cb.checked).catch((err) => alert(err.message || 'Could not update ZIP selection.'));
+                toggleZip(abbr, row.zip, cb.checked).catch((err) => alert(err.message || i18n.couldNotUpdateZip));
             });
             const code = document.createElement('code');
             code.textContent = row.zip;
@@ -508,13 +541,13 @@
         panel.classList.add('is-open');
         const list = panel.querySelector('.zip-zip-list');
         if (list.dataset.loaded === '1') return;
-        list.innerHTML = '<div class="text-secondary p-2">Loading ZIP codes…</div>';
+        list.innerHTML = '<div class="text-secondary p-2">' + i18n.loadingZips + '</div>';
         try {
             const zips = await loadZips(abbr);
             list.dataset.loaded = '1';
             renderZipList(panel, abbr, zips);
         } catch (e) {
-            list.innerHTML = '<div class="text-danger p-2">Could not load ZIP codes.</div>';
+            list.innerHTML = '<div class="text-danger p-2">' + i18n.couldNotLoadZips + '</div>';
         }
     }
 
@@ -553,19 +586,19 @@
                 <span class="zip-chevron"><i class="ti ti-chevron-right"></i></span>
                 <div>
                     <div class="fw-bold">${stateName(abbr)} <span class="text-secondary">(${abbr})</span></div>
-                    <div class="zip-state-panel__meta">${selectedCount} selected / ${stateCount(abbr)} ZIP codes</div>
+                    <div class="zip-state-panel__meta">${t(i18n.selectedOfZips, { selected: selectedCount, total: stateCount(abbr) })}</div>
                 </div>
             `;
 
             const actions = document.createElement('div');
             actions.className = 'zip-state-panel__actions';
             actions.innerHTML = abbr === 'OTHER' ? `
-                <button type="button" class="btn btn-sm" data-act="clear">Clear</button>
-                <button type="button" class="btn btn-sm btn-ghost-danger" data-act="remove">Remove</button>
+                <button type="button" class="btn btn-sm" data-act="clear">${i18n.clear}</button>
+                <button type="button" class="btn btn-sm btn-ghost-danger" data-act="remove">${i18n.remove}</button>
             ` : `
-                <button type="button" class="btn btn-sm" data-act="select-all">Select all</button>
-                <button type="button" class="btn btn-sm" data-act="clear">Clear</button>
-                <button type="button" class="btn btn-sm btn-ghost-danger" data-act="remove">Remove</button>
+                <button type="button" class="btn btn-sm" data-act="select-all">${i18n.selectAll}</button>
+                <button type="button" class="btn btn-sm" data-act="clear">${i18n.clear}</button>
+                <button type="button" class="btn btn-sm btn-ghost-danger" data-act="remove">${i18n.remove}</button>
             `;
             head.appendChild(actions);
 
@@ -573,7 +606,7 @@
             body.className = 'zip-state-panel__body';
             body.innerHTML = `
                 <div class="zip-zip-filter">
-                    <input type="search" class="form-control form-control-sm" data-state="${abbr}" placeholder="Filter ZIP code or city in ${stateName(abbr)}…">
+                    <input type="search" class="form-control form-control-sm" data-state="${abbr}" placeholder="${t(i18n.filterZipCity, { state: stateName(abbr) })}">
                 </div>
                 <div class="zip-zip-list"></div>
             `;
@@ -589,7 +622,7 @@
 
             actions.querySelector('[data-act="remove"]').addEventListener('click', (e) => {
                 e.stopPropagation();
-                removeState(abbr).catch((err) => alert(err.message || 'Could not remove state.'));
+                removeState(abbr).catch((err) => alert(err.message || i18n.couldNotRemoveState));
             });
             actions.querySelector('[data-act="clear"]').addEventListener('click', async (e) => {
                 e.stopPropagation();
@@ -600,7 +633,7 @@
                     updatePanelMeta(abbr);
                     syncHidden();
                 } catch (err) {
-                    alert(err.message || 'Could not clear state.');
+                    alert(err.message || i18n.couldNotClearState);
                 }
             });
             const selectAllBtn = actions.querySelector('[data-act="select-all"]');
@@ -617,7 +650,7 @@
                         syncHidden();
                         renderZipList(panel, abbr, zips);
                     } catch (err) {
-                        alert(err.message || 'Could not select all ZIP codes.');
+                        alert(err.message || i18n.couldNotSelectAllZips);
                     }
                 });
             }
@@ -660,7 +693,7 @@
     function showResults(states) {
         resultsEl.innerHTML = '';
         if (!states.length) {
-            resultsEl.innerHTML = '<div class="list-group-item text-secondary">No states found</div>';
+            resultsEl.innerHTML = '<div class="list-group-item text-secondary">' + i18n.noStatesFound + '</div>';
             resultsEl.classList.remove('d-none');
             return;
         }
@@ -669,14 +702,14 @@
             item.type = 'button';
             item.className = 'list-group-item list-group-item-action';
             item.dataset.index = String(idx);
-            item.innerHTML = `<strong>${state.name}</strong> <span class="text-secondary">(${state.abbr})</span> <span class="text-secondary float-end">${state.count} ZIP codes</span>`;
+            item.innerHTML = `<strong>${state.name}</strong> <span class="text-secondary">(${state.abbr})</span> <span class="text-secondary float-end">${t(i18n.zipCodesCount, { count: state.count })}</span>`;
             item.addEventListener('click', () => {
                 ensureState(state.abbr).then(() => {
                     searchInput.value = '';
                     hideResults();
                     const panel = panelsEl.querySelector(`[data-state="${state.abbr}"]`);
                     if (panel) openPanel(panel, state.abbr);
-                }).catch((err) => alert(err.message || 'Could not add state.'));
+                }).catch((err) => alert(err.message || i18n.couldNotAddState));
             });
             resultsEl.appendChild(item);
         });
@@ -765,7 +798,7 @@
         syncHidden();
         if (!selectAllUsa && totalSelected() === 0) {
             e.preventDefault();
-            alert('Select at least one ZIP code.');
+            alert(i18n.selectAtLeastOneZip);
         }
     });
 

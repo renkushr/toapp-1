@@ -1,13 +1,19 @@
 {
-  "name": "To-app",
-  "short_name": "To-app",
-  "description": "To-app by TONKOW TEK LLP",
-  "start_url": "/user/login",
+  "id": "/",
+  "name": "To-App",
+  "short_name": "To-App",
+  "description": "To-App by TONKOW TEK LLP — plans, wallet, and agent chat.",
+  "lang": "en",
+  "dir": "ltr",
+  "start_url": "/user/dashboard?utm_source=pwa",
   "scope": "/",
   "display": "standalone",
-  "orientation": "portrait",
-  "background_color": "#ffffff",
-  "theme_color": "#5936f2",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait-primary",
+  "background_color": "#e8f2f8",
+  "theme_color": "#1268f3",
+  "categories": ["finance", "lifestyle"],
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "/assets/global/img/pwa/icon-192.png",
@@ -26,6 +32,41 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Dashboard",
+      "short_name": "Home",
+      "url": "/user/dashboard?utm_source=pwa_shortcut",
+      "icons": [
+        {
+          "src": "/assets/global/img/pwa/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Find a plan",
+      "short_name": "Plans",
+      "url": "/user/plans?utm_source=pwa_shortcut",
+      "icons": [
+        {
+          "src": "/assets/global/img/pwa/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Chat with Agent",
+      "short_name": "Chat",
+      "url": "/user/agent-chat?utm_source=pwa_shortcut",
+      "icons": [
+        {
+          "src": "/assets/global/img/pwa/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
     }
   ]
 }

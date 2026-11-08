@@ -13,11 +13,11 @@
                 <i class="ti ti-bell-ringing"></i>
             </div>
             <div class="agent-chat-toast-content">
-                <strong id="agentChatToastTitle" class="agent-chat-toast-title">New message</strong>
+                <strong id="agentChatToastTitle" class="agent-chat-toast-title">@lang('New message')</strong>
                 <p id="agentChatToastBody" class="agent-chat-toast-body mb-0"></p>
-                <span class="agent-chat-toast-hint">Click to open chat</span>
+                <span class="agent-chat-toast-hint">@lang('Click to open chat')</span>
             </div>
-            <button type="button" class="agent-chat-toast-close" data-bs-dismiss="toast" aria-label="Close">
+            <button type="button" class="agent-chat-toast-close" data-bs-dismiss="toast" aria-label="@lang('Close')">
                 <i class="ti ti-x"></i>
             </button>
         </div>
@@ -32,6 +32,18 @@
 @endpush
 
 @push('scripts')
+@php
+    $agentChatI18n = [
+        'newClientMessage' => __('New client message'),
+        'newMessageWaiting' => __('You have a new message waiting in chat.'),
+        'openChatToReply' => __('Open chat to reply.'),
+        'chatNotifications' => __('Chat notifications'),
+        'unreadChatMessage' => __('unread chat message'),
+        'unreadChatMessages' => __('unread chat messages'),
+        'unreadMessage' => __('unread message'),
+        'unreadMessages' => __('unread messages'),
+    ];
+@endphp
 <script>
 (function () {
     const toastEl = document.getElementById('agentChatToast');
@@ -41,6 +53,7 @@
     const csrf = @json(csrf_token());
     const agentId = @json($agent->id);
     const activeClientId = @json(request()->routeIs('toapp.agent.chat.show') ? optional(request()->route('user'))->id : null);
+    const i18n = @json($agentChatI18n);
     let toast;
     let audioCtx = null;
 
@@ -82,6 +95,7 @@
     }
 
     function setBadge(count) {
+        count = Math.max(0, parseInt(count, 10) || 0);
         const label = count > 99 ? '99+' : String(count);
 
         document.querySelectorAll('.agent-chat-unread-count').forEach(function (el) {
@@ -94,16 +108,49 @@
 
         const sidebarBadge = document.getElementById('agentChatUnreadBadge');
         const headerBadge = document.getElementById('agentChatHeaderBadge');
+        const headerBell = document.getElementById('agentChatHeaderBell');
 
-        [sidebarBadge, headerBadge].forEach(function (badge) {
-            if (!badge) return;
-            badge.classList.toggle('d-none', count <= 0);
-        });
+        if (headerBadge) {
+            headerBadge.textContent = label;
+            headerBadge.classList.toggle('d-none', count <= 0);
+        }
+
+        if (headerBell) {
+            headerBell.classList.toggle('has-unread', count > 0);
+            headerBell.setAttribute(
+                'aria-label',
+                count > 0
+                    ? (count + ' ' + (count === 1 ? i18n.unreadChatMessage : i18n.unreadChatMessages))
+                    : i18n.chatNotifications
+            );
+            headerBell.title = count > 0
+                ? (count + ' ' + (count === 1 ? i18n.unreadMessage : i18n.unreadMessages))
+                : i18n.chatNotifications;
+        }
+
+        if (sidebarBadge) {
+            sidebarBadge.classList.toggle('d-none', count <= 0);
+        }
 
         document.querySelectorAll('.agent-chat-sidebar-pill').forEach(function (pill) {
             pill.classList.toggle('d-none', count <= 0);
         });
     }
+
+    async function refreshUnread() {
+        try {
+            const res = await fetch(unreadUrl, {
+                headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+                credentials: 'same-origin',
+            });
+            if (!res.ok) return;
+            const data = await res.json();
+            setBadge(data.unread_total || 0);
+        } catch (e) {}
+    }
+
+    window.agentChatRefreshUnread = refreshUnread;
+    window.agentChatSetUnreadBadge = setBadge;
 
     function pulseNotification() {
         document.querySelectorAll('.agent-chat-notify-target').forEach(function (el) {
@@ -119,8 +166,8 @@
     function showToast(payload) {
         if (!toastEl || !window.bootstrap) return;
 
-        toastTitle.textContent = payload.user_name || 'New client message';
-        toastBody.textContent = payload.preview || 'You have a new message waiting in chat.';
+        toastTitle.textContent = payload.user_name || i18n.newClientMessage;
+        toastBody.textContent = payload.preview || i18n.newMessageWaiting;
         toastEl.dataset.chatUrl = payload.chat_url || '';
         toastEl.style.cursor = payload.chat_url ? 'pointer' : 'default';
         toast = toast || bootstrap.Toast.getOrCreateInstance(toastEl, { delay: 10000 });
@@ -130,8 +177,8 @@
         pulseNotification();
 
         if (window.Notification && Notification.permission === 'granted') {
-            new Notification(payload.user_name || 'New client message', {
-                body: payload.preview || 'Open chat to reply.',
+            new Notification(payload.user_name || i18n.newClientMessage, {
+                body: payload.preview || i18n.openChatToReply,
                 icon: @json(asset('assets/global/img/toapp-icon.png')),
             });
         }
@@ -143,15 +190,8 @@
         if (chatUrl) window.location.href = chatUrl;
     });
 
-    async function refreshUnread() {
-        try {
-            const res = await fetch(unreadUrl, { headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' } });
-            const data = await res.json();
-            setBadge(data.unread_total || 0);
-        } catch (e) {}
-    }
-
     setBadge(@json($unreadTotal));
+    refreshUnread();
 
     if (window.Notification && Notification.permission === 'default') {
         Notification.requestPermission().catch(function () {});
@@ -170,23 +210,36 @@
 
         echo.private('agent.inbox.' + agentId)
             .listen('.InboxUpdated', function (payload) {
-                const previous = parseInt(document.querySelector('.agent-chat-unread-count')?.textContent || '0', 10) || 0;
-                setBadge(payload.unread_total || 0);
+                const previous = parseInt(document.getElementById('agentChatHeaderBadge')?.textContent || '0', 10) || 0;
+                const nextTotal = payload.unread_total || 0;
 
-                if (payload.user_id && payload.user_id === activeClientId) {
+                if (payload.user_id && activeClientId && payload.user_id === activeClientId) {
+                    if (typeof window.agentChatMarkActiveRead === 'function') {
+                        window.agentChatMarkActiveRead().finally(refreshUnread);
+                    } else {
+                        refreshUnread();
+                    }
                     return;
                 }
 
-                if ((payload.unread_total || 0) > previous) {
+                setBadge(nextTotal);
+
+                if (nextTotal > previous) {
                     showToast(payload);
                 }
             });
+
+        setInterval(refreshUnread, 60000);
     } else {
-        setInterval(refreshUnread, 30000);
+        setInterval(refreshUnread, 15000);
     }
     @else
-    setInterval(refreshUnread, 30000);
+    setInterval(refreshUnread, 15000);
     @endif
+
+    document.addEventListener('visibilitychange', function () {
+        if (!document.hidden) refreshUnread();
+    });
 })();
 </script>
 @endpush

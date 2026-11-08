@@ -71,14 +71,24 @@ class ProfileController extends Controller
 
         if ($request->payout_method === 'paypal') {
             $request->validate([
-                'payout_paypal_email' => 'required|email|max:120',
+                'payout_paypal_contact' => 'required|in:email,phone',
             ]);
+
+            if ($request->payout_paypal_contact === 'phone') {
+                $request->validate([
+                    'payout_paypal_phone' => ['required', 'string', 'max:40', 'regex:/^[0-9+\-\s()]{7,40}$/'],
+                ]);
+            } else {
+                $request->validate([
+                    'payout_paypal_email' => 'required|email|max:120',
+                ]);
+            }
         } else {
             $request->validate([
-                'payout_bank_name' => 'required|string|max:120',
-                'payout_account_name' => 'required|string|max:120',
-                'payout_account_number' => 'required|string|max:60',
-                'payout_routing_number' => 'required|string|max:40',
+                'payout_account_number' => ['required', 'string', 'max:60', 'regex:/^[0-9\- ]{4,60}$/'],
+                'payout_routing_number' => ['required', 'string', 'max:40', 'regex:/^[0-9]{9}$/'],
+            ], [
+                'payout_routing_number.regex' => 'Routing number must be exactly 9 digits.',
             ]);
         }
 
@@ -86,17 +96,27 @@ class ProfileController extends Controller
         $user->payout_method = $request->payout_method;
 
         if ($request->payout_method === 'paypal') {
-            $user->payout_paypal_email = strtolower(trim($request->payout_paypal_email));
+            $contact = $request->payout_paypal_contact;
+            $user->payout_paypal_contact = $contact;
+            if ($contact === 'phone') {
+                $user->payout_paypal_phone = preg_replace('/\s+/', ' ', trim($request->payout_paypal_phone));
+                $user->payout_paypal_email = null;
+            } else {
+                $user->payout_paypal_email = strtolower(trim($request->payout_paypal_email));
+                $user->payout_paypal_phone = null;
+            }
             $user->payout_bank_name = null;
             $user->payout_account_name = null;
             $user->payout_account_number = null;
             $user->payout_routing_number = null;
         } else {
             $user->payout_paypal_email = null;
-            $user->payout_bank_name = trim($request->payout_bank_name);
-            $user->payout_account_name = trim($request->payout_account_name);
-            $user->payout_account_number = trim($request->payout_account_number);
-            $user->payout_routing_number = trim($request->payout_routing_number);
+            $user->payout_paypal_phone = null;
+            $user->payout_paypal_contact = null;
+            $user->payout_bank_name = null;
+            $user->payout_account_name = null;
+            $user->payout_account_number = preg_replace('/\s+/', '', trim($request->payout_account_number));
+            $user->payout_routing_number = preg_replace('/\D+/', '', trim($request->payout_routing_number));
         }
 
         $user->save();

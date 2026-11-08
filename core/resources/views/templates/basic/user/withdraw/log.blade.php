@@ -8,7 +8,7 @@
                     <i class="las la-arrow-left"></i>
                 </a>
                 <a class="app-brand" href="{{ route('user.home') }}">
-                    <img src="{{ siteLogo() }}" alt="To-app">
+                    <img src="{{ siteLogo() }}" alt="To-App">
                     <span>@lang('Withdrawals')</span>
                 </a>
                 <button type="button" class="app-icon-btn showFilterBtn" aria-label="@lang('Search')">

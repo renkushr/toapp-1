@@ -41,7 +41,7 @@ class ReferralController extends Controller
             ->withQueryString();
 
         return view('toapp_admin.referrals.index', [
-            'pageTitle' => 'Referral System',
+            'pageTitle' => __('Referral System'),
             'plans' => Plan::orderBy('name')->get(),
             'rules' => $rules,
             'commissions' => $commissions,
@@ -81,7 +81,7 @@ class ReferralController extends Controller
     public function createRule()
     {
         return view('toapp_admin.referrals.create_rule', [
-            'pageTitle' => 'New Referral Rule',
+            'pageTitle' => __('New Referral Rule'),
             'plans' => Plan::orderBy('name')->get(),
         ]);
     }

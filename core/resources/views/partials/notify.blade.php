@@ -45,13 +45,34 @@
         info: 'fas fa-exclamation-circle',
     }
 
-    const notifications = @json(session('notify', []));
-    const errors = @json(@$errors ? collect($errors->all())->unique() : []);
+    const notifications = @json(
+        collect(session('notify', []))
+            ->map(function ($item) {
+                $type = $item[0] ?? 'info';
+                $message = $item[1] ?? '';
+                return [$type, is_string($message) ? __($message) : $message];
+            })
+            ->values()
+            ->all()
+    );
+    const errors = @json(
+        collect(@$errors ? $errors->all() : [])
+            ->unique()
+            ->map(fn ($error) => __($error))
+            ->values()
+            ->all()
+    );
+    const toastTitles = {
+        success: @json(__('Success')),
+        error: @json(__('Error')),
+        warning: @json(__('Warning')),
+        info: @json(__('Info')),
+    };
 
 
     const triggerToaster = (status, message) => {
         iziToast[status]({
-            title: status.charAt(0).toUpperCase() + status.slice(1),
+            title: toastTitles[status] || (status.charAt(0).toUpperCase() + status.slice(1)),
             message: message,
             position: window.innerWidth < 768 ? "topCenter" : "topRight",
             backgroundColor: '#fff',

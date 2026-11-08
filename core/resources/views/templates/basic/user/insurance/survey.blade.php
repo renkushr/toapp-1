@@ -18,21 +18,27 @@
                 <i class="las la-arrow-left"></i>
             </a>
             <a class="app-brand" href="{{ route('user.home') }}">
-                <img src="{{ siteLogo() }}" alt="To-app">
+                <img src="{{ siteLogo() }}" alt="To-App">
                 <span>@lang('Plans')</span>
             </a>
-            <span class="app-icon-btn" style="visibility:hidden"><i class="las la-shield-alt"></i></span>
+            <a class="app-icon-btn" href="{{ route('user.plans.mine') }}" aria-label="@lang('My Packages')">
+                <i class="las la-list"></i>
+            </a>
         </div>
 
         <section class="app-hero">
             <span class="app-eyebrow"><i class="las la-shield-alt"></i> @lang('Insurance quote')</span>
             <h1>@lang('Choose a plan that fits your needs.')</h1>
             <p>@lang('Select your coverage on this page, then get a quote right away.')</p>
+            <a class="app-link" href="{{ route('user.plans.mine') }}">
+                <i class="las la-list"></i> @lang('View my packages')
+                <i class="las la-arrow-right"></i>
+            </a>
             @if($hasBirthday)
                 <div class="app-pills">
                     <span class="app-pill"><i class="las la-birthday-cake"></i> @lang('DOB') {{ \Carbon\Carbon::parse($user->birthday)->format('M d, Y') }}</span>
                     @if($user->zipcode)
-                        <span class="app-pill"><i class="las la-map-marker"></i> ZIP code {{ $user->zipcode }}</span>
+                        <span class="app-pill"><i class="las la-map-marker"></i> @lang('ZIP code') {{ $user->zipcode }}</span>
                     @endif
                 </div>
             @endif

@@ -29,6 +29,7 @@ services:
     volumes:
       - app_storage:/var/www/html/core/storage
       - app_cache:/var/www/html/core/bootstrap/cache
+      - ./downloads:/var/www/html/downloads:ro
 
   db:
     image: mariadb:10.11

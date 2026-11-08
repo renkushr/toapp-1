@@ -1,4 +1,4 @@
-# To-app Production Deployment
+# To-App Production Deployment
 
 This project is a Laravel 11 application with a root `index.php`, root `assets/`, and the Laravel core in `core/`.
 

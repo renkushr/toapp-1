@@ -3,20 +3,20 @@
 @section('content')
 <div class="card">
     @include('partials.portal_list_header', [
-        'title' => 'Agents',
+        'title' => __('Agents'),
         'toolbarView' => 'partials.portal_list_toolbar_agents',
     ])
     <div class="table-responsive">
         <table class="table table-vcenter card-table">
             <thead>
                 <tr>
-                    <th>Agent</th>
-                    <th>License</th>
-                    <th>Fee %</th>
-                    <th>ZIP code coverage</th>
-                    <th>Clients</th>
-                    <th>Status</th>
-                    <th>Updated</th>
+                    <th>@lang('Agent')</th>
+                    <th>@lang('License')</th>
+                    <th>@lang('Fee %')</th>
+                    <th>@lang('ZIP code coverage')</th>
+                    <th>@lang('Clients')</th>
+                    <th>@lang('Status')</th>
+                    <th>@lang('Updated')</th>
                     <th class="w-1"></th>
                 </tr>
             </thead>
@@ -31,12 +31,12 @@
                         <td>{{ $agent->feePercentLabel() }}</td>
                         <td class="text-secondary">{{ $agent->zipCoverageSummary($zipCatalogTotal ?? null) }}</td>
                         <td>{{ $agent->users_count }}</td>
-                        <td><span class="badge {{ (int) $agent->status === 1 ? 'bg-success-lt' : 'bg-danger-lt' }}">{{ (int) $agent->status === 1 ? 'Active' : 'Disabled' }}</span></td>
+                        <td><span class="badge {{ (int) $agent->status === 1 ? 'bg-success-lt' : 'bg-danger-lt' }}">{{ (int) $agent->status === 1 ? __('Active') : __('Disabled') }}</span></td>
                         <td class="text-secondary">{{ optional($agent->updated_at)->format('M d, Y') }}</td>
-                        <td><a href="{{ route('toapp.admin.agents.edit', $agent) }}" class="btn btn-sm">Edit</a></td>
+                        <td><a href="{{ route('toapp.admin.agents.edit', $agent) }}" class="btn btn-sm">@lang('Edit')</a></td>
                     </tr>
                 @empty
-                    <tr><td colspan="8" class="text-center text-secondary py-4">No agents yet. <a href="{{ route('toapp.admin.agents.create') }}">Create the first agent</a></td></tr>
+                    <tr><td colspan="8" class="text-center text-secondary py-4">@lang('No agents yet.') <a href="{{ route('toapp.admin.agents.create') }}">@lang('Create the first agent')</a></td></tr>
                 @endforelse
             </tbody>
         </table>
@@ -48,7 +48,7 @@
 
 @include('partials.portal_help_modal', [
     'id' => 'agentHelpModal',
-    'title' => 'How agent matching works',
+    'title' => __('How agent matching works'),
     'partial' => 'toapp_admin.agents.partials.help',
 ])
 @endsection

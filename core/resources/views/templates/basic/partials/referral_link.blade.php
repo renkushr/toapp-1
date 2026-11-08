@@ -30,7 +30,7 @@
                 /*For mobile devices*/
                 document.execCommand("copy");
                 iziToast.success({
-                    message: "Copied: " + copyText.value,
+                    message: @json(__('Copied:')) + " " + copyText.value,
                     position: "topRight"
                 });
             });

@@ -203,6 +203,22 @@
         if (textarea) textarea.style.height = 'auto';
     });
 
+    async function markActiveRead() {
+        try {
+            const res = await fetch(pollUrl + '?since=' + lastId, {
+                headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+                credentials: 'same-origin',
+            });
+            if (!res.ok) return;
+            const data = await res.json();
+            (data.messages || []).forEach(appendMessage);
+        } catch (e) {}
+    }
+
+    if (theme === 'agent' || theme === 'user') {
+        window.agentChatMarkActiveRead = markActiveRead;
+    }
+
     @if($broadcastEnabled)
     if (typeof Echo !== 'undefined') {
         const echo = new Echo({
@@ -215,16 +231,29 @@
         });
 
         echo.private('agent.conversation.' + @json($conversationId))
-            .listen('.MessageSent', function (payload) {
+            .listen('.MessageSent', async function (payload) {
                 appendMessage(payload);
+                if (payload.sender_type !== ownSender) {
+                    await markActiveRead();
+                    if (theme === 'agent' && typeof window.agentChatRefreshUnread === 'function') {
+                        window.agentChatRefreshUnread();
+                    }
+                    if (theme === 'user' && typeof window.userChatRefreshUnread === 'function') {
+                        window.userChatRefreshUnread();
+                    }
+                }
             });
     }
     @else
     setInterval(async function () {
         try {
-            const res = await fetch(pollUrl + '?since=' + lastId, { headers: { 'Accept': 'application/json' } });
-            const data = await res.json();
-            (data.messages || []).forEach(appendMessage);
+            await markActiveRead();
+            if (theme === 'agent' && typeof window.agentChatRefreshUnread === 'function') {
+                window.agentChatRefreshUnread();
+            }
+            if (theme === 'user' && typeof window.userChatRefreshUnread === 'function') {
+                window.userChatRefreshUnread();
+            }
         } catch (e) {}
     }, 5000);
     @endif

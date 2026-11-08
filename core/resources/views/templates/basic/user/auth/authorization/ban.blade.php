@@ -13,7 +13,7 @@
             </div>
 
             <div class="auth-brand">
-                <img src="{{ asset('assets/global/img/tologo.png') }}" alt="To-app logo">
+                <img src="{{ asset('assets/global/img/tologo.png') }}" alt="To-App logo">
             </div>
 
             <div class="auth-card">

@@ -1,0 +1,46 @@
+{
+  "packageId": "com.tonkow.toapp.user",
+  "host": "to-app.com",
+  "name": "To-App",
+  "launcherName": "To-App",
+  "display": "standalone",
+  "themeColor": "#1268f3",
+  "navigationColor": "#1268f3",
+  "navigationColorDark": "#0b4db3",
+  "navigationDividerColor": "#1268f3",
+  "navigationDividerColorDark": "#0b4db3",
+  "backgroundColor": "#e8f2f8",
+  "enableNotifications": false,
+  "startUrl": "/user/dashboard?utm_source=twa",
+  "iconUrl": "https://to-app.com/assets/global/img/pwa/icon-512.png",
+  "maskableIconUrl": "https://to-app.com/assets/global/img/pwa/icon-512.png",
+  "splashScreenFadeOutDuration": 300,
+  "signingKey": {
+    "path": "./android.keystore",
+    "alias": "toapp-user"
+  },
+  "appVersionName": "1.0.0",
+  "appVersionCode": 1,
+  "shortcuts": [],
+  "generatorApp": "bubblewrap-cli",
+  "webManifestUrl": "https://to-app.com/manifest.webmanifest",
+  "fallbackType": "customtabs",
+  "features": {},
+  "alphaDependencies": {
+    "enabled": false
+  },
+  "enableSiteSettingsShortcut": true,
+  "isChromeOSOnly": false,
+  "isMetaQuest": false,
+  "fullScopeUrl": "https://to-app.com/",
+  "minSdkVersion": 21,
+  "orientation": "portrait",
+  "fingerprints": [],
+  "additionalTrustedOrigins": [
+    "https://www.to-app.com"
+  ],
+  "retainedCertificatesOnUpdate": [],
+  "protocolHandlers": [],
+  "fileHandlers": [],
+  "launchHandlerClientMode": ""
+}

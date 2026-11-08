@@ -30,7 +30,10 @@ Route::middleware('toapp.agent')->group(function () {
     Route::get('/chat/{user}/messages', [ChatController::class, 'messages'])->name('chat.messages');
 
     Route::get('/applications', [ApplicationController::class, 'index'])->name('applications.index');
+    Route::post('/users/{user}/applications', [ApplicationController::class, 'store'])->name('applications.store');
     Route::get('/applications/{application}', [ApplicationController::class, 'show'])->name('applications.show');
+    Route::post('/applications/{application}/quote', [ApplicationController::class, 'updateQuote'])->name('applications.quote');
+    Route::post('/applications/{application}/product', [ApplicationController::class, 'updateQuote'])->name('applications.product');
     Route::post('/applications/{application}/payment-pending', [ApplicationController::class, 'markPaymentPending'])->name('applications.payment_pending');
     Route::post('/applications/{application}/confirm', [ApplicationController::class, 'confirm'])->name('applications.confirm');
 });

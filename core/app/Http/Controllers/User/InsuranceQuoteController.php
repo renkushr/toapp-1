@@ -25,21 +25,31 @@ class InsuranceQuoteController extends Controller
 
     public function entry()
     {
-        $user = Auth::user();
-        $application = $this->applicationFor($user);
-
-        if ($application) {
-            return match ($application->status) {
-                InsuranceApplication::STATUS_CHATTING,
-                InsuranceApplication::STATUS_PAYMENT_PENDING,
-                InsuranceApplication::STATUS_CONFIRMED => redirect()->route('user.plans.chat', $application),
-                InsuranceApplication::STATUS_TERMS_ACCEPTED => redirect()->route('user.plans.waiting', $application),
-                InsuranceApplication::STATUS_PLAN_SELECTED => redirect()->route('user.plans.terms', $application),
-                default => redirect()->route('user.plans.survey'),
-            };
-        }
-
         return redirect()->route('user.plans.survey');
+    }
+
+    public function myPackages(Request $request)
+    {
+        $user = Auth::user();
+        $draftStatuses = [
+            InsuranceApplication::STATUS_OTP_PENDING,
+            InsuranceApplication::STATUS_PROFILE_PENDING,
+            InsuranceApplication::STATUS_QUOTED,
+        ];
+
+        $applications = InsuranceApplication::with(['plan', 'agent'])
+            ->where('user_id', $user->id)
+            ->where(fn ($q) => $q->whereNotNull('plan_id')->orWhereNotIn('status', $draftStatuses))
+            ->when($request->filled('status'), fn ($q) => $q->where('status', $request->status))
+            ->latest('id')
+            ->paginate(getPaginate())
+            ->withQueryString();
+
+        return view('Template::user.insurance.my_packages', [
+            'pageTitle' => 'My Packages',
+            'user' => $user,
+            'applications' => $applications,
+        ]);
     }
 
     public function profile()
@@ -73,6 +83,7 @@ class InsuranceQuoteController extends Controller
     {
         $user = Auth::user();
         $application = $this->ensureApplication($user);
+
         $coverageAmounts = $this->coverageAmounts();
 
         $rules = [
@@ -339,7 +350,154 @@ class InsuranceQuoteController extends Controller
             'conversation' => $conversation,
             'messages' => $messages,
             'pusherAuthEndpoint' => url('/broadcasting/auth'),
+            'canEditConditions' => $application->canUserEditConditions(),
         ]);
+    }
+
+    public function editConditions(InsuranceApplication $application)
+    {
+        $this->authorizeApplication($application);
+        abort_unless($application->canUserEditConditions(), 403, 'This application can no longer be edited.');
+
+        $user = Auth::user();
+        $criteria = [
+            'sex' => (int) ($application->sex ?: $user->sex ?: 0),
+            'health' => (int) ($application->health ?: $user->health ?: 1),
+            'smoking' => (int) ($application->smoking ?? $user->nicotin ?? 0),
+            'chronic_disease' => (bool) ($application->chronic_disease ?? $user->chronic_disease),
+            'pay_type' => $application->pay_type ?: 'year',
+            'product_category' => $application->plan?->category
+                ?? ($application->coverage_length ? 'Term Life' : (optional($this->matcher->productTypesForApp()[0] ?? null)['category'] ?? '')),
+            'coverage_amount' => (int) ($application->coverage_amount ?: 100000),
+            'coverage_length' => (int) ($application->coverage_length ?: 20),
+            'living_benefits' => (bool) $application->living_benefits,
+            'price_range' => (int) ($application->price_range ?: 1),
+        ];
+
+        return view('Template::user.insurance.edit_conditions', [
+            'pageTitle' => 'Edit plan conditions',
+            'user' => $user,
+            'application' => $application,
+            'productTypes' => $this->matcher->productTypesForApp(),
+            'criteria' => $criteria,
+            'coverageAmounts' => $this->coverageAmounts(),
+        ]);
+    }
+
+    public function updateConditions(Request $request, InsuranceApplication $application)
+    {
+        $this->authorizeApplication($application);
+        abort_unless($application->canUserEditConditions(), 403, 'This application can no longer be edited.');
+
+        $user = Auth::user();
+        $coverageAmounts = $this->coverageAmounts();
+
+        $data = $request->validate([
+            'sex' => ['required', 'in:1,2'],
+            'health' => ['required', 'in:1,2'],
+            'smoking' => ['required', 'in:0,1'],
+            'chronic_disease' => ['nullable', 'boolean'],
+            'living_benefits' => ['required', 'in:0,1'],
+            'pay_type' => ['required', 'in:month,year'],
+            'product_category' => ['required', 'string', 'in:' . implode(',', PlanMatchingService::PRODUCT_CATEGORIES)],
+            'price_range' => ['nullable', 'integer', 'min:1', 'max:8'],
+            'coverage_amount' => ['required', 'integer', 'in:' . implode(',', $coverageAmounts)],
+            'coverage_length' => [
+                Rule::requiredIf(fn () => $request->input('product_category') === 'Term Life'),
+                'nullable',
+                'integer',
+                'in:' . implode(',', $this->coverageLengthYears()),
+            ],
+        ]);
+
+        $productTypes = collect($this->matcher->productTypesForApp())->pluck('category')->all();
+        if (! in_array($data['product_category'], $productTypes, true)) {
+            return back()->withErrors(['product_category' => 'Selected insurance type is not available right now.'])->withInput();
+        }
+
+        $user->sex = (int) $data['sex'];
+        $user->chronic_disease = $request->boolean('chronic_disease');
+        $user->health = $data['health'];
+        $user->nicotin = $data['smoking'];
+        $user->save();
+
+        $birthday = $user->birthday
+            ? Carbon::parse($user->birthday)->format('Y-m-d')
+            : (optional($application->birthday)->format('Y-m-d'));
+        $zip = UsZip::normalize((string) ($user->zipcode ?: $application->zipcode));
+
+        $criteria = [
+            'sex' => (int) $data['sex'],
+            'birthday' => $birthday,
+            'zipcode' => $zip,
+            'chronic_disease' => $request->boolean('chronic_disease'),
+            'smoking' => (int) $data['smoking'],
+            'health' => (int) $data['health'],
+            'pay_type' => $data['pay_type'],
+            'product_category' => $data['product_category'],
+            'price_range' => (int) ($data['price_range'] ?? $application->price_range ?? 1),
+            'coverage_amount' => (int) $data['coverage_amount'],
+            'living_benefits' => $request->boolean('living_benefits'),
+            'coverage_length' => $data['product_category'] === 'Term Life'
+                ? (int) ($data['coverage_length'] ?? 20)
+                : null,
+        ];
+
+        $matched = $this->matcher->matchForApp($criteria);
+        $plan = $matched->first();
+        if (! $plan) {
+            return back()->withErrors([
+                'product_category' => 'No matching coverage is available for your selections. Please adjust and try again.',
+            ])->withInput();
+        }
+
+        $range = max(1, min(8, (int) $criteria['price_range']));
+        $payType = $criteria['pay_type'] === 'month' ? 'month' : 'year';
+        $previousStatus = $application->status;
+
+        $application->update([
+            'sex' => $criteria['sex'],
+            'chronic_disease' => $criteria['chronic_disease'],
+            'smoking' => $criteria['smoking'],
+            'health' => $criteria['health'],
+            'pay_type' => $payType,
+            'price_range' => $range,
+            'coverage_amount' => $criteria['coverage_amount'],
+            'coverage_length' => $criteria['coverage_length'],
+            'living_benefits' => $criteria['living_benefits'],
+            'plan_id' => $plan->id,
+            'quoted_monthly' => $plan->monthlyPriceForRange($range),
+            'quoted_annual' => $plan->annualPriceForRange($range),
+            // Keep chatting / payment_pending; lift waiting/selected into chatting when agent exists.
+            'status' => in_array($previousStatus, [
+                InsuranceApplication::STATUS_CHATTING,
+                InsuranceApplication::STATUS_PAYMENT_PENDING,
+            ], true)
+                ? $previousStatus
+                : ($user->agent_id
+                    ? InsuranceApplication::STATUS_CHATTING
+                    : InsuranceApplication::STATUS_TERMS_ACCEPTED),
+            'chat_started_at' => $application->chat_started_at ?: ($user->agent_id ? now() : null),
+            'agent_id' => $application->agent_id ?: $user->agent_id,
+        ]);
+
+        session(['toapp_criteria' => $criteria]);
+
+        if ($user->agent_id) {
+            $conversation = \App\Models\AgentConversation::findOrCreateFor($user->agent_id, $user->id);
+            app(AgentChatService::class)->send(
+                $conversation,
+                'user',
+                $user->id,
+                'I updated my plan conditions. Please review the new quote.'
+            );
+
+            $notify[] = ['success', 'Plan conditions updated. Your agent has been notified.'];
+            return redirect()->route('user.plans.chat', $application)->withNotify($notify);
+        }
+
+        $notify[] = ['success', 'Plan conditions updated.'];
+        return redirect()->route('user.plans.waiting', $application)->withNotify($notify);
     }
 
     public function sendChat(Request $request, InsuranceApplication $application)
@@ -379,11 +537,19 @@ class InsuranceQuoteController extends Controller
             ?? ThirdPartyPortal::query()->where('status', true)->value('id');
     }
 
+    /**
+     * Users may buy any number of packages: reuse only an unfinished draft,
+     * otherwise start a fresh application.
+     */
     protected function ensureApplication(User $user): InsuranceApplication
     {
-        $application = $this->applicationFor($user);
-        if ($application) {
-            return $application;
+        $draft = $this->applicationFor($user);
+        if ($draft && blank($draft->plan_id) && in_array($draft->status, [
+            InsuranceApplication::STATUS_OTP_PENDING,
+            InsuranceApplication::STATUS_PROFILE_PENDING,
+            InsuranceApplication::STATUS_QUOTED,
+        ], true)) {
+            return $draft;
         }
 
         $portalId = $this->portalId();

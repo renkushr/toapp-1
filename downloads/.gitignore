@@ -1,0 +1,6 @@
+*
+!.htaccess
+!.gitignore
+!toapp-admin.apk
+!toapp-agent.apk
+!toapp-user.apk

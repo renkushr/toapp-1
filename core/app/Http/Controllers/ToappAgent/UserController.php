@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\ToappAgent;
 
+use App\Models\InsuranceApplication;
 use App\Models\Investment;
 use App\Models\User;
 use App\Support\UsZip;
@@ -39,7 +40,7 @@ class UserController extends Controller
             ->withQueryString();
 
         return view('toapp_agent.users.index', [
-            'pageTitle' => 'My Clients',
+            'pageTitle' => __('My Clients'),
             'agent' => $agent,
             'users' => $users,
         ]);
@@ -55,11 +56,18 @@ class UserController extends Controller
             ->latest('id')
             ->get();
 
+        $applications = InsuranceApplication::with('plan')
+            ->forAgentTerritory($agent)
+            ->where('user_id', $user->id)
+            ->latest('id')
+            ->get();
+
         return view('toapp_agent.users.show', [
             'pageTitle' => $user->firstname . ' ' . $user->lastname,
             'agent' => $agent,
             'user' => $user,
             'investments' => $investments,
+            'applications' => $applications,
         ]);
     }
 }

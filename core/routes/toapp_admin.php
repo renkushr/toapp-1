@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ToappAdmin\CmsPageController;
 use App\Http\Controllers\ToappAdmin\AgentController;
 use App\Http\Controllers\ToappAdmin\AuthController;
 use App\Http\Controllers\ToappAdmin\AdminUserController;
@@ -52,7 +53,9 @@ Route::middleware('toapp.admin')->group(function () {
     Route::post('/plans/{plan}/status', [PlanController::class, 'status'])->middleware('toapp.admin.can:plans')->name('plans.status');
 
     Route::get('/applications', [InsuranceApplicationController::class, 'index'])->middleware('toapp.admin.can:reports')->name('applications.index');
+    Route::post('/users/{user}/applications', [InsuranceApplicationController::class, 'store'])->middleware('toapp.admin.can:investments')->name('applications.store');
     Route::get('/applications/{application}', [InsuranceApplicationController::class, 'show'])->middleware('toapp.admin.can:reports')->name('applications.show');
+    Route::post('/applications/{application}/quote', [InsuranceApplicationController::class, 'updateQuote'])->middleware('toapp.admin.can:investments')->name('applications.quote');
     Route::post('/applications/{application}/confirm', [InsuranceApplicationController::class, 'confirm'])->middleware('toapp.admin.can:investments')->name('applications.confirm');
     Route::post('/applications/{application}/reject', [InsuranceApplicationController::class, 'reject'])->middleware('toapp.admin.can:investments')->name('applications.reject');
 
@@ -117,4 +120,8 @@ Route::middleware('toapp.admin')->group(function () {
     Route::get('/settings/email', [SettingController::class, 'email'])->middleware('toapp.admin.can:settings')->name('settings.email');
     Route::put('/settings/email', [SettingController::class, 'updateEmail'])->middleware('toapp.admin.can:settings')->name('settings.email.update');
     Route::post('/settings/email/test', [SettingController::class, 'testEmail'])->middleware('toapp.admin.can:settings')->name('settings.email.test');
+
+    Route::get('/cms/about-us', [CmsPageController::class, 'editAbout'])->middleware('toapp.admin.can:settings')->name('cms.about');
+    Route::put('/cms/about-us', [CmsPageController::class, 'updateAbout'])->middleware('toapp.admin.can:settings')->name('cms.about.update');
+    Route::post('/cms/upload', [CmsPageController::class, 'uploadImage'])->middleware('toapp.admin.can:settings')->name('cms.upload');
 });

@@ -19,7 +19,7 @@ class DepositController extends Controller
             ->withQueryString();
 
         return view('toapp_admin.deposits.index', [
-            'pageTitle' => 'Deposits',
+            'pageTitle' => __('Deposits'),
             'deposits' => $deposits,
         ]);
     }
@@ -70,7 +70,7 @@ class DepositController extends Controller
         $deposit->load(['user', 'gateway']);
 
         return view('toapp_admin.deposits.show', [
-            'pageTitle' => 'Deposit Detail',
+            'pageTitle' => __('Deposit Detail'),
             'deposit' => $deposit,
         ]);
     }

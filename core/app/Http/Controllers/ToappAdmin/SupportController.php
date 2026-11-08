@@ -29,7 +29,7 @@ class SupportController extends Controller
             ->withQueryString();
 
         return view('toapp_admin.support.index', [
-            'pageTitle' => 'Support Desk',
+            'pageTitle' => __('Support Desk'),
             'tickets' => $tickets,
         ]);
     }
@@ -43,7 +43,7 @@ class SupportController extends Controller
             ->get();
 
         return view('toapp_admin.support.show', [
-            'pageTitle' => 'Ticket #' . $ticket->ticket,
+            'pageTitle' => __('Ticket #:number', ['number' => $ticket->ticket]),
             'ticket' => $ticket,
             'messages' => $messages,
         ]);

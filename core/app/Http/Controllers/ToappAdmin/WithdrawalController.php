@@ -20,7 +20,7 @@ class WithdrawalController extends Controller
             ->withQueryString();
 
         return view('toapp_admin.withdrawals.index', [
-            'pageTitle' => 'Withdrawals',
+            'pageTitle' => __('Withdrawals'),
             'withdrawals' => $withdrawals,
         ]);
     }
@@ -72,7 +72,7 @@ class WithdrawalController extends Controller
         $withdrawal->load(['user', 'method']);
 
         return view('toapp_admin.withdrawals.show', [
-            'pageTitle' => 'Withdrawal Detail',
+            'pageTitle' => __('Withdrawal Detail'),
             'withdrawal' => $withdrawal,
         ]);
     }

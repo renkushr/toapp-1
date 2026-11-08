@@ -44,6 +44,16 @@ Broadcast::channel('agent.inbox.{agentId}', function ($user, int $agentId) {
     return $agent instanceof Agent && (int) $agent->id === $agentId;
 });
 
+Broadcast::channel('user.inbox.{userId}', function ($user, int $userId) {
+    if ($user instanceof User) {
+        return (int) $user->id === $userId;
+    }
+
+    $member = Auth::guard('web')->user();
+
+    return $member instanceof User && (int) $member->id === $userId;
+});
+
 Broadcast::channel('ticket.{id}', function ($ticketId, $message) {
     $ticket = \App\Models\SupportTicket::find($message->support_ticket_id ?? null);
 

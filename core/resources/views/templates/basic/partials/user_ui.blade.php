@@ -101,6 +101,7 @@
         }
 
         .app-icon-btn {
+            position: relative;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -111,6 +112,66 @@
             color: var(--to-ink);
             background: rgba(255, 255, 255, .78);
             box-shadow: 0 14px 32px rgba(15, 23, 42, .12);
+        }
+
+        .user-chat-unread-badge,
+        .app-icon-btn .user-chat-unread-count {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            min-width: 20px;
+            height: 20px;
+            padding: 0 5px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #ef4444, #f97316);
+            color: #fff !important;
+            font-size: 11px;
+            font-weight: 700;
+            line-height: 20px;
+            text-align: center;
+            box-shadow: 0 0 0 2px #fff;
+        }
+
+        .app-icon-btn.user-chat-notify-target.has-unread {
+            color: #ef4444;
+        }
+
+        .user-chat-banner-pill {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 22px;
+            height: 22px;
+            margin-left: 8px;
+            padding: 0 7px;
+            border-radius: 999px;
+            background: #fff;
+            color: #ef4444;
+            font-size: 12px;
+            font-weight: 800;
+            vertical-align: middle;
+        }
+
+        .user-chat-toast-inner {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px 16px;
+            background: #fff;
+            border-radius: 16px;
+        }
+
+        .user-chat-toast-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(18, 104, 243, .12);
+            color: #1268f3;
+            font-size: 20px;
+            flex-shrink: 0;
         }
 
         .app-hero {
@@ -349,6 +410,70 @@
 
         .app-card {
             padding: 18px;
+        }
+
+        .app-social-card__email {
+            color: #1268f3;
+            font-weight: 600;
+            text-decoration: none;
+            word-break: break-word;
+        }
+
+        .app-social-card__email:hover {
+            text-decoration: underline;
+        }
+
+        .app-social-card__grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(0, 1fr));
+            gap: 0.65rem;
+        }
+
+        .app-social-card__item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.45rem;
+            min-height: 84px;
+            padding: 0.75rem 0.4rem;
+            border-radius: 16px;
+            border: 1px solid rgba(15, 23, 42, .08);
+            background: rgba(248, 250, 252, .9);
+            color: #0f172a;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+            transition: background .15s ease, border-color .15s ease, color .15s ease, transform .15s ease;
+        }
+
+        .app-social-card__item:hover {
+            background: rgba(18, 104, 243, .08);
+            border-color: rgba(18, 104, 243, .22);
+            color: #1268f3;
+            transform: translateY(-1px);
+        }
+
+        .app-social-card__icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 14px;
+            background: #fff;
+            box-shadow: 0 8px 18px rgba(15, 23, 42, .08);
+        }
+
+        .app-social-card__label {
+            line-height: 1.2;
+            text-align: center;
+        }
+
+        @media (max-width: 575.98px) {
+            .app-social-card__grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
         }
 
         .app-stat {
@@ -1135,7 +1260,8 @@
 
         .app-modal .modal-content,
         #planModal .modal-content,
-        #detailModal .modal-content {
+        #detailModal .modal-content,
+        .policy-page-modal .modal-content {
             overflow: hidden;
             border: 0;
             border-radius: 28px;
@@ -1145,7 +1271,8 @@
 
         .app-modal .modal-header,
         #planModal .modal-header,
-        #detailModal .modal-header {
+        #detailModal .modal-header,
+        .policy-page-modal .modal-header {
             border: 0;
             color: #fff;
             background: linear-gradient(135deg, #053d79, #1268f3 58%, #13c8d6);
@@ -1153,7 +1280,8 @@
 
         .app-modal .modal-title,
         #planModal .modal-title,
-        #detailModal .modal-title {
+        #detailModal .modal-title,
+        .policy-page-modal .modal-title {
             color: #fff;
             font-weight: 600;
             letter-spacing: -.03em;
@@ -1161,7 +1289,8 @@
 
         .app-modal .modal-body,
         #planModal .modal-body,
-        #detailModal .modal-body {
+        #detailModal .modal-body,
+        .policy-page-modal .modal-body {
             padding: 22px;
         }
 
@@ -1270,6 +1399,39 @@
 
         body.has-user-footer-nav .app-page {
             padding-bottom: calc(118px + env(safe-area-inset-bottom, 0px));
+        }
+
+        /* Installed PWA / APK-like shell */
+        html.toapp-standalone body,
+        body.toapp-standalone {
+            overscroll-behavior-y: contain;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        html.toapp-standalone input,
+        html.toapp-standalone textarea,
+        html.toapp-standalone select,
+        body.toapp-standalone input,
+        body.toapp-standalone textarea,
+        body.toapp-standalone select {
+            -webkit-user-select: text;
+            user-select: text;
+        }
+
+        @media (display-mode: standalone), (display-mode: minimal-ui) {
+            .app-page {
+                padding-top: calc(14px + env(safe-area-inset-top, 0px));
+            }
+
+            .app-topbar {
+                top: calc(8px + env(safe-area-inset-top, 0px));
+            }
+
+            .footer-menu {
+                padding-bottom: env(safe-area-inset-bottom, 0px);
+            }
         }
 
         @media (max-width: 767px) {
@@ -1398,13 +1560,15 @@
 
             .app-modal .modal-dialog,
             #planModal .modal-dialog,
-            #detailModal .modal-dialog {
+            #detailModal .modal-dialog,
+            .policy-page-modal .modal-dialog {
                 margin: 12px;
             }
 
             .app-modal .modal-body,
             #planModal .modal-body,
-            #detailModal .modal-body {
+            #detailModal .modal-body,
+            .policy-page-modal .modal-body {
                 padding: 16px;
             }
 

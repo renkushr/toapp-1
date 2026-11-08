@@ -1,0 +1,10 @@
+**/android.keystore
+**/android/
+**/*.aab
+**/.bubblewrap
+**/assetlinks.json
+**/.tools/
+**/jdk17.tgz
+**/toapp-debug.keystore
+**/dist/*-extract/
+**/dist/*-android.zip

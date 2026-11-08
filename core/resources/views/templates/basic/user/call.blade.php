@@ -2,9 +2,7 @@
 
 @section('content')
 @php
-    $supportPhone = trim((string) (gs('support_phone') ?: ''));
-    $supportEmail = trim((string) (gs('support_email') ?: ''));
-    $phoneHref = $supportPhone !== '' ? preg_replace('/[^\d+]/', '', $supportPhone) : '';
+    $supportEmail = trim((string) (gs('support_email') ?: config('toapp.support_email', 'tonkowtek@to-app.com')));
 @endphp
 <div class="app-page">
     <div class="app-container">
@@ -13,7 +11,7 @@
                 <i class="las la-arrow-left"></i>
             </a>
             <a class="app-brand" href="{{ route('user.home') }}">
-                <img src="{{ siteLogo() }}" alt="To-app">
+                <img src="{{ siteLogo() }}" alt="To-App">
                 <span>@lang('Contact support')</span>
             </a>
             <span class="app-icon-btn" aria-hidden="true" style="visibility:hidden"><i class="las la-headset"></i></span>
@@ -22,7 +20,7 @@
         <section class="app-hero">
             <span class="app-eyebrow"><i class="las la-headset"></i> @lang('Help & support')</span>
             <h1>@lang('Choose how you want to reach us.')</h1>
-            <p>@lang('Chat with our team, call for urgent help, or send an email.')</p>
+            <p>@lang('Chat with our team or send an email.')</p>
         </section>
 
         <div class="app-section-title">
@@ -42,43 +40,28 @@
                 <i class="las la-angle-right"></i>
             </a>
 
-            @if($supportPhone !== '')
-                <a class="app-list-item" href="tel:{{ $phoneHref }}">
-                    <span class="app-list-icon"><i class="las la-phone"></i></span>
-                    <div class="app-list-body">
-                        <strong>@lang('Call')</strong>
-                        <span>{{ $supportPhone }}</span>
-                    </div>
-                    <i class="las la-angle-right"></i>
-                </a>
-            @else
-                <div class="app-list-item" style="opacity:.65; cursor:default;">
-                    <span class="app-list-icon"><i class="las la-phone"></i></span>
-                    <div class="app-list-body">
-                        <strong>@lang('Call')</strong>
-                        <span>@lang('Phone number is not set yet. Please check back later.')</span>
-                    </div>
+            <a class="app-list-item" href="mailto:{{ $supportEmail }}">
+                <span class="app-list-icon"><i class="las la-envelope"></i></span>
+                <div class="app-list-body">
+                    <strong>@lang('Email')</strong>
+                    <span>{{ $supportEmail }}</span>
                 </div>
-            @endif
+                <i class="las la-angle-right"></i>
+            </a>
+        </div>
 
-            @if($supportEmail !== '')
-                <a class="app-list-item" href="mailto:{{ $supportEmail }}">
-                    <span class="app-list-icon"><i class="las la-envelope"></i></span>
-                    <div class="app-list-body">
-                        <strong>@lang('Email')</strong>
-                        <span>{{ $supportEmail }}</span>
-                    </div>
-                    <i class="las la-angle-right"></i>
-                </a>
-            @else
-                <div class="app-list-item" style="opacity:.65; cursor:default;">
-                    <span class="app-list-icon"><i class="las la-envelope"></i></span>
-                    <div class="app-list-body">
-                        <strong>@lang('Email')</strong>
-                        <span>@lang('Email address is not set yet. Please check back later.')</span>
-                    </div>
-                </div>
-            @endif
+        <div class="app-section-title mt-4">
+            <div>
+                <h2>@lang('Follow us')</h2>
+                <p>@lang('Stay connected on social media.')</p>
+            </div>
+        </div>
+        <div class="app-list-card" style="padding: 16px;">
+            @include('partials.site_contact_links', [
+                'variant' => 'default',
+                'showEmail' => false,
+                'showLabel' => false,
+            ])
         </div>
     </div>
 </div>

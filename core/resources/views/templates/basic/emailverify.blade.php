@@ -48,7 +48,7 @@
                     </div>
                 </li>
                 <li><a class="nav-title" href="#">Articles</a></li>
-                <li><a class="nav-title" href="#">Contact us</a></li>
+                <li><a class="nav-title" href="#">@lang('Contact us')</a></li>
             </ul>
         </div>
     
@@ -172,24 +172,17 @@
                         </div>
                         <p>&copy; {{ date('Y') }} TONKOW TEK LLP. @lang('All rights reserved.')</p>
                     </div>
-                    <div class="col-md-4 d-flex justify-content-end flex-column">
-                        <p class="contact-item mb-2">
-                           <a href="mailto:info@checkinsure.com">
-                               <img class="icons" src="img/icons/icon-email-1.svg" alt="">
-                                info@checkinsure.com
-                           </a>
+                                                    <div class="col-md-4 d-flex justify-content-end flex-column">
+                    @php $supportEmail = trim((string) (gs('support_email') ?: config('toapp.support_email', 'tonkowtek@to-app.com'))); @endphp
+                    @if($supportEmail !== '')
+                        <p class="contact-item mb-0">
+                            <a href="mailto:{{ $supportEmail }}">{{ $supportEmail }}</a>
                         </p>
-    
-                        <p class="contact-item">
-                            <a href="tel:+661111234">
-                                <img class="icons" src="img/icons/icon-phone.svg" alt="">
-                                866-111-1234
-                            </a>
-                         </p>
-                    </div>
+                    @endif
                 </div>
             </div>
-        </footer>
+        </div>
+    </footer>
          
     </div><!--page-->
 

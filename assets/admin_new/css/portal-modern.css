@@ -82,10 +82,53 @@ body {
     backdrop-filter: blur(12px);
 }
 
+.portal-page-header__actions .toapp-lang-switcher {
+    margin-left: auto;
+    margin-top: 0.45rem;
+    margin-bottom: 0.45rem;
+    align-self: center;
+    order: 99;
+}
+
 .page-header {
     margin-top: 0;
     padding-top: 1.25rem;
     border-bottom: 0;
+}
+
+.portal-page-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem 1rem;
+    flex-wrap: wrap;
+}
+
+.portal-page-header__title {
+    min-width: 0;
+    flex: 1 1 12rem;
+}
+
+.portal-page-header__actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    flex: 0 1 auto;
+    flex-wrap: wrap;
+    max-width: 100%;
+}
+
+.portal-user-chip__meta {
+    min-width: 0;
+}
+
+.portal-user-chip__meta strong,
+.portal-user-chip__meta small {
+    max-width: 9rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .page-header .page-pretitle {
@@ -112,6 +155,7 @@ body {
     border: 1px solid rgba(15, 23, 42, 0.06);
     box-shadow: var(--portal-shadow);
     backdrop-filter: blur(10px);
+    max-width: 100%;
 }
 
 .portal-user-chip .avatar {
@@ -688,7 +732,7 @@ body {
     min-height: 1.5rem;
 }
 
-@media (max-width: 991px) {
+@media (max-width: 991.98px) {
     .portal-list-header {
         flex-wrap: wrap;
     }
@@ -701,6 +745,59 @@ body {
 
     .portal-check-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .page-header {
+        padding-top: 1rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .portal-page-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+    }
+
+    .portal-page-header__title .page-title {
+        font-size: 1.35rem;
+        line-height: 1.25;
+        word-break: break-word;
+    }
+
+    .portal-page-header__actions {
+        width: 100%;
+        justify-content: flex-end;
+        gap: 0.5rem;
+        margin-top: 0.15rem;
+        margin-bottom: 0.15rem;
+    }
+
+    .portal-page-header__actions .toapp-lang-switcher {
+        margin-left: 0;
+        margin-top: 0.45rem;
+        margin-bottom: 0.45rem;
+        order: 99;
+    }
+
+    .portal-page-header__actions .toapp-lang-switcher__label,
+    .portal-page-header__actions .toapp-lang-switcher__caret {
+        display: none;
+    }
+
+    .portal-page-header__actions .toapp-lang-switcher__btn {
+        width: 40px;
+        min-height: 40px;
+        padding: 0;
+        justify-content: center;
+        border-radius: 12px;
+    }
+
+    .portal-user-chip__meta {
+        display: none;
+    }
+
+    .agent-chat-sidebar-pill {
+        display: none;
     }
 }
 
@@ -723,6 +820,12 @@ body {
 
     .portal-check-grid {
         grid-template-columns: 1fr;
+    }
+
+    .agent-notify-bell {
+        width: 40px;
+        height: 40px;
+        border-radius: 12px;
     }
 }
 

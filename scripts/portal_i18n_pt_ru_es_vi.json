@@ -1,0 +1,4226 @@
+{
+  "1. Package first": {
+    "pt": "1. Pacote primeiro",
+    "ru": "1. Сначала пакет",
+    "es": "1. Paquete primero",
+    "vi": "1. Gói trước"
+  },
+  "1. Set real environment": {
+    "pt": "1. Definir ambiente real",
+    "ru": "1. Задать боевое окружение",
+    "es": "1. Configurar entorno real",
+    "vi": "1. Thiết lập môi trường thật"
+  },
+  "16-character app password": {
+    "pt": "Senha de app de 16 caracteres",
+    "ru": "Пароль приложения из 16 символов",
+    "es": "Contraseña de app de 16 caracteres",
+    "vi": "Mật khẩu ứng dụng 16 ký tự"
+  },
+  "2. Global fallback": {
+    "pt": "2. Fallback global",
+    "ru": "2. Глобальный запасной вариант",
+    "es": "2. Fallback global",
+    "vi": "2. Dự phòng toàn cục"
+  },
+  "2. Review money queues": {
+    "pt": "2. Revisar filas de dinheiro",
+    "ru": "2. Проверить денежные очереди",
+    "es": "2. Revisar colas de dinero",
+    "vi": "2. Kiểm tra hàng đợi tiền"
+  },
+  "3. Cache safely": {
+    "pt": "3. Cache com segurança",
+    "ru": "3. Кэш безопасно",
+    "es": "3. Caché con seguridad",
+    "vi": "3. Cache an toàn"
+  },
+  "3. Ledger safe": {
+    "pt": "3. Ledger seguro",
+    "ru": "3. Безопасный реестр",
+    "es": "3. Libro mayor seguro",
+    "vi": "3. Sổ cái an toàn"
+  },
+  "4. Keep old admin isolated": {
+    "pt": "4. Manter admin antigo isolado",
+    "ru": "4. Держать старый админ изолированным",
+    "es": "4. Mantener el admin antiguo aislado",
+    "vi": "4. Giữ admin cũ tách biệt"
+  },
+  "8 tiers for monthly and annual quotes": {
+    "pt": "8 faixas para cotações mensais e anuais",
+    "ru": "8 уровней для месячных и годовых котировок",
+    "es": "8 niveles para cotizaciones mensuales y anuales",
+    "vi": "8 bậc cho báo giá tháng và năm"
+  },
+  ":count ZIP codes": {
+    "pt": ":count códigos ZIP",
+    "ru": ":count ZIP-кодов",
+    "es": ":count códigos ZIP",
+    "vi": ":count mã ZIP"
+  },
+  ":selected selected / :total ZIP codes": {
+    "pt": ":selected selecionados / :total códigos ZIP",
+    "ru": ":selected выбрано / :total ZIP-кодов",
+    "es": ":selected seleccionados / :total códigos ZIP",
+    "vi": ":selected đã chọn / :total mã ZIP"
+  },
+  ":total ZIP codes across :states states.": {
+    "pt": ":total códigos ZIP em :states estados.",
+    "ru": ":total ZIP-кодов в :states штатах.",
+    "es": ":total códigos ZIP en :states estados.",
+    "vi": ":total mã ZIP trên :states bang."
+  },
+  ":total ZIP codes across :states states. Use Show states only if you need to customize.": {
+    "pt": ":total códigos ZIP em :states estados. Use Mostrar estados só se precisar personalizar.",
+    "ru": ":total ZIP-кодов в :states штатах. Показывайте штаты только для настройки.",
+    "es": ":total códigos ZIP en :states estados. Use Mostrar estados solo si necesita personalizar.",
+    "vi": ":total mã ZIP trên :states bang. Chỉ dùng Hiện bang nếu cần tùy chỉnh."
+  },
+  "About Us": {
+    "pt": "Sobre nós",
+    "ru": "О нас",
+    "es": "Sobre nosotros",
+    "vi": "Về chúng tôi"
+  },
+  "Account actions": {
+    "pt": "Ações da conta",
+    "ru": "Действия с аккаунтом",
+    "es": "Acciones de la cuenta",
+    "vi": "Thao tác tài khoản"
+  },
+  "Action": {
+    "pt": "Ação",
+    "ru": "Действие",
+    "es": "Acción",
+    "vi": "Thao tác"
+  },
+  "Active": {
+    "pt": "Ativo",
+    "ru": "Активен",
+    "es": "Activo",
+    "vi": "Đang hoạt động"
+  },
+  "Active & past packages": {
+    "pt": "Pacotes ativos e anteriores",
+    "ru": "Активные и прошлые пакеты",
+    "es": "Paquetes activos y anteriores",
+    "vi": "Gói đang chạy và đã qua"
+  },
+  "Active admin account": {
+    "pt": "Conta de admin ativa",
+    "ru": "Активный аккаунт админа",
+    "es": "Cuenta de admin activa",
+    "vi": "Tài khoản quản trị đang hoạt động"
+  },
+  "Active agent account": {
+    "pt": "Conta de agente ativa",
+    "ru": "Активный аккаунт агента",
+    "es": "Cuenta de agente activa",
+    "vi": "Tài khoản đại lý đang hoạt động"
+  },
+  "Active products": {
+    "pt": "Produtos ativos",
+    "ru": "Активные продукты",
+    "es": "Productos activos",
+    "vi": "Sản phẩm đang hoạt động"
+  },
+  "Activity": {
+    "pt": "Atividade",
+    "ru": "Активность",
+    "es": "Actividad",
+    "vi": "Hoạt động"
+  },
+  "Activity period": {
+    "pt": "Período de atividade",
+    "ru": "Период активности",
+    "es": "Período de actividad",
+    "vi": "Kỳ hoạt động"
+  },
+  "Activity trend": {
+    "pt": "Tendência de atividade",
+    "ru": "Тренд активности",
+    "es": "Tendencia de actividad",
+    "vi": "Xu hướng hoạt động"
+  },
+  "Add": {
+    "pt": "Adicionar",
+    "ru": "Добавить",
+    "es": "Añadir",
+    "vi": "Thêm"
+  },
+  "Adjust the customer’s underwriting conditions and set the price yourself. You can load a suggested plan price, then override it.": {
+    "pt": "Ajuste as condições de underwriting do cliente e defina o preço. Pode carregar um preço sugerido do plano e depois alterá-lo.",
+    "ru": "Настройте условия андеррайтинга клиента и задайте цену сами. Можно загрузить предложенную цену плана и затем изменить её.",
+    "es": "Ajuste las condiciones de suscripción del cliente y fije el precio. Puede cargar un precio sugerido del plan y luego sobrescribirlo.",
+    "vi": "Điều chỉnh điều kiện thẩm định của khách và tự đặt giá. Bạn có thể tải giá gói đề xuất rồi ghi đè."
+  },
+  "Admin": {
+    "pt": "Admin",
+    "ru": "Админ",
+    "es": "Admin",
+    "vi": "Quản trị"
+  },
+  "Admin Details": {
+    "pt": "Detalhes do admin",
+    "ru": "Данные админа",
+    "es": "Detalles del admin",
+    "vi": "Chi tiết quản trị"
+  },
+  "Admin account": {
+    "pt": "Conta de admin",
+    "ru": "Аккаунт админа",
+    "es": "Cuenta de admin",
+    "vi": "Tài khoản quản trị"
+  },
+  "Admin accounts": {
+    "pt": "Contas de admin",
+    "ru": "Аккаунты админов",
+    "es": "Cuentas de admin",
+    "vi": "Tài khoản quản trị"
+  },
+  "Admin notes": {
+    "pt": "Notas do admin",
+    "ru": "Заметки админа",
+    "es": "Notas del admin",
+    "vi": "Ghi chú quản trị"
+  },
+  "Admin sign in": {
+    "pt": "Entrada do admin",
+    "ru": "Вход админа",
+    "es": "Acceso admin",
+    "vi": "Đăng nhập quản trị"
+  },
+  "Admin trail of sensitive actions": {
+    "pt": "Rastreio de ações sensíveis do admin",
+    "ru": "Журнал чувствительных действий админа",
+    "es": "Historial de acciones sensibles del admin",
+    "vi": "Nhật ký thao tác nhạy cảm của quản trị"
+  },
+  "Admins": {
+    "pt": "Admins",
+    "ru": "Админы",
+    "es": "Admins",
+    "vi": "Quản trị"
+  },
+  "Admins assign ZIP codes by state from a searchable dropdown, or use <strong>Select all USA</strong> for nationwide coverage. Expand a state to browse and select any number of ZIP codes. Agents cannot edit coverage.": {
+    "pt": "Admins atribuem códigos ZIP por estado num dropdown pesquisável, ou usam <strong>Selecionar todos EUA</strong> para cobertura nacional. Expanda um estado para ver e selecionar qualquer número de ZIPs. Agentes não podem editar a cobertura.",
+    "ru": "Админы назначают ZIP-коды по штатам из поиска или используют <strong>Выбрать все США</strong> для покрытия всей страны. Разверните штат, чтобы выбрать любые ZIP. Агенты не могут менять покрытие.",
+    "es": "Los admins asignan códigos ZIP por estado desde un desplegable con búsqueda, o usan <strong>Seleccionar todo EE. UU.</strong> para cobertura nacional. Expanda un estado para ver y seleccionar ZIP. Los agentes no pueden editar la cobertura.",
+    "vi": "Quản trị gán mã ZIP theo bang từ danh sách tìm kiếm, hoặc dùng <strong>Chọn toàn Mỹ</strong> cho phạm vi toàn quốc. Mở một bang để duyệt và chọn bất kỳ số ZIP. Đại lý không thể sửa phạm vi."
+  },
+  "Age": {
+    "pt": "Idade",
+    "ru": "Возраст",
+    "es": "Edad",
+    "vi": "Tuổi"
+  },
+  "Age from": {
+    "pt": "Idade de",
+    "ru": "Возраст от",
+    "es": "Edad desde",
+    "vi": "Tuổi từ"
+  },
+  "Age to": {
+    "pt": "Idade até",
+    "ru": "Возраст до",
+    "es": "Edad hasta",
+    "vi": "Tuổi đến"
+  },
+  "Agent": {
+    "pt": "Agente",
+    "ru": "Агент",
+    "es": "Agente",
+    "vi": "Đại lý"
+  },
+  "Agent Reports": {
+    "pt": "Relatórios de agentes",
+    "ru": "Отчёты агентов",
+    "es": "Informes de agentes",
+    "vi": "Báo cáo đại lý"
+  },
+  "Agent fee": {
+    "pt": "Taxa do agente",
+    "ru": "Комиссия агента",
+    "es": "Comisión del agente",
+    "vi": "Phí đại lý"
+  },
+  "Agent fee (%)": {
+    "pt": "Taxa do agente (%)",
+    "ru": "Комиссия агента (%)",
+    "es": "Comisión del agente (%)",
+    "vi": "Phí đại lý (%)"
+  },
+  "Agent license used": {
+    "pt": "Licença do agente usada",
+    "ru": "Лицензия агента использована",
+    "es": "Licencia de agente usada",
+    "vi": "Giấy phép đại lý đã dùng"
+  },
+  "Agent performance": {
+    "pt": "Desempenho do agente",
+    "ru": "Результаты агента",
+    "es": "Rendimiento del agente",
+    "vi": "Hiệu suất đại lý"
+  },
+  "Agent portal": {
+    "pt": "Portal do agente",
+    "ru": "Портал агента",
+    "es": "Portal del agente",
+    "vi": "Cổng đại lý"
+  },
+  "Agent profile": {
+    "pt": "Perfil do agente",
+    "ru": "Профиль агента",
+    "es": "Perfil del agente",
+    "vi": "Hồ sơ đại lý"
+  },
+  "Agent sign in": {
+    "pt": "Entrada do agente",
+    "ru": "Вход агента",
+    "es": "Acceso agente",
+    "vi": "Đăng nhập đại lý"
+  },
+  "Agent workspace": {
+    "pt": "Área do agente",
+    "ru": "Кабинет агента",
+    "es": "Espacio del agente",
+    "vi": "Không gian đại lý"
+  },
+  "Agents": {
+    "pt": "Agentes",
+    "ru": "Агенты",
+    "es": "Agentes",
+    "vi": "Đại lý"
+  },
+  "Agents sign in at": {
+    "pt": "Agentes entram em",
+    "ru": "Агенты входят по адресу",
+    "es": "Los agentes inician sesión en",
+    "vi": "Đại lý đăng nhập tại"
+  },
+  "Alias": {
+    "pt": "Alias",
+    "ru": "Псевдоним",
+    "es": "Alias",
+    "vi": "Bí danh"
+  },
+  "All": {
+    "pt": "Todos",
+    "ru": "Все",
+    "es": "Todos",
+    "vi": "Tất cả"
+  },
+  "All USA": {
+    "pt": "Todo o EUA",
+    "ru": "Все США",
+    "es": "Todo EE. UU.",
+    "vi": "Toàn nước Mỹ"
+  },
+  "All USA ZIP codes selected": {
+    "pt": "Todos os códigos ZIP dos EUA selecionados",
+    "ru": "Выбраны все ZIP-коды США",
+    "es": "Todos los códigos ZIP de EE. UU. seleccionados",
+    "vi": "Đã chọn tất cả mã ZIP Mỹ"
+  },
+  "All USA selected": {
+    "pt": "Todo o EUA selecionado",
+    "ru": "Выбраны все США",
+    "es": "Todo EE. UU. seleccionado",
+    "vi": "Đã chọn toàn Mỹ"
+  },
+  "All states": {
+    "pt": "Todos os estados",
+    "ru": "Все штаты",
+    "es": "Todos los estados",
+    "vi": "Tất cả bang"
+  },
+  "All statuses": {
+    "pt": "Todos os status",
+    "ru": "Все статусы",
+    "es": "Todos los estados",
+    "vi": "Tất cả trạng thái"
+  },
+  "All time": {
+    "pt": "Todo o período",
+    "ru": "За всё время",
+    "es": "Todo el tiempo",
+    "vi": "Toàn thời gian"
+  },
+  "Allow applicants with chronic conditions": {
+    "pt": "Permitir candidatos com condições crônicas",
+    "ru": "Разрешить заявителей с хроническими заболеваниями",
+    "es": "Permitir solicitantes con condiciones crónicas",
+    "vi": "Cho phép ứng viên có bệnh mãn tính"
+  },
+  "Amount": {
+    "pt": "Valor",
+    "ru": "Сумма",
+    "es": "Importe",
+    "vi": "Số tiền"
+  },
+  "Amount range": {
+    "pt": "Faixa de valor",
+    "ru": "Диапазон суммы",
+    "es": "Rango de importe",
+    "vi": "Khoảng số tiền"
+  },
+  "Annual": {
+    "pt": "Anual",
+    "ru": "Годовой",
+    "es": "Anual",
+    "vi": "Hàng năm"
+  },
+  "Annual quote": {
+    "pt": "Cotação anual",
+    "ru": "Годовая котировка",
+    "es": "Cotización anual",
+    "vi": "Báo giá năm"
+  },
+  "Annual quote ($)": {
+    "pt": "Cotação anual ($)",
+    "ru": "Годовая котировка ($)",
+    "es": "Cotización anual ($)",
+    "vi": "Báo giá năm ($)"
+  },
+  "Answered": {
+    "pt": "Respondido",
+    "ru": "Отвечено",
+    "es": "Respondido",
+    "vi": "Đã trả lời"
+  },
+  "Any": {
+    "pt": "Qualquer",
+    "ru": "Любой",
+    "es": "Cualquiera",
+    "vi": "Bất kỳ"
+  },
+  "Application": {
+    "pt": "Candidatura",
+    "ru": "Заявка",
+    "es": "Solicitud",
+    "vi": "Đơn đăng ký"
+  },
+  "Applications": {
+    "pt": "Candidaturas",
+    "ru": "Заявки",
+    "es": "Solicitudes",
+    "vi": "Đơn đăng ký"
+  },
+  "Apply": {
+    "pt": "Aplicar",
+    "ru": "Применить",
+    "es": "Aplicar",
+    "vi": "Áp dụng"
+  },
+  "Approval": {
+    "pt": "Aprovação",
+    "ru": "Одобрение",
+    "es": "Aprobación",
+    "vi": "Phê duyệt"
+  },
+  "Approve Deposit": {
+    "pt": "Aprovar depósito",
+    "ru": "Одобрить депозит",
+    "es": "Aprobar depósito",
+    "vi": "Duyệt nạp tiền"
+  },
+  "Approve Withdrawal": {
+    "pt": "Aprovar levantamento",
+    "ru": "Одобрить вывод",
+    "es": "Aprobar retiro",
+    "vi": "Duyệt rút tiền"
+  },
+  "Approve investment": {
+    "pt": "Aprovar investimento",
+    "ru": "Одобрить инвестицию",
+    "es": "Aprobar inversión",
+    "vi": "Duyệt đầu tư"
+  },
+  "Approve member": {
+    "pt": "Aprovar membro",
+    "ru": "Одобрить участника",
+    "es": "Aprobar miembro",
+    "vi": "Duyệt thành viên"
+  },
+  "Approve or reject pending deposit and withdrawal requests before launch.": {
+    "pt": "Aprove ou rejeite pedidos pendentes de depósito e levantamento antes do lançamento.",
+    "ru": "Одобрите или отклоните ожидающие депозиты и выводы перед запуском.",
+    "es": "Apruebe o rechace solicitudes pendientes de depósito y retiro antes del lanzamiento.",
+    "vi": "Duyệt hoặc từ chối yêu cầu nạp/rút đang chờ trước khi ra mắt."
+  },
+  "Approved": {
+    "pt": "Aprovado",
+    "ru": "Одобрено",
+    "es": "Aprobado",
+    "vi": "Đã duyệt"
+  },
+  "Approved clients": {
+    "pt": "Clientes aprovados",
+    "ru": "Одобренные клиенты",
+    "es": "Clientes aprobados",
+    "vi": "Khách đã duyệt"
+  },
+  "Approved only": {
+    "pt": "Somente aprovados",
+    "ru": "Только одобренные",
+    "es": "Solo aprobados",
+    "vi": "Chỉ đã duyệt"
+  },
+  "Assign agent": {
+    "pt": "Atribuir agente",
+    "ru": "Назначить агента",
+    "es": "Asignar agente",
+    "vi": "Gán đại lý"
+  },
+  "Assigned agent": {
+    "pt": "Agente atribuído",
+    "ru": "Назначенный агент",
+    "es": "Agente asignado",
+    "vi": "Đại lý được gán"
+  },
+  "Assigned clients": {
+    "pt": "Clientes atribuídos",
+    "ru": "Назначенные клиенты",
+    "es": "Clientes asignados",
+    "vi": "Khách được gán"
+  },
+  "Audit Logs": {
+    "pt": "Logs de auditoria",
+    "ru": "Журналы аудита",
+    "es": "Registros de auditoría",
+    "vi": "Nhật ký kiểm toán"
+  },
+  "Back": {
+    "pt": "Voltar",
+    "ru": "Назад",
+    "es": "Atrás",
+    "vi": "Quay lại"
+  },
+  "Back to admins": {
+    "pt": "Voltar aos admins",
+    "ru": "Назад к админам",
+    "es": "Volver a admins",
+    "vi": "Quay lại quản trị"
+  },
+  "Back to agents": {
+    "pt": "Voltar aos agentes",
+    "ru": "Назад к агентам",
+    "es": "Volver a agentes",
+    "vi": "Quay lại đại lý"
+  },
+  "Back to all agents": {
+    "pt": "Voltar a todos os agentes",
+    "ru": "Назад ко всем агентам",
+    "es": "Volver a todos los agentes",
+    "vi": "Quay lại tất cả đại lý"
+  },
+  "Back to applications": {
+    "pt": "Voltar às candidaturas",
+    "ru": "Назад к заявкам",
+    "es": "Volver a solicitudes",
+    "vi": "Quay lại đơn"
+  },
+  "Back to clients": {
+    "pt": "Voltar aos clientes",
+    "ru": "Назад к клиентам",
+    "es": "Volver a clientes",
+    "vi": "Quay lại khách hàng"
+  },
+  "Back to investments": {
+    "pt": "Voltar aos investimentos",
+    "ru": "Назад к инвестициям",
+    "es": "Volver a inversiones",
+    "vi": "Quay lại đầu tư"
+  },
+  "Back to methods": {
+    "pt": "Voltar aos métodos",
+    "ru": "Назад к методам",
+    "es": "Volver a métodos",
+    "vi": "Quay lại phương thức"
+  },
+  "Back to products": {
+    "pt": "Voltar aos produtos",
+    "ru": "Назад к продуктам",
+    "es": "Volver a productos",
+    "vi": "Quay lại sản phẩm"
+  },
+  "Back to referrals": {
+    "pt": "Voltar às indicações",
+    "ru": "Назад к рефералам",
+    "es": "Volver a referidos",
+    "vi": "Quay lại giới thiệu"
+  },
+  "Back to users": {
+    "pt": "Voltar aos utilizadores",
+    "ru": "Назад к пользователям",
+    "es": "Volver a usuarios",
+    "vi": "Quay lại người dùng"
+  },
+  "Balance": {
+    "pt": "Saldo",
+    "ru": "Баланс",
+    "es": "Saldo",
+    "vi": "Số dư"
+  },
+  "Balance adjustment": {
+    "pt": "Ajuste de saldo",
+    "ru": "Корректировка баланса",
+    "es": "Ajuste de saldo",
+    "vi": "Điều chỉnh số dư"
+  },
+  "Ban reason": {
+    "pt": "Motivo do banimento",
+    "ru": "Причина блокировки",
+    "es": "Motivo del bloqueo",
+    "vi": "Lý do cấm"
+  },
+  "Ban user": {
+    "pt": "Banir utilizador",
+    "ru": "Заблокировать пользователя",
+    "es": "Bloquear usuario",
+    "vi": "Cấm người dùng"
+  },
+  "Banned": {
+    "pt": "Banido",
+    "ru": "Заблокирован",
+    "es": "Bloqueado",
+    "vi": "Đã bị cấm"
+  },
+  "Basic information": {
+    "pt": "Informação básica",
+    "ru": "Основная информация",
+    "es": "Información básica",
+    "vi": "Thông tin cơ bản"
+  },
+  "CMS": {
+    "pt": "CMS",
+    "ru": "CMS",
+    "es": "CMS",
+    "vi": "CMS"
+  },
+  "Cancel": {
+    "pt": "Cancelar",
+    "ru": "Отмена",
+    "es": "Cancelar",
+    "vi": "Hủy"
+  },
+  "Care": {
+    "pt": "Cuidados",
+    "ru": "Уход",
+    "es": "Cuidado",
+    "vi": "Chăm sóc"
+  },
+  "Category": {
+    "pt": "Categoria",
+    "ru": "Категория",
+    "es": "Categoría",
+    "vi": "Danh mục"
+  },
+  "Change the customer": {
+    "pt": "Alterar o cliente",
+    "ru": "Изменить клиента",
+    "es": "Cambiar el cliente",
+    "vi": "Đổi khách hàng"
+  },
+  "Charge": {
+    "pt": "Cobrança",
+    "ru": "Сбор",
+    "es": "Cargo",
+    "vi": "Phí"
+  },
+  "Chat": {
+    "pt": "Chat",
+    "ru": "Чат",
+    "es": "Chat",
+    "vi": "Trò chuyện"
+  },
+  "Chat notifications": {
+    "pt": "Notificações de chat",
+    "ru": "Уведомления чата",
+    "es": "Notificaciones de chat",
+    "vi": "Thông báo chat"
+  },
+  "Checks": {
+    "pt": "Verificações",
+    "ru": "Проверки",
+    "es": "Comprobaciones",
+    "vi": "Kiểm tra"
+  },
+  "Chronic OK": {
+    "pt": "Crônico OK",
+    "ru": "Хронические OK",
+    "es": "Crónico OK",
+    "vi": "Mãn tính OK"
+  },
+  "Chronic condition": {
+    "pt": "Condição crônica",
+    "ru": "Хроническое заболевание",
+    "es": "Condición crónica",
+    "vi": "Bệnh mãn tính"
+  },
+  "Clear": {
+    "pt": "Limpar",
+    "ru": "Очистить",
+    "es": "Limpiar",
+    "vi": "Xóa"
+  },
+  "Clear all": {
+    "pt": "Limpar tudo",
+    "ru": "Очистить всё",
+    "es": "Borrar todo",
+    "vi": "Xóa tất cả"
+  },
+  "Click to open chat": {
+    "pt": "Clique para abrir o chat",
+    "ru": "Нажмите, чтобы открыть чат",
+    "es": "Clic para abrir el chat",
+    "vi": "Nhấn để mở chat"
+  },
+  "Client": {
+    "pt": "Cliente",
+    "ru": "Клиент",
+    "es": "Cliente",
+    "vi": "Khách hàng"
+  },
+  "Client logins": {
+    "pt": "Logins de clientes",
+    "ru": "Входы клиентов",
+    "es": "Inicios de clientes",
+    "vi": "Đăng nhập khách"
+  },
+  "Client messages": {
+    "pt": "Mensagens de clientes",
+    "ru": "Сообщения клиентов",
+    "es": "Mensajes de clientes",
+    "vi": "Tin nhắn khách"
+  },
+  "Client profile": {
+    "pt": "Perfil do cliente",
+    "ru": "Профиль клиента",
+    "es": "Perfil del cliente",
+    "vi": "Hồ sơ khách"
+  },
+  "Client status": {
+    "pt": "Status do cliente",
+    "ru": "Статус клиента",
+    "es": "Estado del cliente",
+    "vi": "Trạng thái khách"
+  },
+  "Clients": {
+    "pt": "Clientes",
+    "ru": "Клиенты",
+    "es": "Clientes",
+    "vi": "Khách hàng"
+  },
+  "Clients, chat activity, pipeline, and sales at a glance.": {
+    "pt": "Clientes, atividade de chat, pipeline e vendas num relance.",
+    "ru": "Клиенты, чат, воронка и продажи одним взглядом.",
+    "es": "Clientes, actividad de chat, pipeline y ventas de un vistazo.",
+    "vi": "Khách hàng, chat, pipeline và doanh số trong một cái nhìn."
+  },
+  "Close": {
+    "pt": "Fechar",
+    "ru": "Закрыть",
+    "es": "Cerrar",
+    "vi": "Đóng"
+  },
+  "Close Ticket": {
+    "pt": "Fechar ticket",
+    "ru": "Закрыть тикет",
+    "es": "Cerrar ticket",
+    "vi": "Đóng ticket"
+  },
+  "Closed": {
+    "pt": "Fechado",
+    "ru": "Закрыто",
+    "es": "Cerrado",
+    "vi": "Đã đóng"
+  },
+  "Code": {
+    "pt": "Código",
+    "ru": "Код",
+    "es": "Código",
+    "vi": "Mã"
+  },
+  "Completed": {
+    "pt": "Concluído",
+    "ru": "Завершено",
+    "es": "Completado",
+    "vi": "Hoàn tất"
+  },
+  "Configure how OTP and system emails are sent.": {
+    "pt": "Configure como OTP e emails do sistema são enviados.",
+    "ru": "Настройте отправку OTP и системных писем.",
+    "es": "Configure cómo se envían OTP y correos del sistema.",
+    "vi": "Cấu hình cách gửi OTP và email hệ thống."
+  },
+  "Confirm / Reject": {
+    "pt": "Confirmar / Rejeitar",
+    "ru": "Подтвердить / Отклонить",
+    "es": "Confirmar / Rechazar",
+    "vi": "Xác nhận / Từ chối"
+  },
+  "Confirm after payment": {
+    "pt": "Confirmar após pagamento",
+    "ru": "Подтвердить после оплаты",
+    "es": "Confirmar tras el pago",
+    "vi": "Xác nhận sau thanh toán"
+  },
+  "Confirm policy sold": {
+    "pt": "Confirmar apólice vendida",
+    "ru": "Подтвердить продажу полиса",
+    "es": "Confirmar póliza vendida",
+    "vi": "Xác nhận đã bán hợp đồng"
+  },
+  "Confirmed": {
+    "pt": "Confirmado",
+    "ru": "Подтверждено",
+    "es": "Confirmado",
+    "vi": "Đã xác nhận"
+  },
+  "Contact": {
+    "pt": "Contacto",
+    "ru": "Контакт",
+    "es": "Contacto",
+    "vi": "Liên hệ"
+  },
+  "Contact support (user app)": {
+    "pt": "Contactar suporte (app do utilizador)",
+    "ru": "Связаться с поддержкой (приложение пользователя)",
+    "es": "Contactar soporte (app de usuario)",
+    "vi": "Liên hệ hỗ trợ (ứng dụng người dùng)"
+  },
+  "Content": {
+    "pt": "Conteúdo",
+    "ru": "Содержание",
+    "es": "Contenido",
+    "vi": "Nội dung"
+  },
+  "Context": {
+    "pt": "Contexto",
+    "ru": "Контекст",
+    "es": "Contexto",
+    "vi": "Ngữ cảnh"
+  },
+  "Controls": {
+    "pt": "Controlos",
+    "ru": "Управление",
+    "es": "Controles",
+    "vi": "Điều khiển"
+  },
+  "Conversation": {
+    "pt": "Conversa",
+    "ru": "Диалог",
+    "es": "Conversación",
+    "vi": "Hội thoại"
+  },
+  "Conversations": {
+    "pt": "Conversas",
+    "ru": "Диалоги",
+    "es": "Conversaciones",
+    "vi": "Hội thoại"
+  },
+  "Core settings": {
+    "pt": "Definições principais",
+    "ru": "Основные настройки",
+    "es": "Ajustes principales",
+    "vi": "Cài đặt cốt lõi"
+  },
+  "Could not add state.": {
+    "pt": "Não foi possível adicionar o estado.",
+    "ru": "Не удалось добавить штат.",
+    "es": "No se pudo añadir el estado.",
+    "vi": "Không thể thêm bang."
+  },
+  "Could not clear state.": {
+    "pt": "Não foi possível limpar o estado.",
+    "ru": "Не удалось очистить штат.",
+    "es": "No se pudo borrar el estado.",
+    "vi": "Không thể xóa bang."
+  },
+  "Could not load ZIP codes.": {
+    "pt": "Não foi possível carregar os códigos ZIP.",
+    "ru": "Не удалось загрузить ZIP-коды.",
+    "es": "No se pudieron cargar los códigos ZIP.",
+    "vi": "Không thể tải mã ZIP."
+  },
+  "Could not remove state.": {
+    "pt": "Não foi possível remover o estado.",
+    "ru": "Не удалось удалить штат.",
+    "es": "No se pudo quitar el estado.",
+    "vi": "Không thể gỡ bang."
+  },
+  "Could not select all ZIP codes.": {
+    "pt": "Não foi possível selecionar todos os códigos ZIP.",
+    "ru": "Не удалось выбрать все ZIP-коды.",
+    "es": "No se pudieron seleccionar todos los códigos ZIP.",
+    "vi": "Không thể chọn tất cả mã ZIP."
+  },
+  "Could not update ZIP selection.": {
+    "pt": "Não foi possível atualizar a seleção de ZIP.",
+    "ru": "Не удалось обновить выбор ZIP.",
+    "es": "No se pudo actualizar la selección de ZIP.",
+    "vi": "Không thể cập nhật lựa chọn ZIP."
+  },
+  "Country": {
+    "pt": "País",
+    "ru": "Страна",
+    "es": "País",
+    "vi": "Quốc gia"
+  },
+  "Coverage": {
+    "pt": "Cobertura",
+    "ru": "Покрытие",
+    "es": "Cobertura",
+    "vi": "Phạm vi"
+  },
+  "Coverage amount": {
+    "pt": "Valor da cobertura",
+    "ru": "Сумма покрытия",
+    "es": "Monto de cobertura",
+    "vi": "Số tiền bảo hiểm"
+  },
+  "Coverage length": {
+    "pt": "Duração da cobertura",
+    "ru": "Срок покрытия",
+    "es": "Duración de la cobertura",
+    "vi": "Thời hạn bảo hiểm"
+  },
+  "Create admin": {
+    "pt": "Criar admin",
+    "ru": "Создать админа",
+    "es": "Crear admin",
+    "vi": "Tạo quản trị"
+  },
+  "Create agent": {
+    "pt": "Criar agente",
+    "ru": "Создать агента",
+    "es": "Crear agente",
+    "vi": "Tạo đại lý"
+  },
+  "Create an App Password": {
+    "pt": "Criar uma App Password",
+    "ru": "Создать пароль приложения",
+    "es": "Crear una App Password",
+    "vi": "Tạo App Password"
+  },
+  "Create product": {
+    "pt": "Criar produto",
+    "ru": "Создать продукт",
+    "es": "Crear producto",
+    "vi": "Tạo sản phẩm"
+  },
+  "Create the first agent": {
+    "pt": "Criar o primeiro agente",
+    "ru": "Создать первого агента",
+    "es": "Crear el primer agente",
+    "vi": "Tạo đại lý đầu tiên"
+  },
+  "Create the first product": {
+    "pt": "Criar o primeiro produto",
+    "ru": "Создать первый продукт",
+    "es": "Crear el primer producto",
+    "vi": "Tạo sản phẩm đầu tiên"
+  },
+  "Created": {
+    "pt": "Criado",
+    "ru": "Создано",
+    "es": "Creado",
+    "vi": "Đã tạo"
+  },
+  "Credit": {
+    "pt": "Crédito",
+    "ru": "Кредит",
+    "es": "Crédito",
+    "vi": "Ghi có"
+  },
+  "Currency": {
+    "pt": "Moeda",
+    "ru": "Валюта",
+    "es": "Moneda",
+    "vi": "Tiền tệ"
+  },
+  "Currency symbol": {
+    "pt": "Símbolo da moeda",
+    "ru": "Символ валюты",
+    "es": "Símbolo de moneda",
+    "vi": "Ký hiệu tiền tệ"
+  },
+  "Currency text": {
+    "pt": "Texto da moeda",
+    "ru": "Текст валюты",
+    "es": "Texto de moneda",
+    "vi": "Tên tiền tệ"
+  },
+  "Current wallet": {
+    "pt": "Carteira atual",
+    "ru": "Текущий кошелёк",
+    "es": "Billetera actual",
+    "vi": "Ví hiện tại"
+  },
+  "Customer": {
+    "pt": "Cliente",
+    "ru": "Клиент",
+    "es": "Cliente",
+    "vi": "Khách hàng"
+  },
+  "Customer Reply": {
+    "pt": "Resposta do cliente",
+    "ru": "Ответ клиента",
+    "es": "Respuesta del cliente",
+    "vi": "Phản hồi khách"
+  },
+  "Customer conditions": {
+    "pt": "Condições do cliente",
+    "ru": "Условия клиента",
+    "es": "Condiciones del cliente",
+    "vi": "Điều kiện khách"
+  },
+  "Dashboard": {
+    "pt": "Painel",
+    "ru": "Панель",
+    "es": "Panel",
+    "vi": "Bảng điều khiển"
+  },
+  "Date": {
+    "pt": "Data",
+    "ru": "Дата",
+    "es": "Fecha",
+    "vi": "Ngày"
+  },
+  "Dates": {
+    "pt": "Datas",
+    "ru": "Даты",
+    "es": "Fechas",
+    "vi": "Ngày tháng"
+  },
+  "Debit": {
+    "pt": "Débito",
+    "ru": "Дебет",
+    "es": "Débito",
+    "vi": "Ghi nợ"
+  },
+  "Decision": {
+    "pt": "Decisão",
+    "ru": "Решение",
+    "es": "Decisión",
+    "vi": "Quyết định"
+  },
+  "Delete": {
+    "pt": "Eliminar",
+    "ru": "Удалить",
+    "es": "Eliminar",
+    "vi": "Xóa"
+  },
+  "Delete this rule?": {
+    "pt": "Eliminar esta regra?",
+    "ru": "Удалить это правило?",
+    "es": "¿Eliminar esta regla?",
+    "vi": "Xóa quy tắc này?"
+  },
+  "Deposit": {
+    "pt": "Depósito",
+    "ru": "Депозит",
+    "es": "Depósito",
+    "vi": "Nạp tiền"
+  },
+  "Deposit gateway": {
+    "pt": "Gateway de depósito",
+    "ru": "Шлюз депозита",
+    "es": "Pasarela de depósito",
+    "vi": "Cổng nạp tiền"
+  },
+  "Deposit gateways": {
+    "pt": "Gateways de depósito",
+    "ru": "Шлюзы депозита",
+    "es": "Pasarelas de depósito",
+    "vi": "Cổng nạp tiền"
+  },
+  "Deposit, withdrawal, package approval, balance adjustment and reports.": {
+    "pt": "Depósito, levantamento, aprovação de pacotes, ajuste de saldo e relatórios.",
+    "ru": "Депозит, вывод, одобрение пакетов, корректировка баланса и отчёты.",
+    "es": "Depósito, retiro, aprobación de paquetes, ajuste de saldo e informes.",
+    "vi": "Nạp, rút, duyệt gói, điều chỉnh số dư và báo cáo."
+  },
+  "Deposits": {
+    "pt": "Depósitos",
+    "ru": "Депозиты",
+    "es": "Depósitos",
+    "vi": "Nạp tiền"
+  },
+  "Detail": {
+    "pt": "Detalhe",
+    "ru": "Деталь",
+    "es": "Detalle",
+    "vi": "Chi tiết"
+  },
+  "Details": {
+    "pt": "Detalhes",
+    "ru": "Подробности",
+    "es": "Detalles",
+    "vi": "Chi tiết"
+  },
+  "Device": {
+    "pt": "Dispositivo",
+    "ru": "Устройство",
+    "es": "Dispositivo",
+    "vi": "Thiết bị"
+  },
+  "Disable": {
+    "pt": "Desativar",
+    "ru": "Отключить",
+    "es": "Desactivar",
+    "vi": "Tắt"
+  },
+  "Disable gateway": {
+    "pt": "Desativar gateway",
+    "ru": "Отключить шлюз",
+    "es": "Desactivar pasarela",
+    "vi": "Tắt cổng"
+  },
+  "Disable method": {
+    "pt": "Desativar método",
+    "ru": "Отключить метод",
+    "es": "Desactivar método",
+    "vi": "Tắt phương thức"
+  },
+  "Disabled": {
+    "pt": "Desativado",
+    "ru": "Отключено",
+    "es": "Desactivado",
+    "vi": "Đã tắt"
+  },
+  "Display name": {
+    "pt": "Nome de exibição",
+    "ru": "Отображаемое имя",
+    "es": "Nombre para mostrar",
+    "vi": "Tên hiển thị"
+  },
+  "Each investment can pay each upline level only once.": {
+    "pt": "Cada investimento pode pagar cada nível upline apenas uma vez.",
+    "ru": "Каждая инвестиция может выплатить каждому уровню аплайна только один раз.",
+    "es": "Cada inversión puede pagar cada nivel upline solo una vez.",
+    "vi": "Mỗi khoản đầu tư chỉ trả mỗi cấp upline một lần."
+  },
+  "Earner": {
+    "pt": "Beneficiário",
+    "ru": "Получатель",
+    "es": "Beneficiario",
+    "vi": "Người nhận"
+  },
+  "Earners": {
+    "pt": "Beneficiários",
+    "ru": "Получатели",
+    "es": "Beneficiarios",
+    "vi": "Người nhận"
+  },
+  "Edit": {
+    "pt": "Editar",
+    "ru": "Изменить",
+    "es": "Editar",
+    "vi": "Sửa"
+  },
+  "Edit product, quote & conditions": {
+    "pt": "Editar produto, cotação e condições",
+    "ru": "Изменить продукт, котировку и условия",
+    "es": "Editar producto, cotización y condiciones",
+    "vi": "Sửa sản phẩm, báo giá & điều kiện"
+  },
+  "Edit quote & conditions": {
+    "pt": "Editar cotação e condições",
+    "ru": "Изменить котировку и условия",
+    "es": "Editar cotización y condiciones",
+    "vi": "Sửa báo giá & điều kiện"
+  },
+  "Eligibility": {
+    "pt": "Elegibilidade",
+    "ru": "Право на участие",
+    "es": "Elegibilidad",
+    "vi": "Điều kiện đủ"
+  },
+  "Eligibility rules": {
+    "pt": "Regras de elegibilidade",
+    "ru": "Правила допуска",
+    "es": "Reglas de elegibilidad",
+    "vi": "Quy tắc đủ điều kiện"
+  },
+  "Email": {
+    "pt": "Email",
+    "ru": "Email",
+    "es": "Email",
+    "vi": "Email"
+  },
+  "Email / SMTP": {
+    "pt": "Email / SMTP",
+    "ru": "Email / SMTP",
+    "es": "Email / SMTP",
+    "vi": "Email / SMTP"
+  },
+  "Email From must be the same Gmail address as Username": {
+    "pt": "Email From deve ser o mesmo endereço Gmail que Username",
+    "ru": "Email From должен совпадать с Gmail в Username",
+    "es": "Email From debe ser el mismo Gmail que Username",
+    "vi": "Email From phải trùng địa chỉ Gmail với Username"
+  },
+  "Email delivery": {
+    "pt": "Entrega de email",
+    "ru": "Доставка email",
+    "es": "Entrega de email",
+    "vi": "Gửi email"
+  },
+  "Email from": {
+    "pt": "Email de",
+    "ru": "Email от",
+    "es": "Email de",
+    "vi": "Email từ"
+  },
+  "Email from address": {
+    "pt": "Endereço de envio",
+    "ru": "Адрес отправителя",
+    "es": "Dirección de envío",
+    "vi": "Địa chỉ gửi"
+  },
+  "Email sender name": {
+    "pt": "Nome do remetente",
+    "ru": "Имя отправителя",
+    "es": "Nombre del remitente",
+    "vi": "Tên người gửi"
+  },
+  "Email verified": {
+    "pt": "Email verificado",
+    "ru": "Email подтверждён",
+    "es": "Email verificado",
+    "vi": "Email đã xác minh"
+  },
+  "Enable": {
+    "pt": "Ativar",
+    "ru": "Включить",
+    "es": "Activar",
+    "vi": "Bật"
+  },
+  "Enable 2-Step Verification": {
+    "pt": "Ativar verificação em 2 etapas",
+    "ru": "Включить двухэтапную проверку",
+    "es": "Activar verificación en 2 pasos",
+    "vi": "Bật xác minh 2 bước"
+  },
+  "Enable email sending": {
+    "pt": "Ativar envio de email",
+    "ru": "Включить отправку email",
+    "es": "Activar envío de email",
+    "vi": "Bật gửi email"
+  },
+  "Enable gateway": {
+    "pt": "Ativar gateway",
+    "ru": "Включить шлюз",
+    "es": "Activar pasarela",
+    "vi": "Bật cổng"
+  },
+  "Enable method": {
+    "pt": "Ativar método",
+    "ru": "Включить метод",
+    "es": "Activar método",
+    "vi": "Bật phương thức"
+  },
+  "Enabled": {
+    "pt": "Ativado",
+    "ru": "Включено",
+    "es": "Activado",
+    "vi": "Đã bật"
+  },
+  "Encryption": {
+    "pt": "Encriptação",
+    "ru": "Шифрование",
+    "es": "Cifrado",
+    "vi": "Mã hóa"
+  },
+  "Engagement": {
+    "pt": "Engajamento",
+    "ru": "Вовлечённость",
+    "es": "Participación",
+    "vi": "Tương tác"
+  },
+  "Enter the final quote shown to the customer.": {
+    "pt": "Introduza a cotação final mostrada ao cliente.",
+    "ru": "Введите итоговую котировку для клиента.",
+    "es": "Introduzca la cotización final mostrada al cliente.",
+    "vi": "Nhập báo giá cuối hiển thị cho khách."
+  },
+  "Enter the final quote to show the customer.": {
+    "pt": "Introduza a cotação final a mostrar ao cliente.",
+    "ru": "Введите итоговую котировку для показа клиенту.",
+    "es": "Introduzca la cotización final para mostrar al cliente.",
+    "vi": "Nhập báo giá cuối để hiện cho khách."
+  },
+  "Explain why this member cannot be approved yet": {
+    "pt": "Explique por que este membro ainda não pode ser aprovado",
+    "ru": "Объясните, почему участника ещё нельзя одобрить",
+    "es": "Explique por qué este miembro aún no puede aprobarse",
+    "vi": "Giải thích vì sao thành viên này chưa thể duyệt"
+  },
+  "Export CSV": {
+    "pt": "Exportar CSV",
+    "ru": "Экспорт CSV",
+    "es": "Exportar CSV",
+    "vi": "Xuất CSV"
+  },
+  "Extra permissions": {
+    "pt": "Permissões extra",
+    "ru": "Доп. права",
+    "es": "Permisos extra",
+    "vi": "Quyền bổ sung"
+  },
+  "Failed to load ZIP codes": {
+    "pt": "Falha ao carregar códigos ZIP",
+    "ru": "Не удалось загрузить ZIP-коды",
+    "es": "Error al cargar códigos ZIP",
+    "vi": "Tải mã ZIP thất bại"
+  },
+  "Failed to load nationwide ZIP codes": {
+    "pt": "Falha ao carregar códigos ZIP nacionais",
+    "ru": "Не удалось загрузить ZIP по всей стране",
+    "es": "Error al cargar códigos ZIP nacionales",
+    "vi": "Tải mã ZIP toàn quốc thất bại"
+  },
+  "Fair / average": {
+    "pt": "Razoável / médio",
+    "ru": "Среднее",
+    "es": "Regular / medio",
+    "vi": "Trung bình"
+  },
+  "Fair health": {
+    "pt": "Saúde razoável",
+    "ru": "Среднее здоровье",
+    "es": "Salud regular",
+    "vi": "Sức khỏe trung bình"
+  },
+  "Fee %": {
+    "pt": "Taxa %",
+    "ru": "Комиссия %",
+    "es": "Comisión %",
+    "vi": "Phí %"
+  },
+  "Feedback": {
+    "pt": "Feedback",
+    "ru": "Отзыв",
+    "es": "Comentarios",
+    "vi": "Phản hồi"
+  },
+  "Female": {
+    "pt": "Feminino",
+    "ru": "Женский",
+    "es": "Femenino",
+    "vi": "Nữ"
+  },
+  "Female only": {
+    "pt": "Somente feminino",
+    "ru": "Только женский",
+    "es": "Solo femenino",
+    "vi": "Chỉ nữ"
+  },
+  "Filter": {
+    "pt": "Filtrar",
+    "ru": "Фильтр",
+    "es": "Filtrar",
+    "vi": "Lọc"
+  },
+  "Filter ZIP code or city in :state…": {
+    "pt": "Filtrar ZIP ou cidade em :state…",
+    "ru": "Фильтр ZIP или города в :state…",
+    "es": "Filtrar ZIP o ciudad en :state…",
+    "vi": "Lọc ZIP hoặc thành phố ở :state…"
+  },
+  "Filtered by state:": {
+    "pt": "Filtrado por estado:",
+    "ru": "Фильтр по штату:",
+    "es": "Filtrado por estado:",
+    "vi": "Lọc theo bang:"
+  },
+  "Filtered referral fee value": {
+    "pt": "Valor filtrado da taxa de indicação",
+    "ru": "Отфильтрованная сумма реферальной комиссии",
+    "es": "Valor filtrado de comisión de referidos",
+    "vi": "Giá trị phí giới thiệu đã lọc"
+  },
+  "Final Amount": {
+    "pt": "Valor final",
+    "ru": "Итоговая сумма",
+    "es": "Importe final",
+    "vi": "Số tiền cuối"
+  },
+  "Finance": {
+    "pt": "Finanças",
+    "ru": "Финансы",
+    "es": "Finanzas",
+    "vi": "Tài chính"
+  },
+  "Fixed": {
+    "pt": "Fixo",
+    "ru": "Фиксированный",
+    "es": "Fijo",
+    "vi": "Cố định"
+  },
+  "Fixed charge": {
+    "pt": "Cobrança fixa",
+    "ru": "Фиксированный сбор",
+    "es": "Cargo fijo",
+    "vi": "Phí cố định"
+  },
+  "From member": {
+    "pt": "Do membro",
+    "ru": "От участника",
+    "es": "Del miembro",
+    "vi": "Từ thành viên"
+  },
+  "Full name": {
+    "pt": "Nome completo",
+    "ru": "Полное имя",
+    "es": "Nombre completo",
+    "vi": "Họ tên đầy đủ"
+  },
+  "Full owner access. Keep this for trusted operators only.": {
+    "pt": "Acesso total de proprietário. Reserve apenas a operadores de confiança.",
+    "ru": "Полный доступ владельца. Только для доверенных операторов.",
+    "es": "Acceso total de propietario. Solo para operadores de confianza.",
+    "vi": "Toàn quyền chủ sở hữu. Chỉ dành cho vận hành tin cậy."
+  },
+  "Full report": {
+    "pt": "Relatório completo",
+    "ru": "Полный отчёт",
+    "es": "Informe completo",
+    "vi": "Báo cáo đầy đủ"
+  },
+  "Gateway": {
+    "pt": "Gateway",
+    "ru": "Шлюз",
+    "es": "Pasarela",
+    "vi": "Cổng"
+  },
+  "Gender": {
+    "pt": "Género",
+    "ru": "Пол",
+    "es": "Género",
+    "vi": "Giới tính"
+  },
+  "General": {
+    "pt": "Geral",
+    "ru": "Общие",
+    "es": "General",
+    "vi": "Chung"
+  },
+  "Global / none": {
+    "pt": "Global / nenhum",
+    "ru": "Глобально / нет",
+    "es": "Global / ninguno",
+    "vi": "Toàn cục / không"
+  },
+  "Global fallback": {
+    "pt": "Fallback global",
+    "ru": "Глобальный запасной вариант",
+    "es": "Fallback global",
+    "vi": "Dự phòng toàn cục"
+  },
+  "Gmail App Password is exactly 16 letters (e.g. <code>abcdefghijklmnop</code>). Do not use your normal Gmail password.": {
+    "pt": "A Gmail App Password tem exatamente 16 letras (ex. <code>abcdefghijklmnop</code>). Não use a senha normal do Gmail.",
+    "ru": "Пароль приложения Gmail — ровно 16 букв (напр. <code>abcdefghijklmnop</code>). Не используйте обычный пароль Gmail.",
+    "es": "La Gmail App Password tiene exactamente 16 letras (p. ej. <code>abcdefghijklmnop</code>). No use su contraseña normal de Gmail.",
+    "vi": "Gmail App Password gồm đúng 16 chữ cái (vd. <code>abcdefghijklmnop</code>). Đừng dùng mật khẩu Gmail thường."
+  },
+  "Gmail quick setup": {
+    "pt": "Configuração rápida do Gmail",
+    "ru": "Быстрая настройка Gmail",
+    "es": "Configuración rápida de Gmail",
+    "vi": "Thiết lập nhanh Gmail"
+  },
+  "Good": {
+    "pt": "Bom",
+    "ru": "Хорошее",
+    "es": "Bueno",
+    "vi": "Tốt"
+  },
+  "Good health": {
+    "pt": "Boa saúde",
+    "ru": "Хорошее здоровье",
+    "es": "Buena salud",
+    "vi": "Sức khỏe tốt"
+  },
+  "Health": {
+    "pt": "Saúde",
+    "ru": "Здоровье",
+    "es": "Salud",
+    "vi": "Sức khỏe"
+  },
+  "Help desk and member review without money controls.": {
+    "pt": "Help desk e revisão de membros sem controlos de dinheiro.",
+    "ru": "Служба поддержки и проверка участников без денежных прав.",
+    "es": "Mesa de ayuda y revisión de miembros sin controles de dinero.",
+    "vi": "Hỗ trợ và duyệt thành viên không kiểm soát tiền."
+  },
+  "Hide states": {
+    "pt": "Ocultar estados",
+    "ru": "Скрыть штаты",
+    "es": "Ocultar estados",
+    "vi": "Ẩn bang"
+  },
+  "Host": {
+    "pt": "Host",
+    "ru": "Хост",
+    "es": "Host",
+    "vi": "Host"
+  },
+  "How agent matching works": {
+    "pt": "Como funciona o matching de agentes",
+    "ru": "Как работает подбор агента",
+    "es": "Cómo funciona la asignación de agentes",
+    "vi": "Cách khớp đại lý hoạt động"
+  },
+  "How referral fee works": {
+    "pt": "Como funciona a taxa de indicação",
+    "ru": "Как работает реферальная комиссия",
+    "es": "Cómo funciona la comisión de referidos",
+    "vi": "Cách phí giới thiệu hoạt động"
+  },
+  "ID": {
+    "pt": "ID",
+    "ru": "ID",
+    "es": "ID",
+    "vi": "ID"
+  },
+  "IP": {
+    "pt": "IP",
+    "ru": "IP",
+    "es": "IP",
+    "vi": "IP"
+  },
+  "If a package has rules, those rules are used for that purchase.": {
+    "pt": "Se um pacote tiver regras, essas regras são usadas nessa compra.",
+    "ru": "Если у пакета есть правила, они применяются к этой покупке.",
+    "es": "Si un paquete tiene reglas, se usan para esa compra.",
+    "vi": "Nếu gói có quy tắc, các quy tắc đó dùng cho lần mua đó."
+  },
+  "If the package has no custom rules, global rules are used.": {
+    "pt": "Se o pacote não tiver regras personalizadas, usam-se as regras globais.",
+    "ru": "Если у пакета нет своих правил, используются глобальные.",
+    "es": "Si el paquete no tiene reglas propias, se usan las globales.",
+    "vi": "Nếu gói không có quy tắc riêng, dùng quy tắc toàn cục."
+  },
+  "If you see “Could not authenticate”, you are using the wrong password type": {
+    "pt": "Se vir “Could not authenticate”, está a usar o tipo de senha errado",
+    "ru": "Если видите “Could not authenticate”, используется неверный тип пароля",
+    "es": "Si ve “Could not authenticate”, está usando el tipo de contraseña incorrecto",
+    "vi": "Nếu thấy “Could not authenticate”, bạn đang dùng sai loại mật khẩu"
+  },
+  "Image upload failed": {
+    "pt": "Falha no upload da imagem",
+    "ru": "Не удалось загрузить изображение",
+    "es": "Error al subir la imagen",
+    "vi": "Tải ảnh thất bại"
+  },
+  "Inactive": {
+    "pt": "Inativo",
+    "ru": "Неактивен",
+    "es": "Inactivo",
+    "vi": "Không hoạt động"
+  },
+  "Initiated": {
+    "pt": "Iniciado",
+    "ru": "Инициировано",
+    "es": "Iniciado",
+    "vi": "Đã khởi tạo"
+  },
+  "Instructions": {
+    "pt": "Instruções",
+    "ru": "Инструкции",
+    "es": "Instrucciones",
+    "vi": "Hướng dẫn"
+  },
+  "Insurance applications": {
+    "pt": "Candidaturas de seguro",
+    "ru": "Заявки на страхование",
+    "es": "Solicitudes de seguro",
+    "vi": "Đơn bảo hiểm"
+  },
+  "Insurance confirmed": {
+    "pt": "Seguro confirmado",
+    "ru": "Страхование подтверждено",
+    "es": "Seguro confirmado",
+    "vi": "Bảo hiểm đã xác nhận"
+  },
+  "Insurance confirmed (annual)": {
+    "pt": "Seguro confirmado (anual)",
+    "ru": "Страхование подтверждено (год)",
+    "es": "Seguro confirmado (anual)",
+    "vi": "Bảo hiểm đã xác nhận (năm)"
+  },
+  "Insurance in pipeline": {
+    "pt": "Seguro no pipeline",
+    "ru": "Страхование в воронке",
+    "es": "Seguro en pipeline",
+    "vi": "Bảo hiểm trong pipeline"
+  },
+  "Insurance pipeline": {
+    "pt": "Pipeline de seguro",
+    "ru": "Воронка страхования",
+    "es": "Pipeline de seguro",
+    "vi": "Pipeline bảo hiểm"
+  },
+  "Insurance sales": {
+    "pt": "Vendas de seguro",
+    "ru": "Продажи страхования",
+    "es": "Ventas de seguro",
+    "vi": "Doanh số bảo hiểm"
+  },
+  "Interest": {
+    "pt": "Juros",
+    "ru": "Процент",
+    "es": "Interés",
+    "vi": "Lãi"
+  },
+  "Interest type": {
+    "pt": "Tipo de juros",
+    "ru": "Тип процента",
+    "es": "Tipo de interés",
+    "vi": "Loại lãi"
+  },
+  "Investment": {
+    "pt": "Investimento",
+    "ru": "Инвестиция",
+    "es": "Inversión",
+    "vi": "Đầu tư"
+  },
+  "Investment approved/running": {
+    "pt": "Investimento aprovado/em curso",
+    "ru": "Инвестиция одобрена/активна",
+    "es": "Inversión aprobada/en curso",
+    "vi": "Đầu tư đã duyệt/đang chạy"
+  },
+  "Investment deals": {
+    "pt": "Negócios de investimento",
+    "ru": "Сделки инвестиций",
+    "es": "Operaciones de inversión",
+    "vi": "Giao dịch đầu tư"
+  },
+  "Investment pending": {
+    "pt": "Investimento pendente",
+    "ru": "Инвестиция в ожидании",
+    "es": "Inversión pendiente",
+    "vi": "Đầu tư đang chờ"
+  },
+  "Investment sales": {
+    "pt": "Vendas de investimento",
+    "ru": "Продажи инвестиций",
+    "es": "Ventas de inversión",
+    "vi": "Doanh số đầu tư"
+  },
+  "Investments": {
+    "pt": "Investimentos",
+    "ru": "Инвестиции",
+    "es": "Inversiones",
+    "vi": "Đầu tư"
+  },
+  "Joined": {
+    "pt": "Entrou em",
+    "ru": "Присоединился",
+    "es": "Se unió",
+    "vi": "Tham gia"
+  },
+  "KYC": {
+    "pt": "KYC",
+    "ru": "KYC",
+    "es": "KYC",
+    "vi": "KYC"
+  },
+  "KYC status": {
+    "pt": "Status KYC",
+    "ru": "Статус KYC",
+    "es": "Estado KYC",
+    "vi": "Trạng thái KYC"
+  },
+  "Last 30 days": {
+    "pt": "Últimos 30 dias",
+    "ru": "Последние 30 дней",
+    "es": "Últimos 30 días",
+    "vi": "30 ngày gần nhất"
+  },
+  "Last 7 days": {
+    "pt": "Últimos 7 dias",
+    "ru": "Последние 7 дней",
+    "es": "Últimos 7 días",
+    "vi": "7 ngày gần nhất"
+  },
+  "Last 90 days": {
+    "pt": "Últimos 90 dias",
+    "ru": "Последние 90 дней",
+    "es": "Últimos 90 días",
+    "vi": "90 ngày gần nhất"
+  },
+  "Last Reply": {
+    "pt": "Última resposta",
+    "ru": "Последний ответ",
+    "es": "Última respuesta",
+    "vi": "Phản hồi gần nhất"
+  },
+  "Latest Deposits": {
+    "pt": "Últimos depósitos",
+    "ru": "Последние депозиты",
+    "es": "Últimos depósitos",
+    "vi": "Nạp tiền gần nhất"
+  },
+  "Latest Users": {
+    "pt": "Últimos utilizadores",
+    "ru": "Последние пользователи",
+    "es": "Últimos usuarios",
+    "vi": "Người dùng gần nhất"
+  },
+  "Latest Withdrawals": {
+    "pt": "Últimos levantamentos",
+    "ru": "Последние выводы",
+    "es": "Últimos retiros",
+    "vi": "Rút tiền gần nhất"
+  },
+  "Latest clients": {
+    "pt": "Últimos clientes",
+    "ru": "Последние клиенты",
+    "es": "Últimos clientes",
+    "vi": "Khách gần nhất"
+  },
+  "Launch backend online": {
+    "pt": "Backend online",
+    "ru": "Бэкенд онлайн",
+    "es": "Backend en línea",
+    "vi": "Backend trực tuyến"
+  },
+  "Launch readiness · :ready/:total checks passing": {
+    "pt": "Prontidão de lançamento · :ready/:total verificações a passar",
+    "ru": "Готовность к запуску · :ready/:total проверок пройдено",
+    "es": "Preparación de lanzamiento · :ready/:total comprobaciones OK",
+    "vi": "Sẵn sàng ra mắt · :ready/:total kiểm tra đạt"
+  },
+  "Leave blank to keep current": {
+    "pt": "Deixe em branco para manter o atual",
+    "ru": "Оставьте пустым, чтобы сохранить текущее",
+    "es": "Deje en blanco para mantener el actual",
+    "vi": "Để trống để giữ hiện tại"
+  },
+  "Ledger": {
+    "pt": "Ledger",
+    "ru": "Реестр",
+    "es": "Libro mayor",
+    "vi": "Sổ cái"
+  },
+  "Ledger records": {
+    "pt": "Registos do ledger",
+    "ru": "Записи реестра",
+    "es": "Registros del libro mayor",
+    "vi": "Bản ghi sổ cái"
+  },
+  "Level": {
+    "pt": "Nível",
+    "ru": "Уровень",
+    "es": "Nivel",
+    "vi": "Cấp"
+  },
+  "License": {
+    "pt": "Licença",
+    "ru": "Лицензия",
+    "es": "Licencia",
+    "vi": "Giấy phép"
+  },
+  "License number": {
+    "pt": "Número da licença",
+    "ru": "Номер лицензии",
+    "es": "Número de licencia",
+    "vi": "Số giấy phép"
+  },
+  "Living Benefits": {
+    "pt": "Living Benefits",
+    "ru": "Living Benefits",
+    "es": "Living Benefits",
+    "vi": "Living Benefits"
+  },
+  "Load suggested plan price": {
+    "pt": "Carregar preço sugerido do plano",
+    "ru": "Загрузить предложенную цену плана",
+    "es": "Cargar precio sugerido del plan",
+    "vi": "Tải giá gói đề xuất"
+  },
+  "Loading ZIP codes…": {
+    "pt": "A carregar códigos ZIP…",
+    "ru": "Загрузка ZIP-кодов…",
+    "es": "Cargando códigos ZIP…",
+    "vi": "Đang tải mã ZIP…"
+  },
+  "Location": {
+    "pt": "Localização",
+    "ru": "Местоположение",
+    "es": "Ubicación",
+    "vi": "Vị trí"
+  },
+  "Login History": {
+    "pt": "Histórico de login",
+    "ru": "История входов",
+    "es": "Historial de acceso",
+    "vi": "Lịch sử đăng nhập"
+  },
+  "Login history": {
+    "pt": "Histórico de login",
+    "ru": "История входов",
+    "es": "Historial de acceso",
+    "vi": "Lịch sử đăng nhập"
+  },
+  "Logout": {
+    "pt": "Terminar sessão",
+    "ru": "Выйти",
+    "es": "Cerrar sesión",
+    "vi": "Đăng xuất"
+  },
+  "Long term care": {
+    "pt": "Cuidados de longo prazo",
+    "ru": "Долгосрочный уход",
+    "es": "Cuidado a largo plazo",
+    "vi": "Chăm sóc dài hạn"
+  },
+  "Mailjet API": {
+    "pt": "Mailjet API",
+    "ru": "Mailjet API",
+    "es": "Mailjet API",
+    "vi": "Mailjet API"
+  },
+  "Maintenance mode": {
+    "pt": "Modo de manutenção",
+    "ru": "Режим обслуживания",
+    "es": "Modo mantenimiento",
+    "vi": "Chế độ bảo trì"
+  },
+  "Male": {
+    "pt": "Masculino",
+    "ru": "Мужской",
+    "es": "Masculino",
+    "vi": "Nam"
+  },
+  "Male only": {
+    "pt": "Somente masculino",
+    "ru": "Только мужской",
+    "es": "Solo masculino",
+    "vi": "Chỉ nam"
+  },
+  "Manage products, members, agents, applications, and finance with a workspace built for daily operations.": {
+    "pt": "Gerencie produtos, membros, agentes, candidaturas e finanças num espaço feito para o dia a dia.",
+    "ru": "Управляйте продуктами, участниками, агентами, заявками и финансами в кабинете для ежедневной работы.",
+    "es": "Gestione productos, miembros, agentes, solicitudes y finanzas en un espacio para la operación diaria.",
+    "vi": "Quản lý sản phẩm, thành viên, đại lý, đơn và tài chính trong không gian vận hành hằng ngày."
+  },
+  "Mark awaiting payment": {
+    "pt": "Marcar a aguardar pagamento",
+    "ru": "Отметить ожидание оплаты",
+    "es": "Marcar en espera de pago",
+    "vi": "Đánh dấu chờ thanh toán"
+  },
+  "Max amount": {
+    "pt": "Valor máx.",
+    "ru": "Макс. сумма",
+    "es": "Importe máx.",
+    "vi": "Số tiền tối đa"
+  },
+  "Max limit": {
+    "pt": "Limite máx.",
+    "ru": "Макс. лимит",
+    "es": "Límite máx.",
+    "vi": "Hạn mức tối đa"
+  },
+  "Member": {
+    "pt": "Membro",
+    "ru": "Участник",
+    "es": "Miembro",
+    "vi": "Thành viên"
+  },
+  "Member US ZIP code": {
+    "pt": "ZIP dos EUA do membro",
+    "ru": "ZIP США участника",
+    "es": "ZIP de EE. UU. del miembro",
+    "vi": "Mã ZIP Mỹ của thành viên"
+  },
+  "Member onboarding status": {
+    "pt": "Status de onboarding do membro",
+    "ru": "Статус онбординга участника",
+    "es": "Estado de onboarding del miembro",
+    "vi": "Trạng thái onboarding thành viên"
+  },
+  "Members who received referral fee": {
+    "pt": "Membros que receberam taxa de indicação",
+    "ru": "Участники, получившие реферальную комиссию",
+    "es": "Miembros que recibieron comisión de referidos",
+    "vi": "Thành viên đã nhận phí giới thiệu"
+  },
+  "Members who triggered payouts": {
+    "pt": "Membros que despoletaram pagamentos",
+    "ru": "Участники, вызвавшие выплаты",
+    "es": "Miembros que generaron pagos",
+    "vi": "Thành viên kích hoạt chi trả"
+  },
+  "Members, packages, referral reports, support and readiness.": {
+    "pt": "Membros, pacotes, relatórios de indicação, suporte e prontidão.",
+    "ru": "Участники, пакеты, реферальные отчёты, поддержка и готовность.",
+    "es": "Miembros, paquetes, informes de referidos, soporte y preparación.",
+    "vi": "Thành viên, gói, báo cáo giới thiệu, hỗ trợ và sẵn sàng."
+  },
+  "Message": {
+    "pt": "Mensagem",
+    "ru": "Сообщение",
+    "es": "Mensaje",
+    "vi": "Tin nhắn"
+  },
+  "Messages from agent": {
+    "pt": "Mensagens do agente",
+    "ru": "Сообщения от агента",
+    "es": "Mensajes del agente",
+    "vi": "Tin từ đại lý"
+  },
+  "Messages from clients": {
+    "pt": "Mensagens dos clientes",
+    "ru": "Сообщения от клиентов",
+    "es": "Mensajes de clientes",
+    "vi": "Tin từ khách"
+  },
+  "Method": {
+    "pt": "Método",
+    "ru": "Метод",
+    "es": "Método",
+    "vi": "Phương thức"
+  },
+  "Method: SMTP · Host: smtp.gmail.com · Port: 587 · TLS": {
+    "pt": "Método: SMTP · Host: smtp.gmail.com · Porta: 587 · TLS",
+    "ru": "Метод: SMTP · Хост: smtp.gmail.com · Порт: 587 · TLS",
+    "es": "Método: SMTP · Host: smtp.gmail.com · Puerto: 587 · TLS",
+    "vi": "Phương thức: SMTP · Host: smtp.gmail.com · Cổng: 587 · TLS"
+  },
+  "Methods": {
+    "pt": "Métodos",
+    "ru": "Методы",
+    "es": "Métodos",
+    "vi": "Phương thức"
+  },
+  "Min amount": {
+    "pt": "Valor mín.",
+    "ru": "Мин. сумма",
+    "es": "Importe mín.",
+    "vi": "Số tiền tối thiểu"
+  },
+  "Min limit": {
+    "pt": "Limite mín.",
+    "ru": "Мин. лимит",
+    "es": "Límite mín.",
+    "vi": "Hạn mức tối thiểu"
+  },
+  "Mobile": {
+    "pt": "Telemóvel",
+    "ru": "Мобильный",
+    "es": "Móvil",
+    "vi": "Di động"
+  },
+  "Mobile verified": {
+    "pt": "Telemóvel verificado",
+    "ru": "Мобильный подтверждён",
+    "es": "Móvil verificado",
+    "vi": "Di động đã xác minh"
+  },
+  "Money": {
+    "pt": "Dinheiro",
+    "ru": "Деньги",
+    "es": "Dinero",
+    "vi": "Tiền"
+  },
+  "Monthly": {
+    "pt": "Mensal",
+    "ru": "Ежемесячно",
+    "es": "Mensual",
+    "vi": "Hàng tháng"
+  },
+  "Monthly quote": {
+    "pt": "Cotação mensal",
+    "ru": "Месячная котировка",
+    "es": "Cotización mensual",
+    "vi": "Báo giá tháng"
+  },
+  "Monthly quote ($)": {
+    "pt": "Cotação mensal ($)",
+    "ru": "Месячная котировка ($)",
+    "es": "Cotización mensual ($)",
+    "vi": "Báo giá tháng ($)"
+  },
+  "My Clients": {
+    "pt": "Meus clientes",
+    "ru": "Мои клиенты",
+    "es": "Mis clientes",
+    "vi": "Khách hàng của tôi"
+  },
+  "Name": {
+    "pt": "Nome",
+    "ru": "Имя",
+    "es": "Nombre",
+    "vi": "Tên"
+  },
+  "Nationwide coverage is active.": {
+    "pt": "Cobertura nacional está ativa.",
+    "ru": "Общенациональное покрытие активно.",
+    "es": "La cobertura nacional está activa.",
+    "vi": "Phạm vi toàn quốc đang bật."
+  },
+  "New admin": {
+    "pt": "Novo admin",
+    "ru": "Новый админ",
+    "es": "Nuevo admin",
+    "vi": "Quản trị mới"
+  },
+  "New agent": {
+    "pt": "Novo agente",
+    "ru": "Новый агент",
+    "es": "Nuevo agente",
+    "vi": "Đại lý mới"
+  },
+  "New client message": {
+    "pt": "Nova mensagem do cliente",
+    "ru": "Новое сообщение клиента",
+    "es": "Nuevo mensaje del cliente",
+    "vi": "Tin nhắn khách mới"
+  },
+  "New members to review": {
+    "pt": "Novos membros para rever",
+    "ru": "Новые участники на проверку",
+    "es": "Nuevos miembros por revisar",
+    "vi": "Thành viên mới cần duyệt"
+  },
+  "New message": {
+    "pt": "Nova mensagem",
+    "ru": "Новое сообщение",
+    "es": "Nuevo mensaje",
+    "vi": "Tin nhắn mới"
+  },
+  "New password": {
+    "pt": "Nova senha",
+    "ru": "Новый пароль",
+    "es": "Nueva contraseña",
+    "vi": "Mật khẩu mới"
+  },
+  "New referral rule": {
+    "pt": "Nova regra de indicação",
+    "ru": "Новое реферальное правило",
+    "es": "Nueva regla de referidos",
+    "vi": "Quy tắc giới thiệu mới"
+  },
+  "No": {
+    "pt": "Não",
+    "ru": "Нет",
+    "es": "No",
+    "vi": "Không"
+  },
+  "No Agent Coverage": {
+    "pt": "Sem cobertura de agente",
+    "ru": "Нет покрытия агента",
+    "es": "Sin cobertura de agente",
+    "vi": "Không có phạm vi đại lý"
+  },
+  "No ZIP codes assigned.": {
+    "pt": "Nenhum código ZIP atribuído.",
+    "ru": "ZIP-коды не назначены.",
+    "es": "No hay códigos ZIP asignados.",
+    "vi": "Chưa gán mã ZIP."
+  },
+  "No ZIP codes match this filter.": {
+    "pt": "Nenhum código ZIP corresponde a este filtro.",
+    "ru": "Нет ZIP-кодов по этому фильтру.",
+    "es": "Ningún código ZIP coincide con este filtro.",
+    "vi": "Không có mã ZIP khớp bộ lọc này."
+  },
+  "No admin accounts found.": {
+    "pt": "Nenhuma conta de admin encontrada.",
+    "ru": "Аккаунты админов не найдены.",
+    "es": "No se encontraron cuentas de admin.",
+    "vi": "Không tìm thấy tài khoản quản trị."
+  },
+  "No admin activity has been logged yet.": {
+    "pt": "Ainda não há atividade de admin registada.",
+    "ru": "Активность админов ещё не записана.",
+    "es": "Aún no hay actividad de admin registrada.",
+    "vi": "Chưa ghi nhận hoạt động quản trị."
+  },
+  "No agent": {
+    "pt": "Sem agente",
+    "ru": "Нет агента",
+    "es": "Sin agente",
+    "vi": "Không có đại lý"
+  },
+  "No agent coverage": {
+    "pt": "Sem cobertura de agente",
+    "ru": "Нет покрытия агента",
+    "es": "Sin cobertura de agente",
+    "vi": "Không có phạm vi đại lý"
+  },
+  "No agent for ZIP code": {
+    "pt": "Sem agente para o código ZIP",
+    "ru": "Нет агента для ZIP",
+    "es": "Sin agente para el código ZIP",
+    "vi": "Không có đại lý cho mã ZIP"
+  },
+  "No agents found.": {
+    "pt": "Nenhum agente encontrado.",
+    "ru": "Агенты не найдены.",
+    "es": "No se encontraron agentes.",
+    "vi": "Không tìm thấy đại lý."
+  },
+  "No agents yet.": {
+    "pt": "Ainda sem agentes.",
+    "ru": "Пока нет агентов.",
+    "es": "Aún no hay agentes.",
+    "vi": "Chưa có đại lý."
+  },
+  "No applications": {
+    "pt": "Sem candidaturas",
+    "ru": "Нет заявок",
+    "es": "Sin solicitudes",
+    "vi": "Không có đơn"
+  },
+  "No applications in this period.": {
+    "pt": "Sem candidaturas neste período.",
+    "ru": "Нет заявок за этот период.",
+    "es": "Sin solicitudes en este período.",
+    "vi": "Không có đơn trong kỳ này."
+  },
+  "No applications in your coverage areas yet.": {
+    "pt": "Ainda sem candidaturas nas suas áreas de cobertura.",
+    "ru": "Пока нет заявок в ваших зонах покрытия.",
+    "es": "Aún no hay solicitudes en sus áreas de cobertura.",
+    "vi": "Chưa có đơn trong khu vực phạm vi của bạn."
+  },
+  "No applications yet.": {
+    "pt": "Ainda sem candidaturas.",
+    "ru": "Пока нет заявок.",
+    "es": "Aún no hay solicitudes.",
+    "vi": "Chưa có đơn."
+  },
+  "No clients": {
+    "pt": "Sem clientes",
+    "ru": "Нет клиентов",
+    "es": "Sin clientes",
+    "vi": "Không có khách"
+  },
+  "No clients assigned yet.": {
+    "pt": "Ainda sem clientes atribuídos.",
+    "ru": "Пока нет назначенных клиентов.",
+    "es": "Aún no hay clientes asignados.",
+    "vi": "Chưa gán khách hàng."
+  },
+  "No clients in your assigned ZIP code areas yet.": {
+    "pt": "Ainda sem clientes nas suas áreas de ZIP.",
+    "ru": "Пока нет клиентов в ваших ZIP-зонах.",
+    "es": "Aún no hay clientes en sus áreas ZIP.",
+    "vi": "Chưa có khách trong khu vực ZIP được gán."
+  },
+  "No conversations yet. Open a client profile and start chatting.": {
+    "pt": "Ainda sem conversas. Abra um perfil de cliente e comece a conversar.",
+    "ru": "Пока нет диалогов. Откройте профиль клиента и начните чат.",
+    "es": "Aún no hay conversaciones. Abra un perfil de cliente y empiece a chatear.",
+    "vi": "Chưa có hội thoại. Mở hồ sơ khách và bắt đầu chat."
+  },
+  "No coverage": {
+    "pt": "Sem cobertura",
+    "ru": "Нет покрытия",
+    "es": "Sin cobertura",
+    "vi": "Không có phạm vi"
+  },
+  "No coverage assigned yet.": {
+    "pt": "Ainda sem cobertura atribuída.",
+    "ru": "Покрытие ещё не назначено.",
+    "es": "Aún no hay cobertura asignada.",
+    "vi": "Chưa gán phạm vi."
+  },
+  "No data": {
+    "pt": "Sem dados",
+    "ru": "Нет данных",
+    "es": "Sin datos",
+    "vi": "Không có dữ liệu"
+  },
+  "No deposit gateways.": {
+    "pt": "Sem gateways de depósito.",
+    "ru": "Нет шлюзов депозита.",
+    "es": "Sin pasarelas de depósito.",
+    "vi": "Không có cổng nạp tiền."
+  },
+  "No deposits found.": {
+    "pt": "Nenhum depósito encontrado.",
+    "ru": "Депозиты не найдены.",
+    "es": "No se encontraron depósitos.",
+    "vi": "Không tìm thấy nạp tiền."
+  },
+  "No deposits yet.": {
+    "pt": "Ainda sem depósitos.",
+    "ru": "Пока нет депозитов.",
+    "es": "Aún no hay depósitos.",
+    "vi": "Chưa có nạp tiền."
+  },
+  "No investments found.": {
+    "pt": "Nenhum investimento encontrado.",
+    "ru": "Инвестиции не найдены.",
+    "es": "No se encontraron inversiones.",
+    "vi": "Không tìm thấy đầu tư."
+  },
+  "No login history found.": {
+    "pt": "Nenhum histórico de login encontrado.",
+    "ru": "История входов не найдена.",
+    "es": "No se encontró historial de acceso.",
+    "vi": "Không tìm thấy lịch sử đăng nhập."
+  },
+  "No messages yet. Say hello to your client.": {
+    "pt": "Ainda sem mensagens. Cumprimente o seu cliente.",
+    "ru": "Пока нет сообщений. Поздоровайтесь с клиентом.",
+    "es": "Aún no hay mensajes. Salude a su cliente.",
+    "vi": "Chưa có tin nhắn. Hãy chào khách hàng."
+  },
+  "No product": {
+    "pt": "Sem produto",
+    "ru": "Нет продукта",
+    "es": "Sin producto",
+    "vi": "Không có sản phẩm"
+  },
+  "No products on record.": {
+    "pt": "Nenhum produto no registo.",
+    "ru": "Нет продуктов в записи.",
+    "es": "No hay productos registrados.",
+    "vi": "Không có sản phẩm trong hồ sơ."
+  },
+  "No products yet.": {
+    "pt": "Ainda sem produtos.",
+    "ru": "Пока нет продуктов.",
+    "es": "Aún no hay productos.",
+    "vi": "Chưa có sản phẩm."
+  },
+  "No referral fees paid yet.": {
+    "pt": "Ainda sem taxas de indicação pagas.",
+    "ru": "Реферальные комиссии ещё не выплачены.",
+    "es": "Aún no se han pagado comisiones de referidos.",
+    "vi": "Chưa chi trả phí giới thiệu."
+  },
+  "No referral rules yet.": {
+    "pt": "Ainda sem regras de indicação.",
+    "ru": "Пока нет реферальных правил.",
+    "es": "Aún no hay reglas de referidos.",
+    "vi": "Chưa có quy tắc giới thiệu."
+  },
+  "No replies yet.": {
+    "pt": "Ainda sem respostas.",
+    "ru": "Пока нет ответов.",
+    "es": "Aún no hay respuestas.",
+    "vi": "Chưa có phản hồi."
+  },
+  "No sales": {
+    "pt": "Sem vendas",
+    "ru": "Нет продаж",
+    "es": "Sin ventas",
+    "vi": "Không có doanh số"
+  },
+  "No states added yet. Use the search box above to add a state, then expand it to pick ZIP codes — or click Select all USA.": {
+    "pt": "Ainda sem estados. Use a pesquisa acima para adicionar um estado, depois expanda para escolher ZIPs — ou clique em Selecionar todos EUA.",
+    "ru": "Штаты ещё не добавлены. Найдите штат выше, разверните и выберите ZIP — или нажмите Выбрать все США.",
+    "es": "Aún no hay estados. Use la búsqueda arriba para añadir un estado, expándalo y elija ZIP — o pulse Seleccionar todo EE. UU.",
+    "vi": "Chưa thêm bang. Dùng ô tìm phía trên để thêm bang, mở ra chọn ZIP — hoặc nhấn Chọn toàn Mỹ."
+  },
+  "No states found": {
+    "pt": "Nenhum estado encontrado",
+    "ru": "Штаты не найдены",
+    "es": "No se encontraron estados",
+    "vi": "Không tìm thấy bang"
+  },
+  "No support tickets found.": {
+    "pt": "Nenhum ticket de suporte encontrado.",
+    "ru": "Тикеты поддержки не найдены.",
+    "es": "No se encontraron tickets de soporte.",
+    "vi": "Không tìm thấy ticket hỗ trợ."
+  },
+  "No third-party portals configured.": {
+    "pt": "Nenhum portal de terceiros configurado.",
+    "ru": "Сторонние порталы не настроены.",
+    "es": "No hay portales de terceros configurados.",
+    "vi": "Chưa cấu hình cổng bên thứ ba."
+  },
+  "No transactions found.": {
+    "pt": "Nenhuma transação encontrada.",
+    "ru": "Транзакции не найдены.",
+    "es": "No se encontraron transacciones.",
+    "vi": "Không tìm thấy giao dịch."
+  },
+  "No transactions yet.": {
+    "pt": "Ainda sem transações.",
+    "ru": "Пока нет транзакций.",
+    "es": "Aún no hay transacciones.",
+    "vi": "Chưa có giao dịch."
+  },
+  "No users found.": {
+    "pt": "Nenhum utilizador encontrado.",
+    "ru": "Пользователи не найдены.",
+    "es": "No se encontraron usuarios.",
+    "vi": "Không tìm thấy người dùng."
+  },
+  "No users yet.": {
+    "pt": "Ainda sem utilizadores.",
+    "ru": "Пока нет пользователей.",
+    "es": "Aún no hay usuarios.",
+    "vi": "Chưa có người dùng."
+  },
+  "No withdrawal methods.": {
+    "pt": "Sem métodos de levantamento.",
+    "ru": "Нет методов вывода.",
+    "es": "Sin métodos de retiro.",
+    "vi": "Không có phương thức rút."
+  },
+  "No withdrawals found.": {
+    "pt": "Nenhum levantamento encontrado.",
+    "ru": "Выводы не найдены.",
+    "es": "No se encontraron retiros.",
+    "vi": "Không tìm thấy rút tiền."
+  },
+  "No withdrawals yet.": {
+    "pt": "Ainda sem levantamentos.",
+    "ru": "Пока нет выводов.",
+    "es": "Aún no hay retiros.",
+    "vi": "Chưa có rút tiền."
+  },
+  "Non-smoker": {
+    "pt": "Não fumador",
+    "ru": "Некурящий",
+    "es": "No fumador",
+    "vi": "Không hút thuốc"
+  },
+  "Notes": {
+    "pt": "Notas",
+    "ru": "Заметки",
+    "es": "Notas",
+    "vi": "Ghi chú"
+  },
+  "Notes (optional)": {
+    "pt": "Notas (opcional)",
+    "ru": "Заметки (необязательно)",
+    "es": "Notas (opcional)",
+    "vi": "Ghi chú (tùy chọn)"
+  },
+  "Notifications": {
+    "pt": "Notificações",
+    "ru": "Уведомления",
+    "es": "Notificaciones",
+    "vi": "Thông báo"
+  },
+  "OK": {
+    "pt": "OK",
+    "ru": "OK",
+    "es": "OK",
+    "vi": "OK"
+  },
+  "Offline payment": {
+    "pt": "Pagamento offline",
+    "ru": "Офлайн-оплата",
+    "es": "Pago offline",
+    "vi": "Thanh toán offline"
+  },
+  "On record for this client": {
+    "pt": "No registo deste cliente",
+    "ru": "В записи этого клиента",
+    "es": "En el registro de este cliente",
+    "vi": "Trong hồ sơ khách này"
+  },
+  "Open": {
+    "pt": "Abrir",
+    "ru": "Открыть",
+    "es": "Abrir",
+    "vi": "Mở"
+  },
+  "Open chat": {
+    "pt": "Abrir chat",
+    "ru": "Открыть чат",
+    "es": "Abrir chat",
+    "vi": "Mở chat"
+  },
+  "Open chat to reply.": {
+    "pt": "Abra o chat para responder.",
+    "ru": "Откройте чат, чтобы ответить.",
+    "es": "Abra el chat para responder.",
+    "vi": "Mở chat để trả lời."
+  },
+  "Operational audit log": {
+    "pt": "Log de auditoria operacional",
+    "ru": "Операционный журнал аудита",
+    "es": "Registro de auditoría operativa",
+    "vi": "Nhật ký kiểm toán vận hành"
+  },
+  "Operations": {
+    "pt": "Operações",
+    "ru": "Операции",
+    "es": "Operaciones",
+    "vi": "Vận hành"
+  },
+  "Ops": {
+    "pt": "Ops",
+    "ru": "Ops",
+    "es": "Ops",
+    "vi": "Ops"
+  },
+  "Other / unknown": {
+    "pt": "Outro / desconhecido",
+    "ru": "Другое / неизвестно",
+    "es": "Otro / desconocido",
+    "vi": "Khác / không rõ"
+  },
+  "Overview of your assigned clients and activity.": {
+    "pt": "Visão geral dos clientes atribuídos e da atividade.",
+    "ru": "Обзор назначенных клиентов и активности.",
+    "es": "Resumen de clientes asignados y actividad.",
+    "vi": "Tổng quan khách được gán và hoạt động."
+  },
+  "PHP Mail": {
+    "pt": "PHP Mail",
+    "ru": "PHP Mail",
+    "es": "PHP Mail",
+    "vi": "PHP Mail"
+  },
+  "Package": {
+    "pt": "Pacote",
+    "ru": "Пакет",
+    "es": "Paquete",
+    "vi": "Gói"
+  },
+  "Paid / return": {
+    "pt": "Pago / retorno",
+    "ru": "Выплачено / возврат",
+    "es": "Pagado / retorno",
+    "vi": "Đã trả / hoàn lại"
+  },
+  "Password": {
+    "pt": "Palavra-passe",
+    "ru": "Пароль",
+    "es": "Contraseña",
+    "vi": "Mật khẩu"
+  },
+  "Password / App Password": {
+    "pt": "Senha / App Password",
+    "ru": "Пароль / App Password",
+    "es": "Contraseña / App Password",
+    "vi": "Mật khẩu / App Password"
+  },
+  "Password: 16 characters, no spaces": {
+    "pt": "Senha: 16 caracteres, sem espaços",
+    "ru": "Пароль: 16 символов, без пробелов",
+    "es": "Contraseña: 16 caracteres, sin espacios",
+    "vi": "Mật khẩu: 16 ký tự, không khoảng trắng"
+  },
+  "Pay type": {
+    "pt": "Tipo de pagamento",
+    "ru": "Тип выплаты",
+    "es": "Tipo de pago",
+    "vi": "Loại thanh toán"
+  },
+  "Payment reference or internal note": {
+    "pt": "Referência de pagamento ou nota interna",
+    "ru": "Референс платежа или внутренняя заметка",
+    "es": "Referencia de pago o nota interna",
+    "vi": "Tham chiếu thanh toán hoặc ghi chú nội bộ"
+  },
+  "Payment reference, amount received, or follow-up details": {
+    "pt": "Referência de pagamento, valor recebido ou detalhes de follow-up",
+    "ru": "Референс платежа, полученная сумма или детали follow-up",
+    "es": "Referencia de pago, importe recibido o detalles de seguimiento",
+    "vi": "Tham chiếu thanh toán, số tiền nhận hoặc chi tiết theo dõi"
+  },
+  "Payout entries": {
+    "pt": "Entradas de pagamento",
+    "ru": "Записи выплат",
+    "es": "Entradas de pago",
+    "vi": "Bản ghi chi trả"
+  },
+  "Pending": {
+    "pt": "Pendente",
+    "ru": "Ожидание",
+    "es": "Pendiente",
+    "vi": "Đang chờ"
+  },
+  "Pending Approval": {
+    "pt": "Aguardando aprovação",
+    "ru": "Ожидает одобрения",
+    "es": "Pendiente de aprobación",
+    "vi": "Chờ duyệt"
+  },
+  "Pending Deposits": {
+    "pt": "Depósitos pendentes",
+    "ru": "Ожидающие депозиты",
+    "es": "Depósitos pendientes",
+    "vi": "Nạp tiền đang chờ"
+  },
+  "Pending Packages": {
+    "pt": "Pacotes pendentes",
+    "ru": "Ожидающие пакеты",
+    "es": "Paquetes pendientes",
+    "vi": "Gói đang chờ"
+  },
+  "Pending Withdrawals": {
+    "pt": "Levantamentos pendentes",
+    "ru": "Ожидающие выводы",
+    "es": "Retiros pendientes",
+    "vi": "Rút tiền đang chờ"
+  },
+  "Percent": {
+    "pt": "Percentagem",
+    "ru": "Процент",
+    "es": "Porcentaje",
+    "vi": "Phần trăm"
+  },
+  "Percent charge": {
+    "pt": "Cobrança percentual",
+    "ru": "Процентный сбор",
+    "es": "Cargo porcentual",
+    "vi": "Phí phần trăm"
+  },
+  "Performance report": {
+    "pt": "Relatório de desempenho",
+    "ru": "Отчёт об эффективности",
+    "es": "Informe de rendimiento",
+    "vi": "Báo cáo hiệu suất"
+  },
+  "Period": {
+    "pt": "Período",
+    "ru": "Период",
+    "es": "Período",
+    "vi": "Kỳ"
+  },
+  "Permissions": {
+    "pt": "Permissões",
+    "ru": "Права",
+    "es": "Permisos",
+    "vi": "Quyền"
+  },
+  "Phone": {
+    "pt": "Telefone",
+    "ru": "Телефон",
+    "es": "Teléfono",
+    "vi": "Điện thoại"
+  },
+  "Photo or file · up to 5 files, 10 MB each": {
+    "pt": "Foto ou ficheiro · até 5 ficheiros, 10 MB cada",
+    "ru": "Фото или файл · до 5 файлов, по 10 МБ",
+    "es": "Foto o archivo · hasta 5 archivos, 10 MB cada uno",
+    "vi": "Ảnh hoặc tệp · tối đa 5 tệp, mỗi tệp 10 MB"
+  },
+  "Plan": {
+    "pt": "Plano",
+    "ru": "План",
+    "es": "Plan",
+    "vi": "Gói"
+  },
+  "Plans": {
+    "pt": "Planos",
+    "ru": "Планы",
+    "es": "Planes",
+    "vi": "Các gói"
+  },
+  "Platform fee the agent pays per product sale. Only admins can change this.": {
+    "pt": "Taxa de plataforma que o agente paga por venda de produto. Só admins podem alterar.",
+    "ru": "Платформенная комиссия агента за продажу продукта. Менять могут только админы.",
+    "es": "Comisión de plataforma que paga el agente por venta. Solo admins pueden cambiarla.",
+    "vi": "Phí nền tảng đại lý trả mỗi lần bán sản phẩm. Chỉ quản trị được sửa."
+  },
+  "Platform fees due": {
+    "pt": "Taxas de plataforma devidas",
+    "ru": "К уплате платформенных комиссий",
+    "es": "Comisiones de plataforma adeudadas",
+    "vi": "Phí nền tảng đến hạn"
+  },
+  "Policy confirmed on": {
+    "pt": "Apólice confirmada em",
+    "ru": "Полис подтверждён",
+    "es": "Póliza confirmada el",
+    "vi": "Hợp đồng xác nhận ngày"
+  },
+  "Policy terms shown before applicant confirms": {
+    "pt": "Termos da apólice mostrados antes da confirmação do candidato",
+    "ru": "Условия полиса до подтверждения заявителем",
+    "es": "Términos de la póliza mostrados antes de que el solicitante confirme",
+    "vi": "Điều khoản hợp đồng hiện trước khi ứng viên xác nhận"
+  },
+  "Port": {
+    "pt": "Porta",
+    "ru": "Порт",
+    "es": "Puerto",
+    "vi": "Cổng"
+  },
+  "Portal": {
+    "pt": "Portal",
+    "ru": "Портал",
+    "es": "Portal",
+    "vi": "Cổng"
+  },
+  "Post Balance": {
+    "pt": "Saldo após",
+    "ru": "Баланс после",
+    "es": "Saldo posterior",
+    "vi": "Số dư sau"
+  },
+  "Price ranges": {
+    "pt": "Faixas de preço",
+    "ru": "Диапазоны цен",
+    "es": "Rangos de precio",
+    "vi": "Khoảng giá"
+  },
+  "Price tier": {
+    "pt": "Faixa de preço",
+    "ru": "Ценовой уровень",
+    "es": "Nivel de precio",
+    "vi": "Bậc giá"
+  },
+  "Pricing": {
+    "pt": "Preços",
+    "ru": "Цены",
+    "es": "Precios",
+    "vi": "Định giá"
+  },
+  "Priority": {
+    "pt": "Prioridade",
+    "ru": "Приоритет",
+    "es": "Prioridad",
+    "vi": "Ưu tiên"
+  },
+  "Private chat": {
+    "pt": "Chat privado",
+    "ru": "Приватный чат",
+    "es": "Chat privado",
+    "vi": "Chat riêng"
+  },
+  "Product": {
+    "pt": "Produto",
+    "ru": "Продукт",
+    "es": "Producto",
+    "vi": "Sản phẩm"
+  },
+  "Product catalog": {
+    "pt": "Catálogo de produtos",
+    "ru": "Каталог продуктов",
+    "es": "Catálogo de productos",
+    "vi": "Danh mục sản phẩm"
+  },
+  "Product name": {
+    "pt": "Nome do produto",
+    "ru": "Название продукта",
+    "es": "Nombre del producto",
+    "vi": "Tên sản phẩm"
+  },
+  "Production checklist": {
+    "pt": "Checklist de produção",
+    "ru": "Чеклист продакшена",
+    "es": "Lista de producción",
+    "vi": "Checklist production"
+  },
+  "Products": {
+    "pt": "Produtos",
+    "ru": "Продукты",
+    "es": "Productos",
+    "vi": "Sản phẩm"
+  },
+  "Products held": {
+    "pt": "Produtos detidos",
+    "ru": "Удерживаемые продукты",
+    "es": "Productos en cartera",
+    "vi": "Sản phẩm đang nắm"
+  },
+  "Profile": {
+    "pt": "Perfil",
+    "ru": "Профиль",
+    "es": "Perfil",
+    "vi": "Hồ sơ"
+  },
+  "Public key": {
+    "pt": "Chave pública",
+    "ru": "Публичный ключ",
+    "es": "Clave pública",
+    "vi": "Khóa công khai"
+  },
+  "Publish": {
+    "pt": "Publicar",
+    "ru": "Опубликовать",
+    "es": "Publicar",
+    "vi": "Xuất bản"
+  },
+  "Published (visible on the public About Us page)": {
+    "pt": "Publicado (visível na página pública Sobre nós)",
+    "ru": "Опубликовано (видно на публичной странице О нас)",
+    "es": "Publicado (visible en la página pública Sobre nosotros)",
+    "vi": "Đã xuất bản (hiện trên trang Về chúng tôi công khai)"
+  },
+  "Quick links": {
+    "pt": "Links rápidos",
+    "ru": "Быстрые ссылки",
+    "es": "Enlaces rápidos",
+    "vi": "Liên kết nhanh"
+  },
+  "Quoted": {
+    "pt": "Cotado",
+    "ru": "С котировкой",
+    "es": "Cotizado",
+    "vi": "Đã báo giá"
+  },
+  "Range": {
+    "pt": "Intervalo",
+    "ru": "Диапазон",
+    "es": "Rango",
+    "vi": "Khoảng"
+  },
+  "Rate": {
+    "pt": "Taxa",
+    "ru": "Ставка",
+    "es": "Tasa",
+    "vi": "Tỷ lệ"
+  },
+  "Read": {
+    "pt": "Lido",
+    "ru": "Прочитано",
+    "es": "Leído",
+    "vi": "Đã đọc"
+  },
+  "Read-only dashboard and reports for owner review.": {
+    "pt": "Painel e relatórios só de leitura para revisão do proprietário.",
+    "ru": "Панель и отчёты только для чтения владельцу.",
+    "es": "Panel e informes de solo lectura para revisión del propietario.",
+    "vi": "Bảng điều khiển và báo cáo chỉ đọc cho chủ sở hữu."
+  },
+  "Readiness": {
+    "pt": "Prontidão",
+    "ru": "Готовность",
+    "es": "Preparación",
+    "vi": "Sẵn sàng"
+  },
+  "Realtime chat uses 5-second polling until Pusher is configured.": {
+    "pt": "O chat em tempo real usa polling de 5 segundos até o Pusher estar configurado.",
+    "ru": "Чат в реальном времени опрашивает каждые 5 сек, пока не настроен Pusher.",
+    "es": "El chat en tiempo real usa polling de 5 segundos hasta configurar Pusher.",
+    "vi": "Chat realtime dùng polling 5 giây cho đến khi cấu hình Pusher."
+  },
+  "Reason shown in admin notes": {
+    "pt": "Motivo mostrado nas notas do admin",
+    "ru": "Причина в заметках админа",
+    "es": "Motivo mostrado en notas del admin",
+    "vi": "Lý do hiện trong ghi chú quản trị"
+  },
+  "Receives": {
+    "pt": "Recebe",
+    "ru": "Получает",
+    "es": "Recibe",
+    "vi": "Nhận"
+  },
+  "Recent Transactions": {
+    "pt": "Transações recentes",
+    "ru": "Недавние транзакции",
+    "es": "Transacciones recientes",
+    "vi": "Giao dịch gần đây"
+  },
+  "Recent transactions": {
+    "pt": "Transações recentes",
+    "ru": "Недавние транзакции",
+    "es": "Transacciones recientes",
+    "vi": "Giao dịch gần đây"
+  },
+  "Recipient": {
+    "pt": "Destinatário",
+    "ru": "Получатель",
+    "es": "Destinatario",
+    "vi": "Người nhận"
+  },
+  "Recommended admin roles": {
+    "pt": "Funções de admin recomendadas",
+    "ru": "Рекомендуемые роли админа",
+    "es": "Roles de admin recomendados",
+    "vi": "Vai trò quản trị đề xuất"
+  },
+  "Record notes and confirm after offline payment is received.": {
+    "pt": "Registe notas e confirme após receber o pagamento offline.",
+    "ru": "Запишите заметки и подтвердите после получения офлайн-оплаты.",
+    "es": "Registre notas y confirme tras recibir el pago offline.",
+    "vi": "Ghi chú và xác nhận sau khi nhận thanh toán offline."
+  },
+  "Ref": {
+    "pt": "Ref",
+    "ru": "Реф",
+    "es": "Ref",
+    "vi": "Ref"
+  },
+  "Reference, email, name": {
+    "pt": "Referência, email, nome",
+    "ru": "Референс, email, имя",
+    "es": "Referencia, email, nombre",
+    "vi": "Tham chiếu, email, tên"
+  },
+  "Referral Paid": {
+    "pt": "Indicação paga",
+    "ru": "Реферал выплачен",
+    "es": "Referido pagado",
+    "vi": "Giới thiệu đã trả"
+  },
+  "Referral code": {
+    "pt": "Código de indicação",
+    "ru": "Реферальный код",
+    "es": "Código de referido",
+    "vi": "Mã giới thiệu"
+  },
+  "Referral fee earned": {
+    "pt": "Taxa de indicação ganha",
+    "ru": "Заработанная реферальная комиссия",
+    "es": "Comisión de referidos ganada",
+    "vi": "Phí giới thiệu đã kiếm"
+  },
+  "Referral fee ledger": {
+    "pt": "Ledger de taxas de indicação",
+    "ru": "Реестр реферальных комиссий",
+    "es": "Libro de comisiones de referidos",
+    "vi": "Sổ phí giới thiệu"
+  },
+  "Referral fee payouts": {
+    "pt": "Pagamentos de taxas de indicação",
+    "ru": "Выплаты реферальных комиссий",
+    "es": "Pagos de comisiones de referidos",
+    "vi": "Chi trả phí giới thiệu"
+  },
+  "Referral rules": {
+    "pt": "Regras de indicação",
+    "ru": "Реферальные правила",
+    "es": "Reglas de referidos",
+    "vi": "Quy tắc giới thiệu"
+  },
+  "Referrals": {
+    "pt": "Indicações",
+    "ru": "Рефералы",
+    "es": "Referidos",
+    "vi": "Giới thiệu"
+  },
+  "Referrer": {
+    "pt": "Indicador",
+    "ru": "Реферер",
+    "es": "Referidor",
+    "vi": "Người giới thiệu"
+  },
+  "Referrer email": {
+    "pt": "Email do indicador",
+    "ru": "Email реферера",
+    "es": "Email del referidor",
+    "vi": "Email người giới thiệu"
+  },
+  "Registration": {
+    "pt": "Registo",
+    "ru": "Регистрация",
+    "es": "Registro",
+    "vi": "Đăng ký"
+  },
+  "Registration open": {
+    "pt": "Registo aberto",
+    "ru": "Регистрация открыта",
+    "es": "Registro abierto",
+    "vi": "Mở đăng ký"
+  },
+  "Reject": {
+    "pt": "Rejeitar",
+    "ru": "Отклонить",
+    "es": "Rechazar",
+    "vi": "Từ chối"
+  },
+  "Reject & Refund": {
+    "pt": "Rejeitar e reembolsar",
+    "ru": "Отклонить и вернуть",
+    "es": "Rechazar y reembolsar",
+    "vi": "Từ chối & hoàn tiền"
+  },
+  "Reject & refund": {
+    "pt": "Rejeitar e reembolsar",
+    "ru": "Отклонить и вернуть",
+    "es": "Rechazar y reembolsar",
+    "vi": "Từ chối & hoàn tiền"
+  },
+  "Reject Deposit": {
+    "pt": "Rejeitar depósito",
+    "ru": "Отклонить депозит",
+    "es": "Rechazar depósito",
+    "vi": "Từ chối nạp tiền"
+  },
+  "Reject Message": {
+    "pt": "Mensagem de rejeição",
+    "ru": "Сообщение об отклонении",
+    "es": "Mensaje de rechazo",
+    "vi": "Tin nhắn từ chối"
+  },
+  "Reject Reason": {
+    "pt": "Motivo da rejeição",
+    "ru": "Причина отклонения",
+    "es": "Motivo del rechazo",
+    "vi": "Lý do từ chối"
+  },
+  "Reject member": {
+    "pt": "Rejeitar membro",
+    "ru": "Отклонить участника",
+    "es": "Rechazar miembro",
+    "vi": "Từ chối thành viên"
+  },
+  "Reject reason": {
+    "pt": "Motivo da rejeição",
+    "ru": "Причина отклонения",
+    "es": "Motivo del rechazo",
+    "vi": "Lý do từ chối"
+  },
+  "Rejected": {
+    "pt": "Rejeitado",
+    "ru": "Отклонено",
+    "es": "Rechazado",
+    "vi": "Đã từ chối"
+  },
+  "Remark": {
+    "pt": "Observação",
+    "ru": "Примечание",
+    "es": "Observación",
+    "vi": "Ghi chú"
+  },
+  "Remember this device": {
+    "pt": "Lembrar este dispositivo",
+    "ru": "Запомнить это устройство",
+    "es": "Recordar este dispositivo",
+    "vi": "Ghi nhớ thiết bị này"
+  },
+  "Remove": {
+    "pt": "Remover",
+    "ru": "Удалить",
+    "es": "Quitar",
+    "vi": "Gỡ"
+  },
+  "Reply": {
+    "pt": "Responder",
+    "ru": "Ответить",
+    "es": "Responder",
+    "vi": "Trả lời"
+  },
+  "Reports": {
+    "pt": "Relatórios",
+    "ru": "Отчёты",
+    "es": "Informes",
+    "vi": "Báo cáo"
+  },
+  "Require KYC": {
+    "pt": "Exigir KYC",
+    "ru": "Требовать KYC",
+    "es": "Requerir KYC",
+    "vi": "Yêu cầu KYC"
+  },
+  "Require admin approval": {
+    "pt": "Exigir aprovação do admin",
+    "ru": "Требовать одобрение админа",
+    "es": "Requerir aprobación del admin",
+    "vi": "Yêu cầu duyệt quản trị"
+  },
+  "Require email verification": {
+    "pt": "Exigir verificação de email",
+    "ru": "Требовать подтверждение email",
+    "es": "Requerir verificación de email",
+    "vi": "Yêu cầu xác minh email"
+  },
+  "Require mobile verification": {
+    "pt": "Exigir verificação de telemóvel",
+    "ru": "Требовать подтверждение мобильного",
+    "es": "Requerir verificación de móvil",
+    "vi": "Yêu cầu xác minh di động"
+  },
+  "Restore user": {
+    "pt": "Restaurar utilizador",
+    "ru": "Восстановить пользователя",
+    "es": "Restaurar usuario",
+    "vi": "Khôi phục người dùng"
+  },
+  "Return": {
+    "pt": "Retorno",
+    "ru": "Возврат",
+    "es": "Retorno",
+    "vi": "Hoàn lại"
+  },
+  "Review": {
+    "pt": "Rever",
+    "ru": "Проверить",
+    "es": "Revisar",
+    "vi": "Xem xét"
+  },
+  "Review Request": {
+    "pt": "Pedido de revisão",
+    "ru": "Запрос на проверку",
+    "es": "Solicitud de revisión",
+    "vi": "Yêu cầu xem xét"
+  },
+  "Review decision": {
+    "pt": "Decisão da revisão",
+    "ru": "Решение по проверке",
+    "es": "Decisión de revisión",
+    "vi": "Quyết định xem xét"
+  },
+  "Role": {
+    "pt": "Função",
+    "ru": "Роль",
+    "es": "Rol",
+    "vi": "Vai trò"
+  },
+  "Role preset": {
+    "pt": "Predefinição de função",
+    "ru": "Пресет роли",
+    "es": "Preset de rol",
+    "vi": "Mẫu vai trò"
+  },
+  "Role preset only": {
+    "pt": "Só predefinição de função",
+    "ru": "Только пресет роли",
+    "es": "Solo preset de rol",
+    "vi": "Chỉ mẫu vai trò"
+  },
+  "Rows per page": {
+    "pt": "Linhas por página",
+    "ru": "Строк на странице",
+    "es": "Filas por página",
+    "vi": "Số dòng mỗi trang"
+  },
+  "Run": {
+    "pt": "Executar",
+    "ru": "Запустить",
+    "es": "Ejecutar",
+    "vi": "Chạy"
+  },
+  "Run insurance operations from one modern console.": {
+    "pt": "Opere seguros a partir de uma consola moderna.",
+    "ru": "Ведите страховые операции из одной современной консоли.",
+    "es": "Gestione operaciones de seguro desde una consola moderna.",
+    "vi": "Vận hành bảo hiểm từ một bảng điều khiển hiện đại."
+  },
+  "Run route/config/view cache only after all routes are verified.": {
+    "pt": "Execute cache de rotas/config/views só depois de verificar todas as rotas.",
+    "ru": "Кэшируйте routes/config/views только после проверки всех маршрутов.",
+    "es": "Ejecute caché de rutas/config/vistas solo tras verificar todas las rutas.",
+    "vi": "Chỉ chạy cache route/config/view sau khi đã xác minh mọi route."
+  },
+  "Running": {
+    "pt": "Em curso",
+    "ru": "Активно",
+    "es": "En curso",
+    "vi": "Đang chạy"
+  },
+  "Running products": {
+    "pt": "Produtos em curso",
+    "ru": "Активные продукты",
+    "es": "Productos en curso",
+    "vi": "Sản phẩm đang chạy"
+  },
+  "SMTP (Gmail / Resend / others)": {
+    "pt": "SMTP (Gmail / Resend / outros)",
+    "ru": "SMTP (Gmail / Resend / другие)",
+    "es": "SMTP (Gmail / Resend / otros)",
+    "vi": "SMTP (Gmail / Resend / khác)"
+  },
+  "SSL": {
+    "pt": "SSL",
+    "ru": "SSL",
+    "es": "SSL",
+    "vi": "SSL"
+  },
+  "Sales": {
+    "pt": "Vendas",
+    "ru": "Продажи",
+    "es": "Ventas",
+    "vi": "Doanh số"
+  },
+  "Sales breakdown": {
+    "pt": "Detalhe de vendas",
+    "ru": "Разбивка продаж",
+    "es": "Desglose de ventas",
+    "vi": "Chi tiết doanh số"
+  },
+  "Sales mix": {
+    "pt": "Mix de vendas",
+    "ru": "Структура продаж",
+    "es": "Mix de ventas",
+    "vi": "Cơ cấu doanh số"
+  },
+  "Sample data": {
+    "pt": "Dados de exemplo",
+    "ru": "Тестовые данные",
+    "es": "Datos de ejemplo",
+    "vi": "Dữ liệu mẫu"
+  },
+  "Save About Us": {
+    "pt": "Guardar Sobre nós",
+    "ru": "Сохранить О нас",
+    "es": "Guardar Sobre nosotros",
+    "vi": "Lưu Về chúng tôi"
+  },
+  "Save agent assignment": {
+    "pt": "Guardar atribuição do agente",
+    "ru": "Сохранить назначение агента",
+    "es": "Guardar asignación de agente",
+    "vi": "Lưu gán đại lý"
+  },
+  "Save changes": {
+    "pt": "Guardar alterações",
+    "ru": "Сохранить изменения",
+    "es": "Guardar cambios",
+    "vi": "Lưu thay đổi"
+  },
+  "Save email settings": {
+    "pt": "Guardar definições de email",
+    "ru": "Сохранить настройки email",
+    "es": "Guardar ajustes de email",
+    "vi": "Lưu cài đặt email"
+  },
+  "Save gateway": {
+    "pt": "Guardar gateway",
+    "ru": "Сохранить шлюз",
+    "es": "Guardar pasarela",
+    "vi": "Lưu cổng"
+  },
+  "Save method": {
+    "pt": "Guardar método",
+    "ru": "Сохранить метод",
+    "es": "Guardar método",
+    "vi": "Lưu phương thức"
+  },
+  "Save product & quote": {
+    "pt": "Guardar produto e cotação",
+    "ru": "Сохранить продукт и котировку",
+    "es": "Guardar producto y cotización",
+    "vi": "Lưu sản phẩm & báo giá"
+  },
+  "Save quote & conditions": {
+    "pt": "Guardar cotação e condições",
+    "ru": "Сохранить котировку и условия",
+    "es": "Guardar cotización y condiciones",
+    "vi": "Lưu báo giá & điều kiện"
+  },
+  "Save rule": {
+    "pt": "Guardar regra",
+    "ru": "Сохранить правило",
+    "es": "Guardar regla",
+    "vi": "Lưu quy tắc"
+  },
+  "Save settings": {
+    "pt": "Guardar definições",
+    "ru": "Сохранить настройки",
+    "es": "Guardar ajustes",
+    "vi": "Lưu cài đặt"
+  },
+  "Save verification": {
+    "pt": "Guardar verificação",
+    "ru": "Сохранить проверку",
+    "es": "Guardar verificación",
+    "vi": "Lưu xác minh"
+  },
+  "Search": {
+    "pt": "Pesquisar",
+    "ru": "Поиск",
+    "es": "Buscar",
+    "vi": "Tìm kiếm"
+  },
+  "Search and add states, expand to browse every ZIP code in that state — or use <strong>Select all USA</strong> to cover the entire country.": {
+    "pt": "Pesquise e adicione estados, expanda para ver todos os ZIPs desse estado — ou use <strong>Selecionar todos EUA</strong> para cobrir o país inteiro.",
+    "ru": "Найдите и добавьте штаты, разверните, чтобы выбрать ZIP — или <strong>Выбрать все США</strong> для всей страны.",
+    "es": "Busque y añada estados, expándalo para ver cada ZIP — o use <strong>Seleccionar todo EE. UU.</strong> para todo el país.",
+    "vi": "Tìm và thêm bang, mở ra duyệt mọi ZIP — hoặc dùng <strong>Chọn toàn Mỹ</strong> để phủ cả nước."
+  },
+  "Search state (e.g. California or CA)…": {
+    "pt": "Pesquisar estado (ex. California ou CA)…",
+    "ru": "Поиск штата (напр. California или CA)…",
+    "es": "Buscar estado (p. ej. California o CA)…",
+    "vi": "Tìm bang (vd. California hoặc CA)…"
+  },
+  "Secret key": {
+    "pt": "Chave secreta",
+    "ru": "Секретный ключ",
+    "es": "Clave secreta",
+    "vi": "Khóa bí mật"
+  },
+  "Secure password rules": {
+    "pt": "Regras de senha segura",
+    "ru": "Правила надёжного пароля",
+    "es": "Reglas de contraseña segura",
+    "vi": "Quy tắc mật khẩu an toàn"
+  },
+  "Select a product…": {
+    "pt": "Selecione um produto…",
+    "ru": "Выберите продукт…",
+    "es": "Seleccione un producto…",
+    "vi": "Chọn một sản phẩm…"
+  },
+  "Select agent": {
+    "pt": "Selecionar agente",
+    "ru": "Выбрать агента",
+    "es": "Seleccionar agente",
+    "vi": "Chọn đại lý"
+  },
+  "Select all": {
+    "pt": "Selecionar tudo",
+    "ru": "Выбрать всё",
+    "es": "Seleccionar todo",
+    "vi": "Chọn tất cả"
+  },
+  "Select all USA": {
+    "pt": "Selecionar todos EUA",
+    "ru": "Выбрать все США",
+    "es": "Seleccionar todo EE. UU.",
+    "vi": "Chọn toàn Mỹ"
+  },
+  "Select at least one ZIP code.": {
+    "pt": "Selecione pelo menos um código ZIP.",
+    "ru": "Выберите хотя бы один ZIP-код.",
+    "es": "Seleccione al menos un código ZIP.",
+    "vi": "Chọn ít nhất một mã ZIP."
+  },
+  "Select third-party portals where this product should appear.": {
+    "pt": "Selecione portais de terceiros onde este produto deve aparecer.",
+    "ru": "Выберите сторонние порталы, где показывать этот продукт.",
+    "es": "Seleccione portales de terceros donde deba aparecer este producto.",
+    "vi": "Chọn cổng bên thứ ba nơi sản phẩm này hiện."
+  },
+  "Send Reply": {
+    "pt": "Enviar resposta",
+    "ru": "Отправить ответ",
+    "es": "Enviar respuesta",
+    "vi": "Gửi phản hồi"
+  },
+  "Send message": {
+    "pt": "Enviar mensagem",
+    "ru": "Отправить сообщение",
+    "es": "Enviar mensaje",
+    "vi": "Gửi tin nhắn"
+  },
+  "Send method": {
+    "pt": "Método de envio",
+    "ru": "Способ отправки",
+    "es": "Método de envío",
+    "vi": "Phương thức gửi"
+  },
+  "Send response": {
+    "pt": "Enviar resposta",
+    "ru": "Отправить ответ",
+    "es": "Enviar respuesta",
+    "vi": "Gửi phản hồi"
+  },
+  "Send test": {
+    "pt": "Enviar teste",
+    "ru": "Отправить тест",
+    "es": "Enviar prueba",
+    "vi": "Gửi thử"
+  },
+  "Send test email": {
+    "pt": "Enviar email de teste",
+    "ru": "Отправить тестовый email",
+    "es": "Enviar email de prueba",
+    "vi": "Gửi email thử"
+  },
+  "SendGrid API": {
+    "pt": "SendGrid API",
+    "ru": "SendGrid API",
+    "es": "SendGrid API",
+    "vi": "SendGrid API"
+  },
+  "SendGrid App Key": {
+    "pt": "SendGrid App Key",
+    "ru": "SendGrid App Key",
+    "es": "SendGrid App Key",
+    "vi": "SendGrid App Key"
+  },
+  "Sender name": {
+    "pt": "Nome do remetente",
+    "ru": "Имя отправителя",
+    "es": "Nombre del remitente",
+    "vi": "Tên người gửi"
+  },
+  "Serve clients in your ZIP code coverage with clarity.": {
+    "pt": "Sirva clientes na sua cobertura de ZIP com clareza.",
+    "ru": "Обслуживайте клиентов в вашем ZIP-покрытии прозрачно.",
+    "es": "Atienda clientes en su cobertura ZIP con claridad.",
+    "vi": "Phục vụ khách trong phạm vi ZIP của bạn một cách rõ ràng."
+  },
+  "Service territory": {
+    "pt": "Território de serviço",
+    "ru": "Территория обслуживания",
+    "es": "Territorio de servicio",
+    "vi": "Khu vực phục vụ"
+  },
+  "Set by admin · read only": {
+    "pt": "Definido pelo admin · só leitura",
+    "ru": "Задано админом · только чтение",
+    "es": "Definido por admin · solo lectura",
+    "vi": "Do quản trị đặt · chỉ đọc"
+  },
+  "Settings": {
+    "pt": "Definições",
+    "ru": "Настройки",
+    "es": "Ajustes",
+    "vi": "Cài đặt"
+  },
+  "Sex": {
+    "pt": "Sexo",
+    "ru": "Пол",
+    "es": "Sexo",
+    "vi": "Giới tính"
+  },
+  "Short description": {
+    "pt": "Descrição curta",
+    "ru": "Краткое описание",
+    "es": "Descripción breve",
+    "vi": "Mô tả ngắn"
+  },
+  "Show states": {
+    "pt": "Mostrar estados",
+    "ru": "Показать штаты",
+    "es": "Mostrar estados",
+    "vi": "Hiện bang"
+  },
+  "Shown for Term Life only.": {
+    "pt": "Mostrado apenas para Term Life.",
+    "ru": "Только для Term Life.",
+    "es": "Solo para Term Life.",
+    "vi": "Chỉ hiện với Term Life."
+  },
+  "Sign in": {
+    "pt": "Entrar",
+    "ru": "Войти",
+    "es": "Iniciar sesión",
+    "vi": "Đăng nhập"
+  },
+  "Site identity, currency, and verification rules.": {
+    "pt": "Identidade do site, moeda e regras de verificação.",
+    "ru": "Идентичность сайта, валюта и правила проверки.",
+    "es": "Identidad del sitio, moneda y reglas de verificación.",
+    "vi": "Danh tính site, tiền tệ và quy tắc xác minh."
+  },
+  "Site name": {
+    "pt": "Nome do site",
+    "ru": "Название сайта",
+    "es": "Nombre del sitio",
+    "vi": "Tên site"
+  },
+  "Smoker": {
+    "pt": "Fumador",
+    "ru": "Курящий",
+    "es": "Fumador",
+    "vi": "Hút thuốc"
+  },
+  "Smoking": {
+    "pt": "Tabaco",
+    "ru": "Курение",
+    "es": "Tabaquismo",
+    "vi": "Hút thuốc"
+  },
+  "Source buyers": {
+    "pt": "Compradores de origem",
+    "ru": "Исходные покупатели",
+    "es": "Compradores de origen",
+    "vi": "Người mua nguồn"
+  },
+  "Started": {
+    "pt": "Iniciado",
+    "ru": "Начато",
+    "es": "Iniciado",
+    "vi": "Đã bắt đầu"
+  },
+  "State": {
+    "pt": "Estado",
+    "ru": "Штат",
+    "es": "Estado",
+    "vi": "Bang"
+  },
+  "States covered": {
+    "pt": "Estados cobertos",
+    "ru": "Покрытые штаты",
+    "es": "Estados cubiertos",
+    "vi": "Bang được phủ"
+  },
+  "Status": {
+    "pt": "Estado",
+    "ru": "Статус",
+    "es": "Estado",
+    "vi": "Trạng thái"
+  },
+  "Step 1 — Awaiting payment": {
+    "pt": "Passo 1 — A aguardar pagamento",
+    "ru": "Шаг 1 — Ожидание оплаты",
+    "es": "Paso 1 — En espera de pago",
+    "vi": "Bước 1 — Chờ thanh toán"
+  },
+  "Step 2 — Confirm policy sold": {
+    "pt": "Passo 2 — Confirmar apólice vendida",
+    "ru": "Шаг 2 — Подтвердить продажу полиса",
+    "es": "Paso 2 — Confirmar póliza vendida",
+    "vi": "Bước 2 — Xác nhận đã bán hợp đồng"
+  },
+  "Subject": {
+    "pt": "Assunto",
+    "ru": "Тема",
+    "es": "Asunto",
+    "vi": "Chủ đề"
+  },
+  "Subtract": {
+    "pt": "Subtrair",
+    "ru": "Вычесть",
+    "es": "Restar",
+    "vi": "Trừ"
+  },
+  "Success": {
+    "pt": "Sucesso",
+    "ru": "Успех",
+    "es": "Éxito",
+    "vi": "Thành công"
+  },
+  "Successful only": {
+    "pt": "Somente bem-sucedidos",
+    "ru": "Только успешные",
+    "es": "Solo exitosos",
+    "vi": "Chỉ thành công"
+  },
+  "Super Admin": {
+    "pt": "Super Admin",
+    "ru": "Супер-админ",
+    "es": "Super Admin",
+    "vi": "Super Admin"
+  },
+  "Support": {
+    "pt": "Suporte",
+    "ru": "Поддержка",
+    "es": "Soporte",
+    "vi": "Hỗ trợ"
+  },
+  "Support email (Email)": {
+    "pt": "Email de suporte (Email)",
+    "ru": "Email поддержки (Email)",
+    "es": "Email de soporte (Email)",
+    "vi": "Email hỗ trợ (Email)"
+  },
+  "Support phone (Call)": {
+    "pt": "Telefone de suporte (Call)",
+    "ru": "Телефон поддержки (Call)",
+    "es": "Teléfono de soporte (Call)",
+    "vi": "Điện thoại hỗ trợ (Call)"
+  },
+  "Support tickets": {
+    "pt": "Tickets de suporte",
+    "ru": "Тикеты поддержки",
+    "es": "Tickets de soporte",
+    "vi": "Ticket hỗ trợ"
+  },
+  "System": {
+    "pt": "Sistema",
+    "ru": "Система",
+    "es": "Sistema",
+    "vi": "Hệ thống"
+  },
+  "TLS": {
+    "pt": "TLS",
+    "ru": "TLS",
+    "es": "TLS",
+    "vi": "TLS"
+  },
+  "TRX": {
+    "pt": "TRX",
+    "ru": "TRX",
+    "es": "TRX",
+    "vi": "TRX"
+  },
+  "Target": {
+    "pt": "Alvo",
+    "ru": "Цель",
+    "es": "Objetivo",
+    "vi": "Đối tượng"
+  },
+  "Term Life, IUL": {
+    "pt": "Term Life, IUL",
+    "ru": "Term Life, IUL",
+    "es": "Term Life, IUL",
+    "vi": "Term Life, IUL"
+  },
+  "Terms & conditions": {
+    "pt": "Termos e condições",
+    "ru": "Условия",
+    "es": "Términos y condiciones",
+    "vi": "Điều khoản & điều kiện"
+  },
+  "Terms HTML": {
+    "pt": "Termos HTML",
+    "ru": "Условия HTML",
+    "es": "Términos HTML",
+    "vi": "Điều khoản HTML"
+  },
+  "Territory": {
+    "pt": "Território",
+    "ru": "Территория",
+    "es": "Territorio",
+    "vi": "Lãnh thổ"
+  },
+  "The ZIP code must exist in the agent": {
+    "pt": "O código ZIP deve existir no agente",
+    "ru": "ZIP-код должен быть у агента",
+    "es": "El código ZIP debe existir en el agente",
+    "vi": "Mã ZIP phải tồn tại trong đại lý"
+  },
+  "The client completes payment outside the app. Mark the application when payment is expected, then confirm once the policy is sold.": {
+    "pt": "O cliente paga fora da app. Marque a candidatura quando o pagamento for esperado e confirme quando a apólice for vendida.",
+    "ru": "Клиент платит вне приложения. Отметьте заявку при ожидаемой оплате и подтвердите после продажи полиса.",
+    "es": "El cliente paga fuera de la app. Marque la solicitud cuando se espere el pago y confirme al vender la póliza.",
+    "vi": "Khách thanh toán ngoài ứng dụng. Đánh dấu đơn khi chờ thanh toán, rồi xác nhận khi đã bán hợp đồng."
+  },
+  "These members have a ZIP code but no assigned agent yet.": {
+    "pt": "Estes membros têm ZIP mas ainda sem agente atribuído.",
+    "ru": "У этих участников есть ZIP, но агент ещё не назначен.",
+    "es": "Estos miembros tienen ZIP pero aún sin agente asignado.",
+    "vi": "Các thành viên này có ZIP nhưng chưa được gán đại lý."
+  },
+  "These values appear under Contact support → Call / Email.": {
+    "pt": "Estes valores aparecem em Contactar suporte → Call / Email.",
+    "ru": "Эти значения видны в Связаться с поддержкой → Call / Email.",
+    "es": "Estos valores aparecen en Contactar soporte → Call / Email.",
+    "vi": "Các giá trị này hiện ở Liên hệ hỗ trợ → Call / Email."
+  },
+  "Third-party quotes": {
+    "pt": "Cotações de terceiros",
+    "ru": "Котировки сторонних",
+    "es": "Cotizaciones de terceros",
+    "vi": "Báo giá bên thứ ba"
+  },
+  "This deposit is already finalized.": {
+    "pt": "Este depósito já está finalizado.",
+    "ru": "Этот депозит уже завершён.",
+    "es": "Este depósito ya está finalizado.",
+    "vi": "Khoản nạp này đã hoàn tất."
+  },
+  "This ticket is closed.": {
+    "pt": "Este ticket está fechado.",
+    "ru": "Этот тикет закрыт.",
+    "es": "Este ticket está cerrado.",
+    "vi": "Ticket này đã đóng."
+  },
+  "This withdrawal is already finalized.": {
+    "pt": "Este levantamento já está finalizado.",
+    "ru": "Этот вывод уже завершён.",
+    "es": "Este retiro ya está finalizado.",
+    "vi": "Khoản rút này đã hoàn tất."
+  },
+  "Ticket": {
+    "pt": "Ticket",
+    "ru": "Тикет",
+    "es": "Ticket",
+    "vi": "Ticket"
+  },
+  "Tier": {
+    "pt": "Faixa",
+    "ru": "Уровень",
+    "es": "Nivel",
+    "vi": "Bậc"
+  },
+  "Title": {
+    "pt": "Título",
+    "ru": "Заголовок",
+    "es": "Título",
+    "vi": "Tiêu đề"
+  },
+  "Toggle navigation": {
+    "pt": "Alternar navegação",
+    "ru": "Переключить меню",
+    "es": "Alternar navegación",
+    "vi": "Bật/tắt điều hướng"
+  },
+  "Toolbar: bold, italic, underline, lists, link, and image upload.": {
+    "pt": "Barra: negrito, itálico, sublinhado, listas, link e upload de imagem.",
+    "ru": "Панель: жирный, курсив, подчёркивание, списки, ссылка и загрузка изображений.",
+    "es": "Barra: negrita, cursiva, subrayado, listas, enlace y subida de imagen.",
+    "vi": "Thanh công cụ: đậm, nghiêng, gạch dưới, danh sách, liên kết và tải ảnh."
+  },
+  "Total Users": {
+    "pt": "Total de utilizadores",
+    "ru": "Всего пользователей",
+    "es": "Total de usuarios",
+    "vi": "Tổng người dùng"
+  },
+  "Total deposit": {
+    "pt": "Total de depósitos",
+    "ru": "Всего депозитов",
+    "es": "Total de depósitos",
+    "vi": "Tổng nạp"
+  },
+  "Total paid": {
+    "pt": "Total pago",
+    "ru": "Всего выплачено",
+    "es": "Total pagado",
+    "vi": "Tổng đã trả"
+  },
+  "Total return": {
+    "pt": "Retorno total",
+    "ru": "Общий возврат",
+    "es": "Retorno total",
+    "vi": "Tổng hoàn lại"
+  },
+  "Total withdraw": {
+    "pt": "Total de levantamentos",
+    "ru": "Всего выводов",
+    "es": "Total de retiros",
+    "vi": "Tổng rút"
+  },
+  "Track applications, chat privately, and confirm policies after offline payment — all in one place.": {
+    "pt": "Acompanhe candidaturas, converse em privado e confirme apólices após pagamento offline — tudo num só lugar.",
+    "ru": "Отслеживайте заявки, общайтесь в чате и подтверждайте полисы после офлайн-оплаты — всё в одном месте.",
+    "es": "Siga solicitudes, chatee en privado y confirme pólizas tras pago offline — todo en un lugar.",
+    "vi": "Theo dõi đơn, chat riêng và xác nhận hợp đồng sau thanh toán offline — tất cả một chỗ."
+  },
+  "Transaction": {
+    "pt": "Transação",
+    "ru": "Транзакция",
+    "es": "Transacción",
+    "vi": "Giao dịch"
+  },
+  "Transactions": {
+    "pt": "Transações",
+    "ru": "Транзакции",
+    "es": "Transacciones",
+    "vi": "Giao dịch"
+  },
+  "Type": {
+    "pt": "Tipo",
+    "ru": "Тип",
+    "es": "Tipo",
+    "vi": "Loại"
+  },
+  "Type a message…": {
+    "pt": "Escreva uma mensagem…",
+    "ru": "Введите сообщение…",
+    "es": "Escriba un mensaje…",
+    "vi": "Nhập tin nhắn…"
+  },
+  "US ZIP code": {
+    "pt": "Código ZIP dos EUA",
+    "ru": "ZIP США",
+    "es": "Código ZIP de EE. UU.",
+    "vi": "Mã ZIP Mỹ"
+  },
+  "USA": {
+    "pt": "USA",
+    "ru": "USA",
+    "es": "USA",
+    "vi": "USA"
+  },
+  "Underwriting inputs for this quote.": {
+    "pt": "Dados de underwriting para esta cotação.",
+    "ru": "Данные андеррайтинга для этой котировки.",
+    "es": "Datos de suscripción para esta cotización.",
+    "vi": "Thông tin thẩm định cho báo giá này."
+  },
+  "Unknown": {
+    "pt": "Desconhecido",
+    "ru": "Неизвестно",
+    "es": "Desconocido",
+    "vi": "Không rõ"
+  },
+  "Unknown user": {
+    "pt": "Utilizador desconhecido",
+    "ru": "Неизвестный пользователь",
+    "es": "Usuario desconocido",
+    "vi": "Người dùng không rõ"
+  },
+  "Unverified": {
+    "pt": "Não verificado",
+    "ru": "Не подтверждён",
+    "es": "No verificado",
+    "vi": "Chưa xác minh"
+  },
+  "Update balance": {
+    "pt": "Atualizar saldo",
+    "ru": "Обновить баланс",
+    "es": "Actualizar saldo",
+    "vi": "Cập nhật số dư"
+  },
+  "Update domain, database, mail, and payment keys in production env.": {
+    "pt": "Atualize domínio, base de dados, mail e chaves de pagamento no env de produção.",
+    "ru": "Обновите домен, БД, почту и платёжные ключи в production env.",
+    "es": "Actualice dominio, base de datos, correo y claves de pago en el env de producción.",
+    "vi": "Cập nhật domain, database, mail và khóa thanh toán trong env production."
+  },
+  "Updated": {
+    "pt": "Atualizado",
+    "ru": "Обновлено",
+    "es": "Actualizado",
+    "vi": "Đã cập nhật"
+  },
+  "Upload failed": {
+    "pt": "Falha no upload",
+    "ru": "Ошибка загрузки",
+    "es": "Error al subir",
+    "vi": "Tải lên thất bại"
+  },
+  "Use /admin as the clean backend. Legacy screens stay at /legacy-admin for reference.": {
+    "pt": "Use /admin como backend limpo. Ecrãs legados ficam em /legacy-admin para referência.",
+    "ru": "Используйте /admin как чистый бэкенд. Старые экраны — /legacy-admin для справки.",
+    "es": "Use /admin como backend limpio. Las pantallas legacy quedan en /legacy-admin como referencia.",
+    "vi": "Dùng /admin làm backend sạch. Màn hình cũ giữ ở /legacy-admin để tham chiếu."
+  },
+  "Use period": {
+    "pt": "Usar período",
+    "ru": "Использовать период",
+    "es": "Usar período",
+    "vi": "Dùng kỳ"
+  },
+  "Use this when the client has been instructed to pay but confirmation is not done yet.": {
+    "pt": "Use isto quando o cliente já foi instruído a pagar mas a confirmação ainda não foi feita.",
+    "ru": "Используйте, когда клиенту сказали платить, но подтверждение ещё не сделано.",
+    "es": "Úselo cuando el cliente ya debe pagar pero la confirmación aún no está hecha.",
+    "vi": "Dùng khi đã hướng dẫn khách thanh toán nhưng chưa xác nhận."
+  },
+  "Use your licensed agent account to continue.": {
+    "pt": "Use a sua conta de agente licenciada para continuar.",
+    "ru": "Войдите с лицензированным аккаунтом агента, чтобы продолжить.",
+    "es": "Use su cuenta de agente con licencia para continuar.",
+    "vi": "Dùng tài khoản đại lý có giấy phép để tiếp tục."
+  },
+  "Used when matching third-party applicants": {
+    "pt": "Usado ao fazer matching de candidatos de terceiros",
+    "ru": "Используется при сопоставлении сторонних заявителей",
+    "es": "Se usa al emparejar solicitantes de terceros",
+    "vi": "Dùng khi khớp ứng viên bên thứ ba"
+  },
+  "User": {
+    "pt": "Usuário",
+    "ru": "Пользователь",
+    "es": "Usuario",
+    "vi": "Người dùng"
+  },
+  "Username": {
+    "pt": "Nome de utilizador",
+    "ru": "Имя пользователя",
+    "es": "Usuario",
+    "vi": "Tên đăng nhập"
+  },
+  "Users": {
+    "pt": "Utilizadores",
+    "ru": "Пользователи",
+    "es": "Usuarios",
+    "vi": "Người dùng"
+  },
+  "Users may enter an agent license number during signup (optional). ZIP code can also auto-match an agent.": {
+    "pt": "Utilizadores podem indicar o número de licença do agente no registo (opcional). O ZIP também pode fazer matching automático.",
+    "ru": "Пользователи могут указать номер лицензии агента при регистрации (необязательно). ZIP также может подобрать агента автоматически.",
+    "es": "Los usuarios pueden indicar el número de licencia del agente al registrarse (opcional). El ZIP también puede emparejar un agente automáticamente.",
+    "vi": "Người dùng có thể nhập số giấy phép đại lý khi đăng ký (tùy chọn). ZIP cũng có thể tự khớp đại lý."
+  },
+  "Validation": {
+    "pt": "Validação",
+    "ru": "Проверка",
+    "es": "Validación",
+    "vi": "Xác thực"
+  },
+  "Verified": {
+    "pt": "Verificado",
+    "ru": "Подтверждён",
+    "es": "Verificado",
+    "vi": "Đã xác minh"
+  },
+  "View": {
+    "pt": "Ver",
+    "ru": "Просмотр",
+    "es": "Ver",
+    "vi": "Xem"
+  },
+  "View all": {
+    "pt": "Ver tudo",
+    "ru": "Смотреть всё",
+    "es": "Ver todo",
+    "vi": "Xem tất cả"
+  },
+  "View clients": {
+    "pt": "Ver clientes",
+    "ru": "Смотреть клиентов",
+    "es": "Ver clientes",
+    "vi": "Xem khách hàng"
+  },
+  "View customers": {
+    "pt": "Ver clientes",
+    "ru": "Смотреть клиентов",
+    "es": "Ver clientes",
+    "vi": "Xem khách hàng"
+  },
+  "View list": {
+    "pt": "Ver lista",
+    "ru": "Смотреть список",
+    "es": "Ver lista",
+    "vi": "Xem danh sách"
+  },
+  "View page": {
+    "pt": "Ver página",
+    "ru": "Открыть страницу",
+    "es": "Ver página",
+    "vi": "Xem trang"
+  },
+  "View profile": {
+    "pt": "Ver perfil",
+    "ru": "Смотреть профиль",
+    "es": "Ver perfil",
+    "vi": "Xem hồ sơ"
+  },
+  "Viewer": {
+    "pt": "Visualizador",
+    "ru": "Наблюдатель",
+    "es": "Visor",
+    "vi": "Người xem"
+  },
+  "Wallet": {
+    "pt": "Carteira",
+    "ru": "Кошелёк",
+    "es": "Billetera",
+    "vi": "Ví"
+  },
+  "Welcome back. Enter your credentials to continue.": {
+    "pt": "Bem-vindo de volta. Introduza as suas credenciais para continuar.",
+    "ru": "С возвращением. Введите учётные данные, чтобы продолжить.",
+    "es": "Bienvenido de nuevo. Introduzca sus credenciales para continuar.",
+    "vi": "Chào mừng trở lại. Nhập thông tin đăng nhập để tiếp tục."
+  },
+  "Why is this package purchase rejected?": {
+    "pt": "Por que esta compra de pacote foi rejeitada?",
+    "ru": "Почему покупка пакета отклонена?",
+    "es": "¿Por qué se rechaza esta compra de paquete?",
+    "vi": "Vì sao giao dịch mua gói này bị từ chối?"
+  },
+  "Why this adjustment is needed": {
+    "pt": "Por que este ajuste é necessário",
+    "ru": "Зачем нужна эта корректировка",
+    "es": "Por qué se necesita este ajuste",
+    "vi": "Vì sao cần điều chỉnh này"
+  },
+  "Why this price or condition was chosen": {
+    "pt": "Por que este preço ou condição foi escolhido",
+    "ru": "Почему выбрана эта цена или условие",
+    "es": "Por qué se eligió este precio o condición",
+    "vi": "Vì sao chọn giá hoặc điều kiện này"
+  },
+  "Withdrawal": {
+    "pt": "Levantamento",
+    "ru": "Вывод",
+    "es": "Retiro",
+    "vi": "Rút tiền"
+  },
+  "Withdrawal method": {
+    "pt": "Método de levantamento",
+    "ru": "Метод вывода",
+    "es": "Método de retiro",
+    "vi": "Phương thức rút"
+  },
+  "Withdrawal methods": {
+    "pt": "Métodos de levantamento",
+    "ru": "Методы вывода",
+    "es": "Métodos de retiro",
+    "vi": "Phương thức rút"
+  },
+  "Withdrawals": {
+    "pt": "Levantamentos",
+    "ru": "Выводы",
+    "es": "Retiros",
+    "vi": "Rút tiền"
+  },
+  "Write a clear, helpful answer...": {
+    "pt": "Escreva uma resposta clara e útil...",
+    "ru": "Напишите ясный и полезный ответ...",
+    "es": "Escriba una respuesta clara y útil...",
+    "vi": "Viết câu trả lời rõ ràng, hữu ích..."
+  },
+  "Write the public About Us page. Use bold/italic, links, and images. Changes appear at": {
+    "pt": "Escreva a página pública Sobre nós. Use negrito/itálico, links e imagens. As alterações aparecem em",
+    "ru": "Напишите публичную страницу О нас. Используйте жирный/курсив, ссылки и изображения. Изменения видны на",
+    "es": "Escriba la página pública Sobre nosotros. Use negrita/cursiva, enlaces e imágenes. Los cambios aparecen en",
+    "vi": "Viết trang Về chúng tôi công khai. Dùng đậm/nghiêng, liên kết và ảnh. Thay đổi hiện tại"
+  },
+  "Write your About Us story…": {
+    "pt": "Escreva a sua história Sobre nós…",
+    "ru": "Напишите историю О нас…",
+    "es": "Escriba su historia Sobre nosotros…",
+    "vi": "Viết câu chuyện Về chúng tôi…"
+  },
+  "Year": {
+    "pt": "Ano",
+    "ru": "Год",
+    "es": "Año",
+    "vi": "Năm"
+  },
+  "Yes": {
+    "pt": "Sim",
+    "ru": "Да",
+    "es": "Sí",
+    "vi": "Có"
+  },
+  "You have a new message waiting in chat.": {
+    "pt": "Tem uma nova mensagem a aguardar no chat.",
+    "ru": "У вас новое сообщение в чате.",
+    "es": "Tiene un mensaje nuevo esperando en el chat.",
+    "vi": "Bạn có tin nhắn mới đang chờ trong chat."
+  },
+  "Your coverage": {
+    "pt": "A sua cobertura",
+    "ru": "Ваше покрытие",
+    "es": "Su cobertura",
+    "vi": "Phạm vi của bạn"
+  },
+  "Your messages sent": {
+    "pt": "As suas mensagens enviadas",
+    "ru": "Ваши отправленные сообщения",
+    "es": "Sus mensajes enviados",
+    "vi": "Tin bạn đã gửi"
+  },
+  "ZIP": {
+    "pt": "ZIP",
+    "ru": "ZIP",
+    "es": "ZIP",
+    "vi": "ZIP"
+  },
+  "ZIP code": {
+    "pt": "CEP",
+    "ru": "ZIP",
+    "es": "Código postal",
+    "vi": "Mã ZIP"
+  },
+  "ZIP code coverage": {
+    "pt": "Cobertura de códigos ZIP",
+    "ru": "Покрытие ZIP-кодов",
+    "es": "Cobertura de códigos ZIP",
+    "vi": "Phạm vi mã ZIP"
+  },
+  "ZIP code must fall within the selected agent": {
+    "pt": "O código ZIP deve estar no agente selecionado",
+    "ru": "ZIP-код должен входить в выбранного агента",
+    "es": "El código ZIP debe estar dentro del agente seleccionado",
+    "vi": "Mã ZIP phải thuộc đại lý đã chọn"
+  },
+  "ZIP codes": {
+    "pt": "Códigos ZIP",
+    "ru": "ZIP-коды",
+    "es": "Códigos ZIP",
+    "vi": "Mã ZIP"
+  },
+  "ZIP codes (USA)": {
+    "pt": "Códigos ZIP (USA)",
+    "ru": "ZIP-коды (USA)",
+    "es": "Códigos ZIP (USA)",
+    "vi": "Mã ZIP (USA)"
+  },
+  "ZIP codes selected": {
+    "pt": "Códigos ZIP selecionados",
+    "ru": "Выбранные ZIP-коды",
+    "es": "Códigos ZIP seleccionados",
+    "vi": "Mã ZIP đã chọn"
+  },
+  "ZIPs": {
+    "pt": "ZIPs",
+    "ru": "ZIP",
+    "es": "ZIPs",
+    "vi": "ZIP"
+  },
+  "action, admin, IP, target": {
+    "pt": "ação, admin, IP, alvo",
+    "ru": "действие, админ, IP, цель",
+    "es": "acción, admin, IP, objetivo",
+    "vi": "thao tác, quản trị, IP, đối tượng"
+  },
+  "active": {
+    "pt": "ativo",
+    "ru": "активно",
+    "es": "activo",
+    "vi": "đang hoạt động"
+  },
+  "after you save.": {
+    "pt": "depois de guardar.",
+    "ru": "после сохранения.",
+    "es": "después de guardar.",
+    "vi": "sau khi bạn lưu."
+  },
+  "agent msgs": {
+    "pt": "msgs agente",
+    "ru": "сообщ. агента",
+    "es": "msgs agente",
+    "vi": "tin đại lý"
+  },
+  "and": {
+    "pt": "e",
+    "ru": "и",
+    "es": "y",
+    "vi": "và"
+  },
+  "annual quoted": {
+    "pt": "cotação anual",
+    "ru": "годовая котировка",
+    "es": "cotizado anual",
+    "vi": "báo giá năm"
+  },
+  "approved": {
+    "pt": "aprovado",
+    "ru": "одобрено",
+    "es": "aprobado",
+    "vi": "đã duyệt"
+  },
+  "approved/running": {
+    "pt": "aprovado/em curso",
+    "ru": "одобрено/активно",
+    "es": "aprobado/en curso",
+    "vi": "đã duyệt/đang chạy"
+  },
+  "base": {
+    "pt": "base",
+    "ru": "база",
+    "es": "base",
+    "vi": "cơ sở"
+  },
+  "charge": {
+    "pt": "cobrança",
+    "ru": "сбор",
+    "es": "cargo",
+    "vi": "phí"
+  },
+  "client logins": {
+    "pt": "logins cliente",
+    "ru": "входы клиентов",
+    "es": "accesos cliente",
+    "vi": "đăng nhập khách"
+  },
+  "client msgs": {
+    "pt": "msgs cliente",
+    "ru": "сообщ. клиентов",
+    "es": "msgs cliente",
+    "vi": "tin khách"
+  },
+  "code": {
+    "pt": "código",
+    "ru": "код",
+    "es": "código",
+    "vi": "mã"
+  },
+  "confirmed": {
+    "pt": "confirmado",
+    "ru": "подтверждено",
+    "es": "confirmado",
+    "vi": "đã xác nhận"
+  },
+  "conversations": {
+    "pt": "conversas",
+    "ru": "диалоги",
+    "es": "conversaciones",
+    "vi": "hội thoại"
+  },
+  "customer(s) without agent coverage.": {
+    "pt": "cliente(s) sem cobertura de agente.",
+    "ru": "клиент(ы) без покрытия агента.",
+    "es": "cliente(s) sin cobertura de agente.",
+    "vi": "khách hàng không có phạm vi đại lý."
+  },
+  "deals": {
+    "pt": "negócios",
+    "ru": "сделки",
+    "es": "operaciones",
+    "vi": "giao dịch"
+  },
+  "direct referrals": {
+    "pt": "indicações diretas",
+    "ru": "прямые рефералы",
+    "es": "referidos directos",
+    "vi": "giới thiệu trực tiếp"
+  },
+  "fee": {
+    "pt": "taxa",
+    "ru": "комиссия",
+    "es": "comisión",
+    "vi": "phí"
+  },
+  "for demo data.": {
+    "pt": "para dados de demo.",
+    "ru": "для демо-данных.",
+    "es": "para datos de demo.",
+    "vi": "cho dữ liệu demo."
+  },
+  "from agent fee %": {
+    "pt": "da taxa do agente %",
+    "ru": "из комиссии агента %",
+    "es": "de la comisión del agente %",
+    "vi": "từ phí đại lý %"
+  },
+  "in pipeline": {
+    "pt": "no pipeline",
+    "ru": "в воронке",
+    "es": "en pipeline",
+    "vi": "trong pipeline"
+  },
+  "in selected period": {
+    "pt": "no período selecionado",
+    "ru": "за выбранный период",
+    "es": "en el período seleccionado",
+    "vi": "trong kỳ đã chọn"
+  },
+  "name, email, license": {
+    "pt": "nome, email, licença",
+    "ru": "имя, email, лицензия",
+    "es": "nombre, email, licencia",
+    "vi": "tên, email, giấy phép"
+  },
+  "name, email, phone": {
+    "pt": "nome, email, telefone",
+    "ru": "имя, email, телефон",
+    "es": "nombre, email, teléfono",
+    "vi": "tên, email, điện thoại"
+  },
+  "new": {
+    "pt": "novo",
+    "ru": "новое",
+    "es": "nuevo",
+    "vi": "mới"
+  },
+  "paid": {
+    "pt": "pago",
+    "ru": "оплачено",
+    "es": "pagado",
+    "vi": "đã trả"
+  },
+  "pending": {
+    "pt": "pendente",
+    "ru": "ожидание",
+    "es": "pendiente",
+    "vi": "đang chờ"
+  },
+  "per product sale": {
+    "pt": "por venda de produto",
+    "ru": "за продажу продукта",
+    "es": "por venta de producto",
+    "vi": "mỗi lần bán sản phẩm"
+  },
+  "policies": {
+    "pt": "apólices",
+    "ru": "полисы",
+    "es": "pólizas",
+    "vi": "hợp đồng"
+  },
+  "rate": {
+    "pt": "taxa",
+    "ru": "ставка",
+    "es": "tasa",
+    "vi": "tỷ lệ"
+  },
+  "running": {
+    "pt": "em curso",
+    "ru": "активно",
+    "es": "en curso",
+    "vi": "đang chạy"
+  },
+  "running products": {
+    "pt": "produtos em curso",
+    "ru": "активные продукты",
+    "es": "productos en curso",
+    "vi": "sản phẩm đang chạy"
+  },
+  "set by admin": {
+    "pt": "definido pelo admin",
+    "ru": "задано админом",
+    "es": "definido por admin",
+    "vi": "do quản trị đặt"
+  },
+  "state": {
+    "pt": "estado",
+    "ru": "штат",
+    "es": "estado",
+    "vi": "bang"
+  },
+  "states": {
+    "pt": "estados",
+    "ru": "штаты",
+    "es": "estados",
+    "vi": "bang"
+  },
+  "tap a state to see ZIP codes": {
+    "pt": "toque num estado para ver códigos ZIP",
+    "ru": "нажмите штат, чтобы увидеть ZIP",
+    "es": "toque un estado para ver códigos ZIP",
+    "vi": "chạm một bang để xem mã ZIP"
+  },
+  "ticket, subject, name, email": {
+    "pt": "ticket, assunto, nome, email",
+    "ru": "тикет, тема, имя, email",
+    "es": "ticket, asunto, nombre, email",
+    "vi": "ticket, chủ đề, tên, email"
+  },
+  "to view clients, applications, and chat.": {
+    "pt": "para ver clientes, candidaturas e chat.",
+    "ru": "чтобы смотреть клиентов, заявки и чат.",
+    "es": "para ver clientes, solicitudes y chat.",
+    "vi": "để xem khách, đơn và chat."
+  },
+  "total": {
+    "pt": "total",
+    "ru": "итого",
+    "es": "total",
+    "vi": "tổng"
+  },
+  "trx or username": {
+    "pt": "trx ou nome de utilizador",
+    "ru": "trx или имя пользователя",
+    "es": "trx o usuario",
+    "vi": "trx hoặc tên đăng nhập"
+  },
+  "trx, earner, source": {
+    "pt": "trx, beneficiário, origem",
+    "ru": "trx, получатель, источник",
+    "es": "trx, beneficiario, origen",
+    "vi": "trx, người nhận, nguồn"
+  },
+  "trx, user, plan": {
+    "pt": "trx, utilizador, plano",
+    "ru": "trx, пользователь, план",
+    "es": "trx, usuario, plan",
+    "vi": "trx, người dùng, gói"
+  },
+  "trx, username, detail": {
+    "pt": "trx, utilizador, detalhe",
+    "ru": "trx, имя пользователя, деталь",
+    "es": "trx, usuario, detalle",
+    "vi": "trx, tên đăng nhập, chi tiết"
+  },
+  "unread chat message": {
+    "pt": "mensagem de chat não lida",
+    "ru": "непрочитанное сообщение чата",
+    "es": "mensaje de chat no leído",
+    "vi": "tin chat chưa đọc"
+  },
+  "unread chat messages": {
+    "pt": "mensagens de chat não lidas",
+    "ru": "непрочитанные сообщения чата",
+    "es": "mensajes de chat no leídos",
+    "vi": "tin chat chưa đọc"
+  },
+  "unread message": {
+    "pt": "mensagem não lida",
+    "ru": "непрочитанное сообщение",
+    "es": "mensaje no leído",
+    "vi": "tin chưa đọc"
+  },
+  "unread messages": {
+    "pt": "mensagens não lidas",
+    "ru": "непрочитанные сообщения",
+    "es": "mensajes no leídos",
+    "vi": "tin chưa đọc"
+  },
+  "username, IP, city, country": {
+    "pt": "utilizador, IP, cidade, país",
+    "ru": "имя пользователя, IP, город, страна",
+    "es": "usuario, IP, ciudad, país",
+    "vi": "tên đăng nhập, IP, thành phố, quốc gia"
+  },
+  "username, email, name, ZIP code": {
+    "pt": "utilizador, email, nome, código ZIP",
+    "ru": "имя пользователя, email, имя, ZIP",
+    "es": "usuario, email, nombre, código ZIP",
+    "vi": "tên đăng nhập, email, tên, mã ZIP"
+  },
+  "years": {
+    "pt": "anos",
+    "ru": "лет",
+    "es": "años",
+    "vi": "năm"
+  }
+}

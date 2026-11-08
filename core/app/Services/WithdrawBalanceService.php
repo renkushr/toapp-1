@@ -104,7 +104,7 @@ class WithdrawBalanceService
         if (!$summary['has_active_plan']) {
             return [
                 'ok' => false,
-                'message' => 'You need at least one active running plan before you can withdraw.',
+                'message' => __('You need at least one active running plan before you can withdraw.'),
                 'summary' => $summary,
             ];
         }
@@ -112,7 +112,9 @@ class WithdrawBalanceService
         if ($amount > $summary['withdrawable_amount']) {
             return [
                 'ok' => false,
-                'message' => 'Only matured funds over ' . self::HOLDING_DAYS . ' days are ready to withdraw. Pending earnings are still locked.',
+                'message' => __('Only matured funds over :days days are ready to withdraw. Pending earnings are still locked.', [
+                    'days' => self::HOLDING_DAYS,
+                ]),
                 'summary' => $summary,
             ];
         }
@@ -120,7 +122,7 @@ class WithdrawBalanceService
         if ($amount > $summary['wallet_balance']) {
             return [
                 'ok' => false,
-                'message' => 'Insufficient balance for withdrawal.',
+                'message' => __('Insufficient balance for withdrawal.'),
                 'summary' => $summary,
             ];
         }

@@ -18,7 +18,7 @@ class DashboardController extends Controller
         $usersQuery = User::forAgentTerritory($agent);
 
         return view('toapp_agent.dashboard', [
-            'pageTitle' => 'Agent Dashboard',
+            'pageTitle' => __('Agent Dashboard'),
             'agent' => $agent,
             'stats' => [
                 'assigned_users' => (clone $usersQuery)->count(),

@@ -13,7 +13,7 @@ class MethodController extends Controller
     public function index()
     {
         return view('toapp_admin.methods.index', [
-            'pageTitle' => 'Payment Methods',
+            'pageTitle' => __('Payment Methods'),
             'depositGateways' => Gateway::with('singleCurrency')->orderBy('code')->get(),
             'withdrawMethods' => WithdrawMethod::orderBy('name')->get(),
         ]);
@@ -58,7 +58,7 @@ class MethodController extends Controller
         $gateway->load('singleCurrency');
 
         return view('toapp_admin.methods.deposit_edit', [
-            'pageTitle' => 'Edit Deposit Gateway',
+            'pageTitle' => __('Edit Deposit Gateway'),
             'gateway' => $gateway,
         ]);
     }
@@ -66,7 +66,7 @@ class MethodController extends Controller
     public function editWithdrawMethod(WithdrawMethod $method)
     {
         return view('toapp_admin.methods.withdraw_edit', [
-            'pageTitle' => 'Edit Withdrawal Method',
+            'pageTitle' => __('Edit Withdrawal Method'),
             'method' => $method,
         ]);
     }

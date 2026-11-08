@@ -3,7 +3,7 @@
 @section('content')
 <div class="card">
     @include('partials.portal_list_header', [
-        'title' => 'Launch readiness · ' . $readyCount . '/' . count($checks) . ' checks passing',
+        'title' => __('Launch readiness · :ready/:total checks passing', ['ready' => $readyCount, 'total' => count($checks)]),
         'toolbarView' => 'partials.portal_list_toolbar_readiness',
     ])
     <div class="card-body">
@@ -25,7 +25,7 @@
 
 @include('partials.portal_help_modal', [
     'id' => 'readinessChecklistModal',
-    'title' => 'Production checklist',
+    'title' => __('Production checklist'),
     'partial' => 'toapp_admin.readiness.partials.checklist',
 ])
 @endsection

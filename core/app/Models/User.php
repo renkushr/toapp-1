@@ -188,13 +188,16 @@ class User extends Authenticatable
     public function hasPayoutSetup(): bool
     {
         if ($this->payout_method === 'paypal') {
+            $contact = $this->payout_paypal_contact ?: 'email';
+            if ($contact === 'phone') {
+                return (bool) $this->payout_paypal_phone;
+            }
+
             return (bool) $this->payout_paypal_email;
         }
 
         if ($this->payout_method === 'bank') {
-            return $this->payout_bank_name
-                && $this->payout_account_name
-                && $this->payout_account_number
+            return $this->payout_account_number
                 && $this->payout_routing_number;
         }
 
@@ -219,6 +222,13 @@ class User extends Authenticatable
     public function payoutInformationPayload(): array
     {
         if ($this->payout_method === 'paypal') {
+            $contact = $this->payout_paypal_contact ?: 'email';
+            if ($contact === 'phone' && $this->payout_paypal_phone) {
+                return [
+                    ['name' => 'PayPal Phone', 'type' => 'text', 'value' => $this->payout_paypal_phone],
+                ];
+            }
+
             return [
                 ['name' => 'PayPal Email', 'type' => 'email', 'value' => $this->payout_paypal_email],
             ];
@@ -226,8 +236,6 @@ class User extends Authenticatable
 
         if ($this->payout_method === 'bank') {
             return [
-                ['name' => 'Bank Name', 'type' => 'text', 'value' => $this->payout_bank_name],
-                ['name' => 'Account Holder', 'type' => 'text', 'value' => $this->payout_account_name],
                 ['name' => 'Account Number', 'type' => 'text', 'value' => $this->payout_account_number],
                 ['name' => 'Routing Number', 'type' => 'text', 'value' => $this->payout_routing_number],
             ];

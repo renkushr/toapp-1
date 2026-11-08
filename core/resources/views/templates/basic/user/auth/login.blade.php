@@ -9,17 +9,17 @@
                 <a class="auth-back" href="{{ route('home') }}" aria-label="@lang('Back to home')">
                     <i class="las la-arrow-left"></i>
                 </a>
-                <a class="auth-link" href="{{ route('user.register') }}">@lang('Create account')</a>
+                <a class="auth-link" href="{{ route('user.register') }}">@lang('Create Account')</a>
             </div>
 
             <div class="auth-brand">
-                <img src="{{ asset('assets/global/img/tologo.png') }}" alt="To-app logo">
+                <img src="{{ asset('assets/global/img/tologo.png') }}" alt="To-App logo">
             </div>
 
             <div class="auth-card">
                 <div class="auth-card__header">
                     <span class="auth-eyebrow">@lang('Welcome back')</span>
-                    <h1 class="auth-title">@lang('Log in to To-app')</h1>
+                    <h1 class="auth-title">@lang('Log in to To-App')</h1>
                     <p class="auth-copy">@lang('Use your email or username to continue to your dashboard.')</p>
                 </div>
 
@@ -73,7 +73,7 @@
                         @include('partials.captcha')
 
                         <button type="submit" class="auth-submit" data-loading-text="@lang('Logging in...')">
-                            @lang('Login')
+                            @lang('Log In')
                         </button>
                     </form>
 
@@ -81,7 +81,7 @@
 
                     <p class="auth-footer-text">
                         @lang('New here?')
-                        <a class="auth-link" href="{{ route('user.register') }}">@lang('Create an account')</a>
+                        <a class="auth-link" href="{{ route('user.register') }}">@lang('Create Account')</a>
                     </p>
                 </div>
             </div>

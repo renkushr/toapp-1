@@ -37,7 +37,7 @@ class DashboardController extends Controller
         $recentWithdrawals = Withdrawal::with(['user', 'method'])->latest()->take(5)->get();
 
         return view('toapp_admin.dashboard', [
-            'pageTitle' => 'Control Center',
+            'pageTitle' => __('Control Center'),
             'stats' => $stats,
             'recentUsers' => $recentUsers,
             'recentTransactions' => $recentTransactions,

@@ -27,7 +27,7 @@ class ChatController extends Controller
         $unreadByConversation = $this->chatService->unreadCountsByConversation($agent);
 
         return view('toapp_agent.chat.index', [
-            'pageTitle' => 'Client Chat',
+            'pageTitle' => __('Client Chat'),
             'agent' => $agent,
             'conversations' => $conversations,
             'unreadByConversation' => $unreadByConversation,
@@ -46,7 +46,7 @@ class ChatController extends Controller
         $this->chatService->markReadForRecipient($conversation, 'agent');
 
         return view('toapp_agent.chat.show', [
-            'pageTitle' => 'Chat with ' . $user->firstname,
+            'pageTitle' => __('Chat with :name', ['name' => $user->firstname]),
             'agent' => $agent,
             'user' => $user,
             'conversation' => $conversation,

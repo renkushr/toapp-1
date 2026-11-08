@@ -11,7 +11,7 @@ class AuthController extends Controller
     public function showLogin()
     {
         return view('toapp_admin.auth.login', [
-            'pageTitle' => 'Admin Login',
+            'pageTitle' => __('Admin Login'),
         ]);
     }
 

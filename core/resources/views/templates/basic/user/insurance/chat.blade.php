@@ -8,7 +8,7 @@
                 <i class="las la-arrow-left"></i>
             </a>
             <a class="app-brand" href="{{ route('user.home') }}">
-                <img src="{{ siteLogo() }}" alt="To-app">
+                <img src="{{ siteLogo() }}" alt="To-App">
                 <span>@lang('Agent chat')</span>
             </a>
             <span class="app-icon-btn" style="visibility:hidden"><i class="las la-comments"></i></span>
@@ -18,7 +18,27 @@
             <span class="app-eyebrow"><i class="las la-user-tie"></i> @lang('Chat with agent')</span>
             <h1>{{ $agent->name }}</h1>
             <p>@lang('License') {{ $agent->license_no }} · @lang('Product') {{ optional($application->plan)->name }} · @lang('ZIP code') {{ $user->zipcode }}</p>
+            @if(!empty($canEditConditions))
+                <div class="app-hero-actions">
+                    <a class="app-btn app-btn-secondary" href="{{ route('user.plans.conditions.edit', $application) }}">
+                        <i class="las la-sliders-h"></i> @lang('Edit plan conditions')
+                    </a>
+                </div>
+            @endif
         </section>
+
+        @if(!empty($canEditConditions))
+            <div class="app-note">
+                @lang('You can update health, coverage, and product choices until your agent confirms the sale.')
+                @if($application->quoted_monthly || $application->quoted_annual)
+                    <strong style="display:block;margin-top:6px;color:#0f172a;">
+                        @lang('Current quote'):
+                        ${{ number_format((float) $application->quoted_monthly, 2) }}/mo ·
+                        ${{ number_format((float) $application->quoted_annual, 2) }}/yr
+                    </strong>
+                @endif
+            </div>
+        @endif
 
         <div id="chatMessages" class="app-list-card app-chat-messages">
             @foreach($messages as $message)

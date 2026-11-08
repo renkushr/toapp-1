@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ToappAdmin;
 use App\Constants\Status;
 use App\Models\Agent;
 use App\Models\Deposit;
+use App\Models\InsuranceApplication;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Models\ReferralCommission;
@@ -26,7 +27,7 @@ class UserController extends Controller
             ->withQueryString();
 
         return view('toapp_admin.users.index', [
-            'pageTitle' => 'Users',
+            'pageTitle' => __('Users'),
             'users' => $users,
             'unassignedCount' => User::withoutAgent()->count(),
             'stateTabs' => $this->stateTabs(),
@@ -183,7 +184,7 @@ class UserController extends Controller
         $user->load('agent');
 
         return view('toapp_admin.users.show', [
-            'pageTitle' => 'User Detail',
+            'pageTitle' => __('User Detail'),
             'user' => $user,
             'agents' => Agent::where('status', true)->orderBy('name')->get(),
             'totalDeposit' => Deposit::where('user_id', $user->id)->successful()->sum('amount'),
@@ -192,6 +193,7 @@ class UserController extends Controller
             'referrer' => $user->referrer,
             'totalReferralCommission' => ReferralCommission::where('earner_user_id', $user->id)->sum('amount'),
             'transactions' => Transaction::where('user_id', $user->id)->latest()->take(10)->get(),
+            'applications' => InsuranceApplication::with(['plan', 'agent'])->where('user_id', $user->id)->latest('id')->get(),
         ]);
     }
 

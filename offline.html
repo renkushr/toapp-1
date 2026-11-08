@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#1268f3">
+    <title>To-App — Offline</title>
+    <style>
+        :root { color-scheme: light; }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            font-family: "Poppins", system-ui, sans-serif;
+            color: #0b2033;
+            background:
+                radial-gradient(circle at 12% 0%, rgba(19, 200, 214, .35), transparent 36%),
+                radial-gradient(circle at 92% 8%, rgba(18, 104, 243, .28), transparent 34%),
+                linear-gradient(180deg, #f7fbff, #e7f4fb);
+        }
+        .card {
+            width: min(100%, 420px);
+            padding: 28px 24px;
+            border-radius: 28px;
+            background: rgba(255, 255, 255, .92);
+            box-shadow: 0 22px 60px rgba(15, 23, 42, .14);
+            text-align: center;
+        }
+        img {
+            width: 72px;
+            height: 72px;
+            border-radius: 18px;
+            margin-bottom: 14px;
+        }
+        h1 {
+            margin: 0 0 8px;
+            font-size: 1.35rem;
+        }
+        p {
+            margin: 0 0 18px;
+            color: #64748b;
+            line-height: 1.5;
+        }
+        button {
+            border: 0;
+            border-radius: 999px;
+            min-height: 46px;
+            padding: 0 1.4rem;
+            font-weight: 700;
+            color: #fff;
+            background: linear-gradient(135deg, #1268f3, #13c8d6);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <img src="/assets/global/img/pwa/icon-192.png" alt="To-App">
+        <h1>You're offline</h1>
+        <p>To-App needs a connection for live plans, wallet, and chat. Reconnect, then try again.</p>
+        <button type="button" onclick="location.reload()">Retry</button>
+    </div>
+</body>
+</html>

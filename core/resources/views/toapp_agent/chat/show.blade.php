@@ -12,7 +12,7 @@
 
 <section class="ta-chat-page">
     @if(!filled(config('broadcasting.connections.pusher.key')))
-        <div class="alert alert-warning mb-3">Realtime chat uses 5-second polling until Pusher is configured.</div>
+        <div class="alert alert-warning mb-3">@lang('Realtime chat uses 5-second polling until Pusher is configured.')</div>
     @endif
 
     <div class="ta-chat-card">
@@ -20,9 +20,9 @@
             <div class="ta-chat-header-avatar">{{ $clientInitials }}</div>
             <div class="ta-chat-header-info">
                 <h2>{{ $user->firstname }} {{ $user->lastname }}</h2>
-                <p>ZIP code {{ $user->zipcode }} · {{ $user->email }}</p>
+                <p>@lang('ZIP code') {{ $user->zipcode }} · {{ $user->email }}</p>
             </div>
-            <a class="btn btn-outline-secondary btn-sm" href="{{ route('toapp.agent.users.show', $user) }}">View profile</a>
+            <a class="btn btn-outline-secondary btn-sm" href="{{ route('toapp.agent.users.show', $user) }}">@lang('View profile')</a>
         </div>
 
         <div id="chatMessages" class="ta-chat-messages">
@@ -39,7 +39,7 @@
                     </div>
                 </div>
             @empty
-                <div class="ta-chat-empty">No messages yet. Say hello to your client.</div>
+                <div class="ta-chat-empty">@lang('No messages yet. Say hello to your client.')</div>
             @endforelse
         </div>
 
@@ -50,12 +50,12 @@
                 @csrf
                 <div class="ta-chat-composer-toolbar">
                     @include('partials.agent_chat_composer_attach', ['variant' => 'ta'])
-                    <textarea name="message" rows="1" placeholder="Type a message…"></textarea>
-                    <button class="ta-chat-send-btn" type="submit" aria-label="Send message">
+                    <textarea name="message" rows="1" placeholder="@lang('Type a message…')"></textarea>
+                    <button class="ta-chat-send-btn" type="submit" aria-label="@lang('Send message')">
                         <i class="ti ti-send"></i>
                     </button>
                 </div>
-                <p class="ta-chat-composer-hint">Photo or file · up to 5 files, 10 MB each</p>
+                <p class="ta-chat-composer-hint">@lang('Photo or file · up to 5 files, 10 MB each')</p>
             </form>
         </div>
     </div>

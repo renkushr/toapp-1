@@ -32,12 +32,12 @@
     <div class="container">
         <div class="followus-boxed" data-aos="fade-in">
             <img class="icons question" data-aos="fade-up" src="{{ asset('check-insure/img/icons/icon-question.png') }}" alt="">
-            <h2 class="text-white">Do you need a help <br class="d-block d-sm-none">from expert?</h2>
-            <div class="followus">
-                <a class="icons icon-line" href="#" target="_blank"></a>
-                <a class="icons icon-messenger" href="#" target="_blank"></a>
-                <a class="icons icon-email" href="mailto:info@checkinsure.com" target="_blank"></a>
-            </div>
+            <h2 class="text-white">@lang('Do you need help from an expert?')</h2>
+            @include('partials.site_contact_links', [
+                'variant' => 'default',
+                'showEmail' => true,
+                'showLabel' => false,
+            ])
         </div>
     </div>
 </div>

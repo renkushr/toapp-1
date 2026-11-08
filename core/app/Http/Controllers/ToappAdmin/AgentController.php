@@ -79,7 +79,7 @@ class AgentController extends Controller
         }
 
         return view('toapp_admin.agents.index', [
-            'pageTitle' => 'Agents',
+            'pageTitle' => __('Agents'),
             'agents' => $agents,
             'zipCatalogTotal' => (int) (UsZipCatalog::allZipCodesByState()['total'] ?? 0),
         ]);
@@ -126,7 +126,7 @@ class AgentController extends Controller
     public function create()
     {
         return view('toapp_admin.agents.create', [
-            'pageTitle' => 'New Agent',
+            'pageTitle' => __('New Agent'),
             'agent' => null,
             'selectedZipsByState' => [],
         ]);
@@ -139,7 +139,7 @@ class AgentController extends Controller
         $isNationwide = $catalogTotal > 0 && $selectedCount >= $catalogTotal;
 
         return view('toapp_admin.agents.edit', [
-            'pageTitle' => 'Edit Agent',
+            'pageTitle' => __('Edit Agent'),
             'agent' => $agent,
             'selectedZipsByState' => $isNationwide
                 ? []

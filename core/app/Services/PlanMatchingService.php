@@ -124,7 +124,7 @@ class PlanMatchingService
     }
 
     /**
-     * To-app Plans uses the same insurance catalog as Check Insure when that portal exists;
+     * To-App Plans uses the same insurance catalog as Check Insure when that portal exists;
      * otherwise matches any enabled plan in the insurance categories.
      */
     public function productTypesForApp(): array

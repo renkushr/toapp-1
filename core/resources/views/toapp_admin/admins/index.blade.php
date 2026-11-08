@@ -3,18 +3,18 @@
 @section('content')
 <div class="card">
     @include('partials.portal_list_header', [
-        'title' => 'Admin accounts',
+        'title' => __('Admin accounts'),
         'toolbarView' => 'partials.portal_list_toolbar_admins',
     ])
     <div class="table-responsive">
         <table class="table table-vcenter card-table">
             <thead>
                 <tr>
-                    <th>Admin</th>
-                    <th>Role</th>
-                    <th>Status</th>
-                    <th>Permissions</th>
-                    <th>Updated</th>
+                    <th>@lang('Admin')</th>
+                    <th>@lang('Role')</th>
+                    <th>@lang('Status')</th>
+                    <th>@lang('Permissions')</th>
+                    <th>@lang('Updated')</th>
                     <th class="w-1"></th>
                 </tr>
             </thead>
@@ -26,13 +26,13 @@
                             <div class="text-secondary">{{ '@' . $admin->username }} · {{ $admin->email }}</div>
                         </td>
                         <td><span class="badge {{ $admin->role === 'super_admin' ? 'bg-primary-lt' : 'bg-secondary-lt' }}">{{ $admin->roleLabel() }}</span></td>
-                        <td><span class="badge {{ (int) $admin->status === 1 ? 'bg-success-lt' : 'bg-danger-lt' }}">{{ (int) $admin->status === 1 ? 'Active' : 'Disabled' }}</span></td>
-                        <td class="text-secondary">{{ implode(', ', $admin->permissions ?: []) ?: 'Role preset only' }}</td>
+                        <td><span class="badge {{ (int) $admin->status === 1 ? 'bg-success-lt' : 'bg-danger-lt' }}">{{ (int) $admin->status === 1 ? __('Active') : __('Disabled') }}</span></td>
+                        <td class="text-secondary">{{ implode(', ', $admin->permissions ?: []) ?: __('Role preset only') }}</td>
                         <td class="text-secondary">{{ optional($admin->updated_at)->format('M d, Y H:i') }}</td>
-                        <td><a href="{{ route('toapp.admin.admins.edit', $admin) }}" class="btn btn-sm">Edit</a></td>
+                        <td><a href="{{ route('toapp.admin.admins.edit', $admin) }}" class="btn btn-sm">@lang('Edit')</a></td>
                     </tr>
                 @empty
-                    <tr><td colspan="6" class="text-center text-secondary py-4">No admin accounts found.</td></tr>
+                    <tr><td colspan="6" class="text-center text-secondary py-4">@lang('No admin accounts found.')</td></tr>
                 @endforelse
             </tbody>
         </table>
@@ -44,7 +44,7 @@
 
 @include('partials.portal_help_modal', [
     'id' => 'adminRoleGuideModal',
-    'title' => 'Recommended admin roles',
+    'title' => __('Recommended admin roles'),
     'partial' => 'toapp_admin.admins.partials.role_guide',
 ])
 @endsection

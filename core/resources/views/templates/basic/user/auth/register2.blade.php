@@ -110,7 +110,7 @@ background-clip: text;
 font-size: 20px;
 font-style: normal;
 font-weight: 700;
-line-height: normal;margin-top:-20px">Create  Account</p>
+line-height: normal;margin-top:-20px">@lang('Create Account')</p>
 
 <p style="text-align:center;color: #252525;
 
@@ -118,7 +118,7 @@ font-family: Poppins;
 font-size: 16px;
 font-style: normal;
 font-weight: 400;
-line-height: normal;margin-top:-20px">Please fill your information</p>
+line-height: normal;margin-top:-20px">@lang('Please fill your information')</p>
             </div>
          <div style="padding:5% 50px">
       
@@ -127,13 +127,13 @@ line-height: normal;margin-top:-20px">Please fill your information</p>
                 <div>
                     <div style="margin-bottom:40px;" >
                     <div class="form-profile">
-                            <p class="text-center" style="color: #252525;"><strong>Gender</strong></p>
+                            <p class="text-center" style="color: #252525;"><strong>@lang('Gender')</strong></p>
 
                             <div class="row g-lg-4 g-sm-3 g-2" >
                                 <div class="col-6 pay" data-sex="1">
                                     <div class="btn  gender" style="border:solid;border-width:1px" >
                                         <img class="icons svg-js" src="../../img/icons/icon-male.svg" alt="">
-                                        <span>male</span>
+                                        <span>@lang('Male')</span>
                                         
 </div>
                                 </div>
@@ -141,7 +141,7 @@ line-height: normal;margin-top:-20px">Please fill your information</p>
                                 <div class="col-6 pay" data-sex="2">
                                     <div class="btn  gender" style="border:solid;border-width:1px" >
                                         <img class="icons svg-js" src="../../img/icons/icon-female.svg" alt="">
-                                        <span>female</span>
+                                        <span>@lang('Female')</span>
                                        
 </div>
                                 </div>
@@ -157,7 +157,7 @@ line-height: normal;margin-top:-20px">Please fill your information</p>
                                 <div class="col-4 pay" data-sex="1">
                                   
                                     <select name="cars" class="bday"  id="cars">
-                                         <option>MM</option>
+                                         <option>@lang('MM')</option>
                                      </select>
                                         
 
@@ -166,7 +166,7 @@ line-height: normal;margin-top:-20px">Please fill your information</p>
                                 <div class="col-4 pay" data-sex="2">
                                 
                                     <select name="cars" class="bday"  id="cars">
-                                         <option>DD</option>
+                                         <option>@lang('DD')</option>
                                      </select>
                                        
 
@@ -175,7 +175,7 @@ line-height: normal;margin-top:-20px">Please fill your information</p>
                                 <div class="col-4 pay" data-sex="2">
                                
                                     <select name="cars" class="bday"  id="cars">
-                                         <option>YYYY</option>
+                                         <option>@lang('YYYY')</option>
                                      </select>
                                        
 
@@ -211,7 +211,7 @@ font-family: Poppins;
 font-size: 14px;
 font-style: normal;
 font-weight: 400;
-line-height: normal;margin-top:20px;margin-top:25%">Last Step</span>
+line-height: normal;margin-top:20px;margin-top:25%">@lang('Last Step')</span>
                     
                     <button type="submit" style="border-radius: 8px;width: 100%;
 height: 60px;

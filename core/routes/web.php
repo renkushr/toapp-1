@@ -25,12 +25,14 @@ Route::controller('TicketController')->prefix('ticket')->name('ticket.')->group(
 Route::controller('SiteController')->group(function () {
     Route::get('/contact', 'contact')->name('contact');
     Route::post('/contact', 'contactSubmit');
+    Route::get('/about-us', 'aboutUs')->name('about.us');
+    Route::get('/get-started', 'getStarted')->name('get.started');
     Route::get('/change/{lang?}', 'changeLanguage')->name('lang');
     Route::get('cookie-policy', 'cookiePolicy')->name('cookie.policy');
     Route::get('/cookie/accept', 'cookieAccept')->name('cookie.accept');
     Route::get('policy/{slug}', 'policyPages')->name('policy.pages');
     Route::get('placeholder-image/{size}', 'placeholderImage')->withoutMiddleware('maintenance')->name('placeholder.image');
     Route::get('maintenance-mode','maintenance')->withoutMiddleware('maintenance')->name('maintenance');
-    Route::get('/{slug}', 'pages')->name('pages');
     Route::get('/', 'index')->name('home');
+    Route::get('/{slug}', 'pages')->name('pages');
 });

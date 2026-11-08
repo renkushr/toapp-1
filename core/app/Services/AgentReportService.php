@@ -26,7 +26,58 @@ class AgentReportService
         return now()->subDays($days)->startOfDay();
     }
 
-    public function summaryForAgent(Agent $agent, ?Carbon $since = null): array
+    /**
+     * @return array{since:?Carbon,until:?Carbon,mode:string,year:?int,days:int,label:string}
+     */
+    public function resolvePeriod(?int $days = 30, ?int $year = null): array
+    {
+        $currentYear = (int) now()->year;
+
+        if ($year !== null && $year >= 2000 && $year <= ($currentYear + 1)) {
+            $since = Carbon::create($year, 1, 1)->startOfDay();
+            $until = $year === $currentYear
+                ? now()->endOfDay()
+                : Carbon::create($year, 12, 31)->endOfDay();
+
+            return [
+                'since' => $since,
+                'until' => $until,
+                'mode' => 'year',
+                'year' => $year,
+                'days' => 0,
+                'label' => (string) $year,
+            ];
+        }
+
+        $days = max(0, (int) ($days ?? 30));
+        $since = $this->periodStart($days);
+
+        return [
+            'since' => $since,
+            'until' => null,
+            'mode' => $days > 0 ? 'days' : 'all',
+            'year' => null,
+            'days' => $days,
+            'label' => $days > 0 ? 'Last ' . $days . ' days' : 'All time',
+        ];
+    }
+
+    /**
+     * @return list<int>
+     */
+    public function availableYears(?int $earliest = null): array
+    {
+        $current = (int) now()->year;
+        $start = $earliest ?: max(2024, $current - 4);
+        $years = [];
+        for ($y = $current; $y >= $start; $y--) {
+            $years[] = $y;
+        }
+
+        return $years;
+    }
+
+    public function summaryForAgent(Agent $agent, ?Carbon $since = null, ?Carbon $until = null): array
     {
         $userIds = User::query()
             ->forAgentTerritory($agent)
@@ -49,10 +100,8 @@ class AgentReportService
             ->whereIn('user_id', $userIds)
             ->where('status', Status::INVESTMENT_PENDING);
 
-        if ($since) {
-            $investmentSalesQuery->where('created_at', '>=', $since);
-            $investmentPendingQuery->where('created_at', '>=', $since);
-        }
+        $this->applyCreatedAtWindow($investmentSalesQuery, $since, $until);
+        $this->applyCreatedAtWindow($investmentPendingQuery, $since, $until);
 
         $insuranceConfirmedQuery = InsuranceApplication::query()
             ->forAgentTerritory($agent)
@@ -64,15 +113,11 @@ class AgentReportService
                 InsuranceApplication::STATUS_REJECTED,
             ]);
 
-        if ($since) {
-            $insuranceConfirmedQuery->where('created_at', '>=', $since);
-            $insurancePipelineQuery->where('created_at', '>=', $since);
-        }
+        $this->applyCreatedAtWindow($insuranceConfirmedQuery, $since, $until);
+        $this->applyCreatedAtWindow($insurancePipelineQuery, $since, $until);
 
         $loginsQuery = UserLogin::query()->whereIn('user_id', $userIds);
-        if ($since) {
-            $loginsQuery->where('created_at', '>=', $since);
-        }
+        $this->applyCreatedAtWindow($loginsQuery, $since, $until);
 
         $conversationIds = AgentConversation::query()
             ->forAgentTerritory($agent)
@@ -85,10 +130,8 @@ class AgentReportService
             ->whereIn('conversation_id', $conversationIds)
             ->where('sender_type', 'agent');
 
-        if ($since) {
-            $chatUserQuery->where('created_at', '>=', $since);
-            $chatAgentQuery->where('created_at', '>=', $since);
-        }
+        $this->applyCreatedAtWindow($chatUserQuery, $since, $until);
+        $this->applyCreatedAtWindow($chatAgentQuery, $since, $until);
 
         $activeProducts = Investment::query()
             ->whereIn('user_id', $userIds)
@@ -118,6 +161,209 @@ class AgentReportService
             'chat_messages_user' => $chatUserQuery->count(),
             'chat_messages_agent' => $chatAgentQuery->count(),
             'conversations_count' => $conversationIds->count(),
+        ];
+    }
+
+    protected function applyCreatedAtWindow($query, ?Carbon $since, ?Carbon $until): void
+    {
+        if ($since) {
+            $query->where('created_at', '>=', $since);
+        }
+        if ($until) {
+            $query->where('created_at', '<=', $until);
+        }
+    }
+
+    /**
+     * Chart-ready series for the agent performance report.
+     *
+     * @param  array{since:?Carbon,until:?Carbon,mode:string,year:?int,days:int}|null  $period
+     * @return array{
+     *   trend: array{labels:list<string>,logins:list<int>,client_messages:list<int>,insurance_confirmed:list<int>,investment_deals:list<int>},
+     *   insurance_status: array{labels:list<string>,values:list<int>},
+     *   sales_mix: array{labels:list<string>,values:list<float>},
+     *   clients: array{labels:list<string>,values:list<int>},
+     *   trend_label: string
+     * }
+     */
+    public function chartsForAgent(Agent $agent, ?Carbon $since = null, int $days = 30, ?array $period = null, ?Carbon $until = null): array
+    {
+        $userIds = User::query()
+            ->forAgentTerritory($agent)
+            ->pluck('id');
+
+        $mode = $period['mode'] ?? ($days > 0 ? 'days' : 'all');
+        $until = $until ?? ($period['until'] ?? null);
+        $since = $since ?? ($period['since'] ?? null);
+
+        if ($mode === 'year' && ($period['year'] ?? null)) {
+            $year = (int) $period['year'];
+            $trendStart = Carbon::create($year, 1, 1)->startOfDay();
+            $trendEnd = $until ?: Carbon::create($year, 12, 31)->endOfDay();
+            $bucketKeys = [];
+            $labels = [];
+            for ($month = 1; $month <= 12; $month++) {
+                $key = sprintf('%04d-%02d', $year, $month);
+                $bucketKeys[] = $key;
+                $labels[] = Carbon::create($year, $month, 1)->format('M');
+            }
+            $groupExpr = "DATE_FORMAT(created_at, '%Y-%m')";
+            $insuranceGroupExpr = "DATE_FORMAT(COALESCE(payment_confirmed_at, created_at), '%Y-%m')";
+            $trendLabel = (string) $year . ' (monthly)';
+        } else {
+            $trendDays = $days > 0 ? min($days, 90) : 30;
+            $trendStart = now()->subDays($trendDays - 1)->startOfDay();
+            $trendEnd = now()->endOfDay();
+            $bucketKeys = [];
+            $labels = [];
+            for ($i = 0; $i < $trendDays; $i++) {
+                $day = $trendStart->copy()->addDays($i);
+                $key = $day->format('Y-m-d');
+                $bucketKeys[] = $key;
+                $labels[] = $day->format($trendDays > 45 ? 'M j' : 'D j');
+            }
+            $groupExpr = 'DATE(created_at)';
+            $insuranceGroupExpr = 'DATE(COALESCE(payment_confirmed_at, created_at))';
+            $trendLabel = $days > 0 ? 'Last ' . min($days, 90) . ' days' : 'Last 30 days (trend window)';
+        }
+
+        $fill = fn (Collection $rows) => collect($bucketKeys)
+            ->map(fn ($key) => (int) ($rows[$key] ?? 0))
+            ->values()
+            ->all();
+
+        $logins = UserLogin::query()
+            ->whereIn('user_id', $userIds)
+            ->where('created_at', '>=', $trendStart)
+            ->where('created_at', '<=', $trendEnd)
+            ->selectRaw("{$groupExpr} as d, COUNT(*) as c")
+            ->groupByRaw($groupExpr)
+            ->pluck('c', 'd');
+
+        $conversationIds = AgentConversation::query()
+            ->forAgentTerritory($agent)
+            ->pluck('id');
+
+        $clientMessages = AgentConversationMessage::query()
+            ->whereIn('conversation_id', $conversationIds)
+            ->where('sender_type', 'user')
+            ->where('created_at', '>=', $trendStart)
+            ->where('created_at', '<=', $trendEnd)
+            ->selectRaw("{$groupExpr} as d, COUNT(*) as c")
+            ->groupByRaw($groupExpr)
+            ->pluck('c', 'd');
+
+        $insuranceConfirmed = InsuranceApplication::query()
+            ->forAgentTerritory($agent)
+            ->where('status', InsuranceApplication::STATUS_CONFIRMED)
+            ->where(function ($query) use ($trendStart, $trendEnd) {
+                $query->where(function ($q) use ($trendStart, $trendEnd) {
+                    $q->where('payment_confirmed_at', '>=', $trendStart)
+                        ->where('payment_confirmed_at', '<=', $trendEnd);
+                })->orWhere(function ($inner) use ($trendStart, $trendEnd) {
+                    $inner->whereNull('payment_confirmed_at')
+                        ->where('created_at', '>=', $trendStart)
+                        ->where('created_at', '<=', $trendEnd);
+                });
+            })
+            ->selectRaw("{$insuranceGroupExpr} as d, COUNT(*) as c")
+            ->groupByRaw($insuranceGroupExpr)
+            ->pluck('c', 'd');
+
+        $investmentDeals = Investment::query()
+            ->whereIn('user_id', $userIds)
+            ->whereIn('status', [Status::RUNNING, Status::COMPLETED])
+            ->where('created_at', '>=', $trendStart)
+            ->where('created_at', '<=', $trendEnd)
+            ->selectRaw("{$groupExpr} as d, COUNT(*) as c")
+            ->groupByRaw($groupExpr)
+            ->pluck('c', 'd');
+
+        $statusCountsQuery = InsuranceApplication::query()
+            ->forAgentTerritory($agent);
+        $this->applyCreatedAtWindow($statusCountsQuery, $since, $until);
+        $statusCounts = $statusCountsQuery
+            ->selectRaw('status, COUNT(*) as c')
+            ->groupBy('status')
+            ->pluck('c', 'status');
+
+        $statusOrder = [
+            InsuranceApplication::STATUS_CHATTING => 'Chatting',
+            InsuranceApplication::STATUS_PAYMENT_PENDING => 'Awaiting payment',
+            InsuranceApplication::STATUS_PLAN_SELECTED => 'Plan selected',
+            InsuranceApplication::STATUS_TERMS_ACCEPTED => 'Terms accepted',
+            InsuranceApplication::STATUS_QUOTED => 'Quoted',
+            InsuranceApplication::STATUS_CONFIRMED => 'Confirmed',
+            InsuranceApplication::STATUS_REJECTED => 'Rejected',
+        ];
+
+        $statusLabels = [];
+        $statusValues = [];
+        foreach ($statusOrder as $status => $label) {
+            $count = (int) ($statusCounts[$status] ?? 0);
+            if ($count <= 0) {
+                continue;
+            }
+            $statusLabels[] = $label;
+            $statusValues[] = $count;
+        }
+
+        foreach ($statusCounts as $status => $count) {
+            if (isset($statusOrder[$status]) || (int) $count <= 0) {
+                continue;
+            }
+            $statusLabels[] = ucfirst(str_replace('_', ' ', (string) $status));
+            $statusValues[] = (int) $count;
+        }
+
+        $investmentSalesQuery = Investment::query()
+            ->whereIn('user_id', $userIds)
+            ->whereIn('status', [Status::RUNNING, Status::COMPLETED]);
+        $insuranceConfirmedQuery = InsuranceApplication::query()
+            ->forAgentTerritory($agent)
+            ->where('status', InsuranceApplication::STATUS_CONFIRMED);
+
+        $this->applyCreatedAtWindow($investmentSalesQuery, $since, $until);
+        $this->applyCreatedAtWindow($insuranceConfirmedQuery, $since, $until);
+
+        $clientsApproved = User::query()
+            ->forAgentTerritory($agent)
+            ->where('approval_status', 'approved')
+            ->count();
+        $clientsPending = User::query()
+            ->forAgentTerritory($agent)
+            ->where('approval_status', 'pending')
+            ->count();
+        $clientsRejected = User::query()
+            ->forAgentTerritory($agent)
+            ->where('approval_status', 'rejected')
+            ->count();
+        $clientsOther = max(0, $userIds->count() - $clientsApproved - $clientsPending - $clientsRejected);
+
+        return [
+            'trend' => [
+                'labels' => $labels,
+                'logins' => $fill($logins),
+                'client_messages' => $fill($clientMessages),
+                'insurance_confirmed' => $fill($insuranceConfirmed),
+                'investment_deals' => $fill($investmentDeals),
+            ],
+            'trend_label' => $trendLabel,
+            'insurance_status' => [
+                'labels' => $statusLabels,
+                'values' => $statusValues,
+            ],
+            'sales_mix' => [
+                'labels' => ['Investment sales', 'Insurance (annual)'],
+                'values' => [
+                    round((float) ($investmentSalesQuery->sum('amount') ?? 0), 2),
+                    round((float) ($insuranceConfirmedQuery->sum('quoted_annual') ?? 0), 2),
+                ],
+            ],
+            'clients' => [
+                'labels' => ['Approved', 'Pending', 'Rejected', 'Other'],
+                'values' => [$clientsApproved, $clientsPending, $clientsRejected, $clientsOther],
+            ],
         ];
     }
 
